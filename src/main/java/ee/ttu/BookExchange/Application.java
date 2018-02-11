@@ -1,0 +1,13 @@
+package ee.ttu.BookExchange;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+    public static final String databaseName = "bookexchange_db";
+
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}

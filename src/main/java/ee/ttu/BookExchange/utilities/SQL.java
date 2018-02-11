@@ -1,7 +1,5 @@
 package ee.ttu.BookExchange.utilities;
 
-import ee.ttu.BookExchange.Logger;
-
 import java.sql.*;
 
 public class SQL {

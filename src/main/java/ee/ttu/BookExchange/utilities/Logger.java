@@ -1,4 +1,4 @@
-package ee.ttu.BookExchange;
+package ee.ttu.BookExchange.utilities;
 
 public class Logger {
     private static final String ANSI_RESET = "\u001B[0m";

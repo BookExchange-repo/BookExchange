@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>научная литература — BookExchange — поиск</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic,cyrillic-ext,latin-ext">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+    <div class="ui vertical segment hd">
+      <div class="ui container">
+        <div class="ui grid">
+          <div class="four wide column">
+            <a href="index.html"><div id="logo-header"></div></a>
+          </div>
+          <div class="eight wide column">
+            <div class="ui search">
+              <div class="ui fluid icon input">
+                <input class="prompt" type="text" placeholder="Найти книгу">
+                <i class="search icon"></i>
+              </div>
+              <div class="results"></div>
+            </div>
+          </div>
+          <div class="two wide column">
+            <button class="ui fluid primary button">войти</button>
+          </div>
+          <div class="two wide column">
+            <div class="ui fluid floating dropdown labeled icon button">
+              <i class="world icon"></i>
+              <span class="text">RUS</span>
+              <div class="menu">
+                <div class="item">ENG</div>
+                <div class="item">EST</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui vertical no-borders segment">
+      <div class="ui container">
+        <div class="ui vertical no-borders segment results-header"><h2 class="ui header main-page-divider">Книги по запросу</h2></div>
+        <div class="ui vertical no-borders segment results-filter">
+          <span>Категории: </span>
+          <a class="ui label">научная литература<i class="delete icon"></i></a>
+        </div>
+        <div class="ui vertical no-borders segment results-description"><h3>1 книга найдена</h3></div>
+        <div class="ui grid">
+          <div class="twelve wide column">
+            <div class="ui four column grid">
+
+              <div class="column">
+                <div class="ui card category">
+                  <a class="image" href="#"><img src="img/books/book1_example.jpg" class="book-img" alt="Essential C++ 1st Edition"></a>
+
+                  <div class="content">
+                    <a class="header" href="#">Essential C++ 1st Edition</a>
+                    <div class="meta">
+                      <span class="author">Stanley B. Lippman</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="column"><div class="ui segment">book</div></div>
+              <div class="column"><div class="ui segment">book</div></div>
+              <div class="column"><div class="ui segment">book</div></div>
+              <div class="column"><div class="ui segment">book</div></div>
+              <div class="column"><div class="ui segment">book</div></div>
+              <div class="column"><div class="ui segment">book</div></div>
+            </div>
+            <div class="ui vertical no-borders segment pagination-category">
+              <div class="ui pagination menu">
+                <a class="item active">1</a>
+                <a class="item">2</a>
+                <a class="item">3</a>
+                <a class="item">4</a>
+                <a class="item">5</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="four wide column">
+            <div class="ui selection dropdown category">
+              <input type="hidden" name="gender">
+              <i class="dropdown icon"></i>
+              <div class="default text"></div>
+              <div class="menu">
+                <div class="item" data-value="1">по популярности</div>
+                <div class="item" data-value="2">новинки</div>
+              </div>
+            </div>
+
+            <div class="ui vertical accordion menu">
+              <div class="item">
+                <a class="active title">
+                  <i class="dropdown icon"></i>
+                  <b>Ценовая категория</b>
+                </a>
+                <div class="active content">
+                  <div class="ui form">
+                    <div class="grouped fields">
+                      <div class="field">
+                        <div class="ui checkbox">
+                          <input type="checkbox" name="price_type" value="big_price" id="big_price">
+                          <label for="big_price">Дорогие</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="item">
+                <a class="active title">
+                  <i class="dropdown icon"></i>
+                  <b>Язык</b>
+                </a>
+                <div class="active content">
+                  <div class="ui form">
+                    <div class="grouped fields">
+                      <div class="field">
+                        <div class="ui checkbox">
+                          <input type="checkbox" name="language" value="rus" id="rus">
+                          <label for="rus">Русский</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="item">
+                <a class="active title">
+                  <i class="dropdown icon"></i>
+                  <b>Жанр</b>
+                </a>
+                <div class="active content">
+                  <div class="ui form">
+                    <div class="grouped fields">
+                      <div class="field">
+                        <div class="ui checkbox">
+                          <input type="checkbox" name="genre" value="classical" id="classical">
+                          <label for="classical">Классическая литература</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="grouped fields">
+                      <div class="field">
+                        <div class="ui checkbox">
+                          <input type="checkbox" name="genre" value="scientific" id="scientific" checked>
+                          <label for="scientific">Научная литература</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui inverted vertical footer segment ft">
+      <div class="ui middle aligned grid container">
+        <div class="four wide column">
+          <div id="logo-footer"></div>
+        </div>
+        <div class="right aligned twelve wide column">
+          <div>Igor Podgainõi<br>
+          Vjatšeslav Tšetšnev<br>
+          Nikolay Kopa</div>
+          <p></p>
+          <p>Tarkvaratehnika (IDK0071) 2018</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.js"></script>
+    <script src="js/ui.js"></script>
+  </body>
+</html>

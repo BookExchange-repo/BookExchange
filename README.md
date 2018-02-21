@@ -1,3 +1,3 @@
 # BookExchange
 
-A project for Software Engineering course at TTU.yy
+A project for Software Engineering course at TTU.

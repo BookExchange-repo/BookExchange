@@ -18,7 +18,7 @@ public class Users {
             SQL sql = new SQL("localhost", "root", "toor");
             sql.executeQuery("use " + Application.databaseName + ";");
 
-            String[] values = {"username", "email", "full_name", "UNIX_TIMESTAMP(regdate)"};
+            String[] values = {"username", "email", "full_name", "UNIX_TIMESTAMP(regdate)", "isverified"};
             sql.executeQuery("SELECT " + sql.escapeString(values) + " FROM users;");
             sql.printQueryResults();
             values[3] = "regdate";

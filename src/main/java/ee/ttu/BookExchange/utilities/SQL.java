@@ -3,11 +3,15 @@ package ee.ttu.BookExchange.utilities;
 import java.sql.*;
 
 public class SQL {
+    public static final String dbHostname = "localhost";
+    public static final String dbUsername = "root";
+    public static final String dbPassword = "toor";
+
     private Connection connection;
     private ResultSet queryResult;
     private String queryResultName = "";
 
-    public SQL(String dbHostname, String dbUsername, String dbPassword) {
+    public SQL() {
         try {
             this.connection = DriverManager.getConnection(
                     "jdbc:mariadb://" + dbHostname + "/", dbUsername, dbPassword);
@@ -125,11 +129,15 @@ public class SQL {
         printSeparator();
     }
 
-    public String escapeString(String... toEscape) {
+    public String escapeString(boolean enableSemicolons, String... toEscape) {
         String resultingString = "";
 
         for (int i = 0; i < toEscape.length; i++) {
             for (int j = 0; j < toEscape[i].length(); j++) {
+                if (enableSemicolons) {
+                    if (j == 0)
+                        resultingString += '\'';
+                }
                 char currentChar = toEscape[i].charAt(j);
                 switch (currentChar) {
                     case '\u0000':
@@ -145,11 +153,19 @@ public class SQL {
                         resultingString += currentChar;
                         break;
                 }
+                if (enableSemicolons) {
+                    if (j == toEscape[i].length() - 1)
+                        resultingString += '\'';
+                }
             }
             if (i != toEscape.length - 1)
                 resultingString += ", ";
         }
 
         return resultingString;
+    }
+
+    public String escapeString(String... toEscape) {
+        return escapeString(false, toEscape);
     }
 }

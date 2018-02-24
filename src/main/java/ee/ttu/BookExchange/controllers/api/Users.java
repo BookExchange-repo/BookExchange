@@ -1,17 +1,25 @@
 package ee.ttu.BookExchange.controllers.api;
 
 import ee.ttu.BookExchange.Application;
+import ee.ttu.BookExchange.utilities.Checksum;
 import ee.ttu.BookExchange.utilities.SQL;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.security.SecureRandom;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/users", produces = "application/json")
 public class Users {
+    private static final String RAND_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
+    private static final int SESS_KEY_LENGTH = 64;
+    private HashMap<Integer, String> sessions = new HashMap<>();
+
     private SQL queryAllUsers(String[] values) {
         SQL sql = new SQL();
         sql.executeQuery("use " + Application.databaseName + ";");
@@ -120,6 +128,71 @@ public class Users {
         } catch (Exception e) {
             jsonObject.clear();
             jsonErrors.add("CANNOT_USERS_REGISTER");
+        }
+
+        jsonObject.put("errors", jsonErrors);
+        return jsonObject.toJSONString();
+    }
+
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String loginUser(@RequestParam(value = "user") String userName,
+                            @RequestParam(value = "pass") String password,
+                            HttpServletResponse response)
+    {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonErrors = new JSONArray();
+        try {
+            SQL sql = new SQL();
+            sql.executeQuery("use " + Application.databaseName + ";");
+            sql.executeQuery("SELECT username, pass_salt, pass_hash, id " +
+                    "FROM users WHERE username = '" + sql.escapeString(userName) + "';");
+            sql.printQueryResults();
+            if (sql.getQueryRows() == 0)
+                throw new RuntimeException();
+
+            if (Checksum.calculateSHA256(sql.getQueryCell(0, 1), password)
+                    .equals(sql.getQueryCell(0, 2)))
+            {
+                int userId = Integer.parseInt(sql.getQueryCell(0, 3));
+                String sessionKey = this.sessions.get(userId);
+                if (sessionKey == null) {
+                    sessionKey = "";
+                    Random random = new SecureRandom();
+                    for (int i = 0; i < SESS_KEY_LENGTH; i++) {
+                        sessionKey += RAND_CHARS.charAt(random.nextInt(RAND_CHARS.length()));
+                    }
+                    this.sessions.put(userId, sessionKey);
+                }
+                jsonObject.put("session", sessionKey);
+                response.addCookie(new Cookie("session", sessionKey));
+            } else
+                throw new RuntimeException();
+        } catch (Exception e) {
+            jsonObject.clear();
+            jsonErrors.add("CANNOT_USERS_LOGIN");
+        }
+
+        jsonObject.put("errors", jsonErrors);
+        return jsonObject.toJSONString();
+    }
+
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public String logoutUser(@CookieValue(value = "session", defaultValue = "") String cookie) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonErrors = new JSONArray();
+        try {
+            if (!cookie.isEmpty()) {
+                Integer found = -1;
+                for (Map.Entry<Integer, String> value : this.sessions.entrySet()) {
+                    if (value.getValue().equals(cookie))
+                        found = value.getKey();
+                }
+                if (found >= 0)
+                    this.sessions.remove(found);
+            }
+        } catch (Exception e) {
+            jsonObject.clear();
+            jsonErrors.add("CANNOT_USERS_LOGOUT");
         }
 
         jsonObject.put("errors", jsonErrors);

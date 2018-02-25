@@ -11,7 +11,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.security.SecureRandom;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/users", produces = "application/json")
@@ -26,6 +25,25 @@ public class Users {
         sql.executeQuery("SELECT " + sql.escapeString(values) + " FROM users;");
         sql.printQueryResults();
         return sql;
+    }
+
+    private Optional<Integer> getUserIdBySession(String session) {
+        Optional<Integer> result = Optional.empty();
+        try {
+            if (!session.isEmpty()) {
+                Integer found = -1;
+                for (Map.Entry<Integer, String> value : this.sessions.entrySet()) {
+                    if (value.getValue().equals(session))
+                        found = value.getKey();
+                }
+                if (found >= 0) {
+                    result = Optional.of(found);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
     }
 
     @RequestMapping(value = "getall", method = RequestMethod.GET)
@@ -55,8 +73,8 @@ public class Users {
         return jsonObject.toJSONString();
     }
 
-    @RequestMapping(value = "getbyid", method = RequestMethod.GET)
-    public String getUserById(@RequestParam(value = "id") String idString) {
+    @RequestMapping(value = "getinfoid", method = RequestMethod.GET)
+    public String getUserInfoById(@RequestParam(value = "id") String idString) {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonErrors = new JSONArray();
         try {
@@ -73,7 +91,37 @@ public class Users {
             }
         } catch (Exception e) {
             jsonObject.clear();
-            jsonErrors.add("CANNOT_USERS_GETBYID");
+            jsonErrors.add("CANNOT_USERS_GETINFOID");
+        }
+
+        jsonObject.put("errors", jsonErrors);
+        return jsonObject.toJSONString();
+    }
+
+    @RequestMapping(value = "getinfo", method = RequestMethod.GET)
+    public String getUserInfo(@CookieValue(value = "session", defaultValue = "") String cookie) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonErrors = new JSONArray();
+        try {
+            Optional<Integer> found = getUserIdBySession(cookie);
+            if (!found.isPresent())
+                throw new RuntimeException();
+            else {
+                String[] values = {"username", "email", "full_name", "UNIX_TIMESTAMP(regdate)", "isverified"};
+                SQL sql = new SQL();
+                sql.executeQuery("use " + Application.databaseName + ";");
+                sql.executeQuery(
+                        "SELECT " + sql.escapeString(values) + " FROM users WHERE id = '" + found.get() + "';");
+                values[3] = "regdate";
+                sql.printQueryResults();
+
+                for (int i = 0; i < values.length; i++) {
+                    jsonObject.put(values[i], sql.getQueryCell(0, i));
+                }
+            }
+        } catch (Exception e) {
+            jsonObject.clear();
+            jsonErrors.add("CANNOT_USERS_GETINFO");
         }
 
         jsonObject.put("errors", jsonErrors);
@@ -181,15 +229,7 @@ public class Users {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonErrors = new JSONArray();
         try {
-            if (!cookie.isEmpty()) {
-                Integer found = -1;
-                for (Map.Entry<Integer, String> value : this.sessions.entrySet()) {
-                    if (value.getValue().equals(cookie))
-                        found = value.getKey();
-                }
-                if (found >= 0)
-                    this.sessions.remove(found);
-            }
+            getUserIdBySession(cookie).ifPresent(i -> this.sessions.remove(i));
         } catch (Exception e) {
             jsonObject.clear();
             jsonErrors.add("CANNOT_USERS_LOGOUT");

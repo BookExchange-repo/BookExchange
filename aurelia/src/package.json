@@ -1,0 +1,40 @@
+{
+  "coord": {
+    "lon": -0.13,
+    "lat": 51.51
+  },
+  "weather": [{
+    "id": 600,
+    "main": "Snow",
+    "description": "light snow",
+    "icon": "13d"
+  }],
+  "base": "stations",
+  "main": {
+    "temp": 273.65,
+    "pressure": 1031,
+    "humidity": 69,
+    "temp_min": 273.15,
+    "temp_max": 274.15
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 4.1,
+    "deg": 70
+  },
+  "clouds": {
+    "all": 40
+  },
+  "dt": 1519649400,
+  "sys": {
+    "type": 1,
+    "id": 5091,
+    "message": 0.0027,
+    "country": "GB",
+    "sunrise": 1519627872,
+    "sunset": 1519666577
+  },
+  "id": 2643743,
+  "name": "London",
+  "cod": 200
+}

@@ -1,0 +1,38 @@
+<template>
+  <table border="1">
+    <thead>
+      <tr>
+        <td>
+          <b>Image</b>
+        </td>
+        <td>
+          <b>Book Title</b>
+        </td>
+        <td>
+          <b>Seller</b>
+        </td>
+        <td>
+          <b>Description</b>
+        </td>
+        <td>
+          <b>ISBN</b>
+        </td>
+        <td>
+          <b>Price</b>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr repeat.for="books of books">
+        <td>
+          <img src='${books.img}' width="120">
+        </td>
+        <td>${books.title}</td>
+        <td>${books.userNickname}</td>
+        <td>${books.condition}</td>
+        <td>${books.ISBN}</td>
+        <td>${books.price} EUR</td>
+      </tr>
+    </tbody>
+  </table>
+</template>

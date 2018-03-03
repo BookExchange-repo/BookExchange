@@ -24,9 +24,12 @@ export class AddBooks{
    .then(function(response) {
       return response.json();
     })
-    .then(function(data) {
+    .then(data => {
       if(data.id) {
-        console.log('Book added with ID:', JSON.stringify(data));
+         console.log(JSON.stringify(data));
+         this.resultMessage = "New book added " + data.id; 
+      } else {
+        this.resultMessage = "Error"; 
       }
      });
 	}

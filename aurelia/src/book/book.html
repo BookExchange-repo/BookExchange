@@ -1,3 +1,25 @@
 <template>
   HELLO ${pagename} ${id}
+
+  <ul>
+    <li>genreid: ${bookbyid.genreid}</li>
+    <li>pubyear: ${bookbyid.pubyear}</li>
+    <li>author: ${bookbyid.author}</li>
+    <li>isbn: ${bookbyid.isbn}</li>
+    <li>postdate: ${bookbyid.postdate}</li>
+    <li>description: ${bookbyid.description}</li>
+    <li>language: ${bookbyid.language}</li>
+    <li>title: ${bookbyid.title}</li>
+    <li>userid: ${bookbyid.userid}</li>
+    <li>condition: ${bookbyid.condition}</li>
+    <li>
+      <img src='${bookbyid.imagepath}' width="120">
+    </li>
+    <li>price: ${bookbyid.price}</li>
+    <li>publisher: ${bookbyid.publisher}</li>
+    <li>id: ${bookbyid.id}</li>
+    <li>likes: ${bookbyid.likes}</li>
+  </ul>
+
+  <a href="#" click.delegate="navigateToAllBooks()">Get back to book listing</a>
 </template>

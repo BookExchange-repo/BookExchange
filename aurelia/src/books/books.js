@@ -17,6 +17,7 @@ export class Books {
   }
 
   fetchBooksFromAPI() {
+    //httpClient.fetch('/api/books/getall')
     httpClient.fetch('http://api.myjson.com/bins/1b7pq1')
       .then(response => response.json())
       .then(data => {

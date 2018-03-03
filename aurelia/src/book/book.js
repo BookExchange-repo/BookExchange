@@ -1,6 +1,7 @@
 export class Book {
 
-    constructor() {
+    activate(params) {
         this.pagename="book page";
+        this.id = params.id;
     }
 }

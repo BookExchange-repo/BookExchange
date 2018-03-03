@@ -27,7 +27,8 @@
         <td>
           <img src='${books.imagepath}' width="120">
         </td>
-        <td>${books.title}</td>
+        <td><a href="#" click.delegate="navigateToBookById(books.id)">NavigateToBook</a>
+          ${books.title}</td>
         <td>${books.userid}</td>
         <td>${books.condition}</td>
         <td>${books.isbn}</td>

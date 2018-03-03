@@ -1,14 +1,15 @@
-import {
-  HttpClient,
-  json
-} from 'aurelia-fetch-client';
+import { HttpClient, json } from 'aurelia-fetch-client';
+import { customAttribute, bindable, inject } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
 
 let httpClient = new HttpClient();
 
+@inject(Router)
 export class Books {
 
-  constructor() {
+  constructor(router) {
     this.books = null;
+    this.router = router;
   }
 
   attached() {
@@ -21,5 +22,10 @@ export class Books {
       .then(data => {
         this.books = data;
       });
+  }
+
+  navigateToBookById(bookid) {
+    console.log(bookid);
+    this.router.navigateToRoute('bookbyid', { id: bookid }, { replace: true });
   }
 }

@@ -1,6 +1,6 @@
-export class AddBook {
+export class AddBooks {
+  constructor() {
+    this.pagename = "add book";
 
-    constructor() {
-        this.pagename="add book";
-    }
+  }
 }

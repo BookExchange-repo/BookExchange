@@ -1,39 +1,49 @@
 <template>
-  <table border="1">
-    <thead>
-      <tr>
-        <td>
-          <b>Image</b>
-        </td>
-        <td>
-          <b>Book Title</b>
-        </td>
-        <td>
-          <b>Seller</b>
-        </td>
-        <td>
-          <b>Description</b>
-        </td>
-        <td>
-          <b>ISBN</b>
-        </td>
-        <td>
-          <b>Price</b>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr repeat.for="books of books.books">
-        <td>
-          <img src='${books.imagepath}' width="120">
-        </td>
-        <td><a href="#" click.delegate="navigateToBookById(books.id)">NavigateToBook</a>
-          ${books.title}</td>
-        <td>${books.userid}</td>
-        <td>${books.condition}</td>
-        <td>${books.isbn}</td>
-        <td>${books.price} EUR</td>
-      </tr>
-    </tbody>
-  </table>
+
+    <div class="ui vertical segment bd">
+      <div class="ui grid container">
+        <div class="ui list horizontal-line">
+          <div class="item horizontal-line" repeat.for="books of books.books">
+
+            <div class="ui segment">
+              <div class="ui grid">
+
+                <div class="three wide column">
+                    <img src='${books.imagepath}' class="image horizontal-line">
+                </div>
+
+                <div class="ten wide column">
+                  <div class="content">
+                    <a href="#" click.delegate="navigateToBookById(books.id)"><h1 class="title horizontal-line">${books.title}</h1></a>
+                    <h2 class="author horizontal-line">Unknown Author</h2>
+                    <p class="description horizontal-line"></p>
+                    <div class="condition horizontal-line"><span>condition: </span><span>${books.condition}</span></div>
+                    <div class="price horizontal-line"><span>${books.price}</span><span>  €</span></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+  <div class="ui inverted vertical segment ft">
+    <div class="middle aligned ui grid container">
+        <div class="left aligned four wide column">
+            <div id="logo-footer"></div>
+        </div>
+        <div class="right aligned twelve wide column">
+            <div>Igor Podgainõi<br>
+            Vjatšeslav Tšetšnev<br>
+            Nikolay Kopa</div>
+            <p></p>
+            <p>Tarkvaratehnika (IDK0071) 2018</p>
+        </div>
+    </div>
+  </div>
+
 </template>

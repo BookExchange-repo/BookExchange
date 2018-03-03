@@ -1,0 +1,73 @@
+.ui.menu .item>img:not(.ui) {
+  width: 80%;
+}
+
+#logo-footer {
+  background: url(../images/logo_mono.svg) no-repeat;
+  width: auto;
+  height: 2.3em;
+}
+
+.menu-font-white {
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
+.ui.secondary.menu {
+  margin-bottom: 1.2em;
+  padding: 2em;
+}
+
+.ui.menu .item.navbar-text {
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
+.ui.vertical.segment.bd {
+  border-bottom: none;
+  margin-bottom: 1.2em;
+}
+
+.ui.inverted.segment, .ui.primary.inverted.segment {
+  background: #2185d0;
+  border-bottom: none;
+}
+
+.ui.list.horizontal-line {
+  width: 100%;
+}
+
+.item.horizontal-line {
+  margin-bottom: 1.2em;
+}
+
+.title.horizontal-line {
+  font-size: 1.6em;
+  margin-bottom: 0;
+}
+
+.author.horizontal-line {
+  font-size: 1.2em;
+  margin-top: 0.5em;
+  font-style: italic;
+  color: rgba(0,0,0,.4);
+}
+
+.image.horizontal-line {
+  width: 100%;
+  object-fit: cover;
+}
+
+.description.horizontal-line {
+  margin-bottom: 1.5em;
+}
+
+.condition.horizontal-line {
+  margin-bottom: 1.5em;
+  font-size: 1.1em;
+}
+
+.price.horizontal-line {
+  font-size: 1.5em;
+  font-weight: bold;
+}

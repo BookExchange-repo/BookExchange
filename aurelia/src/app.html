@@ -1,7 +1,12 @@
 <template bindable="router">
-
-  <div>
-    <a repeat.for="item of router.navigation" href.bind="item.href">${item.title} </a>
+  
+  <div class="ui borderless secondary menu" id="navbar">
+    <div class="ui container">
+      <div class="item">
+        <img src="src/resources/images/logo.svg">
+        </div>
+        <a class="item navbar-text" repeat.for="item of router.navigation" href.bind="item.href">${item.title}</a>
+    </div>
   </div>
 
   <router-view>

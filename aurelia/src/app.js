@@ -7,10 +7,10 @@ export class App {
 	this.router = router;
 	config.title = 'BookMarket';
 	config.map([
-	  { route: ['', 'home'], name: 'home', moduleId: 'home/index', nav: true, title: 'Home' },
-		{ route: 'books', name: 'books', moduleId: 'books/books', nav: true, title: 'Books' },
-		{ route: 'books/:id', name: 'bookbyid', moduleId: 'book/book', nav: false, title: 'Book' },
-		{ route: 'addbook', name: 'addbook', moduleId: 'addbook/addbook', nav: true, title: 'Add Book' },
+	  { route: ['', 'home'], name: 'home', moduleId: 'home/index', nav: true, title: 'home' },
+		{ route: 'books', name: 'books', moduleId: 'books/books', nav: true, title: 'all books' },
+		{ route: 'books/:id', name: 'bookbyid', moduleId: 'book/book', nav: false, title: 'book' },
+		{ route: 'addbook', name: 'addbook', moduleId: 'addbook/addbook', nav: true, title: 'sell book' },
 	]);
 	}
 }

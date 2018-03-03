@@ -27,6 +27,6 @@ export class Books {
 
   navigateToBookById(bookid) {
     console.log(bookid);
-    this.router.navigateToRoute('bookbyid', { id: bookid }, { replace: true });
+    this.router.navigateToRoute('bookbyid', { id: bookid });
   }
 }

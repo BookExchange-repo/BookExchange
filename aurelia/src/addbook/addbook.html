@@ -1,4 +1,22 @@
 <template>
-  HELLO ${pagename}
+  Add your book
+
+  <form id="bookaddform" method="post" submit.delegate="addBook()">
+    <div>
+      <label for="bookTitle">Book Title</label>
+      <input id="bookTitle" type="text" name="bookTitle" value.bind="bookData.title">
+    </div>
+    <div>
+      <label for="bookPrice">Book Price</label>
+      <input id="bookPrice" type="number" name="bookPrice" min="0" max="9999" value.bind="bookData.price">
+    </div>
+    <div>
+      <label for="bookDescription">Book Description</label>
+      <input id="bookDescription" type="text" name="bookDescription" value.bind="bookData.description">
+    </div>
+    <input type="submit" value="Add your book">
+  </form>
+
+  ${resultMessage}
 
 </template>

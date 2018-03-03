@@ -86,6 +86,7 @@ public class Books {
             }
             jsonObject.put("books", userArray);
         } catch (Exception e) {
+            e.printStackTrace();
             jsonObject.clear();
             jsonErrors.add("CANNOT_BOOKS_GETALL");
         }

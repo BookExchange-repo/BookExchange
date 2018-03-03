@@ -1,13 +1,46 @@
-sql.executeQuery("CREATE TABLE users(" +
-                    "id int AUTO_INCREMENT," +
-                    "username varchar(32) NOT NULL," +
-                    "email varchar(64) NOT NULL," +
-                    "full_name varchar(128) NOT NULL," +
-                    "pass_hash varchar(66) NOT NULL," +
-                    "pass_salt varchar(12) NOT NULL," +
-                    "isverified boolean default false NOT NULL," +
-                    "regdate timestamp default now()," +
-                    "PRIMARY KEY (id));");
+CREATE TABLE users(
+    id int AUTO_INCREMENT,
+    username varchar(32) NOT NULL,
+    email varchar(64) NOT NULL,
+    full_name varchar(128) NOT NULL,
+    pass_hash varchar(66) NOT NULL,
+    pass_salt varchar(12) NOT NULL,
+    isverified boolean default false,
+    regdate timestamp default now(),
+    PRIMARY KEY (id)
+);
 
-sql.executeQuery("INSERT INTO users (username, email, full_name, pass_hash, pass_salt) VALUES ('admin', 'admin@admin.com', 'Admin Adminners', '0123456789abcdef', 'S_A_L_T');");
+INSERT INTO users (username, email, full_name, pass_hash, pass_salt) VALUES ('admin', 'admin@admin.com', 'Admin Adminners', '0123456789abcdef', 'S_A_L_T');
+
+CREATE TABLE books(
+    id int AUTO_INCREMENT,
+    title varchar(256) NOT NULL,
+    author varchar(256),
+    description varchar(8192) NOT NULL,
+    conditiondesc varchar(2048),
+    price decimal(8,2) UNSIGNED NOT NULL,
+    likes int default 0,
+    isbn varchar(16),
+    imagepath varchar(512) NOT NULL,
+    publisher varchar(128),
+    pubyear varchar(6),
+    language tinyint default 0,
+    postdate timestamp default now(),
+    locationlat decimal(7,4),
+    locationlon decimal(7,4),
+    userid int NOT NULL,
+    genreid int,
+    PRIMARY KEY (id)
+);
+
+//INSERT INTO books (title, description, isbn, imagepath, pubdate, language, userid) VALUES ('C++ Book', 'This is the description for the C++ book.', '0123456789012', 'images/RtKvPScMmX/', FROM_UNIXTIME('1517443200'), 0, 1);
+INSERT INTO books (title, description, price, imagepath, userid) VALUES ('C++ Book', 'This is the description for the C++ book.', 24.98, 'images/RtKvPScMmX/', 1);
+
+CREATE TABLE genre(
+    id int AUTO_INCREMENT,
+    name varchar(128) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO genre (name) VALUES ('Scientific');
 

@@ -1,5 +1,7 @@
 package ee.ttu.BookExchange.utilities;
 
+import ee.ttu.BookExchange.Application;
+
 import java.sql.*;
 
 public class SQL {
@@ -167,5 +169,13 @@ public class SQL {
 
     public String escapeString(String... toEscape) {
         return escapeString(false, toEscape);
+    }
+
+    public static SQL queryAllFromTable(String tableName, String[] values) {
+        SQL sql = new SQL();
+        sql.executeQuery("use " + Application.databaseName + ";");
+        sql.executeQuery("SELECT " + sql.escapeString(values) + " FROM " + tableName + ";");
+        sql.printQueryResults();
+        return sql;
     }
 }

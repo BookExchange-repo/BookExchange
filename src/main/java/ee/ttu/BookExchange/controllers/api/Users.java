@@ -17,22 +17,14 @@ import java.util.*;
 public class Users {
     private static final String RAND_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
     private static final int SESS_KEY_LENGTH = 64;
-    private HashMap<Integer, String> sessions = new HashMap<>();
+    private static HashMap<Integer, String> allSessions = new HashMap<>();
 
-    private SQL queryAllUsers(String[] values) {
-        SQL sql = new SQL();
-        sql.executeQuery("use " + Application.databaseName + ";");
-        sql.executeQuery("SELECT " + sql.escapeString(values) + " FROM users;");
-        sql.printQueryResults();
-        return sql;
-    }
-
-    private Optional<Integer> getUserIdBySession(String session) {
+    static Optional<Integer> getUserIdBySession(String session) {
         Optional<Integer> result = Optional.empty();
         try {
             if (!session.isEmpty()) {
                 Integer found = -1;
-                for (Map.Entry<Integer, String> value : this.sessions.entrySet()) {
+                for (Map.Entry<Integer, String> value : allSessions.entrySet()) {
                     if (value.getValue().equals(session))
                         found = value.getKey();
                 }
@@ -52,7 +44,7 @@ public class Users {
         JSONArray jsonErrors = new JSONArray();
         try {
             String[] values = {"id", "username", "email", "full_name", "UNIX_TIMESTAMP(regdate)", "isverified"};
-            SQL sql = queryAllUsers(values);
+            SQL sql = SQL.queryAllFromTable("users", values);
             values[4] = "regdate";
 
             JSONArray userArray = new JSONArray();
@@ -80,7 +72,7 @@ public class Users {
         try {
             int userId = Integer.parseInt(idString);
             String[] values = {"id", "username", "email", "full_name", "UNIX_TIMESTAMP(regdate)", "isverified"};
-            SQL sql = queryAllUsers(values);
+            SQL sql = SQL.queryAllFromTable("users", values);
             values[4] = "regdate";
 
             if (userId >= sql.getQueryRows())
@@ -202,14 +194,14 @@ public class Users {
                     .equals(sql.getQueryCell(0, 2)))
             {
                 int userId = Integer.parseInt(sql.getQueryCell(0, 3));
-                String sessionKey = this.sessions.get(userId);
+                String sessionKey = allSessions.get(userId);
                 if (sessionKey == null) {
                     sessionKey = "";
                     Random random = new SecureRandom();
                     for (int i = 0; i < SESS_KEY_LENGTH; i++) {
                         sessionKey += RAND_CHARS.charAt(random.nextInt(RAND_CHARS.length()));
                     }
-                    this.sessions.put(userId, sessionKey);
+                    allSessions.put(userId, sessionKey);
                 }
                 jsonObject.put("session", sessionKey);
                 response.addCookie(new Cookie("session", sessionKey));
@@ -229,7 +221,7 @@ public class Users {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonErrors = new JSONArray();
         try {
-            getUserIdBySession(cookie).ifPresent(i -> this.sessions.remove(i));
+            getUserIdBySession(cookie).ifPresent(i -> allSessions.remove(i));
         } catch (Exception e) {
             jsonObject.clear();
             jsonErrors.add("CANNOT_USERS_LOGOUT");

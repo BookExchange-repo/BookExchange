@@ -16,7 +16,7 @@ public class SQL {
     public SQL() {
         try {
             this.connection = DriverManager.getConnection(
-                    "jdbc:mariadb://" + dbHostname + "/", dbUsername, dbPassword);
+                    "jdbc:mariadb://" + dbHostname + "/?allowMultiQueries=true", dbUsername, dbPassword);
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         }

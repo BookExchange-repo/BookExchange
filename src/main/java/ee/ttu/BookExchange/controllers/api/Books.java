@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:9000")
 @RequestMapping(value = "/api/books", produces = "application/json")
 public class Books {
     @RequestMapping(value = "add", method = RequestMethod.POST)
@@ -45,11 +46,13 @@ public class Books {
                                     true, request.get("title").toString(),
                                     request.get("description").toString(),
                                     String.format("%.02f", convertedPrice),
-                                    request.get("imagepath").toString(), userId.get().toString()) + ");");
+                                    request.get("imagepath").toString(), userId.get().toString()) + ");" +
+                            " SELECT LAST_INSERT_ID();");
                     sql.printQueryResults();
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             jsonObject.clear();
             jsonErrors.add("CANNOT_BOOKS_ADD");
         }

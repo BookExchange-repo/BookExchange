@@ -13,6 +13,7 @@ import java.security.SecureRandom;
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:9000")
 @RequestMapping(value = "/api/users", produces = "application/json")
 public class Users {
     private static final String RAND_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";

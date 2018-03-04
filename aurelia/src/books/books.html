@@ -1,15 +1,14 @@
 <template>
 
-    <div class="ui vertical segment bd">
-      <div class="ui grid container">
-        <div class="ui list horizontal-line">
+    <div class="ui main grid container">
+        <div class="ui list">
           <div class="item horizontal-line" repeat.for="books of books.books">
 
             <div class="ui segment">
               <div class="ui grid">
 
                 <div class="three wide column">
-                    <img src='${books.imagepath}' class="image horizontal-line">
+                    <img src='${books.imagepath}' class="ui fluid image">
                 </div>
 
                 <div class="ten wide column">
@@ -27,23 +26,6 @@
 
           </div>
         </div>
-      </div>
     </div>
-    
-
-  <div class="ui inverted vertical segment ft">
-    <div class="middle aligned ui grid container">
-        <div class="left aligned four wide column">
-            <div id="logo-footer"></div>
-        </div>
-        <div class="right aligned twelve wide column">
-            <div>Igor Podgainõi<br>
-            Vjatšeslav Tšetšnev<br>
-            Nikolay Kopa</div>
-            <p></p>
-            <p>Tarkvaratehnika (IDK0071) 2018</p>
-        </div>
-    </div>
-  </div>
 
 </template>

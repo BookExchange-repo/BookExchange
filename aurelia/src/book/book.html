@@ -1,25 +1,58 @@
 <template>
-  HELLO ${pagename} ${id}
 
-  <ul>
-    <li>genreid: ${bookbyid.genreid}</li>
-    <li>pubyear: ${bookbyid.pubyear}</li>
-    <li>author: ${bookbyid.author}</li>
-    <li>isbn: ${bookbyid.isbn}</li>
-    <li>postdate: ${bookbyid.postdate}</li>
-    <li>description: ${bookbyid.description}</li>
-    <li>language: ${bookbyid.language}</li>
-    <li>title: ${bookbyid.title}</li>
-    <li>userid: ${bookbyid.userid}</li>
-    <li>condition: ${bookbyid.condition}</li>
-    <li>
-      <img src='${bookbyid.imagepath}' width="120">
-    </li>
-    <li>price: ${bookbyid.price}</li>
-    <li>publisher: ${bookbyid.publisher}</li>
-    <li>id: ${bookbyid.id}</li>
-    <li>likes: ${bookbyid.likes}</li>
-  </ul>
+  <div class="ui main grid fluid container">
 
-  <a href="#" click.delegate="navigateToAllBooks()">Get back to book listing</a>
+    <div class="five wide column">
+      <div class="ui segment">
+        <img src="${bookbyid.imagepath}" alt="${bookbyid.title}" class="ui fluid image">
+      </div>
+      <div class="ui segment center aligned pricebox more-about-book">
+        <div class="price more-about-book"><span>${bookbyid.price}</span><span> €</span></div>
+        <button class="ui big green button">BUY</button>
+      </div>
+    </div>
+
+    <div class="eleven wide column">
+      <div class="ui segment information more-about-book">
+        <h1 class="title more-about-book">${bookbyid.title}</h1>
+        <h2 class="author more-about-book">${bookbyid.author}</h2>
+
+        <table class="ui very basic collapsing celled table">
+          <tr>
+            <td>Genre</td>
+            <td>${bookbyid.genreid}</td>
+          </tr>
+          <tr>
+            <td>Year of publishing</td>
+            <td>${bookbyid.pubyear}</td>
+          </tr>
+          <tr>
+            <td>Publisher</td>
+            <td>${bookbyid.publisher}</td>
+          </tr>
+          <tr>
+            <td>Language</td>
+            <td>${bookbyid.language}</td>
+          </tr>
+          <tr>
+            <td>ISBN</td>
+            <td>${bookbyid.isbn}</td>
+          </tr>
+          <tr>
+            <td>Condition</td>
+            <td>${bookbyid.condition}</td>
+          </tr>
+        </table>
+
+        <div class="description more-about-book">
+            <p class="title">Description: </p>
+            <p class="text">${bookbyid.description}</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </template>

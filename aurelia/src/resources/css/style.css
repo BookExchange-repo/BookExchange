@@ -71,3 +71,40 @@
   font-size: 1.5em;
   font-weight: bold;
 }
+
+.ui.segment.information.more-about-book {
+  padding: 2em;
+}
+
+.author.more-about-book {
+  font-size: 1.4em;
+  font-style: italic;
+  color: rgba(0,0,0,.4);
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+}
+
+.ui.basic.table {
+  margin-bottom: 2.5em;
+}
+
+.description.more-about-book {
+  font-size: 1.15em;
+}
+
+.description.more-about-book .title {
+  font-weight: bold;
+}
+
+.ui.segment.pricebox.more-about-book {
+  padding: 2em;
+}
+
+.price.more-about-book {
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+
+.ui.grid.main {
+  margin-bottom: 3em;
+}

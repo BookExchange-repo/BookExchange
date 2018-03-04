@@ -34,7 +34,7 @@
 }
 
 .ui.list.horizontal-line {
-  padding: 0;
+  width: 100%;
 }
 
 .item.horizontal-line {

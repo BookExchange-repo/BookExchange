@@ -46,7 +46,7 @@ public class Books {
                                     true, request.get("title").toString(),
                                     request.get("description").toString(),
                                     String.format("%.02f", convertedPrice),
-                                    request.get("imagepath").toString(), userId.get().toString()) + ");");
+                                    request.get("imagepath").toString(), "Guest"/*userId.get().toString()*/) + ");");
                     sql.printQueryResults();
                     sql.executeQuery("SELECT LAST_INSERT_ID();");
                     sql.printQueryResults();
@@ -68,10 +68,11 @@ public class Books {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonErrors = new JSONArray();
         try {
-            String[] values = {"id", "title", "description", "price", "imagepath", "language", "userid",
-                    "UNIX_TIMESTAMP(postdate)"};
+            String[] values = {"id", "title", "author", "description", "conditiondesc", "price", "likes", "isbn",
+                    "imagepath", "publisher", "pubyear", "language", "UNIX_TIMESTAMP(postdate)",
+                    "userid", "genreid", "city"};
             SQL sql = SQL.queryAllFromTable("books", values);
-            values[7] = "postdate";
+            values[12] = "postdate";
 
             JSONArray userArray = new JSONArray();
             for (int i = 0; i < sql.getQueryRows(); i++) {
@@ -79,14 +80,6 @@ public class Books {
                 for (int j = 0; j < values.length; j++) {
                     userObject.put(values[j], sql.getQueryCell(i, j));
                 }
-                // TODO: temporary placeholder for demo
-                userObject.put("author", "Author");
-                userObject.put("condition", "The item is in good condition.");
-                userObject.put("likes", "4");
-                userObject.put("isbn", "0123456789012");
-                userObject.put("publisher", "BookCompany Ltd.");
-                userObject.put("pubyear", "2015");
-                userObject.put("genreid", "0");
                 userArray.add(userObject);
             }
             jsonObject.put("books", userArray);
@@ -106,12 +99,13 @@ public class Books {
         JSONArray jsonErrors = new JSONArray();
         try {
             int bookId = Integer.parseInt(idString);
-            String[] values = {"id", "title", "description", "price", "imagepath", "language", "userid",
-                    "UNIX_TIMESTAMP(postdate)"};
+            String[] values = {"id", "title", "author", "description", "conditiondesc", "price", "likes", "isbn",
+                    "imagepath", "publisher", "pubyear", "language", "UNIX_TIMESTAMP(postdate)",
+                    "userid", "genreid", "city"};
             SQL sql = new SQL();
             sql.executeQuery("use " + Application.databaseName + ";");
             sql.executeQuery("SELECT " + sql.escapeString(values) + " FROM books WHERE id=" + bookId + ";");
-            values[7] = "postdate";
+            values[12] = "postdate";
             sql.printQueryResults();
 
             if (sql.getQueryRows() == 0)
@@ -120,14 +114,6 @@ public class Books {
             for (int i = 0; i < values.length; i++) {
                 jsonObject.put(values[i], sql.getQueryCell(0, i));
             }
-            // TODO: temporary placeholder for demo
-            jsonObject.put("author", "Author");
-            jsonObject.put("condition", "The item is in good condition.");
-            jsonObject.put("likes", "4");
-            jsonObject.put("isbn", "0123456789012");
-            jsonObject.put("publisher", "BookCompany Ltd.");
-            jsonObject.put("pubyear", "2015");
-            jsonObject.put("genreid", "0");
         } catch (Exception e) {
             jsonObject.clear();
             jsonErrors.add("CANNOT_BOOKS_GETINFOID");

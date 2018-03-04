@@ -30,6 +30,7 @@ CREATE TABLE books(
     locationlon decimal(7,4),
     userid int NOT NULL,
     genreid int,
+    city varchar(128),
     PRIMARY KEY (id)
 );
 

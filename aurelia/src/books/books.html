@@ -1,31 +1,44 @@
 <template>
 
-    <div class="ui main grid container">
-        <div class="ui list">
-          <div class="item horizontal-line" repeat.for="books of books.books">
+  <div class="ui main grid container">
+    <h1>All books</h1>
 
-            <div class="ui segment">
-              <div class="ui grid">
+    <div class="sixteen wide column">
+      <div class="ui list">
 
-                <div class="three wide column">
-                    <img src='${books.imagepath}' class="ui fluid image">
-                </div>
-
-                <div class="ten wide column">
-                  <div class="content">
-                    <a href="#" click.delegate="navigateToBookById(books.id)"><h1 class="title horizontal-line">${books.title}</h1></a>
-                    <h2 class="author horizontal-line">Unknown Author</h2>
-                    <p class="description horizontal-line"></p>
-                    <div class="condition horizontal-line"><span>condition: </span><span>${books.condition}</span></div>
-                    <div class="price horizontal-line"><span>${books.price}</span><span>  €</span></div>
-                  </div>
-                </div>
-
+        <div class="item horizontal-line" repeat.for="books of books.books">
+          <div class="ui segment">
+            <div class="ui grid">
+            
+              <div class="four wide center aligned column">
+                  <img src='${books.imagepath}' class="image horizontal-line">
               </div>
+      
+              <div class="eight wide column">
+                <div class="content">
+                  <a href="#" click.delegate="navigateToBookById(books.id)"><h1 class="title horizontal-line">${books.title}</h1></a>
+                  <h2 class="author horizontal-line">Unknown Author</h2>
+                  <p class="description horizontal-line"></p>
+                  <div class="condition horizontal-line"><span>condition: </span><span>${books.condition}</span></div>
+                  <div class="price horizontal-line"><span>${books.price}</span><span>  €</span></div>
+                </div>
+              </div>
+      
+              <div class="right aligned four wide column">
+                <div class="content seller horizontal-line">
+                  <div class="title">Seller: </div>
+                  <div class="name">Nikolay Kopa</div>
+                  <div class="place">Sillamäe</div>
+                  <div class="date">04.03.2018</div>
+                </div>
+              </div>
+                  
             </div>
-
           </div>
         </div>
+
+      </div>
     </div>
+  </div>
 
 </template>

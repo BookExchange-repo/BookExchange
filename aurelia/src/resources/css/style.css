@@ -1,10 +1,40 @@
+.home {
+  height: auto;
+}
+
+.black-box {
+  width: 100%;
+  height: inherit;
+  background-color: rgba(0, 0, 0, 0.35);
+  position: absolute;
+  top: 0;
+}
+
+.ui.vertical.segment.homepage {
+  background: url(../images/homepage_background.jpg) no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  color: #ffffff;
+  border-bottom: none;
+}
+
+.ui.vertical.segment.homepage h1 {
+  font-size: 4.5em;
+  margin-top: 3em;
+  margin-bottom: 0.5em;
+}
+
+.ui.teal.button, .ui.teal.buttons .button {
+  background-color: #118092;
+}
+
 .ui.menu .item>img:not(.ui) {
   width: 12em;
   margin-right: 2em;
 }
 
 .ui.menu.fixed {
-  background: #2185d0;
+  background: #118092;
 }
 
 #logo-footer {
@@ -92,10 +122,23 @@
 
 .description.more-about-book {
   font-size: 1.15em;
+  margin-bottom: 2.5em;
 }
 
 .description.more-about-book .title {
   font-weight: bold;
+}
+
+.seller.more-about-book {
+  font-size: 1.15em;
+}
+
+.seller.more-about-book .title {
+  font-weight: bold;
+}
+
+.seller.more-about-book .text {
+  margin-bottom: 0.35em;
 }
 
 .ui.segment.pricebox.more-about-book {

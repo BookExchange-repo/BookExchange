@@ -8,7 +8,7 @@
       </div>
       <div class="ui segment center aligned pricebox more-about-book">
         <div class="price more-about-book"><span>${bookbyid.price}</span><span> €</span></div>
-        <button class="ui big green button">BUY</button>
+        <button class="ui big teal button">BUY</button>
       </div>
     </div>
 
@@ -50,6 +50,15 @@
         <div class="description more-about-book">
             <p class="title">Description: </p>
             <p class="text">${bookbyid.description}</p>
+        </div>
+
+        <div class="seller more-about-book">
+          <p class="title">Seller: </p>
+          <div class="text">${bookbyid.userid}</div>
+          <div class="text" if.bind="ifJSONAttributeIsNull(bookbyid.author)">
+              <div>${bookbyid.city}</div>
+          </div>
+          <div class="text">${convertUnixTimeStamp(bookbyid.postdate)}</div>
         </div>
 
       </div>

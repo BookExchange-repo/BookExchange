@@ -16,6 +16,16 @@ export class Books {
     this.fetchBooksFromAPI();
   }
 
+  ifJSONAttributeIsNull(text){
+    if (text=== "null") return false;
+    return true;
+  }
+
+  convertUnixTimeStamp(unixTimeStamp) {
+    var date = new Date(unixTimeStamp*1000);
+    return date.toDateString();
+  }
+
   fetchBooksFromAPI() {
     //httpClient.fetch('/api/books/getall')
     httpClient.fetch('http://51.15.219.149:8080/api/books/getall')

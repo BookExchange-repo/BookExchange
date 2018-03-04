@@ -15,7 +15,7 @@ export class AddBooks{
 	addBook() {
     let client = new HttpClient();
     
-    this.bookData.imagepath = "http://51.15.219.149:8000//images//dummy.jpg";
+    this.bookData.imagepath = "http://dijkstra.cs.ttu.ee/~vjtset/tarkvaratehnika/no-image.jpg";
 
 		client.fetch('http://51.15.219.149:8080/api/books/add', {
 			'method': "POST",

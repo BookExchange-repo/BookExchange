@@ -15,34 +15,37 @@
     <div class="eleven wide column">
       <div class="ui segment information more-about-book">
         <h1 class="title more-about-book">${bookbyid.title}</h1>
-        <h2 class="author more-about-book">${bookbyid.author}</h2>
-
-        <table class="ui very basic collapsing celled table">
-          <tr>
-            <td>Genre</td>
-            <td>${bookbyid.genreid}</td>
-          </tr>
-          <tr>
-            <td>Year of publishing</td>
-            <td>${bookbyid.pubyear}</td>
-          </tr>
-          <tr>
-            <td>Publisher</td>
-            <td>${bookbyid.publisher}</td>
-          </tr>
-          <tr>
-            <td>Language</td>
-            <td>${bookbyid.language}</td>
-          </tr>
-          <tr>
-            <td>ISBN</td>
-            <td>${bookbyid.isbn}</td>
-          </tr>
-          <tr>
-            <td>Condition</td>
-            <td>${bookbyid.condition}</td>
-          </tr>
-        </table>
+        <div if.bind="ifJSONAttributeIsNull(bookbyid.author)">
+          <h2 class="author more-about-book">${bookbyid.author}</h2>
+        </div>
+        <div if.bind="ifJSONAttributeIsNull(bookbyid.author)">
+          <table class="ui very basic collapsing celled table">
+            <tr>
+              <td>Genre</td>
+              <td>${bookbyid.genreid}</td>
+            </tr>
+            <tr>
+              <td>Year of publishing</td>
+              <td>${bookbyid.pubyear}</td>
+            </tr>
+            <tr>
+              <td>Publisher</td>
+              <td>${bookbyid.publisher}</td>
+            </tr>
+            <tr>
+              <td>Language</td>
+              <td>${bookbyid.language}</td>
+            </tr>
+            <tr>
+              <td>ISBN</td>
+              <td>${bookbyid.isbn}</td>
+            </tr>
+            <tr>
+              <td>Condition</td>
+              <td>${bookbyid.conditiondesc}</td>
+            </tr>
+          </table>
+        </div>
 
         <div class="description more-about-book">
             <p class="title">Description: </p>

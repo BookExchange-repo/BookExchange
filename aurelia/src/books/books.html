@@ -17,9 +17,13 @@
               <div class="eight wide column">
                 <div class="content">
                   <a href="#" click.delegate="navigateToBookById(books.id)"><h1 class="title horizontal-line">${books.title}</h1></a>
-                  <h2 class="author horizontal-line">Unknown Author</h2>
+                  <div if.bind="ifJSONAttributeIsNull(books.author)">
+                    <h2 class="author horizontal-line">by ${books.author}</h2>
+                  </div>
                   <p class="description horizontal-line"></p>
-                  <div class="condition horizontal-line"><span>condition: </span><span>${books.condition}</span></div>
+                  <div if.bind="ifJSONAttributeIsNull(books.author)">
+                    <div class="condition horizontal-line"><span>${books.conditiondesc}</span><span>${books.condition}</span></div>
+                  </div>
                   <div class="price horizontal-line"><span>${books.price}</span><span>  €</span></div>
                 </div>
               </div>
@@ -27,9 +31,11 @@
               <div class="right aligned four wide column">
                 <div class="content seller horizontal-line">
                   <div class="title">Seller: </div>
-                  <div class="name">Nikolay Kopa</div>
-                  <div class="place">Sillamäe</div>
-                  <div class="date">04.03.2018</div>
+                  <div class="name">${books.userid}</div>
+                  <div if.bind="ifJSONAttributeIsNull(books.author)">
+                    <div class="place">${books.city}</div>
+                  </div>
+                  <div class="date">${convertUnixTimeStamp(books.postdate)}</div>
                 </div>
               </div>
                   

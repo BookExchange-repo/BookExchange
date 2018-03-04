@@ -32,6 +32,11 @@ export class Book {
 
     navigateToAllBooks() {
         this.router.navigateToRoute('books');
-      }
+    }
+
+    ifJSONAttributeIsNull(text){
+        if (text=== "null") return false;
+        return true;
+    }
     
 }

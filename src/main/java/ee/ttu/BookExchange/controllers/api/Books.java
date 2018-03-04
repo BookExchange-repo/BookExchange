@@ -46,9 +46,11 @@ public class Books {
                                     true, request.get("title").toString(),
                                     request.get("description").toString(),
                                     String.format("%.02f", convertedPrice),
-                                    request.get("imagepath").toString(), userId.get().toString()) + ");" +
-                            " SELECT LAST_INSERT_ID();");
+                                    request.get("imagepath").toString(), userId.get().toString()) + ");");
                     sql.printQueryResults();
+                    sql.executeQuery("SELECT LAST_INSERT_ID();");
+                    sql.printQueryResults();
+                    jsonObject.put("id", sql.getQueryCell(0, 0));
                 }
             }
         } catch (Exception e) {
@@ -106,14 +108,17 @@ public class Books {
             int bookId = Integer.parseInt(idString);
             String[] values = {"id", "title", "description", "price", "imagepath", "language", "userid",
                     "UNIX_TIMESTAMP(postdate)"};
-            SQL sql = SQL.queryAllFromTable("books", values);
+            SQL sql = new SQL();
+            sql.executeQuery("use " + Application.databaseName + ";");
+            sql.executeQuery("SELECT " + sql.escapeString(values) + " FROM books WHERE id=" + bookId + ";");
             values[7] = "postdate";
+            sql.printQueryResults();
 
-            if (bookId >= sql.getQueryRows())
+            if (sql.getQueryRows() == 0)
                 throw new RuntimeException();
 
             for (int i = 0; i < values.length; i++) {
-                jsonObject.put(values[i], sql.getQueryCell(bookId, i));
+                jsonObject.put(values[i], sql.getQueryCell(0, i));
             }
             // TODO: temporary placeholder for demo
             jsonObject.put("author", "Author");

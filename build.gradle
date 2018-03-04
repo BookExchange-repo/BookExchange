@@ -32,6 +32,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
     implementation "org.mariadb.jdbc:mariadb-java-client:2.2.1"
+    // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.2.1'
     // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 }

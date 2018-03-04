@@ -15,9 +15,9 @@ export class AddBooks{
 	addBook() {
     let client = new HttpClient();
     
-    this.bookData.imagepath = "dummy.jpg";
+    this.bookData.imagepath = "http://51.15.219.149:8000//images//dummy.jpg";
 
-		client.fetch('https://1832da15-8fca-4d77-876a-9d23c077ae27.mock.pstmn.io/api/books/add', {
+		client.fetch('http://51.15.219.149:8080/api/books/add', {
 			'method': "POST",
 			'body': json(this.bookData)
 		})

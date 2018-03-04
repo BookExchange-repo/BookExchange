@@ -22,7 +22,7 @@ export class Book {
       }
     
     fetchBookByIdFromAPI() {
-    httpClient.fetch('http://api.myjson.com/bins/gm189')
+    httpClient.fetch('http://51.15.219.149:8080/api/books/getinfoid?id=' + this.id)
     //httpClient.fetch('/api/books/getinfoid?id=' + this.id)
         .then(response => response.json())
         .then(data => {

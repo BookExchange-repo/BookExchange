@@ -18,7 +18,7 @@ export class Books {
 
   fetchBooksFromAPI() {
     //httpClient.fetch('/api/books/getall')
-    httpClient.fetch('http://api.myjson.com/bins/1b7pq1')
+    httpClient.fetch('http://51.15.219.149:8080/api/books/getall')
       .then(response => response.json())
       .then(data => {
         this.books = data;

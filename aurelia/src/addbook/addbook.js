@@ -31,7 +31,7 @@ export class AddBooks {
   }
 
   addBook() {
-
+    
     this.statusMessagesVisible = false;
     this.statusMessages = [];
 
@@ -79,7 +79,7 @@ export class AddBooks {
   checkIfEveryInputfieldIsFilled() {
     return (this.bookData.title != "" && this.bookData.title != null &&
       this.bookData.price > 0 &&
-      this.bookData.description != "" && this.bookData.title != null);
+      this.bookData.description != "" && this.bookData.description != null);
   }
 
 }

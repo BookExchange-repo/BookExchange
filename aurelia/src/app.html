@@ -2,10 +2,10 @@
   
   <div class="ui inverted borderless top fixed menu" id="navbar">
     <div class="ui container">
-      <div class="item">
+      <div class="item" click.delegate="router.navigateToRoute('home')" style="cursor: pointer;">
         <img src="src/resources/images/logo_mono.svg">
       </div>
-      <a class="item navbar-text" repeat.for="item of router.navigation" href.bind="item.href">${item.title}</a>
+      <a class="item navbar-text ${item.isActive ? 'active' : ''}" repeat.for="item of router.navigation" href.bind="item.href">${item.title}</a>
     </div>
   </div>
 

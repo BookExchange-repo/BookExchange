@@ -4,22 +4,22 @@
   <br>
   <br>
   <br>
-  <br>Sell your book
+  <br>Sell Book
 
   <form id="bookaddform" method="post" submit.delegate="addBook()">
     <div>
-      <label for="bookTitle">Book Title</label>
+      <label for="bookTitle">Title</label>
       <input id="bookTitle" type="text" name="bookTitle" value.bind="bookData.title"> *
     </div>
     <div>
-      <label for="bookPrice">Book Price</label>
+      <label for="bookPrice">Price</label>
       <input id="bookPrice" type="number" name="bookPrice" min="0" max="9999" value.bind="bookData.price"> *
     </div>
     <div>
-      <label for="bookDescription">Book Description</label>
+      <label for="bookDescription">Description</label>
       <input id="bookDescription" type="text" name="bookDescription" value.bind="bookData.description"> *
     </div>
-    <input type="submit" value="Add your book">
+    <input type="submit" value="Sell Book">
   </form>
 
   <div if.bind="statusMessagesVisible">

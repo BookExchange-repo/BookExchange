@@ -38,5 +38,10 @@ export class Book {
         if (text=== "null") return false;
         return true;
     }
+
+    convertUnixTimeStamp(unixTimeStamp) {
+        var date = new Date(unixTimeStamp*1000);
+        return date.toDateString();
+    }
     
 }

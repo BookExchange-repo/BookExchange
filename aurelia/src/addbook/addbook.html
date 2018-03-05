@@ -1,22 +1,36 @@
 <template>
-  Add your book
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>Sell your book
 
   <form id="bookaddform" method="post" submit.delegate="addBook()">
     <div>
       <label for="bookTitle">Book Title</label>
-      <input id="bookTitle" type="text" name="bookTitle" value.bind="bookData.title">
+      <input id="bookTitle" type="text" name="bookTitle" value.bind="bookData.title"> *
     </div>
     <div>
       <label for="bookPrice">Book Price</label>
-      <input id="bookPrice" type="number" name="bookPrice" min="0" max="9999" value.bind="bookData.price">
+      <input id="bookPrice" type="number" name="bookPrice" min="0" max="9999" value.bind="bookData.price"> *
     </div>
     <div>
       <label for="bookDescription">Book Description</label>
-      <input id="bookDescription" type="text" name="bookDescription" value.bind="bookData.description">
+      <input id="bookDescription" type="text" name="bookDescription" value.bind="bookData.description"> *
     </div>
     <input type="submit" value="Add your book">
   </form>
 
-  ${resultMessage}
+  <div if.bind="statusMessagesVisible">
+    <div class="ui error message">
+      <div class="header">
+        There were some errors with your submission
+      </div>
+      <ul class="list">
+        <li repeat.for="statusMessages of statusMessages">${statusMessages}</li>
+      </ul>
+    </div>
+  </div>
 
 </template>

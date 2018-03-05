@@ -1,36 +1,51 @@
 <template>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>Sell Book
 
-  <form id="bookaddform" method="post" submit.delegate="addBook()">
-    <div>
-      <label for="bookTitle">Title</label>
-      <input id="bookTitle" type="text" name="bookTitle" value.bind="bookData.title"> *
-    </div>
-    <div>
-      <label for="bookPrice">Price</label>
-      <input id="bookPrice" type="number" name="bookPrice" min="0" max="9999" value.bind="bookData.price"> *
-    </div>
-    <div>
-      <label for="bookDescription">Description</label>
-      <input id="bookDescription" type="text" name="bookDescription" value.bind="bookData.description"> *
-    </div>
-    <input type="submit" value="Sell Book">
-  </form>
+  <div class="ui main grid fluid container">
+    <h1>Sell Book</h1>
+    <div class="row divider"></div>
 
-  <div if.bind="statusMessagesVisible">
-    <div class="ui error message">
-      <div class="header">
-        There were some errors with your submission
+    <div class="eleven wide column">
+      <div class="ui segment sell-book">
+
+        <div if.bind="statusMessagesVisible">
+          <div class="ui error message sell-book">
+          <div class="header">
+            There were some errors with your submission
+          </div>
+          <ul class="list">
+            <li repeat.for="statusMessages of statusMessages">${statusMessages}</li>
+          </ul>
+          </div>
+        </div>
+
+        <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
+          <div class="field sell-book">
+            <label>Title: </label>
+            <input id="bookTitle" type="text" name="bookTitle" value.bind="bookData.title"><span>*</span>
+          </div>
+
+          <div class="field sell-book">
+            <label>Price: </label>
+            <input id="bookPrice" type="number" name="bookPrice" min="0" max="9999" value.bind="bookData.price"><span>*</span>
+          </div>
+
+          <div class="field sell-book">
+            <label>Description: </label>
+            <textarea rows="4" id="bookDescription" type="text" name="bookDescription" value.bind="bookData.description"></textarea><span>*</span>
+          </div>
+
+          <input class="ui large submit button" type="submit" value="Sell Book">
+        </form>
+
       </div>
-      <ul class="list">
-        <li repeat.for="statusMessages of statusMessages">${statusMessages}</li>
-      </ul>
     </div>
+
+    <div class="five wide column">
+      <div class="ui segment">
+        <img class="ui fluid image" src="src/resources/images/no-image.jpg">
+      </div>
+    </div>
+
   </div>
 
 </template>

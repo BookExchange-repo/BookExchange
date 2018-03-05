@@ -172,3 +172,35 @@ html {
 .seller.horizontal-line {
   color: #92969a;
 }
+
+.ui.grid>.row.divider {
+  padding: 0;
+}
+
+.ui.segment.sell-book {
+  padding: 2.25em;
+}
+
+.ui.error.message.sell-book {
+  margin-bottom: 2.5em;
+}
+
+.ui.form .field.sell-book input {
+  width: 60%;
+}
+
+.ui.form .field.sell-book textarea {
+  width: 80%;
+  margin-bottom: 1.5em;
+}
+
+.ui.form .field.sell-book label {
+  margin-bottom: 1em;
+  font-size: 1.05em;
+}
+
+.ui.form .field.sell-book span {
+  margin-left: 0.35em; 
+  color: red;
+  font-size: 1.05em;
+}

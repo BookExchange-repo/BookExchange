@@ -204,3 +204,8 @@ html {
   color: red;
   font-size: 1.05em;
 }
+
+
+.book-listing-hover:hover {
+  box-shadow: 0 0 6px #4183c4;
+}

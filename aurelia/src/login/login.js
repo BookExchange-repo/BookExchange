@@ -1,22 +1,24 @@
-import {
-  HttpClient,
-  json
-} from 'aurelia-fetch-client';
+import {inject} from 'aurelia-framework';
+import {Router} from 'aurelia-router';
+import {Authorization} from 'auth/authorization';
 
-import {
-  customAttribute,
-  bindable,
-  inject
-} from 'aurelia-framework';
-
-import {
-  Router
-} from 'aurelia-router';
-
-
-@inject(Router)
-export class LogIn {
-  constructor(router) {
+@inject(Authorization)
+export class Login {
+  constructor(authorization) {
+    this.authorization = authorization;
     this.helloMessage = "Log in";
+  }
+
+  login(){
+    console.log("login");
+    this.authorization.login("regged", "user");
+  }
+
+  status() {
+    console.log(this.authorization.isLoggedIn());
+  }
+
+  logout() {
+    this.authorization.logout();
   }
 }

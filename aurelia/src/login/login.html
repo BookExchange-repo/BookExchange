@@ -1,20 +1,11 @@
 <template>
-<br>
-<br>
-<br>
-<br>
-<h1>${helloMessage}</h1>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+  <div class="ui main grid fluid container">
+    <h1>${helloMessage}</h1>
 
+    <ul>
+    <li><a href="#" click.delegate="login()">Login</a></li>
+    <li><a href="#" click.delegate="status()">Status</a></li>
+    <li><a href="#" click.delegate="logout()">Logout</a></li>
+    </ul>
+  </div>
 </template>

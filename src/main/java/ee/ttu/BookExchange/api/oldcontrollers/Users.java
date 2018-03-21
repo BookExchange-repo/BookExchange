@@ -1,4 +1,4 @@
-package ee.ttu.BookExchange.controllers.api;
+package ee.ttu.BookExchange.api.oldcontrollers;
 
 import ee.ttu.BookExchange.Application;
 import ee.ttu.BookExchange.utilities.Checksum;

@@ -1,4 +1,4 @@
-package ee.ttu.BookExchange.models;
+package ee.ttu.BookExchange.api.models;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Getter
 @Setter
-public class LanguageEng {
+public class ConditionEng {
     @Id
     @GeneratedValue
     @Column(nullable = false)

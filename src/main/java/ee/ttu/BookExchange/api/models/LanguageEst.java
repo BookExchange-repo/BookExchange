@@ -1,4 +1,4 @@
-package ee.ttu.BookExchange.models;
+package ee.ttu.BookExchange.api.models;
 
 import lombok.Getter;
 import lombok.Setter;

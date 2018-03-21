@@ -20,29 +20,60 @@
 
         <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
           <div class="field sell-book">
-            <label>Title: </label>
-            <input id="bookTitle" type="text" name="bookTitle" value.bind="bookData.title"><span>*</span>
+            <label>Genre: <span>*</span></label>
+            <select class="ui dropdown" value.bind="selectedGenre">
+              <option model.bind="null" value="">choose...</option>
+              <option repeat.for="genre of genres" model.bind="genre.id">${genre.name}</option>
+            </select>
           </div>
 
           <div class="field sell-book">
-            <label>Price (In EUR): </label>
-            <input id="bookPrice" type="number" name="bookPrice" min="0" max="9999" value.bind="bookData.price"><span>*</span>
+            <label>Title: <span>*</span></label>
+            <input id="bookTitle" type="text" name="bookTitle" value.bind="bookData.title">
           </div>
 
           <div class="field sell-book">
-            <label>Description: </label>
-            <textarea rows="4" id="bookDescription" type="text" name="bookDescription" value.bind="bookData.description"></textarea><span>*</span>
+            <label>Price (in EUR): <span>*</span></label>
+            <input id="bookPrice" type="number" name="bookPrice" min="0" max="9999" value.bind="bookData.price">
           </div>
 
-          <input class="ui large submit button" type="submit" value="Sell Book">
+          <div class="field sell-book">
+            <label>Book condition: <span>*</span></label>
+            <select class="ui dropdown" value.bind="selectedCondition">
+              <option model.bind="null" value="">choose...</option>
+              <option repeat.for="condition of conditions" model.bind="condition.id">${condition.name}</option>
+            </select>
+          </div>
+
+          <div class="field sell-book">
+            <label>City: <span>*</span></label>
+            <select class="ui search dropdown" value.bind="selectedCity">
+              <option model.bind="null" value="">choose or search...</option>
+              <option repeat.for="city of cities" model.bind="city.id">${city.name}</option>
+            </select>
+          </div>
+
+          <div class="field sell-book description">
+            <label>Description:</label>
+            <textarea rows="4" id="bookDescription" type="text" name="bookDescription" value.bind="bookData.description"></textarea>
+          </div>
+
+          <input class="ui large submit button" type="submit" value="Sell Book" id="sell_book">
         </form>
 
       </div>
     </div>
 
     <div class="five wide column">
-      <div class="ui segment">
+      <div class="ui center aligned segment">
         <img class="ui fluid image" src="src/resources/images/no-image.jpg">
+        <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
+            <label for="image" class="ui big teal icon button upload-image">
+              <i class="upload icon"></i>
+              <span>add image</span>
+            </label>
+            <input type="file" id="image" style="display:none" name="imagepath" accept="image/*">
+        </form>
       </div>
     </div>
 

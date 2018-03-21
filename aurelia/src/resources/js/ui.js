@@ -1,3 +1,3 @@
-$('.ui.sticky')
-  .sticky()
-;
+$(document).ready(function() {
+  $('.ui.dropdown').dropdown();
+});

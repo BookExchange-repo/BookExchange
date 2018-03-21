@@ -183,29 +183,33 @@ html {
 
 .ui.error.message.sell-book {
   margin-bottom: 2.5em;
-}
-
-.ui.form .field.sell-book input {
   width: 60%;
 }
 
-.ui.form .field.sell-book textarea {
+.ui.form .field.sell-book {
+  width: 60%;
+  margin-bottom: 2em;
+}
+
+.ui.form .field.sell-book.description {
   width: 80%;
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
 }
 
 .ui.form .field.sell-book label {
-  margin-bottom: 1em;
+  margin-bottom: 0.8em;
   font-size: 1.05em;
 }
 
-.ui.form .field.sell-book span {
-  margin-left: 0.35em; 
+.ui.form .field.sell-book label span {
   color: red;
-  font-size: 1.05em;
 }
-
 
 .book-listing-hover:hover {
   box-shadow: 0 0 6px #4183c4;
+}
+
+.ui.teal.button.upload-image {
+  margin-top: 1em;
+  margin-bottom: 1em; 
 }

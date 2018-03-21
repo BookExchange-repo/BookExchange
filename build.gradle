@@ -30,6 +30,7 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile("org.springframework.boot:spring-boot-starter-web")
+    compileOnly('org.projectlombok:lombok')
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
     implementation "org.mariadb.jdbc:mariadb-java-client:2.2.1"

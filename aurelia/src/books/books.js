@@ -24,12 +24,12 @@ export class Books {
   }
 
   attached() {
-    console.log(this.router.currentInstruction.queryParams);
-    console.log(this.router.currentInstruction.queryParams.city);
-    let cityParam = this.router.currentInstruction.queryParams.city;
-    if (cityParam !== null) {
-      this.selectedCityID = parseInt(cityParam);
-    }
+    // console.log(this.router.currentInstruction.queryParams);
+    // console.log(this.router.currentInstruction.queryParams.city);
+    // let cityParam = this.router.currentInstruction.queryParams.city;
+    // if (cityParam !== null) {
+    //   this.selectedCityID = parseInt(cityParam);
+    // }
 
     //this.selectedGenreIDs = [1,2,5];
 
@@ -45,6 +45,10 @@ export class Books {
     .accordion({
       exclusive: false
     });
+  }
+
+  sortByDateAdded() {
+    console.log("sortByDateAdded");
   }
 
   ifJSONAttributeIsNull(text) {

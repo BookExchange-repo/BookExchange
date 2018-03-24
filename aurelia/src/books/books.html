@@ -6,7 +6,10 @@
         <h1>All Books (${numberOfBooks})</h1>
       </div>
 
+
+
       <div class="right aligned eight wide column">
+            
         <div class="ui dropdown">
           
           <form class="ui form" method="post">
@@ -16,11 +19,12 @@
               <div class="content">
                 Sort by
                 <div class="ui inline dropdown">
-                  <div class="text">pubyear</div>
+                  <div class="text">date added</div>
                   <i class="dropdown icon"></i>
                   <div class="menu">
-                    <div class="active item" data-text="pubyear">pubyear</div>
-                    <div class="item" data-text="price">price</div>
+                    <div class="item" data-text="date added" click.delegate="sortByDateAdded()">date added</div>
+                    <div class="active item" data-text="price (ascending)">price (ascending)</div>
+                    <div class="item" data-text="price (descending)">price (descending)</div>
                   </div>
                 </div>
               </div>

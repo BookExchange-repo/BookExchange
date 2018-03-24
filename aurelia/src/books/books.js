@@ -8,6 +8,7 @@ let httpClient = new HttpClient();
 export class Books {
 
   constructor(router) {
+    this.cities = null;
     this.books = null;
     this.router = router;
     this.numberOfBooks;
@@ -15,6 +16,7 @@ export class Books {
 
   attached() {
     this.fetchBooksFromAPI();
+    this.fetchCitiesFromAPI();
   }
 
   ifJSONAttributeIsNull(text) {
@@ -33,6 +35,14 @@ export class Books {
       .then(data => {
         this.books = data;
         this.numberOfBooks = Object.keys(this.books.books).length;
+      });
+  }
+
+  fetchCitiesFromAPI() {
+    httpClient.fetch('http://bookmarket.online:8081/api/cities/getall')
+      .then(response => response.json())
+      .then(data => {
+        this.cities = data;
       });
   }
 

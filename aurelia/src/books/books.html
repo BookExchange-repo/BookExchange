@@ -3,6 +3,13 @@
   <div class="ui main grid container">
     <h1>All Books (${numberOfBooks})</h1>
 
+    City:
+    <select value.bind="selectedCity">
+      <option bind="null" value="">All cities</option>
+      <option repeat.for="city of cities" bind="city.id">${city.string}</option>
+    </select>
+
+
     <div class="sixteen wide column">
       <div class="ui list">
 

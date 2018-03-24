@@ -7,6 +7,11 @@ let httpClient = new HttpClient();
 @inject(Router)
 export class Books {
 
+  selectedCityID;
+  selectedGenreIDs = [];
+  selectedConditionIDs = [];
+  selectedLanguageID;
+
   constructor(router) {
     this.cities = null;
     this.genres = null;
@@ -15,9 +20,19 @@ export class Books {
     this.books = null;
     this.router = router;
     this.numberOfBooks;
+
   }
 
   attached() {
+    console.log(this.router.currentInstruction.queryParams);
+    console.log(this.router.currentInstruction.queryParams.city);
+    let cityParam = this.router.currentInstruction.queryParams.city;
+    if (cityParam !== null) {
+      this.selectedCityID = parseInt(cityParam);
+    }
+
+    //this.selectedGenreIDs = [1,2,5];
+
     this.fetchBooksFromAPI();
     this.fetchCitiesFromAPI();
     this.fetchGenresFromAPI();
@@ -33,17 +48,56 @@ export class Books {
   }
 
   ifJSONAttributeIsNull(text) {
-    if (text === "null") return false;
+    if (text === null) return false;
     return true;
   }
 
   convertUnixTimeStamp(unixTimeStamp) {
-    var date = new Date(unixTimeStamp * 1000);
+    var date = new Date(unixTimeStamp);
     return date.toDateString();
   }
 
+  dropdownCityIDChanged(changedCityID) {
+    console.log(changedCityID);
+    this.correctURLaccordingToFilters();
+  }
+
+  convertArrayToDottedView(arrayToConvert) {
+    console.log(JSON.stringify(arrayToConvert));
+    var string = "";
+    var item;
+    for (item in arrayToConvert) {
+      string += arrayToConvert[item] + ".";
+    }
+    return string;
+  }
+
+  correctURLaccordingToFilters() {
+    this.router.navigateToRoute(
+      this.router.currentInstruction.config.name,
+      { city: this.selectedCityID ,
+        genre: this.convertArrayToDottedView(this.selectedGenreIDs)},
+      { trigger: false, replace: true }
+    );
+  }
+
+  checkboxGenreIDChanged() {
+    console.log(JSON.stringify(this.selectedGenreIDs));
+    this.correctURLaccordingToFilters();
+
+  }
+
+  checkboxConditionIDChanged() {
+    console.log(JSON.stringify(this.selectedConditionIDs));
+
+  }
+
+  dropdownLanguageIDChanged(changedLanguageID) {
+    console.log(changedLanguageID);
+  }
+
   fetchBooksFromAPI() {
-    httpClient.fetch('http://51.15.219.149:8080/api/books/getall')
+    httpClient.fetch('http://51.15.219.149:8081/api/books/getall')
       .then(response => response.json())
       .then(data => {
         this.books = data;

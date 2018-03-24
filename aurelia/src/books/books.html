@@ -7,55 +7,61 @@
       </div>
 
       <div class="right aligned eight wide column">
-          <div class="ui dropdown">
-              <form class="ui form" method="post">
-                  <h4 class="ui header">
-                      <i class="filter icon"></i>
-                      <div class="content">
-                        Sort by
-                        <div class="ui inline dropdown">
-                        <div class="text">pubyear</div>
-                        <i class="dropdown icon"></i>
-                        <div class="menu">
-                          <div class="active item" data-text="pubyear">pubyear</div>
-                          <div class="item" data-text="price">price</div>
-                        </div>
-                        </div>
-                      </div>
-                  </h4>
-              </form>
-          </div>
+        <div class="ui dropdown">
+          
+          <form class="ui form" method="post">
+            <h4 class="ui header">
+
+              <i class="filter icon"></i>
+              <div class="content">
+                Sort by
+                <div class="ui inline dropdown">
+                  <div class="text">pubyear</div>
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                    <div class="active item" data-text="pubyear">pubyear</div>
+                    <div class="item" data-text="price">price</div>
+                  </div>
+                </div>
+              </div>
+
+            </h4>
+          </form>
+        </div>
       </div>
 
       <div class="three wide column">
         <div class="ui fluid vertical accordion menu">
           <div class="item">
-              <a class="active title">
-                <i class="dropdown icon"></i><b>Your city</b>
-              </a>
-  
-              <div class="active content">
-                <form class="ui form" method="post">
-                    <select class="ui fluid search dropdown">
-                      <option model.bind="null" value="">All cities</option>
-                      <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
-                    </select>
-                </form>
-              </div>
-  
-          </div>
-
-          <div class="item">
             <a class="active title">
-              <i class="dropdown icon"></i><b>Genres</b>
+              <i class="dropdown icon"></i>
+              <b>Your city</b>
             </a>
 
             <div class="active content">
               <form class="ui form" method="post">
+                <select class="ui fluid search dropdown" value.bind="selectedCityID" change.delegate="dropdownCityIDChanged(selectedCityID)">
+                  <option model.bind="0" selected>All cities</option>
+                  <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
+                </select>
+              </form>
+            </div>
+
+          </div>
+
+          <div class="item">
+            <a class="active title">
+              <i class="dropdown icon"></i>
+              <b>Genres</b>
+            </a>
+
+            <div class="active content">
+              <form class="ui form" method="post" change.delegate="checkboxGenreIDChanged()">
                 <div class="grouped fields">
-                  <div class="field" repeat.for="genre of genres" model.bind="genre.id">
+                  <div class="field" repeat.for="genre of genres">
+
                     <div class="ui checkbox">
-                      <input type="checkbox" name="small" id="${genre.string}">
+                      <input type="checkbox" name="small" model.bind="genre.id" checked.bind="selectedGenreIDs">
                       <label for="${genre.string}">${genre.string}</label>
                     </div>
                   </div>
@@ -66,15 +72,16 @@
 
           <div class="item">
             <a class="active title">
-              <i class="dropdown icon"></i><b>Book condition</b>
+              <i class="dropdown icon"></i>
+              <b>Book condition</b>
             </a>
 
             <div class="active content">
-              <form class="ui form" method="post">
+              <form class="ui form" method="post" change.delegate="checkboxConditionIDChanged()">
                 <div class="grouped fields">
-                  <div class="field" repeat.for="condition of conditions" model.bind="condition.id">
+                  <div class="field" repeat.for="condition of conditions">
                     <div class="ui checkbox">
-                      <input type="checkbox" name="small" id="${condition.string}">
+                      <input type="checkbox" name="small"  model.bind="condition.id" checked.bind="selectedConditionIDs">
                       <label for="${condition.string}">${condition.string}</label>
                     </div>
                   </div>
@@ -85,47 +92,58 @@
 
           <div class="item">
             <a class="active title">
-              <i class="dropdown icon"></i><b>Language</b>
+              <i class="dropdown icon"></i>
+              <b>Language</b>
             </a>
 
             <div class="active content">
               <form class="ui form" method="post">
-                  <select class="ui fluid search dropdown">
-                    <option model.bind="null" value="">All languages</option>
-                    <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
-                  </select>
+                <select class="ui fluid search dropdown" value.bind="selectedLanguageID" change.delegate="dropdownLanguageIDChanged(selectedLanguageID)">
+                  <option model.bind="0" selected>All languages</option>
+                  <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
+                </select>
               </form>
             </div>
-        </div>
+          </div>
 
         </div>
       </div>
 
       <div class="thirteen wide column">
         <div class="ui list">
-  
+
           <div class="item horizontal-line" repeat.for="books of books.books">
             <div class="ui segment">
               <div class="ui grid book-listing-hover">
-              
+
                 <div class="four wide center aligned column">
-                  <a href="#" click.delegate="navigateToBookById(books.id)"><img src='${books.imagepath}' class="image horizontal-line"></a>
+                  <a href="#" click.delegate="navigateToBookById(books.id)">
+                    <img src='${books.imagepath}' class="image horizontal-line">
+                  </a>
                 </div>
-        
+
                 <div class="eight wide column">
                   <div class="content">
-                    <a href="#" click.delegate="navigateToBookById(books.id)"><h1 class="title horizontal-line">${books.title}</h1></a>
+                    <a href="#" click.delegate="navigateToBookById(books.id)">
+                      <h1 class="title horizontal-line">${books.title}</h1>
+                    </a>
                     <div if.bind="ifJSONAttributeIsNull(books.author)">
                       <h2 class="author horizontal-line">by ${books.author}</h2>
                     </div>
                     <p class="description horizontal-line"></p>
                     <div if.bind="ifJSONAttributeIsNull(books.author)">
-                      <div class="condition horizontal-line"><span>${books.conditiondesc}</span><span>${books.condition}</span></div>
+                      <div class="condition horizontal-line">
+                        <span>${books.conditiondesc}</span>
+                        <span>${books.condition}</span>
+                      </div>
                     </div>
-                    <div class="price horizontal-line"><span>${books.price}</span><span>  €</span></div>
+                    <div class="price horizontal-line">
+                      <span>${books.price}</span>
+                      <span> €</span>
+                    </div>
                   </div>
                 </div>
-        
+
                 <div class="right aligned four wide column">
                   <div class="content seller horizontal-line">
                     <div class="title">Seller: </div>
@@ -136,11 +154,11 @@
                     <div class="date">${convertUnixTimeStamp(books.postdate)}</div>
                   </div>
                 </div>
-                    
+
               </div>
             </div>
           </div>
-  
+
         </div>
       </div>
 

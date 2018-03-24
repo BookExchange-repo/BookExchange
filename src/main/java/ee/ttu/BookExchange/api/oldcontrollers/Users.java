@@ -164,11 +164,6 @@ public class Users {
                 }
 
                 if (jsonErrors.size() == 0) {
-                    System.out.println("INSERT INTO users (" +
-                            sql.escapeString("username", "email", "full_name", "pass_hash", "pass_salt") +
-                            ") VALUES (" +
-                            sql.escapeString(
-                                    true, userName, email, fullName, passHash, passSalt) + ");");
                     sql.executeQuery("INSERT INTO users (" +
                             sql.escapeString("username", "email", "full_name", "pass_hash", "pass_salt") +
                             ") VALUES (" +
@@ -221,7 +216,7 @@ public class Users {
                 throw new RuntimeException();
         } catch (Exception e) {
             jsonObject.clear();
-            jsonErrors.add("CANNOT_USERS_LOGIN " + e.getMessage());
+            jsonErrors.add("CANNOT_USERS_LOGIN");
         }
 
         jsonObject.put("errors", jsonErrors);

@@ -33,7 +33,7 @@ export class Books {
 
     //this.selectedGenreIDs = [1,2,5];
 
-    this.fetchBooksFromAPI();
+    this.fetchBooksFromAPI('http://51.15.219.149:8081/api/books/getall');
     this.fetchCitiesFromAPI();
     this.fetchGenresFromAPI();
     this.fetchConditionsFromAPI();
@@ -47,8 +47,16 @@ export class Books {
     });
   }
 
+  sortByPriceAsc() {
+    this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=price');
+  }
+
+  sortByPriceDesc() {
+    this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=price&sortdesc=true');
+  }
+
   sortByDateAdded() {
-    console.log("sortByDateAdded");
+    this.fetchBooksFromAPI('http://51.15.219.149:8081/api/books/getall?sort=postdate&sortdesc=true');
   }
 
   ifJSONAttributeIsNull(text) {
@@ -100,8 +108,8 @@ export class Books {
     console.log(changedLanguageID);
   }
 
-  fetchBooksFromAPI() {
-    httpClient.fetch('http://51.15.219.149:8081/api/books/getall')
+  fetchBooksFromAPI(url) {
+    httpClient.fetch(url)
       .then(response => response.json())
       .then(data => {
         this.books = data;

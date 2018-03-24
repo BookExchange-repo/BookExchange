@@ -8,9 +8,10 @@ import ee.ttu.BookExchange.api.services.LanguageService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.locks.Condition;
 
 @RestController
+@CrossOrigin(origins = "*")
+@RequestMapping(produces = "application/json")
 public class ClassifierController {
     private CityService cityService;
     private ConditionService conditionService;

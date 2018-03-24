@@ -18,6 +18,7 @@ import java.util.*;
 public class Users {
     private static final String RAND_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
     private static final int SESS_KEY_LENGTH = 64;
+    private static final int PASS_SALT_LENGTH = 10;
     private static HashMap<Integer, String> allSessions = new HashMap<>();
 
     static Optional<Integer> getUserIdBySession(String session) {
@@ -92,11 +93,11 @@ public class Users {
     }
 
     @RequestMapping(value = "getinfo", method = RequestMethod.GET)
-    public String getUserInfo(@CookieValue(value = "session", defaultValue = "") String cookie) {
+    public String getUserInfo(@RequestParam(value = "session") String session) {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonErrors = new JSONArray();
         try {
-            Optional<Integer> found = getUserIdBySession(cookie);
+            Optional<Integer> found = getUserIdBySession(session);
             if (!found.isPresent())
                 throw new RuntimeException();
             else {
@@ -125,8 +126,7 @@ public class Users {
     public String createUser(@RequestParam(value = "user") String userName,
                              @RequestParam(value = "fullname") String fullName,
                              @RequestParam(value = "email") String email,
-                             @RequestParam(value = "hash") String passHash,
-                             @RequestParam(value = "salt") String passSalt)
+                             @RequestParam(value = "pass") String passWord)
     {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonErrors = new JSONArray();
@@ -139,10 +139,16 @@ public class Users {
                 jsonErrors.add("FAIL_LENGTH_FULLNAME");
             if (email.isEmpty() || sql.escapeString(email).length() > 62)
                 jsonErrors.add("FAIL_LENGTH_EMAIL");
-            if (passHash.isEmpty() || sql.escapeString(passHash).length() != 64)
-                jsonErrors.add("FAIL_LENGTH_PASSHASH");
-            if (passSalt.isEmpty() || sql.escapeString(passSalt).length() != 10)
-                jsonErrors.add("FAIL_LENGTH_PASSSALT");
+            //if (passHash.isEmpty() || sql.escapeString(passHash).length() != 64)
+            //    jsonErrors.add("FAIL_LENGTH_PASSHASH");
+            //if (passSalt.isEmpty() || sql.escapeString(passSalt).length() != 10)
+            //    jsonErrors.add("FAIL_LENGTH_PASSSALT");
+            String passSalt = "";
+            Random random = new SecureRandom();
+            for (int i = 0; i < PASS_SALT_LENGTH; i++) {
+                passSalt += RAND_CHARS.charAt(random.nextInt(RAND_CHARS.length()));
+            }
+            String passHash = Checksum.calculateSHA256(passSalt, passWord);
 
             if (jsonErrors.size() == 0) {
                 sql.executeQuery("use " + Application.databaseName + ";");
@@ -158,6 +164,11 @@ public class Users {
                 }
 
                 if (jsonErrors.size() == 0) {
+                    System.out.println("INSERT INTO users (" +
+                            sql.escapeString("username", "email", "full_name", "pass_hash", "pass_salt") +
+                            ") VALUES (" +
+                            sql.escapeString(
+                                    true, userName, email, fullName, passHash, passSalt) + ");");
                     sql.executeQuery("INSERT INTO users (" +
                             sql.escapeString("username", "email", "full_name", "pass_hash", "pass_salt") +
                             ") VALUES (" +
@@ -205,12 +216,12 @@ public class Users {
                     allSessions.put(userId, sessionKey);
                 }
                 jsonObject.put("session", sessionKey);
-                response.addCookie(new Cookie("session", sessionKey));
+                //response.addCookie(new Cookie("session", sessionKey));
             } else
                 throw new RuntimeException();
         } catch (Exception e) {
             jsonObject.clear();
-            jsonErrors.add("CANNOT_USERS_LOGIN");
+            jsonErrors.add("CANNOT_USERS_LOGIN " + e.getMessage());
         }
 
         jsonObject.put("errors", jsonErrors);
@@ -218,11 +229,11 @@ public class Users {
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public String logoutUser(@CookieValue(value = "session", defaultValue = "") String cookie) {
+    public String logoutUser(@RequestParam(value = "session") String session) {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonErrors = new JSONArray();
         try {
-            getUserIdBySession(cookie).ifPresent(i -> allSessions.remove(i));
+            getUserIdBySession(session).ifPresent(i -> allSessions.remove(i));
         } catch (Exception e) {
             jsonObject.clear();
             jsonErrors.add("CANNOT_USERS_LOGOUT");

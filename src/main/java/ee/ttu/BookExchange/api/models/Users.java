@@ -28,7 +28,6 @@ public class Users {
     @Size(max = 128)
     String full_name;
 
-    @Column(nullable = false)
     @Size(max = 128)
     String city;
 

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:9000")
-@RequestMapping(value = "/api/books", produces = "application/json")
+@RequestMapping(value = "/oldapi/books", produces = "application/json")
 public class Books {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String addBook(@CookieValue(value = "session", defaultValue = "") String cookie,

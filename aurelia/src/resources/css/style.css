@@ -154,6 +154,12 @@ html {
   margin-bottom: 1em;
 }
 
+.ui.fluid.container.all-books {
+  margin-bottom: 3em;
+  margin-top: 6.5em;
+  width: 70%;
+}
+
 .ui.grid.main {
   margin-bottom: 3em;
   margin-top: 6.5em;

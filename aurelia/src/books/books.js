@@ -9,6 +9,9 @@ export class Books {
 
   constructor(router) {
     this.cities = null;
+    this.genres = null;
+    this.conditions = null;
+    this.languages = null;
     this.books = null;
     this.router = router;
     this.numberOfBooks;
@@ -17,6 +20,16 @@ export class Books {
   attached() {
     this.fetchBooksFromAPI();
     this.fetchCitiesFromAPI();
+    this.fetchGenresFromAPI();
+    this.fetchConditionsFromAPI();
+    this.fetchLanguagesFromAPI();
+
+    $('.ui.dropdown').dropdown();
+
+    $('.ui.accordion')
+    .accordion({
+      exclusive: false
+    });
   }
 
   ifJSONAttributeIsNull(text) {
@@ -43,6 +56,30 @@ export class Books {
       .then(response => response.json())
       .then(data => {
         this.cities = data;
+      });
+  }
+
+  fetchGenresFromAPI() {
+    httpClient.fetch('http://bookmarket.online:8081/api/genres/getall0')
+      .then(response => response.json())
+      .then(data => {
+        this.genres = data;
+      });
+  }
+
+  fetchConditionsFromAPI() {
+    httpClient.fetch('http://bookmarket.online:8081/api/conditions/getall0')
+      .then(response => response.json())
+      .then(data => {
+        this.conditions = data;
+      });
+  }
+
+  fetchLanguagesFromAPI() {
+    httpClient.fetch('http://bookmarket.online:8081/api/languages/getall0')
+      .then(response => response.json())
+      .then(data => {
+        this.languages = data;
       });
   }
 

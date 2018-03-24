@@ -1,57 +1,151 @@
 <template>
 
-  <div class="ui main grid container">
-    <h1>All Books (${numberOfBooks})</h1>
+  <div class="ui fluid container all-books">
+    <div class="ui grid">
+      <div class="eight wide column">
+        <h1>All Books (${numberOfBooks})</h1>
+      </div>
 
-    City:
-    <select value.bind="selectedCity">
-      <option bind="null" value="">All cities</option>
-      <option repeat.for="city of cities" bind="city.id">${city.string}</option>
-    </select>
+      <div class="right aligned eight wide column">
+          <div class="ui dropdown">
+              <form class="ui form" method="post">
+                  <h4 class="ui header">
+                      <i class="filter icon"></i>
+                      <div class="content">
+                        Sort by
+                        <div class="ui inline dropdown">
+                        <div class="text">pubyear</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                          <div class="active item" data-text="pubyear">pubyear</div>
+                          <div class="item" data-text="price">price</div>
+                        </div>
+                        </div>
+                      </div>
+                  </h4>
+              </form>
+          </div>
+      </div>
 
-
-    <div class="sixteen wide column">
-      <div class="ui list">
-
-        <div class="item horizontal-line" repeat.for="books of books.books">
-          <div class="ui segment">
-            <div class="ui grid book-listing-hover">
-            
-              <div class="four wide center aligned column">
-                <a href="#" click.delegate="navigateToBookById(books.id)"><img src='${books.imagepath}' class="image horizontal-line"></a>
+      <div class="three wide column">
+        <div class="ui fluid vertical accordion menu">
+          <div class="item">
+              <a class="active title">
+                <i class="dropdown icon"></i><b>Your city</b>
+              </a>
+  
+              <div class="active content">
+                <form class="ui form" method="post">
+                    <select class="ui fluid search dropdown">
+                      <option model.bind="null" value="">All cities</option>
+                      <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
+                    </select>
+                </form>
               </div>
-      
-              <div class="eight wide column">
-                <div class="content">
-                  <a href="#" click.delegate="navigateToBookById(books.id)"><h1 class="title horizontal-line">${books.title}</h1></a>
-                  <div if.bind="ifJSONAttributeIsNull(books.author)">
-                    <h2 class="author horizontal-line">by ${books.author}</h2>
+  
+          </div>
+
+          <div class="item">
+            <a class="active title">
+              <i class="dropdown icon"></i><b>Genres</b>
+            </a>
+
+            <div class="active content">
+              <form class="ui form" method="post">
+                <div class="grouped fields">
+                  <div class="field" repeat.for="genre of genres" model.bind="genre.id">
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="small" id="${genre.string}">
+                      <label for="${genre.string}">${genre.string}</label>
+                    </div>
                   </div>
-                  <p class="description horizontal-line"></p>
-                  <div if.bind="ifJSONAttributeIsNull(books.author)">
-                    <div class="condition horizontal-line"><span>${books.conditiondesc}</span><span>${books.condition}</span></div>
-                  </div>
-                  <div class="price horizontal-line"><span>${books.price}</span><span>  €</span></div>
                 </div>
-              </div>
-      
-              <div class="right aligned four wide column">
-                <div class="content seller horizontal-line">
-                  <div class="title">Seller: </div>
-                  <div class="name">${books.userid}</div>
-                  <div if.bind="ifJSONAttributeIsNull(books.author)">
-                    <div class="place">${books.city}</div>
-                  </div>
-                  <div class="date">${convertUnixTimeStamp(books.postdate)}</div>
-                </div>
-              </div>
-                  
+              </form>
             </div>
           </div>
+
+          <div class="item">
+            <a class="active title">
+              <i class="dropdown icon"></i><b>Book condition</b>
+            </a>
+
+            <div class="active content">
+              <form class="ui form" method="post">
+                <div class="grouped fields">
+                  <div class="field" repeat.for="condition of conditions" model.bind="condition.id">
+                    <div class="ui checkbox">
+                      <input type="checkbox" name="small" id="${condition.string}">
+                      <label for="${condition.string}">${condition.string}</label>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="item">
+            <a class="active title">
+              <i class="dropdown icon"></i><b>Language</b>
+            </a>
+
+            <div class="active content">
+              <form class="ui form" method="post">
+                  <select class="ui fluid search dropdown">
+                    <option model.bind="null" value="">All languages</option>
+                    <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
+                  </select>
+              </form>
+            </div>
         </div>
 
+        </div>
       </div>
+
+      <div class="thirteen wide column">
+        <div class="ui list">
+  
+          <div class="item horizontal-line" repeat.for="books of books.books">
+            <div class="ui segment">
+              <div class="ui grid book-listing-hover">
+              
+                <div class="four wide center aligned column">
+                  <a href="#" click.delegate="navigateToBookById(books.id)"><img src='${books.imagepath}' class="image horizontal-line"></a>
+                </div>
+        
+                <div class="eight wide column">
+                  <div class="content">
+                    <a href="#" click.delegate="navigateToBookById(books.id)"><h1 class="title horizontal-line">${books.title}</h1></a>
+                    <div if.bind="ifJSONAttributeIsNull(books.author)">
+                      <h2 class="author horizontal-line">by ${books.author}</h2>
+                    </div>
+                    <p class="description horizontal-line"></p>
+                    <div if.bind="ifJSONAttributeIsNull(books.author)">
+                      <div class="condition horizontal-line"><span>${books.conditiondesc}</span><span>${books.condition}</span></div>
+                    </div>
+                    <div class="price horizontal-line"><span>${books.price}</span><span>  €</span></div>
+                  </div>
+                </div>
+        
+                <div class="right aligned four wide column">
+                  <div class="content seller horizontal-line">
+                    <div class="title">Seller: </div>
+                    <div class="name">${books.userid}</div>
+                    <div if.bind="ifJSONAttributeIsNull(books.author)">
+                      <div class="place">${books.city}</div>
+                    </div>
+                    <div class="date">${convertUnixTimeStamp(books.postdate)}</div>
+                  </div>
+                </div>
+                    
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+
     </div>
+
   </div>
 
 </template>

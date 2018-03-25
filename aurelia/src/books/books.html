@@ -9,9 +9,12 @@
 
 
       <div class="right aligned eight wide column">
-            
-        <div class="ui dropdown">
-          
+
+        <select class="ui dropdown" value.bind="selectedSortID" change.delegate="dropdownSortIDChanged(selectedSortID)">
+          <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
+        </select>
+
+        <!-- <div class="ui dropdown">
           <form class="ui form" method="post">
             <h4 class="ui header">
 
@@ -31,7 +34,8 @@
 
             </h4>
           </form>
-        </div>
+        </div> -->
+
       </div>
 
       <div class="three wide column">
@@ -85,7 +89,7 @@
                 <div class="grouped fields">
                   <div class="field" repeat.for="condition of conditions">
                     <div class="ui checkbox">
-                      <input type="checkbox" name="small"  model.bind="condition.id" checked.bind="selectedConditionIDs">
+                      <input type="checkbox" name="small" model.bind="condition.id" checked.bind="selectedConditionIDs">
                       <label for="${condition.string}">${condition.string}</label>
                     </div>
                   </div>

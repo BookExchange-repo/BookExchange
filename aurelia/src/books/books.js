@@ -11,6 +11,12 @@ export class Books {
   selectedGenreIDs = [];
   selectedConditionIDs = [];
   selectedLanguageID;
+  selectedSortID;
+  sortIDs = [
+    { id: 1, string: 'Sort by date added' },
+    { id: 2, string: 'Sort by price (ascending)' },
+    { id: 3, string: 'Sort by price (descending)' },
+  ];
 
   constructor(router) {
     this.cities = null;
@@ -25,7 +31,7 @@ export class Books {
 
   attached() {
     // console.log(this.router.currentInstruction.queryParams);
-    // console.log(this.router.currentInstruction.queryParams.city);
+    console.log(this.router.currentInstruction.queryParams.city);
     // let cityParam = this.router.currentInstruction.queryParams.city;
     // if (cityParam !== null) {
     //   this.selectedCityID = parseInt(cityParam);
@@ -47,18 +53,6 @@ export class Books {
     });
   }
 
-  sortByPriceAsc() {
-    this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=price');
-  }
-
-  sortByPriceDesc() {
-    this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=price&sortdesc=true');
-  }
-
-  sortByDateAdded() {
-    this.fetchBooksFromAPI('http://51.15.219.149:8081/api/books/getall?sort=postdate&sortdesc=true');
-  }
-
   ifJSONAttributeIsNull(text) {
     if (text === null) return false;
     return true;
@@ -67,6 +61,21 @@ export class Books {
   convertUnixTimeStamp(unixTimeStamp) {
     var date = new Date(unixTimeStamp);
     return date.toDateString();
+  }
+
+  dropdownSortIDChanged(changedSortID) {
+    console.log(changedSortID);
+    switch (changedSortID) {
+      case 1:
+          this.fetchBooksFromAPI('http://51.15.219.149:8081/api/books/getall?sort=postdate&sortdesc=true');
+          break;
+      case 2:
+      this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=price');
+          break;
+      case 3:
+          this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=price&sortdesc=true');
+          break;
+  }
   }
 
   dropdownCityIDChanged(changedCityID) {

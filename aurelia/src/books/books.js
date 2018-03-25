@@ -32,17 +32,24 @@ export class Books {
     ];
 
     let sortParamFromURL = this.router.currentInstruction.queryParams.sort;
-    if (sortParamFromURL !== null && !isNaN(sortParamFromURL)) {
-      this.selectedSortID = parseInt(sortParamFromURL);
-    } else {
-      this.selectedSortID = 0;
-    }
-    
-    console.log("FROM URL " + this.selectedSortID + " " + typeof this.selectedSortID);
+    (sortParamFromURL !== null && !isNaN(sortParamFromURL)) ? this.selectedSortID = parseInt(sortParamFromURL) : this.selectedSortID = 0;
 
     let cityParamFromURL = this.router.currentInstruction.queryParams.city;
     if (cityParamFromURL !== null && !isNaN(cityParamFromURL)) this.selectedCityID = parseInt(cityParamFromURL);
     
+    let genreParamFromURL = this.router.currentInstruction.queryParams.genre;
+    if (genreParamFromURL !== null && genreParamFromURL !== "" && !isNaN(genreParamFromURL)) {
+      this.selectedGenreIDs = String(genreParamFromURL).split('.').map(Number);
+    }
+
+    let conditionParamFromURL = this.router.currentInstruction.queryParams.condition;
+    if (conditionParamFromURL !== null && conditionParamFromURL !== "" && !isNaN(conditionParamFromURL)) {
+      this.selectedConditionIDs = String(conditionParamFromURL).split('.').map(Number);
+    }
+
+    let languageParamFromURL = this.router.currentInstruction.queryParams.language;
+    if (languageParamFromURL !== null && !isNaN(languageParamFromURL)) this.selectedLanguageID = parseInt(languageParamFromURL);
+
 
     this.fetchCitiesFromAPI();
     this.fetchGenresFromAPI();
@@ -68,11 +75,7 @@ export class Books {
     return date.toDateString();
   }
 
-  dropdownSortIDChangedAndCorrectURL() {
-    console.log("changedSortID " + this.selectedSortID);
-    this.refreshOutput();
-    this.correctURLaccordingToFilters();
-  }
+
 
   refreshOutput() {
     switch (this.selectedSortID) {
@@ -91,17 +94,14 @@ export class Books {
     }
   }
 
-  dropdownCityIDChanged(changedCityID) {
-    console.log(changedCityID);
-    this.correctURLaccordingToFilters();
-  }
-
   convertArrayToDottedView(arrayToConvert) {
-    console.log(JSON.stringify(arrayToConvert));
+    //console.log(JSON.stringify(arrayToConvert));
     var string = "";
     var item;
-    for (item in arrayToConvert) {
-      string += arrayToConvert[item] + ".";
+    if (arrayToConvert.length >= 1) string = arrayToConvert[0];
+    for (let i = 0; i < arrayToConvert.length - 1; i++) {
+      //console.log(item + " " + typeof item)
+      string +=  "." + arrayToConvert[i+1];
     }
     return string;
   }
@@ -111,26 +111,20 @@ export class Books {
       this.router.currentInstruction.config.name,
       { sort: this.selectedSortID,
         city: this.selectedCityID,
-        genre: this.selectedGenreIDs ,
-        condition: this.selectedConditionIDs ,
+        genre: this.convertArrayToDottedView(this.selectedGenreIDs),
+        condition: this.convertArrayToDottedView(this.selectedConditionIDs),
         language: this.selectedLanguageID
       },
       { trigger: false, replace: true }
     );
   }
 
-  checkboxGenreIDChanged() {
-    console.log(JSON.stringify(this.selectedGenreIDs));
+  dropdownSortIDChangedAndCorrectURL() {
+    this.refreshOutput();
     this.correctURLaccordingToFilters();
   }
 
-  checkboxConditionIDChanged() {
-    console.log(JSON.stringify(this.selectedConditionIDs));
-    this.correctURLaccordingToFilters();
-  }
-
-  dropdownLanguageIDChanged(changedLanguageID) {
-    console.log(changedLanguageID);
+  filterDataChanged() {
     this.correctURLaccordingToFilters();
   }
 

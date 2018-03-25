@@ -10,7 +10,7 @@
 
       <div class="right aligned eight wide column">
 
-        <select class="ui dropdown" value.two-way="selectedSortID" change.delegate="dropdownSortIDChangedAndCorrectURL()">
+        <select class="ui dropdown" value.bind="selectedSortID" change.delegate="dropdownSortIDChangedAndCorrectURL()">
           <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
         </select>
 
@@ -48,7 +48,7 @@
 
             <div class="active content">
               <form class="ui form" method="post">
-                <select class="ui fluid search dropdown" value.bind="selectedCityID" change.delegate="dropdownCityIDChanged(selectedCityID)">
+                <select class="ui fluid search dropdown" value.bind="selectedCityID" change.delegate="filterDataChanged()">
                   <option model.bind="0" selected>All cities</option>
                   <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
                 </select>
@@ -64,12 +64,12 @@
             </a>
 
             <div class="active content">
-              <form class="ui form" method="post" change.delegate="checkboxGenreIDChanged()">
+              <form class="ui form" method="post" change.delegate="filterDataChanged()">
                 <div class="grouped fields">
                   <div class="field" repeat.for="genre of genres">
 
                     <div class="ui checkbox">
-                      <input type="checkbox" name="small" model.bind="genre.id" checked.bind="selectedGenreIDs">
+                      <input type="checkbox" name="small" model.bind="genre.id" id="${genre.string}" checked.bind="selectedGenreIDs">
                       <label for="${genre.string}">${genre.string}</label>
                     </div>
                   </div>
@@ -85,11 +85,11 @@
             </a>
 
             <div class="active content">
-              <form class="ui form" method="post" change.delegate="checkboxConditionIDChanged()">
+              <form class="ui form" method="post" change.delegate="filterDataChanged()">
                 <div class="grouped fields">
                   <div class="field" repeat.for="condition of conditions">
                     <div class="ui checkbox">
-                      <input type="checkbox" name="small" model.bind="condition.id" checked.bind="selectedConditionIDs">
+                      <input type="checkbox" name="small" model.bind="condition.id" id="${condition.string}" checked.bind="selectedConditionIDs">
                       <label for="${condition.string}">${condition.string}</label>
                     </div>
                   </div>
@@ -106,7 +106,7 @@
 
             <div class="active content">
               <form class="ui form" method="post">
-                <select class="ui fluid search dropdown" value.bind="selectedLanguageID" change.delegate="dropdownLanguageIDChanged(selectedLanguageID)">
+                <select class="ui fluid search dropdown" value.bind="selectedLanguageID" change.delegate="filterDataChanged()">
                   <option model.bind="0" selected>All languages</option>
                   <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
                 </select>

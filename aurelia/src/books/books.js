@@ -31,6 +31,13 @@ export class Books {
       { id: 3, string: 'Sort by price (descending)' },
     ];
 
+    
+    this.fetchCitiesFromAPI();
+    this.fetchGenresFromAPI();
+    this.fetchConditionsFromAPI();
+    this.fetchLanguagesFromAPI();
+
+
     let sortParamFromURL = this.router.currentInstruction.queryParams.sort;
     (sortParamFromURL !== null && !isNaN(sortParamFromURL)) ? this.selectedSortID = parseInt(sortParamFromURL) : this.selectedSortID = 0;
 
@@ -38,12 +45,12 @@ export class Books {
     if (cityParamFromURL !== null && !isNaN(cityParamFromURL)) this.selectedCityID = parseInt(cityParamFromURL);
     
     let genreParamFromURL = this.router.currentInstruction.queryParams.genre;
-    if (genreParamFromURL !== null && genreParamFromURL !== "" && !isNaN(genreParamFromURL)) {
+    if (genreParamFromURL !== null && genreParamFromURL !== "") {
       this.selectedGenreIDs = String(genreParamFromURL).split('.').map(Number);
     }
 
     let conditionParamFromURL = this.router.currentInstruction.queryParams.condition;
-    if (conditionParamFromURL !== null && conditionParamFromURL !== "" && !isNaN(conditionParamFromURL)) {
+    if (conditionParamFromURL !== null && conditionParamFromURL !== "") {
       this.selectedConditionIDs = String(conditionParamFromURL).split('.').map(Number);
     }
 
@@ -51,10 +58,6 @@ export class Books {
     if (languageParamFromURL !== null && !isNaN(languageParamFromURL)) this.selectedLanguageID = parseInt(languageParamFromURL);
 
 
-    this.fetchCitiesFromAPI();
-    this.fetchGenresFromAPI();
-    this.fetchConditionsFromAPI();
-    this.fetchLanguagesFromAPI();
     this.refreshOutput();
 
     $('.ui.dropdown').dropdown();

@@ -10,7 +10,7 @@
 
       <div class="right aligned eight wide column">
 
-        <select class="ui dropdown" value.bind="selectedSortID" change.delegate="dropdownSortIDChanged(selectedSortID)">
+        <select class="ui dropdown" value.two-way="selectedSortID" change.delegate="dropdownSortIDChangedAndCorrectURL()">
           <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
         </select>
 

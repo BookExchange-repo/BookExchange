@@ -7,16 +7,11 @@ let httpClient = new HttpClient();
 @inject(Router)
 export class Books {
 
+  sortIDs = [];
   selectedCityID;
   selectedGenreIDs = [];
   selectedConditionIDs = [];
   selectedLanguageID;
-  selectedSortID;
-  sortIDs = [
-    { id: 1, string: 'Sort by date added' },
-    { id: 2, string: 'Sort by price (ascending)' },
-    { id: 3, string: 'Sort by price (descending)' },
-  ];
 
   constructor(router) {
     this.cities = null;
@@ -26,24 +21,34 @@ export class Books {
     this.books = null;
     this.router = router;
     this.numberOfBooks;
-
   }
 
   attached() {
-    // console.log(this.router.currentInstruction.queryParams);
-    console.log(this.router.currentInstruction.queryParams.city);
-    // let cityParam = this.router.currentInstruction.queryParams.city;
-    // if (cityParam !== null) {
-    //   this.selectedCityID = parseInt(cityParam);
-    // }
+    this.sortIDs = [
+      { id: 0, string: 'Sort by date added (the oldest first)' },
+      { id: 1, string: 'Sort by date added (the newest first)' },
+      { id: 2, string: 'Sort by price (ascending)' },
+      { id: 3, string: 'Sort by price (descending)' },
+    ];
 
-    //this.selectedGenreIDs = [1,2,5];
+    let sortParamFromURL = this.router.currentInstruction.queryParams.sort;
+    if (sortParamFromURL !== null && !isNaN(sortParamFromURL)) {
+      this.selectedSortID = parseInt(sortParamFromURL);
+    } else {
+      this.selectedSortID = 0;
+    }
+    
+    console.log("FROM URL " + this.selectedSortID + " " + typeof this.selectedSortID);
 
-    this.fetchBooksFromAPI('http://51.15.219.149:8081/api/books/getall');
+    let cityParamFromURL = this.router.currentInstruction.queryParams.city;
+    if (cityParamFromURL !== null && !isNaN(cityParamFromURL)) this.selectedCityID = parseInt(cityParamFromURL);
+    
+
     this.fetchCitiesFromAPI();
     this.fetchGenresFromAPI();
     this.fetchConditionsFromAPI();
     this.fetchLanguagesFromAPI();
+    this.refreshOutput();
 
     $('.ui.dropdown').dropdown();
 
@@ -63,19 +68,27 @@ export class Books {
     return date.toDateString();
   }
 
-  dropdownSortIDChanged(changedSortID) {
-    console.log(changedSortID);
-    switch (changedSortID) {
+  dropdownSortIDChangedAndCorrectURL() {
+    console.log("changedSortID " + this.selectedSortID);
+    this.refreshOutput();
+    this.correctURLaccordingToFilters();
+  }
+
+  refreshOutput() {
+    switch (this.selectedSortID) {
+      case 0:
+          this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall');
+          break;
       case 1:
-          this.fetchBooksFromAPI('http://51.15.219.149:8081/api/books/getall?sort=postdate&sortdesc=true');
+          this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=postdate&sortdesc=true');
           break;
       case 2:
-      this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=price');
+          this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=price');
           break;
       case 3:
           this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=price&sortdesc=true');
           break;
-  }
+    }
   }
 
   dropdownCityIDChanged(changedCityID) {
@@ -96,8 +109,12 @@ export class Books {
   correctURLaccordingToFilters() {
     this.router.navigateToRoute(
       this.router.currentInstruction.config.name,
-      { city: this.selectedCityID ,
-        genre: this.convertArrayToDottedView(this.selectedGenreIDs)},
+      { sort: this.selectedSortID,
+        city: this.selectedCityID,
+        genre: this.selectedGenreIDs ,
+        condition: this.selectedConditionIDs ,
+        language: this.selectedLanguageID
+      },
       { trigger: false, replace: true }
     );
   }
@@ -105,16 +122,16 @@ export class Books {
   checkboxGenreIDChanged() {
     console.log(JSON.stringify(this.selectedGenreIDs));
     this.correctURLaccordingToFilters();
-
   }
 
   checkboxConditionIDChanged() {
     console.log(JSON.stringify(this.selectedConditionIDs));
-
+    this.correctURLaccordingToFilters();
   }
 
   dropdownLanguageIDChanged(changedLanguageID) {
     console.log(changedLanguageID);
+    this.correctURLaccordingToFilters();
   }
 
   fetchBooksFromAPI(url) {

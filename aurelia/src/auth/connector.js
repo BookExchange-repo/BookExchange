@@ -1,12 +1,13 @@
 import {inject} from 'aurelia-framework';
 import {Authorization} from 'auth/authorization';
+import { Router } from 'aurelia-router';
 
-
-@inject(Authorization)
+@inject(Authorization, Router)
 export class Connector {
 
-    constructor(authorization) {
+    constructor(authorization, router) {
         this.authorization = authorization;
+        this.router = router;
         this.loggedInStatusMessage;
         this.loggedIn;
     }
@@ -16,6 +17,7 @@ export class Connector {
             if (data.errors.length === 0) {
                 this.loggedInStatusMessage = "Logged in as " + data.full_name;
                 this.loggedIn = true;
+                this.router.navigateToRoute('myaccount');
             } else {
                 this.loggedInStatusMessage = "Not logged in";
                 this.loggedIn = false;
@@ -33,6 +35,7 @@ export class Connector {
           this.authorization.deleteSession();
           this.loggedIn = false;
           this.ckeckLoginStatus();
+          this.router.navigateToRoute('home');
         });
       }
 

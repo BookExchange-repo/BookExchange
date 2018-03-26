@@ -11,6 +11,9 @@
       </span>
 
       <div if.bind="connector.loggedIn">
+          <a href="#" class="item navbar-text" click.delegate="router.navigateToRoute('myaccount')">My account</a>
+      </div>
+      <div if.bind="connector.loggedIn">
         <a class="item navbar-text">${connector.loggedInStatusMessage}</a>
       </div>
       <div if.bind="connector.loggedIn">

@@ -10,7 +10,6 @@ export class App {
 	  this.authorizestep = authorizestep;
   }
 
-
 	configureRouter(config, router) {
 		this.router = router;
 		config.title = 'BookMarket';
@@ -22,7 +21,7 @@ export class App {
 			{ route: 'sellbook', name: 'addbook', moduleId: 'addbook/addbook', nav: true, title: 'Sell Book', settings: { roles: ['reggeduser'] }},
 			{ route: 'signup', name: 'signup', moduleId: 'signup/signup', nav: false, title: 'Sign Up', settings: { roles: [''] }},
 			{ route: 'login', name: 'login', moduleId: 'login/login', nav: false, title: 'Log In', settings: { roles: [''] }},
-			{ route: 'myaccount', name: 'myaccount', moduleId: 'myaccount/myaccount', nav: true, title: 'My Account', settings: { roles: ['reggeduser'] }},
+			{ route: 'myaccount', name: 'myaccount', moduleId: 'myaccount/myaccount', nav: false, title: 'My Account', settings: { roles: ['reggeduser'] }},
 		]);
 	}
 }

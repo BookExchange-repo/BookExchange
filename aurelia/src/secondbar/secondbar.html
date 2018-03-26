@@ -1,16 +1,19 @@
 <template>
-  <div style="margin-top: 60px;">
-    <b>${connector.loggedInStatusMessage}
+    <div class="ui inverted borderless top fixed menu" id="navbar">
+        <div class="ui container">
+          <div class="item" click.delegate="router.navigateToRoute('home')" style="cursor: pointer;">
+            <img src="src/resources/images/logo_mono.svg">
+          </div>
+          <a class="item navbar-text ${item.isActive ? 'active' : ''}" repeat.for="item of router.navigation" href.bind="item.href">${item.title}</a>
+          <a class="item navbar-text">${connector.loggedInStatusMessage}</a>
+          <span if.bind="!connector.loggedIn">
+              <a href="#" class="item navbar-text" click.delegate="router.navigateToRoute('login')">Login</a>
+            </span>
+      
+            <span if.bind="connector.loggedIn">
+              <a href="#" class="item navbar-text" click.delegate="connector.logout()">Logout</a>
+            </span>
+        </div>
+      </div>
 
-      <span if.bind="!connector.loggedIn">
-        <a href="#" click.delegate="router.navigateToRoute('login')">Login</a>
-      </span>
-
-      <span if.bind="connector.loggedIn">
-        <a href="#" click.delegate="connector.logout()">Logout</a>
-      </span>
-
-    </b>
-
-  </div>
 </template>

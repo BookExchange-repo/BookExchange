@@ -46,12 +46,14 @@ export class Books {
     
     let genreParamFromURL = this.router.currentInstruction.queryParams.genre;
     if (genreParamFromURL !== null && genreParamFromURL !== "") {
-      this.selectedGenreIDs = String(genreParamFromURL).split('.').map(Number);
+      let arrayOfIDs = String(genreParamFromURL).split('.').map(Number);
+      this.selectedGenreIDs = arrayOfIDs.filter(value => !Number.isNaN(value));
     }
 
     let conditionParamFromURL = this.router.currentInstruction.queryParams.condition;
     if (conditionParamFromURL !== null && conditionParamFromURL !== "") {
-      this.selectedConditionIDs = String(conditionParamFromURL).split('.').map(Number);
+      let arrayOfIDs = String(conditionParamFromURL).split('.').map(Number);
+      this.selectedConditionIDs = arrayOfIDs.filter(value => !Number.isNaN(value));
     }
 
     let languageParamFromURL = this.router.currentInstruction.queryParams.language;
@@ -98,12 +100,10 @@ export class Books {
   }
 
   convertArrayToDottedView(arrayToConvert) {
-    //console.log(JSON.stringify(arrayToConvert));
     var string = "";
     var item;
     if (arrayToConvert.length >= 1) string = arrayToConvert[0];
     for (let i = 0; i < arrayToConvert.length - 1; i++) {
-      //console.log(item + " " + typeof item)
       string +=  "." + arrayToConvert[i+1];
     }
     return string;

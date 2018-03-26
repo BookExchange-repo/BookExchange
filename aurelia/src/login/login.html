@@ -1,11 +1,48 @@
 <template>
   <div class="ui main grid fluid container">
     <h1>${helloMessage}</h1>
+    ${loggedInStatusMessage}
 
     <ul>
-    <li><a href="#" click.delegate="login()">Login</a></li>
-    <li><a href="#" click.delegate="status()">Status</a></li>
-    <li><a href="#" click.delegate="logout()">Logout</a></li>
-    </ul>
+      <li>
+        <a href="#" click.delegate="logout()">Logout</a>
+      </li>
+    </ul> 
+
+    <form class="ui form attached fluid segment">
+
+      <div class="field">
+        <label>E-mail</label>
+        <input type="text" value.bind="email">
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input type="password" value.bind="password">
+      </div>
+
+      <button class="ui blue button" click.delegate="loginButton()">Login</button>
+
+    </form>
+
+    <div if.bind="negativeStatusMessagesVisible">
+      <div class="ui error message">
+        <div class="header">
+          There were some errors with your submission
+        </div>
+        <ul class="list">
+          <li repeat.for="statusMessage of statusMessages">${statusMessage}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div if.bind="positiveStatusMessagesVisible">
+      <div class="ui green message">
+        <div class="header">
+            <i class="check icon"></i>
+          You have successfully logged in!
+        </div>
+      </div>
+    </div>
   </div>
 </template>

@@ -1,24 +1,40 @@
 import {inject} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Redirect} from 'aurelia-router';
+import {HttpClient, json} from 'aurelia-fetch-client';
+
+let httpClient = new HttpClient();
 
 @inject(Router)
 export class Authorization {
-    constructor(router) {
-        this.router = router;
-        //this.loggedInStatus = false;
-    }
+  constructor(router) {
+    this.router = router;
+  }
 
-    login(username, password) {
-        if (username === "regged" && password === "user") {
-            this.router.navigate('myaccount');
-            localStorage.setItem("regged", "user");
-            //this.loggedInStatus = true;
-            console.log("Logged in!");
-        }
-    }
+  saveSessionID(sessionID) {
+    localStorage.setItem("session", sessionID);
+  }
 
-    isLoggedIn() { return localStorage.getItem("regged") === "user"; }
+  deleteSession() {
+    localStorage.removeItem("session");
+  }
 
-    logout() { localStorage.removeItem("regged"); console.log("Logged out!");}
+  async loginButtonPressed(email, password) {
+    let response = await fetch('http://bookmarket.online:8081/api/users/login?user=' + email + '&pass=' + password);
+    let data = await response.json();
+    return data;
+  }
+
+  async isLoggedIn() {
+    let response = await fetch('http://bookmarket.online:8081/api/users/getinfo?session=' + localStorage.getItem("session"));
+    let data = await response.json();
+    return data;
+  }
+
+  async logout() {
+    let response = await fetch('http://bookmarket.online:8081/api/users/logout?session=' + localStorage.getItem("session"));
+    let data = await response.json();
+    return data;
+  }
+
 }

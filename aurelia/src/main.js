@@ -1,3 +1,5 @@
+require('node_modules/babel-polyfill/dist/polyfill.js')
+
 import environment from './environment';
 
 export function configure(aurelia) {

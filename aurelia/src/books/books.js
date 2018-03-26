@@ -104,7 +104,7 @@ export class Books {
     var item;
     if (arrayToConvert.length >= 1) string = arrayToConvert[0];
     for (let i = 0; i < arrayToConvert.length - 1; i++) {
-      string +=  "." + arrayToConvert[i+1];
+      string += "." + arrayToConvert[i + 1];
     }
     return string;
   }
@@ -112,7 +112,8 @@ export class Books {
   correctURLaccordingToFilters() {
     this.router.navigateToRoute(
       this.router.currentInstruction.config.name,
-      { sort: this.selectedSortID,
+      {
+        sort: this.selectedSortID,
         city: this.selectedCityID,
         genre: this.convertArrayToDottedView(this.selectedGenreIDs),
         condition: this.convertArrayToDottedView(this.selectedConditionIDs),

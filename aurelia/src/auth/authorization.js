@@ -7,6 +7,7 @@ let httpClient = new HttpClient();
 
 @inject(Router)
 export class Authorization {
+
   constructor(router) {
     this.router = router;
   }

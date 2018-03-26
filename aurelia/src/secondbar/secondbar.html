@@ -1,0 +1,16 @@
+<template>
+  <div style="margin-top: 60px;">
+    <b>${connector.loggedInStatusMessage}
+
+      <span if.bind="!connector.loggedIn">
+        <a href="#" click.delegate="router.navigateToRoute('login')">Login</a>
+      </span>
+
+      <span if.bind="connector.loggedIn">
+        <a href="#" click.delegate="connector.logout()">Logout</a>
+      </span>
+
+    </b>
+
+  </div>
+</template>

@@ -1,5 +1,9 @@
 <template bindable="router">
-  
+  <require from="secondbar/secondbar"></require>
+
+ <secondbar view-model.ref="secondbar"></secondbar>
+
+
   <div class="ui inverted borderless top fixed menu" id="navbar">
     <div class="ui container">
       <div class="item" click.delegate="router.navigateToRoute('home')" style="cursor: pointer;">

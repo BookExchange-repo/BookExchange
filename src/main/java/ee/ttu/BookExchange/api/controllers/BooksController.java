@@ -4,8 +4,8 @@ import ee.ttu.BookExchange.api.models.Books;
 import ee.ttu.BookExchange.api.services.BooksService;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,62 +25,111 @@ public class BooksController {
         return new HashMap<>();
     }
 
+    private String[] parseArrayString(String arrayString) {
+        String[] output = {};
+        if (arrayString.charAt(0) == '[' && arrayString.charAt(arrayString.length() - 1) == ']') {
+            output = arrayString.substring(1, arrayString.length() - 1).split(Pattern.quote(","));
+        } else {
+            output = new String[1];
+            output[0] = arrayString;
+        }
+        return output;
+    }
+
     private String getStringOrEmptyString(String input) {
         return (input == null) ? "" : input;
     }
 
+    @RequestMapping(value = "something", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public String getSomething(@RequestParam Map<String,String> requestParams,
+                               @RequestParam(value = "sort") Optional<String> sortMask,
+                               @RequestParam(value = "sortdesc") Optional<Boolean> isSortDesc)
+    {
+        String output = "";
+        System.out.println("isPresent: " + isSortDesc.isPresent());
+        for (Map.Entry<String, String> entry : requestParams.entrySet()) {
+            System.out.println(entry.getKey());
+            String[] arr = parseArrayString(entry.getValue());
+            System.out.print("[ ");
+            for (String str : arr) {
+                System.out.print(str + ", ");
+            }
+            System.out.println(" ]");
+        }
+
+        output += "<br>" + requestParams.toString();
+        return output;
+    }
+
     @RequestMapping(value = "getall", method = RequestMethod.GET)
     public Map<String, List<Books>> getAllBooks(
-            @RequestParam(value = "filter") Optional<String> filterMask,
-            @RequestParam(value = "filterparam") Optional<String> filterParam,
+            @RequestParam Map<String,String> requestParams,
             @RequestParam(value = "sort") Optional<String> sortMask,
             @RequestParam(value = "sortdesc") Optional<Boolean> isSortDesc)
     {
+        int paramsSize = 0;
+        if (sortMask.isPresent())
+            paramsSize++;
+        if (isSortDesc.isPresent())
+            paramsSize++;
+
         if (!isSortDesc.isPresent())
             isSortDesc = Optional.of(false);
         Map<String, List<Books>> map = new HashMap<>();
         List<Books> allBooks = booksService.getAllBooks();
-        if (filterMask.isPresent() && filterParam.isPresent()) {
-            allBooks = allBooks.stream()
-                    .filter(e -> {
-                        switch (filterMask.get()) {
-                            case "id":
-                                return Integer.toString(e.getId()).equals(filterParam.get());
-                            case "title":
-                                return e.getTitle().equals(filterParam.get());
-                            case "author":
-                                return e.getAuthor() != null && e.getAuthor().equals(filterParam.get());
-                            case "description":
-                                return e.getDescription().equals(filterParam.get());
-                            case "conditiondesc":
-                                return e.getConditiondesc() != null && e.getConditiondesc().equals(filterParam.get());
-                            case "price":
-                                return e.getPrice().toString().equals(filterParam.get());
-                            case "likes":
-                                return Integer.toString(e.getLikes()).equals(filterParam.get());
-                            case "isbn":
-                                return e.getIsbn() != null && e.getIsbn().equals(filterParam.get());
-                            case "imagepath":
-                                return e.getImagepath().equals(filterParam.get());
-                            case "publisher":
-                                return e.getPublisher() != null && e.getPublisher().equals(filterParam.get());
-                            case "pubyear":
-                                return e.getPubyear() != null && e.getPubyear().equals(filterParam.get());
-                            case "language":
-                                return e.getLanguage() != null && e.getLanguage().equals(filterParam.get());
-                            case "postdate":
-                                return e.getPostdate().toString().equals(filterParam.get());
-                            case "userid":
-                                return e.getUserid().equals(filterParam.get());
-                            case "genreid":
-                                return e.getGenreid() != null && e.getGenreid().equals(filterParam.get());
-                            case "city":
-                                return e.getCity() != null && e.getCity().equals(filterParam.get());
-                            default:
-                                return false;
-                        }
-                    })
-                    .collect(Collectors.toList());
+        for (Map.Entry<String, String> entry : requestParams.entrySet()) {
+            String[] valueArray = parseArrayString(entry.getValue());
+            if (entry.getKey().equals("sort") || entry.getKey().equals("sortdesc"))
+                continue;
+
+            List<Books> filteredBooks;
+            if (requestParams.size() == paramsSize)
+                filteredBooks = allBooks;
+            else
+                filteredBooks = new ArrayList<>();
+            for (String value : valueArray) {
+                filteredBooks.addAll(allBooks.stream()
+                        .filter(e -> {
+                            switch (entry.getKey()) {
+                                case "id":
+                                    return Integer.toString(e.getId()).equals(value);
+                                case "title":
+                                    return e.getTitle().equals(value);
+                                case "author":
+                                    return e.getAuthor() != null && e.getAuthor().equals(value);
+                                case "description":
+                                    return e.getDescription().equals(value);
+                                case "conditiondesc":
+                                    return e.getConditiondesc() != null && e.getConditiondesc().equals(value);
+                                case "price":
+                                    return e.getPrice().toString().equals(value);
+                                case "likes":
+                                    return Integer.toString(e.getLikes()).equals(value);
+                                case "isbn":
+                                    return e.getIsbn() != null && e.getIsbn().equals(value);
+                                case "imagepath":
+                                    return e.getImagepath().equals(value);
+                                case "publisher":
+                                    return e.getPublisher() != null && e.getPublisher().equals(value);
+                                case "pubyear":
+                                    return e.getPubyear() != null && e.getPubyear().equals(value);
+                                case "language":
+                                    return e.getLanguage() != null && e.getLanguage().equals(value);
+                                case "postdate":
+                                    return e.getPostdate().toString().equals(value);
+                                case "userid":
+                                    return e.getUserid().equals(value);
+                                case "genreid":
+                                    return e.getGenreid() != null && e.getGenreid().equals(value);
+                                case "city":
+                                    return e.getCity() != null && e.getCity().equals(value);
+                                default:
+                                    return false;
+                            }
+                        })
+                        .collect(Collectors.toList()));
+            }
+            allBooks = filteredBooks;
         }
         if (sortMask.isPresent()) {
             allBooks = allBooks.stream()

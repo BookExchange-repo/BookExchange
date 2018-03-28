@@ -1,6 +1,5 @@
 package ee.ttu.BookExchange.api.controllers;
 
-import ee.ttu.BookExchange.api.models.Books;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -17,7 +15,6 @@ import java.util.stream.Collectors;
 public class ISBNController {
     private String[] splitPublisherString(String pubString) {
         String[] output = {null, null};
-        //System.out.println("pubString: " + pubString);
         String splitted = pubString.substring(
                 pubString.split("(, |\\()[0-9]{4}\\)$")[0].length(), pubString.length() - 1);
         if (splitted.charAt(0) == ',') {
@@ -57,7 +54,8 @@ public class ISBNController {
             elements = document.select("noscript");
             for (Element element : elements) {
                 if (element.toString().contains("<div>")) {
-                    outputMap.put("description", element.select("div").first().html());
+                    outputMap.put("description", element.select("div").first().html() +
+                        "<br><br>" + amazonPage);
                     break;
                 }
             }
@@ -101,7 +99,7 @@ public class ISBNController {
             elements = document.getElementsByClass("a-dynamic-image");
             String imageHtml = elements.first().attr("data-a-dynamic-image");
             String[] imageHtmlArray = imageHtml.split(Pattern.quote("\"http"));
-            imageHtml = "http" + imageHtmlArray[imageHtmlArray.length - 1];
+            imageHtml = "http" + imageHtmlArray[1];
             imageHtml = imageHtml.split(Pattern.quote("\""))[0];
             outputMap.put("imagepath", imageHtml);
         } catch (Exception e) {

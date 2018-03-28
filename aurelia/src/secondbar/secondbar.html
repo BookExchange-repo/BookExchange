@@ -1,5 +1,5 @@
 <template>
-  <div class="ui inverted borderless top fixed menu" id="navbar">
+  <!-- <div class="ui inverted borderless top fixed menu" id="navbar">
     <div class="ui container">
       <div class="item" click.delegate="router.navigateToRoute('home')" style="cursor: pointer;">
         <img src="src/resources/images/logo_mono.svg">
@@ -21,6 +21,45 @@
       </div>
 
 
+    </div>
+  </div> -->
+
+  <div class="ui inverted borderless top fixed menu">
+    <div class="ui container">
+        <div class="item navbar" click.delegate="router.navigateToRoute('home')" style="cursor: pointer;">
+            <img src="src/resources/images/logo_mono.svg">
+        </div>
+        <a class="item navbar text ${item.isActive ? 'active' : ''}" click.delegate="router.navigateToRoute('books')">
+            All Books
+        </a>
+        <a class="item navbar text" click.delegate="router.navigateToRoute('addbook')">
+            Sell Book
+        </a>
+        <div class="right menu">
+          <div class="item navbar">
+            <div class="ui search">
+              <div class="ui inverted left icon input search-navbar">
+                <input class="prompt" placeholder="Search" type="text">
+                <i class="search icon"></i>
+              </div>
+              <div class="results"></div>
+            </div>
+          </div>
+
+          <a class="item navbar text" if.bind="!connector.loggedIn" click.delegate="router.navigateToRoute('login')">
+            Login
+          </a>
+
+          <div class="ui dropdown item navbar text" if.bind="connector.loggedIn">
+            ${connector.loggedInStatusMessage} 
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item" click.delegate="router.navigateToRoute('myaccount')">My account</a>
+              <a class="item" click.delegate="connector.logout()">Logout</a>
+            </div>
+          </div>
+
+        </div>
     </div>
   </div>
 

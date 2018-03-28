@@ -15,7 +15,7 @@ export class Connector {
     ckeckLoginStatus() {
         this.authorization.isLoggedIn().then(data => {
             if (data.errors.length === 0) {
-                this.loggedInStatusMessage = "Logged in as " + data.full_name;
+                this.loggedInStatusMessage = data.full_name;
                 this.loggedIn = true;
                 this.router.navigateToRoute('myaccount');
             } else {

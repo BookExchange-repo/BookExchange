@@ -41,6 +41,26 @@ html {
   background: #118092;
 }
 
+.ui.input.search-navbar>input {
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+  width: 20em;
+}
+
+.ui.menu .item.navbar {
+  padding-top: 0.85em;
+  padding-bottom: 0.85em; 
+}
+
+.ui.menu .item.navbar.text {
+  font-size: 1.4em;
+  text-transform: uppercase;
+}
+
+.ui.menu .ui.dropdown .menu > .active.item {
+  font-weight: normal;
+}
+
 #logo-footer {
   background: url(../images/logo_mono.svg) no-repeat;
   width: auto;
@@ -50,11 +70,6 @@ html {
 .ui.secondary.menu {
   margin-bottom: 1.2em;
   padding: 2em;
-}
-
-.ui.menu .item.navbar-text {
-  font-size: 1.4em;
-  text-transform: uppercase;
 }
 
 .ui.vertical.segment.bd {

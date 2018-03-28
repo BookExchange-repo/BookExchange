@@ -10,5 +10,4 @@ export class Secondbar {
     this.router = router;
     this.connector.ckeckLoginStatus();
   }
-
 }

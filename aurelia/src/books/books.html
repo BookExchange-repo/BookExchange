@@ -13,29 +13,6 @@
         <select class="ui dropdown" value.bind="selectedSortID" change.delegate="dropdownSortIDChangedAndCorrectURL()">
           <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
         </select>
-
-        <!-- <div class="ui dropdown">
-          <form class="ui form" method="post">
-            <h4 class="ui header">
-
-              <i class="filter icon"></i>
-              <div class="content">
-                Sort by
-                <div class="ui inline dropdown">
-                  <div class="text">date added</div>
-                  <i class="dropdown icon"></i>
-                  <div class="menu">
-                    <div class="active item" data-text="date added" click.delegate="sortByDateAdded()">date added</div>
-                    <div class="item" data-text="price (ascending)" click.delegate="sortByPriceAsc()">price (ascending)</div>
-                    <div class="item" data-text="price (descending)" click.delegate="sortByPriceDesc()">price (descending)</div>
-                  </div>
-                </div>
-              </div>
-
-            </h4>
-          </form>
-        </div> -->
-
       </div>
 
       <div class="three wide column">

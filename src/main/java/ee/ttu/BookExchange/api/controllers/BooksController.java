@@ -40,27 +40,6 @@ public class BooksController {
         return (input == null) ? "" : input;
     }
 
-    @RequestMapping(value = "something", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public String getSomething(@RequestParam Map<String,String> requestParams,
-                               @RequestParam(value = "sort") Optional<String> sortMask,
-                               @RequestParam(value = "sortdesc") Optional<Boolean> isSortDesc)
-    {
-        String output = "";
-        System.out.println("isPresent: " + isSortDesc.isPresent());
-        for (Map.Entry<String, String> entry : requestParams.entrySet()) {
-            System.out.println(entry.getKey());
-            String[] arr = parseArrayString(entry.getValue());
-            System.out.print("[ ");
-            for (String str : arr) {
-                System.out.print(str + ", ");
-            }
-            System.out.println(" ]");
-        }
-
-        output += "<br>" + requestParams.toString();
-        return output;
-    }
-
     @RequestMapping(value = "getall", method = RequestMethod.GET)
     public Map<String, List<Books>> getAllBooks(
             @RequestParam Map<String,String> requestParams,

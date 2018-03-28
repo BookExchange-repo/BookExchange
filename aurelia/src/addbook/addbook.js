@@ -88,7 +88,7 @@ export class AddBooks {
 
     if (this.bookData.description == null || this.bookData.description == "") {
       this.statusMessagesVisible = true;
-      this.statusMessages.push("Please enter desription!");
+      this.statusMessages.push("Please enter description!");
     }
 
     if (this.selectedGenre == null) {

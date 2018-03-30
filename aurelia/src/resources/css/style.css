@@ -57,6 +57,10 @@ html {
   text-transform: uppercase;
 }
 
+.noBoldMenuItem {
+  font-weight: normal!important;
+}
+
 .ui.fluid.container.navbar {
   width: 70%;
 }

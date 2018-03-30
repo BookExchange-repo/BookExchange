@@ -179,6 +179,12 @@ html {
   width: 70%;
 }
 
+.ui.fluid.container.new {
+  margin-bottom: 3em;
+  margin-top: 6.5em;
+  width: 70%;
+}
+
 .ui.grid.main {
   margin-bottom: 3em;
   margin-top: 6.5em;
@@ -202,6 +208,11 @@ html {
   padding: 0;
 }
 
+/* .sell-book .button {
+  position: absolute;
+  bottom: 0;
+} */
+
 .ui.segment.sell-book {
   padding: 2.25em;
 }
@@ -212,7 +223,6 @@ html {
 }
 
 .ui.form .field.sell-book {
-  width: 60%;
   margin-bottom: 2em;
 }
 

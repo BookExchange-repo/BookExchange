@@ -13,6 +13,7 @@ import {
   Router
 } from 'aurelia-router';
 
+let httpClient = new HttpClient();
 
 @inject(Router)
 export class AddBooks {
@@ -21,60 +22,48 @@ export class AddBooks {
   statusMessages = [];
   statusMessagesVisible = false;
 
-  genres = [
-    { id: 1, name: 'fiction' },
-    { id: 2, name: 'for children' },
-    { id: 3, name: 'scientific' },
-    { id: 4, name: 'historical' },
-    { id: 5, name: 'biography' },
-    { id: 6, name: 'education' },
-    { id: 7, name: 'cooking' },
-    { id: 8, name: 'housekeeping' },
-    { id: 9, name: 'health' },
-    { id: 10, name: 'astrology' }
-  ];
-
-  conditions = [
-    { id: 1, name: 'new' },
-    { id: 2, name: 'used - as new condition' },
-    { id: 3, name: 'used - good condition' },
-    { id: 4, name: 'used - bad condition' }
-  ];
-
-  cities = [
-    { id: 1, name: 'Tallinn' },
-    { id: 2, name: 'Narva' },
-    { id: 3, name: 'Sillamäe' },
-    { id: 4, name: 'Jõhvi' }
-  ];
-
   selectedGenre = null;
   selectedCondition = null;
+  selectedLanguage = null;
   selectedCity = null;
 
   constructor(router) {
+    this.genres = null;
+    this.conditions = null;
+    this.languages = null;
+    this.cities = null;
     this.resultMessage = "";
     this.router = router;
   }
 
   attached() {
-    $('.default-drop').dropdown();
+    $('.ui.dropdown').dropdown();
+
+    $('.ui.accordion')
+    .accordion({
+      exclusive: false
+    });
     
     $('#sell_book').click(function () {
       $('body, html').animate({
         scrollTop: 0
       }, 500);
     });
-  }
 
-  activate() {
-    let client = new HttpClient();
+    this.fetchGenresFromAPI();
+    this.fetchConditionsFromAPI();
+    this.fetchLanguagesFromAPI();
+    this.fetchCitiesFromAPI();
   }
 
   addBook() {
-    
     this.statusMessagesVisible = false;
     this.statusMessages = [];
+
+    if (this.selectedGenre == null) {
+      this.statusMessagesVisible = true;
+      this.statusMessages.push("Please enter genre!");
+    }
 
     if (this.bookData.title == null || this.bookData.title == "") {
       this.statusMessagesVisible = true;
@@ -86,24 +75,24 @@ export class AddBooks {
       this.statusMessages.push("Please enter price!");
     }
 
-    if (this.bookData.description == null || this.bookData.description == "") {
-      this.statusMessagesVisible = true;
-      this.statusMessages.push("Please enter description!");
-    }
-
-    if (this.selectedGenre == null) {
-      this.statusMessagesVisible = true;
-      this.statusMessages.push("Please enter genre!");
-    }
-
     if (this.selectedCondition == null) {
       this.statusMessagesVisible = true;
       this.statusMessages.push("Please enter book condition!");
     }
 
+    if (this.selectedLanguage == null) {
+      this.statusMessagesVisible = true;
+      this.statusMessages.push("Please enter book language!");
+    }
+
     if (this.selectedCity == null) {
       this.statusMessagesVisible = true;
       this.statusMessages.push("Please enter your city!");
+    }
+
+    if (this.bookData.description == null || this.bookData.description == "") {
+      this.statusMessagesVisible = true;
+      this.statusMessages.push("Please enter description!");
     }
 
     if (this.checkIfEveryInputfieldIsFilled()) {
@@ -139,6 +128,37 @@ export class AddBooks {
       this.bookData.price > 0 &&
       this.bookData.description != "" && this.bookData.description != null);
   }
-  
 
+  fetchGenresFromAPI() {
+    httpClient.fetch('http://bookmarket.online:8081/api/genres/getall0')
+      .then(response => response.json())
+      .then(data => {
+        this.genres = data;
+      });
+  }
+
+  fetchConditionsFromAPI() {
+    httpClient.fetch('http://bookmarket.online:8081/api/conditions/getall0')
+      .then(response => response.json())
+      .then(data => {
+        this.conditions = data;
+      });
+  }
+
+  fetchLanguagesFromAPI() {
+    httpClient.fetch('http://bookmarket.online:8081/api/languages/getall0')
+      .then(response => response.json())
+      .then(data => {
+        this.languages = data;
+      });
+  }
+
+  fetchCitiesFromAPI() {
+    httpClient.fetch('http://bookmarket.online:8081/api/cities/getall')
+      .then(response => response.json())
+      .then(data => {
+        this.cities = data;
+      });
+  }
+  
 }

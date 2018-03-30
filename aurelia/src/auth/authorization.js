@@ -21,19 +21,19 @@ export class Authorization {
   }
 
   async loginButtonPressed(email, password) {
-    let response = await fetch('http://bookmarket.online:8081/api/users/login?user=' + email + '&pass=' + password);
+    let response = await fetch('https://bookmarket.online:18081/api/users/login?user=' + email + '&pass=' + password);
     let data = await response.json();
     return data;
   }
 
   async isLoggedIn() {
-    let response = await fetch('http://bookmarket.online:8081/api/users/getinfo?session=' + localStorage.getItem("session"));
+    let response = await fetch('https://bookmarket.online:18081/api/users/getinfo?session=' + localStorage.getItem("session"));
     let data = await response.json();
     return data;
   }
 
   async logout() {
-    let response = await fetch('http://bookmarket.online:8081/api/users/logout?session=' + localStorage.getItem("session"));
+    let response = await fetch('https://bookmarket.online:18081/api/users/logout?session=' + localStorage.getItem("session"));
     let data = await response.json();
     return data;
   }

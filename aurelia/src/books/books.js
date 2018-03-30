@@ -85,16 +85,16 @@ export class Books {
   refreshOutput() {
     switch (this.selectedSortID) {
       case 0:
-          this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall');
+          this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall');
           break;
       case 1:
-          this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=postdate&sortdesc=true');
+          this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=postdate&sortdesc=true');
           break;
       case 2:
-          this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=price');
+          this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price');
           break;
       case 3:
-          this.fetchBooksFromAPI('http://bookmarket.online:8081/api/books/getall?sort=price&sortdesc=true');
+          this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price&sortdesc=true');
           break;
     }
   }
@@ -142,7 +142,7 @@ export class Books {
   }
 
   fetchCitiesFromAPI() {
-    httpClient.fetch('http://bookmarket.online:8081/api/cities/getall')
+    httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
       .then(response => response.json())
       .then(data => {
         this.cities = data;
@@ -150,7 +150,7 @@ export class Books {
   }
 
   fetchGenresFromAPI() {
-    httpClient.fetch('http://bookmarket.online:8081/api/genres/getall0')
+    httpClient.fetch('https://bookmarket.online:18081/api/genres/getall0')
       .then(response => response.json())
       .then(data => {
         this.genres = data;
@@ -158,7 +158,7 @@ export class Books {
   }
 
   fetchConditionsFromAPI() {
-    httpClient.fetch('http://bookmarket.online:8081/api/conditions/getall0')
+    httpClient.fetch('https://bookmarket.online:18081/api/conditions/getall0')
       .then(response => response.json())
       .then(data => {
         this.conditions = data;
@@ -166,7 +166,7 @@ export class Books {
   }
 
   fetchLanguagesFromAPI() {
-    httpClient.fetch('http://bookmarket.online:8081/api/languages/getall0')
+    httpClient.fetch('https://bookmarket.online:18081/api/languages/getall0')
       .then(response => response.json())
       .then(data => {
         this.languages = data;

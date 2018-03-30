@@ -98,9 +98,9 @@ export class AddBooks {
     if (this.checkIfEveryInputfieldIsFilled()) {
       let client = new HttpClient();
 
-      this.bookData.imagepath = "http://dijkstra.cs.ttu.ee/~vjtset/tarkvaratehnika/no-image.svg";
+      this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
 
-      client.fetch('http://51.15.219.149:8080/api/books/add', {
+      client.fetch('https://bookmarket.online:18080/api/books/add', {
           'method': "POST",
           'body': json(this.bookData)
         })

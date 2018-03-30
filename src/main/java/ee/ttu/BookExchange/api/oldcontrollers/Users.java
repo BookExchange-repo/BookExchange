@@ -21,6 +21,23 @@ public class Users {
     private static final int PASS_SALT_LENGTH = 10;
     private static HashMap<Integer, String> allSessions = new HashMap<>();
 
+    private static String generateSession() {
+        String sessionKey = "";
+        Random random = new SecureRandom();
+        for (int i = 0; i < SESS_KEY_LENGTH; i++) {
+            sessionKey += RAND_CHARS.charAt(random.nextInt(RAND_CHARS.length()));
+        }
+        return sessionKey;
+    }
+
+    public static String externalGetSession(int userId) {
+        String newSession = allSessions.get(userId);
+        if (newSession == null)
+            newSession = generateSession();
+        allSessions.put(userId, newSession);
+        return newSession;
+    }
+
     static Optional<Integer> getUserIdBySession(String session) {
         Optional<Integer> result = Optional.empty();
         try {
@@ -203,11 +220,7 @@ public class Users {
                 int userId = Integer.parseInt(sql.getQueryCell(0, 3));
                 String sessionKey = allSessions.get(userId);
                 if (sessionKey == null) {
-                    sessionKey = "";
-                    Random random = new SecureRandom();
-                    for (int i = 0; i < SESS_KEY_LENGTH; i++) {
-                        sessionKey += RAND_CHARS.charAt(random.nextInt(RAND_CHARS.length()));
-                    }
+                    sessionKey = generateSession();
                     allSessions.put(userId, sessionKey);
                 }
                 jsonObject.put("session", sessionKey);

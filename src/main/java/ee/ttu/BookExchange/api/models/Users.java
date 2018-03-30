@@ -40,7 +40,6 @@ public class Users {
     String pass_salt;
 
     @Column(nullable = false, columnDefinition = "tinyint(1) default 0")
-    @Size(max = 1)
     byte isverified = 0;
 
     @Column(nullable = false, columnDefinition = "timestamp")

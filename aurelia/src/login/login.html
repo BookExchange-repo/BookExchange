@@ -1,4 +1,11 @@
 <template>
+
+    <!-- <div class="ui centered grid login">
+      <div class="three wide column">
+        <div class="ui segment"></div>
+      </div>
+    </div> -->
+
   <div class="ui main grid fluid container">
     <h1>${helloMessage}</h1>
     <!-- ${connector.loggedInStatusMessage}
@@ -8,6 +15,7 @@
         <a href="#" click.delegate="logout()">Logout</a>
       </li>
     </ul>  -->
+
 
     <form class="ui form attached fluid segment">
 
@@ -36,13 +44,5 @@
       </div>
     </div>
 
-    <div if.bind="positiveStatusMessagesVisible">
-      <div class="ui green message">
-        <div class="header">
-            <i class="check icon"></i>
-          You have successfully logged in!
-        </div>
-      </div>
-    </div>
   </div>
 </template>

@@ -2,17 +2,21 @@
 
   <div class="ui fluid container custom-width">
     <div class="ui grid">
-      <div class="eight wide column">
+      <div class="twelve wide column">
         <h1>All Books (${numberOfBooks})</h1>
       </div>
 
-
-
-      <div class="right aligned eight wide column">
-
-        <select class="ui dropdown" value.bind="selectedSortID" change.delegate="dropdownSortIDChangedAndCorrectURL()">
+      <div class="four wide column">
+        <select class="ui fluid dropdown" value.bind="selectedSortID" change.delegate="dropdownSortIDChangedAndCorrectURL()">
           <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
         </select>
+      </div>
+
+      <div class="sixteen wide column" value.bind="selectedGenreIDs">
+          <a class="ui label" repeat.for="selectedGenreID of selectedGenreIDs">
+              ${selectedGenreID.string}
+            <i class="delete icon"></i>
+          </a>
       </div>
 
       <div class="three wide column">

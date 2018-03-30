@@ -111,7 +111,7 @@ export class AddBooks {
 
       this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
 
-      client.fetch('https://bookmarket.online:18081/api/books/add', {
+      client.fetch('https://bookmarket.online:18080/api/books/add', {
           'method': "POST",
           'body': json(this.bookData)
         })

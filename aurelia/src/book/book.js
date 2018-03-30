@@ -30,7 +30,7 @@ export class Book {
   }
 
   fetchBookByIdFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/books/getinfoid?id=' + this.id)
+    httpClient.fetch('https://bookmarket.online:18080/api/books/getinfoid?id=' + this.id)
       .then(response => response.json())
       .then(data => {
         this.bookbyid = data;

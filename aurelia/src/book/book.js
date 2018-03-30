@@ -27,8 +27,6 @@ export class Book {
 
   attached() {
     this.fetchBookByIdFromAPI();
-
-    $('.ui.dropdown').dropdown();
   }
 
   fetchBookByIdFromAPI() {

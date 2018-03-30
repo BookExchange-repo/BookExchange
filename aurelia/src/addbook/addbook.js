@@ -58,8 +58,8 @@ export class AddBooks {
   }
 
   attached() {
-    $('.ui.dropdown').dropdown();
-
+    $('.default-drop').dropdown();
+    
     $('#sell_book').click(function () {
       $('body, html').animate({
         scrollTop: 0

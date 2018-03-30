@@ -10,7 +10,7 @@
 
       <div class="right aligned eight wide column">
 
-        <select class="ui dropdown" value.bind="selectedSortID" change.delegate="dropdownSortIDChangedAndCorrectURL()">
+        <select class="ui dropdown default-drop" value.bind="selectedSortID" change.delegate="dropdownSortIDChangedAndCorrectURL()">
           <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
         </select>
       </div>
@@ -25,7 +25,7 @@
 
             <div class="active content">
               <form class="ui form" method="post">
-                <select class="ui fluid search dropdown" value.bind="selectedCityID" change.delegate="filterDataChanged()">
+                <select class="ui fluid search dropdown default-drop" value.bind="selectedCityID" change.delegate="filterDataChanged()">
                   <option model.bind="0" selected>All cities</option>
                   <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
                 </select>
@@ -83,7 +83,7 @@
 
             <div class="active content">
               <form class="ui form" method="post">
-                <select class="ui fluid search dropdown" value.bind="selectedLanguageID" change.delegate="filterDataChanged()">
+                <select class="ui fluid search dropdown default-drop" value.bind="selectedLanguageID" change.delegate="filterDataChanged()">
                   <option model.bind="0" selected>All languages</option>
                   <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
                 </select>

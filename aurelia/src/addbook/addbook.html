@@ -21,7 +21,7 @@
         <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
           <div class="field sell-book">
             <label>Genre: <span>*</span></label>
-            <select class="ui dropdown" value.bind="selectedGenre">
+            <select class="ui dropdown default-drop" value.bind="selectedGenre">
               <option model.bind="null" value="">choose...</option>
               <option repeat.for="genre of genres" model.bind="genre.id">${genre.name}</option>
             </select>
@@ -39,7 +39,7 @@
 
           <div class="field sell-book">
             <label>Book condition: <span>*</span></label>
-            <select class="ui dropdown" value.bind="selectedCondition">
+            <select class="ui dropdown default-drop" value.bind="selectedCondition">
               <option model.bind="null" value="">choose...</option>
               <option repeat.for="condition of conditions" model.bind="condition.id">${condition.name}</option>
             </select>
@@ -47,7 +47,7 @@
 
           <div class="field sell-book">
             <label>City: <span>*</span></label>
-            <select class="ui search dropdown" value.bind="selectedCity">
+            <select class="ui search dropdown default-drop" value.bind="selectedCity">
               <option model.bind="null" value="">choose or search...</option>
               <option repeat.for="city of cities" model.bind="city.id">${city.name}</option>
             </select>

@@ -62,7 +62,7 @@ export class Books {
 
     this.refreshOutput();
 
-    $('.default-drop').dropdown();
+    $('.ui.dropdown').dropdown();
 
     $('.ui.accordion')
     .accordion({

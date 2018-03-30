@@ -4,8 +4,6 @@ export class MyAccount {
   }
 
   attached() {
-    $('#navbar_account').dropdown({
-      action: 'hide'
-    });
+    $('.ui.dropdown').dropdown();
   }
 }

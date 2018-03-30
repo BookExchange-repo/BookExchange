@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/internal/api/users", produces = "application/json")
+@RequestMapping(value = "/oauth2/api/users", produces = "application/json")
 public class OAuth2Controller {
     private UsersService usersService;
 

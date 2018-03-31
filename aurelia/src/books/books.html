@@ -12,9 +12,10 @@
         </select>
       </div>
 
+
       <div class="sixteen wide column" value.bind="selectedGenreIDs">
           <a class="ui label" repeat.for="selectedGenreID of selectedGenreIDs">
-              ${selectedGenreID.string}
+              ${genres[selectedGenreID-1].string}
             <i class="delete icon"></i>
           </a>
       </div>

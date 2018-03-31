@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/oauth2/api/users", produces = "application/json")
+@RequestMapping(value = "/oauth2", produces = "application/json")
 public class OAuth2Controller {
     private UsersService usersService;
 
@@ -18,7 +18,12 @@ public class OAuth2Controller {
         this.usersService = usersService;
     }
 
-    @RequestMapping(value = "google", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html")
+    public String getAccessGranted() {
+        return "Success";
+    }
+
+    @RequestMapping(value = "/api/users/google", method = RequestMethod.GET)
     public Map<String, Object> getSessionFromGoogleUser(@RequestHeader("X-Forwarded-Email") String googleEmail,
                                                         @RequestHeader("X-Forwarded-User") String googleUsername)
     {

@@ -48,4 +48,9 @@ export class Login {
     });
 
   }
+
+  loginWithGoogleButton() {
+    window.location.href="https://bookmarket.online/oauth2/start";
+
+  }
 }

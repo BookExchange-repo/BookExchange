@@ -1,6 +1,5 @@
 import {Redirect} from 'aurelia-router';
 import {AuthorizeStep} from 'auth/authorizestep';
-import {Connector} from 'auth/connector';
 import {inject} from 'aurelia-framework';
 
 @inject(AuthorizeStep)

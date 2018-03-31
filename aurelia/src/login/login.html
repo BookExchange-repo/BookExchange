@@ -1,50 +1,11 @@
 <template>
-
-    <!-- <div class="ui centered grid login">
-      <div class="three wide column">
-        <div class="ui segment"></div>
-      </div>
-    </div> -->
-
-
-
-
   <div class="ui main grid fluid container">
 
-    <div class="signin center">
-        <form method="GET" action="https://bookmarket.online/oauth2/start">
-        <input type="hidden" name="rd" value="https://bookmarket.online/oauth2/api/users/google">
-        
-        <button type="submit" class="btn">Sign in with a Google Account</button><br/>
-        </form>
-        </div>
-      
-        
-        <script>
-          if (window.location.hash) {
-            (function() {
-              var inputs = document.getElementsByName('rd');
-              for (var i = 0; i < inputs.length; i++) {
-                inputs[i].value += window.location.hash;
-              }
-            })();
-          }
-        </script>
-        <footer>
-        
-        Secured with <a href="https://github.com/bitly/oauth2_proxy#oauth2_proxy">OAuth2 Proxy</a> version 2.2.0
-        
-        </footer>
-
     <h1>${helloMessage}</h1>
-    <!-- ${connector.loggedInStatusMessage}
-
-    <ul>
-      <li>
-        <a href="#" click.delegate="logout()">Logout</a>
-      </li>
-    </ul>  -->
-
+    <br>
+    <div>
+      <button class="ui primary button" click.delegate="loginWithGoogleButton()">Login with Google</button>
+    </div>
 
     <form class="ui form attached fluid segment">
 
@@ -72,6 +33,6 @@
         </ul>
       </div>
     </div>
-
+    
   </div>
 </template>

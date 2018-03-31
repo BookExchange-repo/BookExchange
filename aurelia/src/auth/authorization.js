@@ -20,6 +20,10 @@ export class Authorization {
     localStorage.removeItem("session");
   }
 
+  checkIfSessionExists() {
+    return localStorage.getItem("session") !== null;
+  }
+
   async loginButtonPressed(email, password) {
     let response = await fetch('https://bookmarket.online:18081/api/users/login?user=' + email + '&pass=' + password);
     let data = await response.json();

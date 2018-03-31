@@ -6,21 +6,25 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 
 let httpClient = new HttpClient();
 
-@inject(Authorization, Connector)
+@inject(Authorization, Connector, Router)
 export class Login {
 
   statusMessages = [];
   negativeStatusMessagesVisible = false;
   positiveStatusMessagesVisible = false;
 
-  constructor(authorization, connector) {
+  constructor(authorization, connector, router) {
     this.authorization = authorization;
     this.connector = connector;
+    this.router = router;
 
     this.helloMessage = "Log in";
     this.email;
     this.password;
-    this.connector.ckeckLoginStatus();
+  }
+
+  loginWithGoogleButton() {
+    window.location.href="https://bookmarket.online/oauth2/start";
   }
 
   loginButton() {
@@ -32,10 +36,8 @@ export class Login {
         this.positiveStatusMessagesVisible = true;
         this.negativeStatusMessagesVisible = false;
 
-        // this.statusMessagesVisible = false;
-        // this.router.navigateToRoute('bookbyid', {
-        //   id: data.id
-        // });
+        this.router.navigateToRoute('home');
+        
       } else {
         this.negativeStatusMessagesVisible = true;
         this.positiveStatusMessagesVisible = false;
@@ -46,11 +48,6 @@ export class Login {
       this.connector.ckeckLoginStatus();
       console.log(JSON.stringify(data));
     });
-
-  }
-
-  loginWithGoogleButton() {
-    window.location.href="https://bookmarket.online/oauth2/start";
 
   }
 }

@@ -13,6 +13,10 @@ export class Connector {
     this.router = router;
     this.loggedInStatusMessage;
     this.loggedIn = false;
+    this.JSONwithSessionData = [];
+
+    this.ckeckLoginStatus(); 
+    this.checkLogin();
   }
 
   ckeckLoginStatus() {
@@ -20,7 +24,6 @@ export class Connector {
       if (data.errors.length === 0) {
         this.loggedInStatusMessage = data.full_name;
         this.loggedIn = true;
-        this.router.navigateToRoute('home');
       } else {
         this.loggedInStatusMessage = "Not logged in";
         this.loggedIn = false;
@@ -28,11 +31,35 @@ export class Connector {
     });
   }
 
+  checkLogin() {
+    httpClient.fetch('https://bookmarket.online/oauth2/api/users/google', {credentials: "same-origin"})
+      .then(function (response) {
+        if (response.status !== 403) {
+          return response.json()
+        } else {
+          throw Error(response.statusText);
+        }
+      })
+      .then(data => {
+        this.JSONwithSessionData = data;
+        if (this.JSONwithSessionData.error.length === 0) {
+          console.log(this.JSONwithSessionData.session);
+          this.authorization.saveSessionID(this.JSONwithSessionData.session);
+          this.ckeckLoginStatus();
+          //this.router.navigateToRoute('myaccount');
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
+  }
+
   logout() {
     this.authorization.logout().then(data => {
       if (data.errors.length !== 0) {
         console.log("Error logging out!")
       } else {
+        this.authorization.deleteSession();
+        this.loggedIn = false;
         console.log("Logged out!");
       }
     });
@@ -42,8 +69,7 @@ export class Connector {
       })
       .then(response => {
         console.log("Google: Logged out!");
-        this.authorization.deleteSession();
-        this.loggedIn = false;
+
         this.ckeckLoginStatus();
         this.router.navigateToRoute('home');
       });

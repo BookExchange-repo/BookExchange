@@ -57,8 +57,12 @@ public class BooksController {
         Map<String, List<Books>> map = new HashMap<>();
         List<Books> allBooks = booksService.getAllBooks();
         for (Map.Entry<String, String> entry : requestParams.entrySet()) {
+            if (entry.getValue().isEmpty())
+                continue;
             String[] valueArray = parseArrayString(entry.getValue());
             if (entry.getKey().equals("sort") || entry.getKey().equals("sortdesc"))
+                continue;
+            if (valueArray.length == 1 && valueArray[0].isEmpty())
                 continue;
 
             List<Books> filteredBooks;

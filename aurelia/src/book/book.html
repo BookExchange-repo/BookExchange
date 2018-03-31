@@ -1,70 +1,85 @@
 <template>
 
-  <div class="ui main grid fluid container">
+  <div class="ui fluid container custom-width">
+    <div class="ui grid">
 
-    <div class="five wide column">
-      <div class="ui segment">
-        <img src="${bookbyid.imagepath}" alt="${bookbyid.title}" class="ui fluid image">
+      <div class="sixteen wide column">
+        <div class="ui big breadcrumb">
+          <a class="section" click.delegate="router.navigateToRoute('books')">All books</a>
+          <i class="right angle icon divider"></i>
+          <a class="section" href=""><b>${bookbyid.genreid}</b></a>
+        </div>
       </div>
-      <div class="ui segment center aligned pricebox more-about-book">
-        <div class="price more-about-book"><span>${bookbyid.price}</span><span> €</span></div>
-        <button class="ui big teal button">BUY</button>
+
+      <div class="four wide column">
+        <div class="ui segment">
+          <img id="image" src="${bookbyid.imagepath}" alt="${bookbyid.title}" class="ui fluid image">
+        </div>
+        <div class="ui segment center aligned pricebox more-about-book">
+          <div class="price more-about-book"><span>${bookbyid.price}</span><span> €</span></div>
+          <button class="ui big teal button">BUY</button>
+        </div>
       </div>
-    </div>
 
-    <div class="eleven wide column">
-      <div class="ui segment information more-about-book">
-        <h1 class="title more-about-book">${bookbyid.title}</h1>
-        <div if.bind="ifJSONAttributeIsNull(bookbyid.author)">
-          <h2 class="author more-about-book">by ${bookbyid.author}</h2>
-        </div>
-        <div if.bind="ifJSONAttributeIsNull(bookbyid.author)">
-          <table class="ui very basic collapsing celled table">
-            <tr>
-              <td>Genre</td>
-              <td>${bookbyid.genreid}</td>
-            </tr>
-            <tr>
-              <td>Year of publishing</td>
-              <td>${bookbyid.pubyear}</td>
-            </tr>
-            <tr>
-              <td>Publisher</td>
-              <td>${bookbyid.publisher}</td>
-            </tr>
-            <tr>
-              <td>Language</td>
-              <td>${bookbyid.language}</td>
-            </tr>
-            <tr>
-              <td>ISBN</td>
-              <td>${bookbyid.isbn}</td>
-            </tr>
-            <tr>
-              <td>Condition</td>
-              <td>${bookbyid.conditiondesc}</td>
-            </tr>
-          </table>
-        </div>
-
-        <div class="description more-about-book">
-            <p class="title">Description: </p>
-            <p class="text">${bookbyid.description}</p>
-        </div>
-
-        <div class="seller more-about-book">
-          <p class="title">Seller: </p>
-          <div class="text">${bookbyid.userid}</div>
-          <div class="text" if.bind="ifJSONAttributeIsNull(bookbyid.author)">
-              <div>${bookbyid.city}</div>
+      <div class="twelve wide column">
+        <div class="ui segment information more-about-book">
+          <h1 class="title more-about-book">${bookbyid.title}</h1>
+          <div if.bind="ifJSONAttributeIsNull(bookbyid.author)">
+            <h2 class="author more-about-book">by ${bookbyid.author}</h2>
           </div>
-          <div class="text">${convertUnixTimeStamp(bookbyid.postdate)}</div>
+          <div if.bind="ifJSONAttributeIsNull(bookbyid.author)">
+            <table class="ui very basic collapsing celled table">
+              <tr>
+                <td>Genre</td>
+                <td>${bookbyid.genreid}</td>
+              </tr>
+              <tr>
+                <td>Year of publishing</td>
+                <td>${bookbyid.pubyear}</td>
+              </tr>
+              <tr>
+                <td>Publisher</td>
+                <td>${bookbyid.publisher}</td>
+              </tr>
+              <tr>
+                <td>Language</td>
+                <td>${bookbyid.language}</td>
+              </tr>
+              <tr>
+                <td>ISBN</td>
+                <td>${bookbyid.isbn}</td>
+              </tr>
+              <tr>
+                <td>Condition</td>
+                <td>${bookbyid.conditiondesc}</td>
+              </tr>
+            </table>
+          </div>
+  
+          <div class="description more-about-book">
+              <p class="title">Description: </p>
+              <p class="text">${bookbyid.description}</p>
+          </div>
+  
+          <div class="seller more-about-book">
+            <p class="title">Seller: </p>
+            <div class="text">${bookbyid.userid}</div>
+            <div class="text" if.bind="ifJSONAttributeIsNull(bookbyid.author)">
+                <div>${bookbyid.city}</div>
+            </div>
+            <div class="text">${convertUnixTimeStamp(bookbyid.postdate)}</div>
+          </div>
+  
         </div>
-
       </div>
 
     </div>
+    
+  </div>
 
+  <div class="ui small modal image-modal" id="modal">
+    <i class="close icon" id="close_modal"></i>
+    <img class="ui fluid image" src="${bookbyid.imagepath}" alt="${bookbyid.title}">
   </div>
 
 </template>

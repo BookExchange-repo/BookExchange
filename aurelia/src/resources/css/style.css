@@ -107,11 +107,12 @@ html {
 }
 
 .google-sign-in-btn {
-  background: url(../images/google_sign_in_btn.png) no-repeat center center;
+  background: url(../images/google_sign_in_btn.png) no-repeat;
   cursor: pointer;
   border: none;
   width: 191px;
   height: 46px;
+  background-size: 100%;
 }
 
 .ui.error.message.login {

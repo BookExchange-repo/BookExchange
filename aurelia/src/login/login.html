@@ -8,15 +8,26 @@
             <div class="ui segment login-box">
               <h2>Sign in to BookMarket</h2>
 
+              <div if.bind="negativeStatusMessagesVisible">
+                <div class="ui error message login">
+                  <div class="header">
+                    There were some errors with your submission
+                  </div>
+                  <ul class="list">
+                    <li repeat.for="statusMessage of statusMessages">${statusMessage}</li>
+                  </ul>
+                </div>
+              </div>
+
               <form class="ui large form">
                 <div class="field">
                   <label>Email</label>
-                  <input type="text" name="email">
+                  <input type="text" name="email" value.bind="email">
                 </div>
 
                 <div class="field">
                   <label>Password</label>
-                  <input type="text" name="password">
+                  <input type="text" name="password" value.bind="password">
                 </div>
 
                 <div class="field">
@@ -36,41 +47,4 @@
         </div>
       </div>
 
-
-  <!-- <div class="ui main grid fluid container">
-
-    <h1>${helloMessage}</h1>
-    <br>
-    <div>
-      <button class="ui primary button" click.delegate="loginWithGoogleButton()">Login with Google</button>
-    </div>
-
-    <form class="ui form attached fluid segment">
-
-      <div class="field">
-        <label>E-mail</label>
-        <input type="text" value.bind="email">
-      </div>
-
-      <div class="field">
-        <label>Password</label>
-        <input type="password" value.bind="password">
-      </div>
-
-      <button class="ui blue button" click.delegate="loginButton()">Login</button>
-
-    </form>
-
-    <div if.bind="negativeStatusMessagesVisible">
-      <div class="ui error message">
-        <div class="header">
-          There were some errors with your submission
-        </div>
-        <ul class="list">
-          <li repeat.for="statusMessage of statusMessages">${statusMessage}</li>
-        </ul>
-      </div>
-    </div>
-    
-  </div> -->
 </template>

@@ -40,7 +40,7 @@ public class OAuth2Controller {
             usersService.saveUser(user);
             user = usersService.getUserByEmail(googleEmail);
         }
-        result.put("session", ee.ttu.BookExchange.api.oldcontrollers.Users.externalGetSession(user.getId()));
+        result.put("session", UsersController.externalGetSession(user.getId()));
         result.put("error", new ArrayList<>());
         return result;
     }

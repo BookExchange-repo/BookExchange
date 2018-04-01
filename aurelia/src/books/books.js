@@ -70,6 +70,13 @@ export class Books {
     });
   }
 
+  tagDeleteButtonPressed(tagIDtoDelete) {
+    //console.log(tagIDtoDelete);
+    //console.log(this.selectedGenreIDs);
+
+    this.selectedGenreIDs.splice(tagIDtoDelete,1);
+  }
+
   ifJSONAttributeIsNull(text) {
     if (text === null) return false;
     return true;

@@ -12,11 +12,10 @@
         </select>
       </div>
 
-
       <div class="sixteen wide column" value.bind="selectedGenreIDs">
           <a class="ui label" repeat.for="selectedGenreID of selectedGenreIDs">
               ${genres[selectedGenreID-1].string}
-            <i class="delete icon"></i>
+            <i class="delete icon" click.delegate="tagDeleteButtonPressed(selectedGenreID)"></i>
           </a>
       </div>
 

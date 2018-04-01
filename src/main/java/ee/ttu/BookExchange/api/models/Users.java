@@ -28,8 +28,9 @@ public class Users {
     @Size(max = 128)
     String full_name;
 
-    @Size(max = 128)
-    String city;
+    @ManyToOne
+    @JoinColumn(name = "city", referencedColumnName = "id")
+    City city;
 
     @Column(nullable = false)
     @Size(max = 66)

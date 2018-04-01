@@ -3,10 +3,7 @@ package ee.ttu.BookExchange.api.models;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -32,9 +29,9 @@ public class Books {
     @Size(max = 8192)
     String description;
 
-    @Column(nullable = false)
-    @Size(max = 2048)
-    String conditiondesc;
+    @ManyToOne
+    @JoinColumn(name = "conditiondesc", referencedColumnName = "id", nullable = false)
+    ConditionEng conditiondesc;
 
     @Digits(integer = 8, fraction = 2)
     @Column(nullable = false, columnDefinition = "decimal(8,2) unsigned")
@@ -56,22 +53,17 @@ public class Books {
     @Size(max = 6)
     String pubyear;
 
-    @Column(nullable = false)
-    @Size(max = 32)
-    String language;
+    @ManyToOne
+    @JoinColumn(name = "language", referencedColumnName = "id", nullable = false)
+    LanguageEng language;
 
     @Column(nullable = false, columnDefinition = "timestamp")
     Timestamp postdate;
 
     @Column(nullable = false)
-    @Size(max = 32)
-    String userid;
+    int userid;
 
-    @Column(nullable = false)
-    @Size(max = 32)
-    String genreid;
-
-    @Column(nullable = false)
-    @Size(max = 128)
-    String city;
+    @ManyToOne
+    @JoinColumn(name = "genreid", referencedColumnName = "id", nullable = false)
+    GenreEng genreid;
 }

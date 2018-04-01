@@ -20,7 +20,6 @@ public class BooksController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     HashMap<String, Books> addBook(@RequestBody Books inputBook) {
-        inputBook.setUserid("Guest");
         booksService.saveBook(inputBook);
         return new HashMap<>();
     }
@@ -83,7 +82,7 @@ public class BooksController {
                                 case "description":
                                     return e.getDescription().equals(value);
                                 case "conditiondesc":
-                                    return e.getConditiondesc() != null && e.getConditiondesc().equals(value);
+                                    return Integer.toString(e.getConditiondesc().getId()).equals(value);
                                 case "price":
                                     return e.getPrice().toString().equals(value);
                                 case "likes":
@@ -97,15 +96,13 @@ public class BooksController {
                                 case "pubyear":
                                     return e.getPubyear() != null && e.getPubyear().equals(value);
                                 case "language":
-                                    return e.getLanguage() != null && e.getLanguage().equals(value);
+                                    return Integer.toString(e.getLanguage().getId()).equals(value);
                                 case "postdate":
                                     return e.getPostdate().toString().equals(value);
                                 case "userid":
-                                    return e.getUserid().equals(value);
+                                    return Integer.toString(e.getUserid()).equals(value);
                                 case "genreid":
-                                    return e.getGenreid() != null && e.getGenreid().equals(value);
-                                case "city":
-                                    return e.getCity() != null && e.getCity().equals(value);
+                                    return Integer.toString(e.getGenreid().getId()).equals(value);
                                 default:
                                     return false;
                             }
@@ -128,8 +125,7 @@ public class BooksController {
                             case "description":
                                 return e1.getDescription().compareTo(e2.getDescription());
                             case "conditiondesc":
-                                return getStringOrEmptyString(e1.getConditiondesc())
-                                        .compareTo(getStringOrEmptyString(e2.getConditiondesc()));
+                                return Integer.compare(e1.getConditiondesc().getId(), e2.getConditiondesc().getId());
                             case "price":
                                 return e1.getPrice().toString().compareTo(e2.getPrice().toString());
                             case "likes":
@@ -146,18 +142,13 @@ public class BooksController {
                                 return getStringOrEmptyString(e1.getPubyear())
                                         .compareTo(getStringOrEmptyString(e2.getPubyear()));
                             case "language":
-                                return getStringOrEmptyString(e1.getLanguage())
-                                        .compareTo(getStringOrEmptyString(e2.getLanguage()));
+                                return Integer.compare(e1.getLanguage().getId(), e2.getLanguage().getId());
                             case "postdate":
                                 return e1.getPostdate().toString().compareTo(e2.getPostdate().toString());
                             case "userid":
-                                return e1.getUserid().compareTo(e2.getUserid());
+                                return Integer.compare(e1.getUserid(), e2.getUserid());
                             case "genreid":
-                                return getStringOrEmptyString(e1.getGenreid())
-                                        .compareTo(getStringOrEmptyString(e2.getGenreid()));
-                            case "city":
-                                return getStringOrEmptyString(e1.getCity())
-                                        .compareTo(getStringOrEmptyString(e2.getCity()));
+                                return Integer.compare(e1.getGenreid().getId(), e2.getGenreid().getId());
                             default:
                                 return 0;
                         }

@@ -3,6 +3,7 @@ package ee.ttu.BookExchange.api.controllers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,14 +49,15 @@ public class ISBNController {
 
             // Getting the title
             elements = document.select("span[id=productTitle]");
-            outputMap.put("title", elements.first().html());
+            outputMap.put("title", Parser.unescapeEntities(elements.first().html(), true));
 
             // Getting the description
             elements = document.select("noscript");
             for (Element element : elements) {
                 if (element.toString().contains("<div>")) {
-                    outputMap.put("description", element.select("div").first().html() +
-                        "<br><br>" + amazonPage);
+                    outputMap.put("description", element.select("div").first().html()
+                            .replace("\n", "") +
+                        "<br><br>" + amazonPage.split("ref=[a-zA-Z]{2}_[0-9]_[0-9]")[0]);
                     break;
                 }
             }

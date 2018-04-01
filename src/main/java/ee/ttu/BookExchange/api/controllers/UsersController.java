@@ -19,6 +19,7 @@ public class UsersController {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<Users> getAllUsers() {
+        //System.out.println(usersService.getAllUsers().get(0).getCity_string());
         return usersService.getAllUsers();
     }
 

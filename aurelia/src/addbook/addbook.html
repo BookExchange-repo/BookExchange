@@ -28,7 +28,7 @@
                   <input id="isbn" type="text" name="isbn" value.bind="bookData.isbn">
                 </div>
                 <div class="field">
-                    <input class="ui large button" type="button" value="Magic Fill" id="magic_fill">
+                    <input class="ui large button" type="button" value="Magic Fill" id="magic_fill" click.delegate="magicFill(bookData.isbn)">
                 </div>
               </div>
             </div>
@@ -113,14 +113,14 @@
 
       <div class="four wide column">
         <div class="ui center aligned segment">
-          <img class="ui fluid image" src="src/resources/images/no-image.svg">
+          <img class="ui fluid image" src.bind="bookData.imagepath">
 
           <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
             <label for="image" class="ui big teal icon button upload-image">
               <i class="upload icon"></i>
               <span>add image</span>
             </label>
-            <input type="file" id="image" style="display:none" name="imagepath" accept="image/*">
+            <input type="file" id="image" style="display:none" name="imagepath" accept=".png,.jpg">
           </form>
 
         </div>

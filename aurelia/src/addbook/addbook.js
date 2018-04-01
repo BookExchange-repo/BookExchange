@@ -34,6 +34,7 @@ export class AddBooks {
     this.cities = null;
     this.resultMessage = "";
     this.router = router;
+    this.bookData.imagepath = "src/resources/images/no-image.svg";
   }
 
   attached() {
@@ -100,7 +101,7 @@ export class AddBooks {
 
       this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
 
-      client.fetch('https://bookmarket.online:18080/api/books/add', {
+      client.fetch('https://bookmarket.online:18081/api/books/add', {
           'method': "POST",
           'body': json(this.bookData)
         })
@@ -108,6 +109,8 @@ export class AddBooks {
           return response.json();
         })
         .then(data => {
+
+          console.log(data.id);
 
           if (data.id) {
             this.statusMessagesVisible = false;
@@ -126,6 +129,10 @@ export class AddBooks {
     return (this.bookData.title != "" && this.bookData.title != null &&
       this.bookData.price > 0 &&
       this.bookData.description != "" && this.bookData.description != null);
+  }
+
+  magicFill(isbn) {
+    this.fetchBookInformationByISBNFromAPI(isbn);
   }
 
   fetchGenresFromAPI() {
@@ -157,6 +164,18 @@ export class AddBooks {
       .then(response => response.json())
       .then(data => {
         this.cities = data;
+      });
+  }
+
+  fetchBookInformationByISBNFromAPI(isbn) {
+    httpClient.fetch('http://bookmarket.online:8081/api/isbn/getinfo?isbn=' + isbn)
+      .then(response => response.json())
+      .then(data => {
+        this.bookData.title = data.title;
+        this.bookData.author = data.author;
+        this.bookData.pubyear = data.pubyear
+        this.bookData.publisher = data.publisher;
+        this.bookData.imagepath = data.imagepath;
       });
   }
   

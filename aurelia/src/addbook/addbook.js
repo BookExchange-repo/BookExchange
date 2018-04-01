@@ -108,7 +108,6 @@ export class AddBooks {
           return response.json();
         })
         .then(data => {
-          console.log(JSON.stringify(data));
 
           if (data.id) {
             this.statusMessagesVisible = false;

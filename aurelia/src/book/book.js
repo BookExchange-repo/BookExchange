@@ -19,7 +19,6 @@ export class Book {
   constructor(router) {
     this.bookbyid = null;
     this.router = router;
-    this.genres = null;
   }
 
   activate(params) {
@@ -28,7 +27,6 @@ export class Book {
 
   attached() {
     this.fetchBookByIdFromAPI();
-    this.fetchGenresFromAPI();
 
     $("#image").click(function() {
       $('#modal').modal('show');
@@ -64,14 +62,6 @@ export class Book {
   convertUnixTimeStamp(unixTimeStamp) {
     var date = new Date(unixTimeStamp * 1000);
     return date.toDateString();
-  }
-
-  fetchGenresFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/genres/getall0')
-      .then(response => response.json())
-      .then(data => {
-        this.genres = data;
-      });
   }
 
 }

@@ -28,17 +28,8 @@ export class Book {
   attached() {
     this.fetchBookByIdFromAPI();
 
-    $("#image").click(function() {
-      $('#modal').modal('show');
-    });
-
-    $(".ui.dimmer").click(function() {
-      $('body .modals').empty();
-    });
-
     $(window).on('popstate', function(event) {
-      $('#modal').modal('hide');
-      $('body .modals').empty();
+      $.featherlight.current().close();
     });
   }
 

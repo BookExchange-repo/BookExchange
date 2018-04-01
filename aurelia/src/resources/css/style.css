@@ -237,18 +237,6 @@ html {
   font-weight: bold;
 }
 
-@media only screen and (min-width: 1920px) {
-  .ui.small.modal {
-    width: 650px;
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  .ui.small.modal {
-    width: 650px;
-  }
-}
-
 .ui.segment.information.more-about-book {
   padding: 2em;
 }

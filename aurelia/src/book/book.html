@@ -13,7 +13,7 @@
 
       <div class="four wide column">
         <div class="ui segment">
-          <img id="image" src="${bookbyid.imagepath}" alt="${bookbyid.title}" class="ui fluid image">
+          <img data-featherlight="${bookbyid.imagepath}" src="${bookbyid.imagepath}" alt="${bookbyid.title}" class="ui fluid image">
         </div>
         <div class="ui segment center aligned pricebox more-about-book">
           <div class="price more-about-book"><span>${bookbyid.price}</span><span> €</span></div>
@@ -75,11 +75,6 @@
 
     </div>
     
-  </div>
-
-  <div class="ui small modal image-modal" id="modal">
-    <i class="close icon" id="close_modal"></i>
-    <img class="ui fluid image" src="${bookbyid.imagepath}" alt="${bookbyid.title}">
   </div>
 
 </template>

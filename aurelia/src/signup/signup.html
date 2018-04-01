@@ -1,40 +1,48 @@
 <template>
-  <div class="ui main grid fluid container">
 
-    <div>
-      <h1>Hi, ${helloMessage}! Welcome to BookMarket! </h1>
-    </div>
-    <div>
-      <h2>We need some more information about you to get started:</h2>
-    </div>
+  <div class="ui vertical segment fullscreen-image">
+    <div class="black-box"></div>
+
+    <div class="ui registration centered grid container">
+      <div class="center aligned twelve wide column">
+        <div class="ui segment registration">
+
+          <h1>Hi, ${helloMessage}! Welcome to BookMarket!</h1>
+          <h2>We need some more information about you to get started</h2>
+
+          <!-- <div class="ui error message"></div> -->
+
+          <form class="ui large form">
+
+            <div class="required field">
+              <label>Name </label>
+              <input type="text" name="firstname">
+            </div>
+
+            <div class="required field">
+              <label>Last name </label>
+              <input type="text" name="lastname">
+            </div>
+
+            <div class="required field">
+              <label>City </label>
+              <input type="text" name="city">
+            </div>
+
+            <div class="required field">
+              <label>Phone number </label>
+              <input type="text" name="phone">
+            </div>
+
+            <div class="required field">
+                <div class="large ui teal button" click.delegate="continueButtonPressed()">Sign Up</div>
+            </div>
     
+          </form>
+
+        </div>
+      </div>
+    </div>
   </div>
 
-  <form class="ui form">
-
-    <div class="field">
-      <label>Name</label>
-      <input type="text" name="firstname" placeholder="First Name">
-    </div>
-
-    <div class="field">
-      <label>Last name</label>
-      <input type="text" name="lastname" placeholder="Last Name">
-    </div>
-
-    <div class="field">
-      <label>City</label>
-      <input type="text" name="city" placeholder="City">
-    </div>
-
-    <div class="field">
-      <label>Mobile number</label>
-      <input type="text" name="phone" placeholder="Mobile number">
-    </div>
-
-    <div class="ui submit button" click.delegate="continueButtonPressed()">Continue</div>
-
-    <div class="ui error message"></div>
-
-  </form>
 </template>

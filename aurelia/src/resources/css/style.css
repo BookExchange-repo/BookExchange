@@ -44,14 +44,14 @@ html {
   top: 0;
 }
 
-.ui.vertical.segment.fullscreen-image-login {
+.ui.vertical.segment.fullscreen-image {
   background: url(../images/homepage_background.jpg) no-repeat center center;
   background-size: cover;
   height: 100vh;
   border-bottom: none;
 }
 
-.ui.grid.login {
+.ui.grid.login, .ui.grid.registration {
   margin-top: 10em;
 }
 
@@ -60,21 +60,46 @@ html {
   margin-bottom: 2em;
 }
 
-.ui.segment.login-box label {
+.ui.segment.login label, .ui.segment.registration label {
   text-transform: uppercase;
   float: left;
 }
 
-.ui.segment.login-box h2 {
+.ui.segment.login h2 {
   margin-bottom: 1.5em;
 }
 
-.ui.segment.login-box p {
+.ui.segment.registration h1 {
+  margin-bottom: -0.5em;
+}
+
+.ui.segment.registration h2 {
+  color: rgba(0,0,0,.4);
+  font-style: italic;
+  margin-bottom: 1.5em;
+}
+
+.ui.segment.login p {
   margin-top: 1em;
   color: grey;
 }
 
-.ui.segment.login-box, .ui.segments .segment {
+.ui.segment.login input[type=text], .ui.segment.registration input[type=text] {
+  margin-bottom: 0.5em;
+}
+
+.ui.segment.login input[type=password], .ui.segment.registration input[type=password] {
+  margin-bottom: 0.5em;
+}
+
+.ui.segment.login, .ui.segments .segment {
+  padding-top: 3em;
+  padding-bottom: 4em;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.ui.segment.registration, .ui.segments .segment {
   padding-top: 3em;
   padding-bottom: 4em;
   padding-left: 2em;

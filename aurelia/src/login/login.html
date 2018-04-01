@@ -1,11 +1,11 @@
 <template>
   
-    <div class="ui vertical segment fullscreen-image-login">
+    <div class="ui vertical segment fullscreen-image">
         <div class="black-box"></div>
     
         <div class="ui login centered grid container">
           <div class="center aligned five wide column">
-            <div class="ui segment login-box">
+            <div class="ui segment login">
               <h2>Sign in to BookMarket</h2>
 
               <div if.bind="negativeStatusMessagesVisible">
@@ -27,11 +27,11 @@
 
                 <div class="field">
                   <label>Password</label>
-                  <input type="text" name="password" value.bind="password">
+                  <input type="password" name="password" value.bind="password">
                 </div>
 
                 <div class="field">
-                  <button class="large ui teal button" click.delegate="loginButton()">Sign in</button>
+                  <button class="large ui teal button" click.delegate="loginButton()">Sign In</button>
                 </div>
               </form>
 

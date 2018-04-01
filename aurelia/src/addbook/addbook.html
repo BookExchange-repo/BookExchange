@@ -28,7 +28,8 @@
                   <input id="isbn" type="text" name="isbn" value.bind="bookData.isbn">
                 </div>
                 <div class="field">
-                    <input class="ui large button" type="button" value="Magic Fill" id="magic_fill" click.delegate="magicFill(bookData.isbn)">
+                    <button class="ui ${magicFillBusy ? 'loading' : ''} large button" click.delegate="magicFill(bookData.isbn)">Magic Fill</button>
+                    <!-- <input class="ui large  button" type="button" value="Magic Fill" id="magic_fill" > -->
                 </div>
               </div>
             </div>

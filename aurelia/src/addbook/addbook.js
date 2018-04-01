@@ -1,17 +1,6 @@
-import {
-  HttpClient,
-  json
-} from 'aurelia-fetch-client';
-
-import {
-  customAttribute,
-  bindable,
-  inject
-} from 'aurelia-framework';
-
-import {
-  Router
-} from 'aurelia-router';
+import {HttpClient, json} from 'aurelia-fetch-client';
+import {customAttribute, bindable, inject} from 'aurelia-framework';
+import {Router} from 'aurelia-router';
 
 let httpClient = new HttpClient();
 
@@ -35,6 +24,7 @@ export class AddBooks {
     this.resultMessage = "";
     this.router = router;
     this.bookData.imagepath = "src/resources/images/no-image.svg";
+    this.magicFillBusy = false;
   }
 
   attached() {
@@ -168,7 +158,8 @@ export class AddBooks {
   }
 
   fetchBookInformationByISBNFromAPI(isbn) {
-    httpClient.fetch('http://bookmarket.online:8081/api/isbn/getinfo?isbn=' + isbn)
+    this.magicFillBusy = true;
+    httpClient.fetch('https://bookmarket.online:18081/api/isbn/getinfo?isbn=' + isbn)
       .then(response => response.json())
       .then(data => {
         this.bookData.title = data.title;
@@ -176,6 +167,7 @@ export class AddBooks {
         this.bookData.pubyear = data.pubyear
         this.bookData.publisher = data.publisher;
         this.bookData.imagepath = data.imagepath;
+        this.magicFillBusy = false;
       });
   }
   

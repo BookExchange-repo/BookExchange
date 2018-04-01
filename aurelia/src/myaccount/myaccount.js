@@ -3,7 +3,7 @@ export class MyAccount {
     this.helloMessage = "My account";
   }
 
-  attached() {
-    $('.ui.dropdown').dropdown();
-  }
+  // attached() {
+  //   $('.ui.dropdown').dropdown();
+  // }
 }

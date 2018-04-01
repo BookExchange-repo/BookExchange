@@ -19,8 +19,8 @@ export class App {
 			{ route: 'books/:id', name: 'bookbyid', moduleId: 'book/book', nav: false, title: 'Book' , settings: { roles: [''] }},
 			{ route: 'sellbook', name: 'addbook', moduleId: 'addbook/addbook', nav: true, title: 'Sell Book', settings: { roles: ['reggeduser'] }},
 			{ route: 'signup', name: 'signup', moduleId: 'signup/signup', nav: false, title: 'Sign Up', settings: { roles: [''] }},
-			{ route: 'login', name: 'login', moduleId: 'login/login', nav: false, title: 'Log In', settings: { roles: [''] }},
-			{ route: 'myaccount', name: 'myaccount', moduleId: 'myaccount/myaccount', nav: false, title: 'My Account', settings: { roles: ['reggeduser'] }},
+			{ route: 'login', name: 'login', moduleId: 'login/login', nav: true, title: 'Log In', settings: { roles: [''] }},
+			{ route: 'myaccount', name: 'myaccount', moduleId: 'myaccount/myaccount', nav: true, title: 'My Account', settings: { roles: ['reggeduser'] }},
 		]);
 	}
 }

@@ -22,12 +22,12 @@
             </div>
           </div>
 
-          <a class="item navbar text" if.bind="!connector.loggedIn" click.delegate="router.navigateToRoute('login')">
+          <a class="item navbar text ${router.navigation[3].isActive ? 'active' : ''}" if.bind="!connector.loggedIn" click.delegate="router.navigateToRoute('login')">
             Login
           </a>
 
           <div id="navbar_account" class="ui dropdown item navbar text" if.bind="connector.loggedIn">
-            ${connector.loggedInStatusMessage} 
+            <i class="user large circle icon"></i>${connector.loggedInStatusMessage} 
             <i class="left dropdown icon"></i>
             <div class="menu">
               <a class="item" click.delegate="router.navigateToRoute('myaccount')"><div class="noBoldMenuItem">My account</div></a>

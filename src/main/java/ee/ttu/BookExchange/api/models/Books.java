@@ -32,6 +32,7 @@ public class Books {
     @Size(max = 8192)
     String description;
 
+    @Column(nullable = false)
     @Size(max = 2048)
     String conditiondesc;
 
@@ -55,6 +56,7 @@ public class Books {
     @Size(max = 6)
     String pubyear;
 
+    @Column(nullable = false)
     @Size(max = 32)
     String language;
 
@@ -65,9 +67,11 @@ public class Books {
     @Size(max = 32)
     String userid;
 
+    @Column(nullable = false)
     @Size(max = 32)
     String genreid;
 
+    @Column(nullable = false)
     @Size(max = 128)
     String city;
 }

@@ -107,11 +107,11 @@ html {
 }
 
 .google-sign-in-btn {
-  background: url(../images/google_sign_in_btn.png) no-repeat;
+  background: url(../images/google_sign_in_btn.svg) no-repeat;
   cursor: pointer;
   border: none;
-  width: 191px;
-  height: 46px;
+  width: 200px;
+  height: 56px;
   background-size: 100%;
 }
 

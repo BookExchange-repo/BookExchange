@@ -1,5 +1,10 @@
 package ee.ttu.BookExchange.api.controllers;
 
+import ee.ttu.BookExchange.utilities.Language;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,7 +36,7 @@ public class ISBNController {
         Map<String, String> outputMap = new HashMap<>(map);
         try {
             String amazonPage = "https://www.amazon.com/gp/search/ref=sr_adv_b/?field-isbn=";
-            Document document = Jsoup.connect(amazonPage + isbn.trim()).get();
+            Document document = Jsoup.connect(amazonPage + isbn).get();
             Elements elements = document.select("span[id=s-result-count]");
             if (elements.isEmpty())
                 throw new RuntimeException();
@@ -111,9 +116,66 @@ public class ISBNController {
         return outputMap;
     }
 
+    private String arrayStringToSequence(String arrayString) {
+        return arrayString.replace("[", "").replace("]", "")
+                .replace("\"", "").replace(",", ", ");
+    }
+
+    private Map<String, String> getByIsbnGoogle(Map<String, String> map, String isbn) {
+        Map<String, String> outputMap = new HashMap<>(map);
+        try {
+            String googlePage = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+            Connection.Response response = Jsoup.connect(googlePage + isbn).ignoreContentType(true).execute();
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject = (JSONObject)jsonParser.parse(response.body());
+            if (Integer.parseInt(jsonObject.get("totalItems").toString()) == 0)
+                throw new RuntimeException();
+
+            JSONObject firstItem = (JSONObject)((JSONArray)jsonObject.get("items")).get(0);
+            response = Jsoup.connect(firstItem.get("selfLink").toString()).ignoreContentType(true).execute();
+            firstItem = (JSONObject)jsonParser.parse(response.body());
+            JSONObject volumeInfo = (JSONObject)firstItem.get("volumeInfo");
+            outputMap.put("title", volumeInfo.get("title").toString());
+            outputMap.put("description", volumeInfo.get("description").toString() +
+                "<br><br>" + "https://books.google.com" + volumeInfo.get("previewLink").toString()
+                    .split("http[s]*://books.google.[a-z]+")[1]
+                    .split(Pattern.quote("&"))[0]);
+            outputMap.put("publisher", volumeInfo.get("publisher").toString());
+            outputMap.put("pubyear", volumeInfo.get("publishedDate").toString());
+            outputMap.put("author", arrayStringToSequence(volumeInfo.get("authors").toString()));
+            JSONObject thumbnailImages = (JSONObject)volumeInfo.get("imageLinks");
+            outputMap.put("imagepath", thumbnailImages.get("thumbnail")
+                    .toString().split(Pattern.quote("&imgtk="))[0]);
+            outputMap.put("language", Language.googleLanguageShortToLong(
+                    volumeInfo.get("language").toString()));
+        } catch (Exception e) {
+            return null;
+        }
+
+        return outputMap;
+    }
+
+    private Map<String, String> getByIsbnEster(Map<String, String> map, String isbn) {
+        Map<String, String> outputMap = new HashMap<>(map);
+        try {
+            String esterPage = "https://www.ester.ee/search~S1*est/X?searchtype=i&searcharg=";
+            Document document = Jsoup.connect(esterPage + isbn).get();
+            Elements elements = document.select("tr[class=msg]");
+            if (!elements.isEmpty())
+                throw new RuntimeException();
+
+            outputMap.put("publisher", "ester");
+        } catch (Exception e) {
+            return null;
+        }
+
+        return outputMap;
+    }
+
     @RequestMapping(value = "getinfo", method = RequestMethod.GET)
     public Map<String, String> getBookIsbnInfo(@RequestParam(value = "isbn") String isbnNumber) {
         Map<String, String> outputMap = new HashMap<>();
+        isbnNumber = isbnNumber.trim();
         outputMap.put("title", null);
         outputMap.put("description", null);
         outputMap.put("author", null);
@@ -125,6 +187,18 @@ public class ISBNController {
         if (intermediateOut != null) {
             outputMap = intermediateOut;
             return outputMap;
+        } else {
+            intermediateOut = getByIsbnGoogle(outputMap, isbnNumber);
+            if (intermediateOut != null) {
+                outputMap = intermediateOut;
+                return outputMap;
+            } else {
+                intermediateOut = getByIsbnEster(outputMap, isbnNumber);
+                if (intermediateOut != null) {
+                    outputMap = intermediateOut;
+                    return outputMap;
+                }
+            }
         }
         return outputMap;
     }

@@ -17,6 +17,7 @@ export class AddBooks {
   selectedCity = null;
 
   constructor(router) {
+    this.quill;
     this.genres = null;
     this.conditions = null;
     this.languages = null;
@@ -28,6 +29,17 @@ export class AddBooks {
   }
 
   attached() {
+    this.quill = new Quill('#editor', {
+      modules: {
+        toolbar: [
+          ['bold', 'italic'],
+          ['link', 'blockquote', 'code-block', 'image'],
+          [{ list: 'ordered' }, { list: 'bullet' }]
+        ]
+      },
+      theme: 'snow'
+    });
+
     $('.ui.dropdown').dropdown();
 
     $('.ui.accordion')
@@ -45,6 +57,10 @@ export class AddBooks {
     this.fetchConditionsFromAPI();
     this.fetchLanguagesFromAPI();
     this.fetchCitiesFromAPI();
+  }
+
+  printQuillContent() {
+    console.log(JSON.stringify(this.quill.root.innerHTML));
   }
 
   addBook() {

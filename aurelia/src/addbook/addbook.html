@@ -106,6 +106,15 @@
               <textarea rows="4" id="bookDescription" type="text" name="bookDescription" value.bind="bookData.description"></textarea>
             </div>
 
+            <div id="editor">
+                <p>Hello World!</p>
+                <p>Some initial <strong>bold</strong> text</p>
+                <p><br></p>
+              </div>
+
+              <button click.delegate="printQuillContent()">printQuillContent</button>
+
+
             <input class="ui large teal submit button" type="submit" value="Sell Book" id="sell_book">
           </form>
 

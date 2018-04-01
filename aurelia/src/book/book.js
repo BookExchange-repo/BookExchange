@@ -60,7 +60,7 @@ export class Book {
   }
 
   convertUnixTimeStamp(unixTimeStamp) {
-    var date = new Date(unixTimeStamp * 1000);
+    var date = new Date(unixTimeStamp);
     return date.toDateString();
   }
 

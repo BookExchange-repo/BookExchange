@@ -32,12 +32,61 @@ html {
   }
 }
 
+.ui.menu .ui.dropdown .menu>.item:hover {
+  background: rgba(0, 0, 0, 0.05)!important;
+ }
+
 .black-box {
   width: 100%;
   height: inherit;
   background-color: rgba(0, 0, 0, 0.35);
   position: absolute;
   top: 0;
+}
+
+.ui.vertical.segment.fullscreen-image-login {
+  background: url(../images/homepage_background.jpg) no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  border-bottom: none;
+}
+
+.ui.grid.login {
+  margin-top: 10em;
+}
+
+.ui.horizontal.divider.login {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.ui.segment.login-box label {
+  text-transform: uppercase;
+  float: left;
+}
+
+.ui.segment.login-box h2 {
+  margin-bottom: 1.5em;
+}
+
+.ui.segment.login-box p {
+  margin-top: 1em;
+  color: grey;
+}
+
+.ui.segment.login-box, .ui.segments .segment {
+  padding-top: 3em;
+  padding-bottom: 4em;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.google-sign-in-btn {
+  background: url(../images/google_sign_in_btn.png) no-repeat center center;
+  cursor: pointer;
+  border: none;
+  width: 191px;
+  height: 46px;
 }
 
 .ui.vertical.segment.homepage {

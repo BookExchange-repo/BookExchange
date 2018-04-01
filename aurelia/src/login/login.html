@@ -1,5 +1,43 @@
 <template>
-  <div class="ui main grid fluid container">
+  
+    <div class="ui vertical segment fullscreen-image-login">
+        <div class="black-box"></div>
+    
+        <div class="ui login centered grid container">
+          <div class="center aligned five wide column">
+            <div class="ui segment login-box">
+              <h2>Sign in to BookMarket</h2>
+
+              <form class="ui large form">
+                <div class="field">
+                  <label>Email</label>
+                  <input type="text" name="email">
+                </div>
+
+                <div class="field">
+                  <label>Password</label>
+                  <input type="text" name="password">
+                </div>
+
+                <div class="field">
+                  <button class="large ui teal button" click.delegate="loginButton()">Sign in</button>
+                </div>
+              </form>
+
+              <div class="ui horizontal divider login">
+                <b>OR</b>
+              </div>
+
+              <button class="google-sign-in-btn" click.delegate="loginWithGoogleButton()">
+              </button>
+              <p>powered by OAuth-proxy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  <!-- <div class="ui main grid fluid container">
 
     <h1>${helloMessage}</h1>
     <br>
@@ -34,5 +72,5 @@
       </div>
     </div>
     
-  </div>
+  </div> -->
 </template>

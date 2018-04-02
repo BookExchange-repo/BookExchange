@@ -64,7 +64,7 @@
   
           <div class="seller more-about-book">
             <p class="title">Seller: </p>
-            <div class="text">${bookbyid.userid}</div>
+            <div class="text">${bookbyid.userid.full_name}</div>
             <div class="text" if.bind="ifJSONAttributeIsNull(bookbyid.author)">
                 <div>${bookbyid.city}</div>
             </div>

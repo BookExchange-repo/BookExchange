@@ -8,12 +8,22 @@ let httpClient = new HttpClient();
 export class Books {
 
   sortIDs = [];
-  selectedCityID;
+
   selectedGenreIDs = [];
   selectedConditionIDs = [];
   selectedLanguageID;
 
+  products = [
+    { id: 0, name: 'Motherboard' },
+    { id: 1, name: 'CPU' },
+    { id: 2, name: 'Memory' },
+  ];
+
+  selectedProductId = null;
+
   constructor(router) {
+    this.selectedCityID;
+    this.selectedCityID2;
     this.cities = null;
     this.genres = null;
     this.conditions = null;
@@ -70,11 +80,31 @@ export class Books {
     });
   }
 
-  tagDeleteButtonPressed(tagIDtoDelete) {
-    //console.log(tagIDtoDelete);
-    //console.log(this.selectedGenreIDs);
+  testets() {
+    console.log(JSON.stringify(this.cities));
+    this.selectedCityID = 5;
+    this.selectedProductId = 1;
+  }
 
-    this.selectedGenreIDs.splice(tagIDtoDelete,1);
+  genresTagDeleteButtonPressed(tagIDtoDelete) {
+    let indexOfElement = this.selectedGenreIDs.indexOf(tagIDtoDelete);
+    this.selectedGenreIDs.splice(indexOfElement,1);
+    this.correctURLaccordingToFilters();
+  }
+
+  conditionsTagDeleteButtonPressed(tagIDtoDelete) {
+    let indexOfElement = this.selectedConditionIDs.indexOf(tagIDtoDelete);
+    this.selectedConditionIDs.splice(indexOfElement,1);
+    this.correctURLaccordingToFilters();
+  }
+
+  cityTagDeleteButtonPressed() {
+
+    console.log(this.selectedCityID2);
+    this.selectedCityID = 5;
+    this.selectedCityID2 = "2";
+    console.log(this.selectedCityID2);
+    //this.correctURLaccordingToFilters();
   }
 
   ifJSONAttributeIsNull(text) {
@@ -117,6 +147,7 @@ export class Books {
   }
 
   correctURLaccordingToFilters() {
+    console.log(">>" + this.selectedCityID);
     this.router.navigateToRoute(
       this.router.currentInstruction.config.name,
       {
@@ -128,6 +159,7 @@ export class Books {
       },
       { trigger: false, replace: true }
     );
+    console.log(">>" + this.selectedCityID);
   }
 
   dropdownSortIDChangedAndCorrectURL() {

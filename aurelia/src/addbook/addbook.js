@@ -187,7 +187,7 @@ export class AddBooks {
   }
 
   fetchGenresFromAPI() {
-    httpClient.fetch('http://bookmarket.online:8081/api/genres/getall0')
+    httpClient.fetch('https://bookmarket.online:18081/api/genres/getall0')
       .then(response => response.json())
       .then(data => {
         this.genres = data;
@@ -195,7 +195,7 @@ export class AddBooks {
   }
 
   fetchConditionsFromAPI() {
-    httpClient.fetch('http://bookmarket.online:8081/api/conditions/getall0')
+    httpClient.fetch('https://bookmarket.online:18081/api/conditions/getall0')
       .then(response => response.json())
       .then(data => {
         this.conditions = data;
@@ -203,7 +203,7 @@ export class AddBooks {
   }
 
   fetchLanguagesFromAPI() {
-    httpClient.fetch('http://bookmarket.online:8081/api/languages/getall0')
+    httpClient.fetch('https://bookmarket.online:18081/api/languages/getall0')
       .then(response => response.json())
       .then(data => {
         this.languages = data;
@@ -211,7 +211,7 @@ export class AddBooks {
   }
 
   fetchCitiesFromAPI() {
-    httpClient.fetch('http://bookmarket.online:8081/api/cities/getall')
+    httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
       .then(response => response.json())
       .then(data => {
         this.cities = data;

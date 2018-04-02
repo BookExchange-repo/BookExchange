@@ -59,7 +59,7 @@ export class SignUp {
   }
 
   fetchCitiesFromAPI() {
-    httpClient.fetch('http://bookmarket.online:8081/api/cities/getall')
+    httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
       .then(response => response.json())
       .then(data => {
         this.cities = data;

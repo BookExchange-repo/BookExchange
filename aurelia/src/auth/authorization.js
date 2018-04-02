@@ -25,7 +25,7 @@ export class Authorization {
   }
 
   async loginButtonPressed(email, password) {
-    let response = await fetch('https://bookmarket.online:18081/api/users/login?user=' + email + '&pass=' + password);
+    let response = await fetch('https://bookmarket.online:18081/api/users/login?email=' + email + '&pass=' + password);
     let data = await response.json();
     return data;
   }

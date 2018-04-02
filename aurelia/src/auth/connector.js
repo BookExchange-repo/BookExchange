@@ -21,7 +21,7 @@ export class Connector {
 
   ckeckLoginStatus() {
     this.authorization.isLoggedIn().then(data => {
-      if (data.errors.length === 0) {
+      if (!data.errors) {
         this.loggedInStatusMessage = data.full_name;
         this.loggedIn = true;
       } else {

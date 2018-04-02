@@ -37,22 +37,41 @@ export class AddBooks {
   }
 
   attached() {
+
+
     CKEDITOR.replace('editor1');
     this.objEditor1 = CKEDITOR.instances["editor1"];
+    
+    // this.objEditor1.editorConfig = function( config ) {
+    //   config.toolbar = [
+    //     { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
+    //     { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+    //     '/',
+    //     { name: 'links', items: [ 'Link', 'Unlink' ] },
+    //     { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+    //     '/',
+    //     { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+    //     { name: 'insert', items: [ 'Table', 'HorizontalRule',  'SpecialChar'] },
+    //     { name: 'tools', items: [ 'ShowBlocks' ] },
+    //     { name: 'document', items: [ 'Source' ] },
+    //   ];
+    //   config.allowedContent = true;
+    // };
 
-    this.quill = new Quill('#editor', {
-      modules: {
-        toolbar: [
-          [{ header: [1, 2, false] }],
-          ['bold', 'italic'],
-          ['link', 'blockquote', 'code-block', 'image'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          ['bold', 'italic', 'underline'],
-          ['image', 'code-block']
-        ]
-      },
-      theme: 'snow'
-    });
+
+    // this.quill = new Quill('#editor', {
+    //   modules: {
+    //     toolbar: [
+    //       [{ header: [1, 2, false] }],
+    //       ['bold', 'italic'],
+    //       ['link', 'blockquote', 'code-block', 'image'],
+    //       [{ list: 'ordered' }, { list: 'bullet' }],
+    //       ['bold', 'italic', 'underline'],
+    //       ['image', 'code-block']
+    //     ]
+    //   },
+    //   theme: 'snow'
+    // });
 
 
     $('.ui.dropdown').dropdown();

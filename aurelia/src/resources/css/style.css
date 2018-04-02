@@ -391,3 +391,41 @@ html {
   margin-top: 1em;
   margin-bottom: 1em; 
 }
+
+.ui.tabular.menu .item {
+  font-size: 1.15em;
+}
+
+.page-title {
+  margin-bottom: 1.5em;
+}
+
+.history-title {
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 2.5em;
+}
+
+.history-title .icon {
+  margin-right: 1em;
+}
+
+.ui.items>.item>.content>a.book-title {
+  font-size: 1.15em;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+}
+
+.ui.items>.item>.image.history>img {
+  width: 90%;
+}
+
+.ui.grid.history {
+  padding: 2em;
+}
+
+.tab-history {
+  margin-bottom: 2em;
+}

@@ -48,7 +48,7 @@
             <div class="two fields">
               <div class="field required sell-book">
                 <label>Genre:</label>
-                <select class="ui dropdown" value.bind="selectedGenre">
+                <select class="ui dropdown" value.bind="bookDataGenre.id">
                   <option model.bind="null" value="">choose...</option>
                   <option repeat.for="genre of genres" model.bind="genre.id">${genre.string}</option>
                 </select>
@@ -56,7 +56,7 @@
 
               <div class="field required sell-book">
                 <label>Language:</label>
-                <select class="ui dropdown" value.bind="selectedLanguage">
+                <select class="ui dropdown" value.bind="bookDataLanguage.id">
                   <option model.bind="null" value="">choose...</option>
                   <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
                 </select>
@@ -71,7 +71,7 @@
 
               <div class="field required sell-book">
                 <label>Condition:</label>
-                <select class="ui dropdown" value.bind="selectedCondition">
+                <select class="ui dropdown" value.bind="bookDataCondition.id">
                   <option model.bind="null" value="">choose...</option>
                   <option repeat.for="condition of conditions" model.bind="condition.id">${condition.string}</option>
                 </select>
@@ -100,19 +100,18 @@
               </div>
             </div>
 
-            <div class="field required sell-book description">
+            <!-- <div class="field required sell-book description">
               <label>Description:</label>
               <textarea rows="4" id="bookDescription" type="text" name="bookDescription" value.bind="bookData.description"></textarea>
-            </div>
+            </div> -->
 
-            <div id="editor">
-                <p>Hello World!</p>
-                <p>Some initial <strong>bold</strong> text</p>
-                <p><br></p>
-              </div>
+            <!-- <div innerhtml.bind="htmlProperty | sanitizeHTML"></div> -->
 
-              <button click.delegate="printQuillContent()">printQuillContent</button>
+            <div innerhtml.two-way="quillDescription | sanitizeHTML" id="editor"><p>hello</p></div>
 
+            <textarea name="editor1"></textarea>
+
+            <button click.delegate="printQuillContent()">Testing Button</button>
 
             <input class="ui large teal submit button" type="submit" value="Sell Book" id="sell_book">
           </form>

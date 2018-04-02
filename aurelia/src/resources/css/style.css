@@ -6,29 +6,85 @@ html {
   height: auto;
 }
 
-@media only screen and (min-width: 1400px) {
+@media only screen and (min-width: 1650px) {
   .ui.fluid.container.custom-width {
     margin-bottom: 3em;
     margin-top: 6.5em;
     width: 70%;
   }
+
+  .ui.fluid.container.navbar {
+    width: 70%;
+  }
+
+  .ui.fluid.container.footer {
+    width: 70%;
+  }
 }
 
-@media only screen and (min-width: 1100px) and (max-width: 1399px) {
+@media only screen and (min-width: 1460px) and (max-width: 1649px) {
+  .ui.fluid.container.custom-width {
+    margin-bottom: 3em;
+    margin-top: 6.5em;
+    width: 80%;
+  }
+
+  .ui.fluid.container.navbar {
+    width: 80%;
+  }
+
+  .ui.fluid.container.footer {
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 1300px) and (max-width: 1459px) {
   .ui.fluid.container.custom-width {
     margin-bottom: 3em;
     margin-top: 6.5em;
     width: 90%;
   }
+
+  .ui.fluid.container.navbar {
+    width: 90%;
+  }
+
+  .ui.fluid.container.footer {
+    width: 90%;
+  }
 }
 
-@media only screen and (max-width: 1099px) {
+@media only screen and (max-width: 1299px) {
   .ui.fluid.container.custom-width {
     margin-bottom: 3em;
     margin-top: 6.5em;
     width: 100%;
     padding-left: 1em;
     padding-right: 1em; 
+  }
+
+  .ui.fluid.container.navbar {
+    width: 100%;
+  }
+
+  .ui.fluid.container.footer {
+    width: 95%;
+  }
+}
+
+@media only screen and (min-width: 1350px) {
+  .image.horizontal-line {
+    width: auto;
+    height: 12em;
+    object-fit: cover;
+  }
+}
+
+@media only screen and (max-width: 1349px) {
+  .image.horizontal-line {
+    width: auto;
+    height: 10em;
+    object-fit: cover;
   }
 }
 
@@ -171,10 +227,6 @@ html {
   background: rgba(0, 0, 0, 0)!important;
 }
 
-.ui.fluid.container.navbar {
-  width: 70%;
-}
-
 #logo-footer {
   background: url(../images/logo_mono.svg) no-repeat;
   width: auto;
@@ -217,12 +269,6 @@ html {
   color: rgba(0,0,0,.4);
 }
 
-.image.horizontal-line {
-  width: auto;
-  height: 12em;
-  object-fit: cover;
-}
-
 .description.horizontal-line {
   margin-bottom: 1.5em;
 }
@@ -235,6 +281,10 @@ html {
 .price.horizontal-line {
   font-size: 1.5em;
   font-weight: bold;
+}
+
+#book_image {
+  cursor: pointer;
 }
 
 .ui.segment.information.more-about-book {

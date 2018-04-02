@@ -2,14 +2,20 @@ import { HttpClient, json} from 'aurelia-fetch-client';
 import { customAttribute, bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 
+let httpClient = new HttpClient();
 
 @inject(Router)
 export class SignUp {
+
+  signupData = {};
+
   constructor(router) {
     this.helloMessage = "username";
+    this.cities = null;
   }
 
   attached() {
+    this.fetchCitiesFromAPI();
 
     $('.ui.form')
       .form({
@@ -52,9 +58,18 @@ export class SignUp {
 
   }
 
+  fetchCitiesFromAPI() {
+    httpClient.fetch('http://bookmarket.online:8081/api/cities/getall')
+      .then(response => response.json())
+      .then(data => {
+        this.cities = data;
+      });
+  }
+
   continueButtonPressed () {
     if( $('.ui.form').form('is valid')) {
-      console.log("test");
+      //console.log(this.signupData);
+      console.log(JSON.stringify(this.signupData));
     }
   }
 

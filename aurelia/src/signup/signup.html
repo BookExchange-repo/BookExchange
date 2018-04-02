@@ -15,28 +15,35 @@
           <form class="ui large form" action="javascript:myFunction(); return false;">
 
             <div class="required field">
-              <label>Name </label>
-              <input type="text" name="firstname">
+              <label>First Name</label>
+              <input type="text" name="firstname" value.bind="signupData.firstname">
             </div>
 
             <div class="required field">
-              <label>Last name </label>
-              <input type="text" name="lastname">
+              <label>Last name</label>
+              <input type="text" name="lastname" value.bind="signupData.lastname">
             </div>
 
             <div class="required field">
-              <label>City </label>
-              <input type="text" name="city">
+              <label>City</label>
+              <select class="ui search dropdown" name="city" value.bind="signupData.city">
+                  <option model.bind="null" value="">Select city</option>
+                  <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
+                </select>
+              <!-- <input type="text" name="city"> -->
             </div>
 
             <div class="required field">
-              <label>Phone number </label>
-              <input type="text" name="phone">
+              <label>Phone number</label>
+              <div class="ui right labeled input">
+                  <label for="phone" class="ui label">+372</label>
+                  <input type="text" name="phone" id="phone" value.bind="signupData.phone">
+                </div>
             </div>
 
             <div class="ui error message"></div>
 
-            <div class="ui submit large ui teal button" click.delegate="continueButtonPressed()">Continue</div>
+            <div class="ui submit large ui teal button" click.delegate="continueButtonPressed()">Get started</div>
     
           </form>
 

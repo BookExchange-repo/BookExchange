@@ -7,7 +7,7 @@ let httpClient = new HttpClient();
 @inject(Router)
 export class AddBooks {
 
-  bookData = {}
+  bookData = {};
   statusMessages = [];
   statusMessagesVisible = false;
 

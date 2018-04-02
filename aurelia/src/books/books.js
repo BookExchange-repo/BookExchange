@@ -80,12 +80,6 @@ export class Books {
     });
   }
 
-  testets() {
-    console.log(JSON.stringify(this.cities));
-    this.selectedCityID = 5;
-    this.selectedProductId = 1;
-  }
-
   genresTagDeleteButtonPressed(tagIDtoDelete) {
     let indexOfElement = this.selectedGenreIDs.indexOf(tagIDtoDelete);
     this.selectedGenreIDs.splice(indexOfElement,1);
@@ -99,12 +93,11 @@ export class Books {
   }
 
   cityTagDeleteButtonPressed() {
+    $('#citySelector').dropdown('set selected', 'All cities');
+  }
 
-    console.log(this.selectedCityID2);
-    this.selectedCityID = 5;
-    this.selectedCityID2 = "2";
-    console.log(this.selectedCityID2);
-    //this.correctURLaccordingToFilters();
+  languageTagDeleteButtonPressed() {
+    $('#languageSelector').dropdown('set selected', 'All languages');
   }
 
   ifJSONAttributeIsNull(text) {
@@ -147,7 +140,7 @@ export class Books {
   }
 
   correctURLaccordingToFilters() {
-    console.log(">>" + this.selectedCityID);
+    //console.log(">>" + this.selectedCityID);
     this.router.navigateToRoute(
       this.router.currentInstruction.config.name,
       {

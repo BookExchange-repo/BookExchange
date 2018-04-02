@@ -11,29 +11,29 @@
           <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
         </select>
       </div>
-      
-      <div class="sixteen wide column" value.bind="selectedGenreIDs">
-          <button click.delegate="testets()">Test</button>
 
-          <a class="ui red label" if.bind="selectedCityID!=0">
-              ${cities[selectedCityID-1].string}
-            <i class="delete icon" click.delegate="cityTagDeleteButtonPressed()"></i>
-          </a>
+      <div class="sixteen wide column">
 
-          <a class="ui blue label" repeat.for="selectedGenreID of selectedGenreIDs">
-              ${genres[selectedGenreID-1].string}
-            <i class="delete icon" click.delegate="genresTagDeleteButtonPressed(selectedGenreID)"></i>
-          </a>
+        <a class="ui red label" if.bind="selectedCityID!=0">
+          ${cities[selectedCityID-1].string}
+          <i class="delete icon" click.delegate="cityTagDeleteButtonPressed()"></i>
+        </a>
 
-          <a class="ui orange label" repeat.for="selectedConditionID of selectedConditionIDs">
-              ${conditions[selectedConditionID-1].string}
-            <i class="delete icon" click.delegate="conditionsTagDeleteButtonPressed(selectedConditionID)"></i>
-          </a>
+        <a class="ui blue label" repeat.for="selectedGenreID of selectedGenreIDs">
+          ${genres[selectedGenreID-1].string}
+          <i class="delete icon" click.delegate="genresTagDeleteButtonPressed(selectedGenreID)"></i>
+        </a>
+
+        <a class="ui orange label" repeat.for="selectedConditionID of selectedConditionIDs">
+          ${conditions[selectedConditionID-1].string}
+          <i class="delete icon" click.delegate="conditionsTagDeleteButtonPressed(selectedConditionID)"></i>
+        </a>
+
+        <a class="ui teal label" if.bind="selectedLanguageID!=0">
+          ${languages[selectedLanguageID-1].string}
+          <i class="delete icon" click.delegate="languageTagDeleteButtonPressed()"></i>
+        </a>
       </div>
-
-      
-
-
 
       <div class="three wide column">
         <div class="ui fluid vertical accordion menu">
@@ -45,18 +45,12 @@
 
             <div class="active content">
 
-                <select class="ui fluid search dropdown" value.bind="selectedCityID" change.delegate="filterDataChanged()">
-                  <option model.bind="0" selected>All cities</option>
-                  <option repeat.for="city of cities" model.bind="city.id">${city.id} - ${city.string}</option>
-                </select>
-
-                <select value.bind="selectedProductId">
-                    <option model.bind="null">Choose...</option>
-                    <option repeat.for="product of products" model.bind="product.id">${product.id} - ${product.name}</option>
-                  </select>
+              <select class="ui fluid search dropdown" id="citySelector" value.bind="selectedCityID" change.delegate="filterDataChanged()">
+                <option model.bind="0" selected>All cities</option>
+                <option repeat.for="city of cities" model.bind="city.id">${city.id} - ${city.string}</option>
+              </select>
 
             </div>
-
           </div>
 
           <div class="item">
@@ -108,7 +102,7 @@
 
             <div class="active content">
               <form class="ui form" method="post">
-                <select class="ui fluid search dropdown" value.bind="selectedLanguageID" change.delegate="filterDataChanged()">
+                <select id="languageSelector" class="ui fluid search dropdown" value.bind="selectedLanguageID" change.delegate="filterDataChanged()">
                   <option model.bind="0" selected>All languages</option>
                   <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
                 </select>

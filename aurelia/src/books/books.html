@@ -36,7 +36,57 @@
       </div>
 
       <div class="three wide column">
-        <div class="ui fluid vertical accordion menu">
+
+        <div class="ui red segment">
+          <b>Your city</b>
+          <select class="ui fluid search dropdown" id="citySelector" value.bind="selectedCityID" change.delegate="filterDataChanged()">
+            <option model.bind="0" selected>All cities</option>
+            <option repeat.for="city of cities" model.bind="city.id">${city.id} - ${city.string}</option>
+          </select>
+        </div>
+
+        <div class="ui blue segment">
+          <b>Genres</b>
+          <form class="ui form" method="post" change.delegate="filterDataChanged()">
+            <div class="grouped fields">
+              <div class="field" repeat.for="genre of genres">
+
+                <div class="ui checkbox">
+                  <input type="checkbox" name="small" model.bind="genre.id" id="${genre.string}" checked.bind="selectedGenreIDs">
+                  <label for="${genre.string}">${genre.string}</label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="ui orange segment">
+          <b>Book condition</b>
+          <form class="ui form" method="post" change.delegate="filterDataChanged()">
+            <div class="grouped fields">
+              <div class="field" repeat.for="condition of conditions">
+                <div class="ui checkbox">
+                  <input type="checkbox" name="small" model.bind="condition.id" id="${condition.string}" checked.bind="selectedConditionIDs">
+                  <label for="${condition.string}">${condition.string}</label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="ui teal segment">
+          <b>Language</b>
+
+          <select id="languageSelector" class="ui fluid search dropdown" value.bind="selectedLanguageID" change.delegate="filterDataChanged()">
+            <option model.bind="0" selected>All languages</option>
+            <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
+          </select>
+
+        </div>
+
+
+
+        <!-- <div class="ui fluid vertical accordion menu">
           <div class="item">
             <a class="active title">
               <i class="dropdown icon"></i>
@@ -110,7 +160,7 @@
             </div>
           </div>
 
-        </div>
+        </div> -->
       </div>
 
       <div class="thirteen wide column">

@@ -21,6 +21,7 @@ export class App {
 			{ route: 'signup', name: 'signup', moduleId: 'signup/signup', nav: false, title: 'Sign Up', settings: { roles: [''] }},
 			{ route: 'login', name: 'login', moduleId: 'login/login', nav: true, title: 'Log In', settings: { roles: [''] }},
 			{ route: 'myaccount', name: 'myaccount', moduleId: 'myaccount/myaccount', nav: true, title: 'My Account', settings: { roles: ['reggeduser'] }},
+			{ route: 'history', name: 'history', moduleId: 'history/history', nav: true, title: 'History', settings: { roles: [''] }},
 		]);
 	}
 }

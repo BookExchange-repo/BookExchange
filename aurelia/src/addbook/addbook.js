@@ -6,8 +6,13 @@ let httpClient = new HttpClient();
 
 @inject(Router)
 export class AddBooks {
+  quillDescription = "";
 
   bookData = {};
+  bookDataCondition = {};
+  bookDataLanguage = {};
+  bookDataGenre = {};
+
   statusMessages = [];
   statusMessagesVisible = false;
 
@@ -16,8 +21,11 @@ export class AddBooks {
   selectedLanguage = null;
   selectedCity = null;
 
+
   constructor(router) {
     this.quill;
+    this.objEditor1;
+
     this.genres = null;
     this.conditions = null;
     this.languages = null;
@@ -29,16 +37,23 @@ export class AddBooks {
   }
 
   attached() {
+    CKEDITOR.replace('editor1');
+    this.objEditor1 = CKEDITOR.instances["editor1"];
+
     this.quill = new Quill('#editor', {
       modules: {
         toolbar: [
+          [{ header: [1, 2, false] }],
           ['bold', 'italic'],
           ['link', 'blockquote', 'code-block', 'image'],
-          [{ list: 'ordered' }, { list: 'bullet' }]
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['bold', 'italic', 'underline'],
+          ['image', 'code-block']
         ]
       },
       theme: 'snow'
     });
+
 
     $('.ui.dropdown').dropdown();
 
@@ -60,52 +75,62 @@ export class AddBooks {
   }
 
   printQuillContent() {
-    console.log(JSON.stringify(this.quill.root.innerHTML));
+    // console.log(JSON.stringify(this.quill.root.innerHTML));
+    // console.log(this.quillDescription);
+
+    console.log(this.objEditor1.getData());
+
+    // console.log(this.objEditor1.getData().replace(SCRIPT_REGEX, ''));
   }
 
   addBook() {
     this.statusMessagesVisible = false;
     this.statusMessages = [];
 
-    if (this.selectedGenre == null) {
-      this.statusMessagesVisible = true;
-      this.statusMessages.push("Please enter genre!");
-    }
+    // if (this.selectedGenre == null) {
+    //   this.statusMessagesVisible = true;
+    //   this.statusMessages.push("Please enter genre!");
+    // }
 
-    if (this.bookData.title == null || this.bookData.title == "") {
-      this.statusMessagesVisible = true;
-      this.statusMessages.push("Please enter title!");
-    }
+    // if (this.bookData.title == null || this.bookData.title == "") {
+    //   this.statusMessagesVisible = true;
+    //   this.statusMessages.push("Please enter title!");
+    // }
 
-    if (this.bookData.price == null || this.bookData.price <= 0) {
-      this.statusMessagesVisible = true;
-      this.statusMessages.push("Please enter price!");
-    }
+    // if (this.bookData.price == null || this.bookData.price <= 0) {
+    //   this.statusMessagesVisible = true;
+    //   this.statusMessages.push("Please enter price!");
+    // }
 
-    if (this.selectedCondition == null) {
-      this.statusMessagesVisible = true;
-      this.statusMessages.push("Please enter book condition!");
-    }
+    // if (this.selectedCondition == null) {
+    //   this.statusMessagesVisible = true;
+    //   this.statusMessages.push("Please enter book condition!");
+    // }
 
-    if (this.selectedLanguage == null) {
-      this.statusMessagesVisible = true;
-      this.statusMessages.push("Please enter book language!");
-    }
+    // if (this.selectedLanguage == null) {
+    //   this.statusMessagesVisible = true;
+    //   this.statusMessages.push("Please enter book language!");
+    // }
 
-    if (this.selectedCity == null) {
-      this.statusMessagesVisible = true;
-      this.statusMessages.push("Please enter your city!");
-    }
+    // if (this.selectedCity == null) {
+    //   this.statusMessagesVisible = true;
+    //   this.statusMessages.push("Please enter your city!");
+    // }
 
-    if (this.bookData.description == null || this.bookData.description == "") {
-      this.statusMessagesVisible = true;
-      this.statusMessages.push("Please enter description!");
-    }
+    // if (this.bookData.description == null || this.bookData.description == "") {
+    //   this.statusMessagesVisible = true;
+    //   this.statusMessages.push("Please enter description!");
+    // }
 
     if (this.checkIfEveryInputfieldIsFilled()) {
       let client = new HttpClient();
 
+      this.bookData.description = this.objEditor1.getData();
       this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
+      this.bookData.conditiondesc = this.bookDataCondition;
+      this.bookData.language = this.bookDataLanguage;
+      this.bookData.genreid = this.bookDataGenre;
+
 
       client.fetch('https://bookmarket.online:18081/api/books/add', {
           'method': "POST",
@@ -132,9 +157,10 @@ export class AddBooks {
   }
 
   checkIfEveryInputfieldIsFilled() {
-    return (this.bookData.title != "" && this.bookData.title != null &&
-      this.bookData.price > 0 &&
-      this.bookData.description != "" && this.bookData.description != null);
+    // return (this.bookData.title != "" && this.bookData.title != null &&
+    //   this.bookData.price > 0 &&
+    //   this.bookData.description != "" && this.bookData.description != null);
+    return true;
   }
 
   magicFill(isbn) {

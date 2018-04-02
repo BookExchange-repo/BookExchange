@@ -2,7 +2,9 @@ package ee.ttu.BookExchange.api.controllers;
 
 import ee.ttu.BookExchange.api.models.Users;
 import ee.ttu.BookExchange.api.services.UsersService;
+import ee.ttu.BookExchange.exceptions.APIException;
 import ee.ttu.BookExchange.utilities.Checksum;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.SecureRandom;
@@ -78,13 +80,23 @@ public class UsersController {
     }
 
     @RequestMapping(value = "getinfo", method = RequestMethod.GET)
-    public Users getUser(@RequestParam(value = "session") String session) {
+    public Users getUser(@RequestParam(value = "session") String session) throws APIException {
         List<String> allErrors = new ArrayList<>();
         Optional<Integer> userId = getUserIdBySession(session);
         if (!userId.isPresent()) {
-            throw new RuntimeException("CANNOT_USERS_GETINFO");
+            throw new APIException("CANNOT_USERS_GETINFO");
         }
         return usersService.getUserById(userId.get());
+    }
+
+    @ExceptionHandler(APIException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody Map<String, List<String>> apiErrorHandler(APIException e) {
+        Map<String, List<String>> result = new HashMap<>();
+        List<String> allErrors = new ArrayList<>();
+        allErrors.add(e.getMessage());
+        result.put("errors", allErrors);
+        return result;
     }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
@@ -96,7 +108,7 @@ public class UsersController {
         Users user = usersService.getUserByEmail(email);
         if (user == null || !Checksum.calculateSHA256(user.getPass_salt(), password).equals(user.getPass_hash())) {
             allErrors.add("CANNOT_USERS_LOGIN");
-            result.put("error", allErrors);
+            result.put("errors", allErrors);
             return result;
         }
         String sessionKey = allSessions.get(user.getId());
@@ -105,7 +117,7 @@ public class UsersController {
             allSessions.put(user.getId(), sessionKey);
         }
         result.put("session", sessionKey);
-        result.put("error", allErrors);
+        result.put("errors", allErrors);
         return result;
     }
 
@@ -113,7 +125,7 @@ public class UsersController {
     public Map<String, Object> logoutUser(@RequestParam(value = "session") String session) {
         Map<String, Object> result = new HashMap<>();
         getUserIdBySession(session).ifPresent(i -> allSessions.remove(i));
-        result.put("error", new ArrayList<>());
+        result.put("errors", new ArrayList<>());
         return result;
     }
 }

@@ -19,9 +19,13 @@ public class BooksController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    HashMap<String, Books> addBook(@RequestBody Books inputBook) {
+    Map<String, Object> addBook(@RequestBody Books inputBook) {
         booksService.saveBook(inputBook);
-        return new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        List<String> allErrors = new ArrayList<>();
+        result.put("id", inputBook.getId());
+        result.put("errors", allErrors);
+        return result;
     }
 
     private String[] parseArrayString(String arrayString) {

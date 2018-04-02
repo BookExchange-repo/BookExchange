@@ -127,12 +127,18 @@ html {
 
 .ui.segment.registration h1 {
   margin-bottom: -0.5em;
+  text-align: left;
+  font-weight: normal;
 }
 
 .ui.segment.registration h2 {
-  color: rgba(0,0,0,.4);
-  font-style: italic;
-  margin-bottom: 1.5em;
+  color: rgba(0,0,0,.8);
+  /* font-style: italic; */
+  font-weight: normal;
+  text-align: left;
+  font-size: 1.4em;
+  margin-top: 2.3em;
+  margin-bottom: 2em;
 }
 
 .ui.segment.login p {

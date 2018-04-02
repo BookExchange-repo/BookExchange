@@ -104,7 +104,7 @@ public class BooksController {
                                 case "postdate":
                                     return e.getPostdate().toString().equals(value);
                                 case "userid":
-                                    return Integer.toString(e.getUserid()).equals(value);
+                                    return Integer.toString(e.getUserid().getId()).equals(value);
                                 case "genreid":
                                     return Integer.toString(e.getGenreid().getId()).equals(value);
                                 default:
@@ -150,7 +150,7 @@ public class BooksController {
                             case "postdate":
                                 return e1.getPostdate().toString().compareTo(e2.getPostdate().toString());
                             case "userid":
-                                return Integer.compare(e1.getUserid(), e2.getUserid());
+                                return Integer.compare(e1.getUserid().getId(), e2.getUserid().getId());
                             case "genreid":
                                 return Integer.compare(e1.getGenreid().getId(), e2.getGenreid().getId());
                             default:

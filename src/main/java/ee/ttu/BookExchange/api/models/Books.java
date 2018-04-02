@@ -60,8 +60,9 @@ public class Books {
     @Column(nullable = false, columnDefinition = "timestamp")
     Timestamp postdate;
 
-    @Column(nullable = false)
-    int userid;
+    @ManyToOne
+    @JoinColumn(name = "userid", referencedColumnName = "id", nullable = false)
+    Users userid;
 
     @ManyToOne
     @JoinColumn(name = "genreid", referencedColumnName = "id", nullable = false)

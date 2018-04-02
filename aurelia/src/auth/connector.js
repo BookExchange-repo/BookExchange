@@ -42,7 +42,7 @@ export class Connector {
       })
       .then(data => {
         this.JSONwithSessionData = data;
-        if (this.JSONwithSessionData.error.length === 0) {
+        if (this.JSONwithSessionData.errors.length === 0) {
           console.log(this.JSONwithSessionData.session);
           this.authorization.saveSessionID(this.JSONwithSessionData.session);
           this.ckeckLoginStatus();

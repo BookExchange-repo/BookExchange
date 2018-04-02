@@ -1,50 +1,42 @@
 <template>
-  
-    <div class="ui vertical segment fullscreen-image">
-        <div class="black-box"></div>
-    
-        <div class="ui login centered grid container">
-          <div class="center aligned five wide column">
-            <div class="ui segment login">
-              <h2>Sign in to BookMarket</h2>
 
-              <div if.bind="negativeStatusMessagesVisible">
-                <div class="ui error message login">
-                  <div class="header">
-                    There were some errors with your submission
-                  </div>
-                  <ul class="list">
-                    <li repeat.for="statusMessage of statusMessages">${statusMessage}</li>
-                  </ul>
-                </div>
-              </div>
+  <div class="ui vertical segment fullscreen-image">
+    <div class="black-box"></div>
 
-              <form class="ui large form">
-                <div class="field">
-                  <label>Email</label>
-                  <input type="text" name="email" value.bind="email">
-                </div>
+    <div class="ui login centered grid container">
+      <div class="center aligned five wide column">
+        <div class="ui segment login">
 
-                <div class="field">
-                  <label>Password</label>
-                  <input type="password" name="password" value.bind="password">
-                </div>
+          <h2>Sign in to BookMarket</h2>
 
-                <div class="field">
-                  <button class="large ui teal button" click.delegate="loginButton()">Sign In</button>
-                </div>
-              </form>
+          <form class="ui large form" action="javascript:myFunction(); return false;">
 
-              <div class="ui horizontal divider login">
-                <b>OR</b>
-              </div>
+            <div class="ui error message"></div>
 
-              <button class="google-sign-in-btn" click.delegate="loginWithGoogleButton()">
-              </button>
-              <p>powered by OAuth-proxy</p>
+            <div class="required field">
+              <label>Email</label>
+              <input type="text" name="email" value.bind="email">
             </div>
+
+            <div class="required field">
+              <label>Password</label>
+              <input type="password" name="password" value.bind="password">
+            </div>
+
+            <div class="ui submit large ui teal button" click.delegate="loginButton()">Sign in</div>
+
+          </form>
+
+          <div class="ui horizontal divider login">
+            <b>OR</b>
           </div>
+
+          <button class="google-sign-in-btn" click.delegate="loginWithGoogleButton()">
+          </button>
+          <p>Secured with OAuth2 Proxy version 2.2.0</p>
         </div>
       </div>
+    </div>
+  </div>
 
 </template>

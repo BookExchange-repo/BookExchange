@@ -9,18 +9,37 @@ let httpClient = new HttpClient();
 @inject(Authorization, Connector, Router)
 export class Login {
 
-  statusMessages = [];
-  negativeStatusMessagesVisible = false;
-  positiveStatusMessagesVisible = false;
-
   constructor(authorization, connector, router) {
     this.authorization = authorization;
     this.connector = connector;
     this.router = router;
-
     this.helloMessage = "Log in";
     this.email;
     this.password;
+  }
+
+  attached() {
+    $('.ui.form')
+      .form({
+        fields: {
+          email: {
+            rules: [
+              {
+                type: 'empty',
+                prompt: 'Please enter your email'
+              }
+            ]
+          },
+          password: {
+            rules: [
+              {
+                type: 'empty',
+                prompt: 'Please enter your password'
+              }
+            ]
+          },
+        }
+      });
   }
 
   loginWithGoogleButton() {
@@ -28,26 +47,18 @@ export class Login {
   }
 
   loginButton() {
-    this.authorization.loginButtonPressed(this.email, this.password).then(data => {
-
-      if (data.session && data.errors.length === 0) {
-
-        this.authorization.saveSessionID(data.session);
-        this.positiveStatusMessagesVisible = true;
-        this.negativeStatusMessagesVisible = false;
-
-        this.router.navigateToRoute('home');
-        
-      } else {
-        this.negativeStatusMessagesVisible = true;
-        this.positiveStatusMessagesVisible = false;
-        this.statusMessages = [];
-        console.log("API Error: " + JSON.stringify(data.errors));
-        this.statusMessages.push("API Error: " + JSON.stringify(data.errors));
-      }
-      this.connector.ckeckLoginStatus();
-      console.log(JSON.stringify(data));
-    });
-
+    if( $('.ui.form').form('is valid')) {
+      this.authorization.loginButtonPressed(this.email, this.password).then(data => {
+        if (data.session && data.errors.length === 0) {
+          this.authorization.saveSessionID(data.session);
+          this.router.navigateToRoute('home');
+        } else {
+          $('.ui.form').form('add errors', {apiError: 'Cannot connect to the authorization API'});
+        }
+        this.connector.ckeckLoginStatus();
+        console.log(JSON.stringify(data));
+      });  
+    }
   }
+
 }

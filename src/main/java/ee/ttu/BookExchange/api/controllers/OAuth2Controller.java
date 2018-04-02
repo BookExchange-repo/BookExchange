@@ -41,7 +41,7 @@ public class OAuth2Controller {
             user = usersService.getUserByEmail(googleEmail);
         }
         result.put("session", UsersController.externalGetSession(user.getId()));
-        result.put("error", new ArrayList<>());
+        result.put("errors", new ArrayList<>());
         return result;
     }
 }

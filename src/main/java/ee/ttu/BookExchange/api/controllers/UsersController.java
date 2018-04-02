@@ -96,7 +96,7 @@ public class UsersController {
         Users user = usersService.getUserByEmail(email);
         if (user == null || !Checksum.calculateSHA256(user.getPass_salt(), password).equals(user.getPass_hash())) {
             allErrors.add("CANNOT_USERS_LOGIN");
-            result.put("error", allErrors);
+            result.put("errors", allErrors);
             return result;
         }
         String sessionKey = allSessions.get(user.getId());
@@ -105,7 +105,7 @@ public class UsersController {
             allSessions.put(user.getId(), sessionKey);
         }
         result.put("session", sessionKey);
-        result.put("error", allErrors);
+        result.put("errors", allErrors);
         return result;
     }
 
@@ -113,7 +113,7 @@ public class UsersController {
     public Map<String, Object> logoutUser(@RequestParam(value = "session") String session) {
         Map<String, Object> result = new HashMap<>();
         getUserIdBySession(session).ifPresent(i -> allSessions.remove(i));
-        result.put("error", new ArrayList<>());
+        result.put("errors", new ArrayList<>());
         return result;
     }
 }

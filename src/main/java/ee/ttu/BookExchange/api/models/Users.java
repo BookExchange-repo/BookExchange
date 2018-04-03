@@ -29,7 +29,7 @@ public class Users {
     String full_name;
 
     @ManyToOne
-    @JoinColumn(name = "city", referencedColumnName = "id")
+    @JoinColumn(name = "city", referencedColumnName = "id", nullable = false)
     City city;
 
     @Column(nullable = false)

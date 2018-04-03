@@ -67,4 +67,8 @@ public class Books {
     @ManyToOne
     @JoinColumn(name = "genreid", referencedColumnName = "id", nullable = false)
     GenreEng genreid;
+
+    @ManyToOne
+    @JoinColumn(name = "city", referencedColumnName = "id", nullable = false)
+    City city;
 }

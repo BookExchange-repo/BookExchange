@@ -2,6 +2,7 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 import {customAttribute, bindable, inject} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Connector} from 'auth/connector';
+import environment from '../environment';
 
 let httpClient = new HttpClient();
 
@@ -25,8 +26,7 @@ export class AddBooks {
 
 
   constructor(router, connector) {
-    this.quill;
-    this.objEditor1;
+    this.richTextEditor;
 
     this.connector = connector;
     this.genres = null;
@@ -41,11 +41,10 @@ export class AddBooks {
 
   attached() {
 
-
-    CKEDITOR.replace('editor1');
-    this.objEditor1 = CKEDITOR.instances["editor1"];
+    CKEDITOR.replace('richTextEditor');
+    this.richTextEditor = CKEDITOR.instances["richTextEditor"];
     
-    // this.objEditor1.editorConfig = function( config ) {
+    // this.richTextEditor.editorConfig = function( config ) {
     //   config.toolbar = [
     //     { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
     //     { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
@@ -61,20 +60,6 @@ export class AddBooks {
     //   config.allowedContent = true;
     // };
 
-
-    // this.quill = new Quill('#editor', {
-    //   modules: {
-    //     toolbar: [
-    //       [{ header: [1, 2, false] }],
-    //       ['bold', 'italic'],
-    //       ['link', 'blockquote', 'code-block', 'image'],
-    //       [{ list: 'ordered' }, { list: 'bullet' }],
-    //       ['bold', 'italic', 'underline'],
-    //       ['image', 'code-block']
-    //     ]
-    //   },
-    //   theme: 'snow'
-    // });
 
 
     $('.ui.dropdown').dropdown();
@@ -96,14 +81,14 @@ export class AddBooks {
     this.fetchCitiesFromAPI();
   }
 
-  printQuillContent() {
+/*   printQuillContent() {
     // console.log(JSON.stringify(this.quill.root.innerHTML));
     // console.log(this.quillDescription);
 
-    console.log(this.objEditor1.getData());
+    console.log(this.richTextEditor.getData());
 
-    // console.log(this.objEditor1.getData().replace(SCRIPT_REGEX, ''));
-  }
+    // console.log(this.richTextEditor.getData().replace(SCRIPT_REGEX, ''));
+  } */
 
   addBook() {
     this.statusMessagesVisible = false;
@@ -147,7 +132,7 @@ export class AddBooks {
     if (this.checkIfEveryInputfieldIsFilled()) {
       let client = new HttpClient();
 
-      this.bookData.description = this.objEditor1.getData();
+      this.bookData.description = this.richTextEditor.getData();
       this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
       this.bookData.conditiondesc = this.bookDataCondition;
       this.bookData.language = this.bookDataLanguage;
@@ -156,7 +141,7 @@ export class AddBooks {
       this.bookDataUserID.id = this.connector.userID;
       this.bookData.userid = this.bookDataUserID;
 
-      client.fetch('https://bookmarket.online:18081/api/books/add', {
+      client.fetch(environment.apiURL + 'api/books/add', {
           'method': "POST",
           'body': json(this.bookData)
         })
@@ -192,7 +177,7 @@ export class AddBooks {
   }
 
   fetchGenresFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/genres/getall0')
+    httpClient.fetch(environment.apiURL + 'api/genres/getall0')
       .then(response => response.json())
       .then(data => {
         this.genres = data;
@@ -200,7 +185,7 @@ export class AddBooks {
   }
 
   fetchConditionsFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/conditions/getall0')
+    httpClient.fetch(environment.apiURL + 'api/conditions/getall0')
       .then(response => response.json())
       .then(data => {
         this.conditions = data;
@@ -208,7 +193,7 @@ export class AddBooks {
   }
 
   fetchLanguagesFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/languages/getall0')
+    httpClient.fetch(environment.apiURL + 'api/languages/getall0')
       .then(response => response.json())
       .then(data => {
         this.languages = data;
@@ -216,7 +201,7 @@ export class AddBooks {
   }
 
   fetchCitiesFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
+    httpClient.fetch(environment.apiURL + 'api/cities/getall')
       .then(response => response.json())
       .then(data => {
         this.cities = data;
@@ -225,7 +210,7 @@ export class AddBooks {
 
   fetchBookInformationByISBNFromAPI(isbn) {
     this.magicFillBusy = true;
-    httpClient.fetch('https://bookmarket.online:18081/api/isbn/getinfo?isbn=' + isbn)
+    httpClient.fetch(environment.apiURL + 'api/isbn/getinfo?isbn=' + isbn)
       .then(response => response.json())
       .then(data => {
         this.bookData.title = data.title;

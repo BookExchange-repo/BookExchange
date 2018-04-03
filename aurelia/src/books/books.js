@@ -103,18 +103,43 @@ export class Books {
 
 
   refreshOutput() {
+    let apiURL = "https://bookmarket.online:18081/api/books/getall?"
+//https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=&language=
+//https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=&language=[1,2]
+https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=%5B3,4%5D&genre=&language=&sort=price&sortdesc=true
+//https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=[1]&language=
+    apiURL += "city="
+    if (this.selectedCityID != 0) apiURL += this.selectedCityID;
+    apiURL += "&"
+    apiURL += "conditiondesc="
+    apiURL += JSON.stringify(this.selectedConditionIDs);
+    apiURL += "&"
+    apiURL += "genreid="
+    apiURL += JSON.stringify(this.selectedGenreIDs);
+    apiURL += "&"
+    apiURL += "language="
+    if (this.selectedLanguageID != 0) apiURL += this.selectedLanguageID;
+    
+
     switch (this.selectedSortID) {
       case 0:
-          this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall');
+          this.fetchBooksFromAPI(apiURL);
+          //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall');
           break;
       case 1:
-          this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=postdate&sortdesc=true');
+          apiURL += "&sort=postdate&sortdesc=true";
+          this.fetchBooksFromAPI(apiURL);
+          //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=postdate&sortdesc=true');
           break;
       case 2:
-          this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price');
+          apiURL += "&sort=price";
+          this.fetchBooksFromAPI(apiURL);
+          //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price');
           break;
       case 3:
-          this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price&sortdesc=true');
+          apiURL += "&sort=price&sortdesc=true";
+          this.fetchBooksFromAPI(apiURL);
+          //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price&sortdesc=true');
           break;
     }
   }
@@ -152,6 +177,7 @@ export class Books {
 
   filterDataChanged() {
     this.correctURLaccordingToFilters();
+    this.refreshOutput();
   }
 
   fetchBooksFromAPI(url) {

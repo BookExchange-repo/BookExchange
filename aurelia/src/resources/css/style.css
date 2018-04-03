@@ -1,9 +1,19 @@
+/* General CSS */
+
 html { 
   overflow-y: scroll;
 }
 
 .home {
   height: auto;
+}
+
+a {
+  color: #118092;
+}
+
+a:hover {
+  color: #0F707F;
 }
 
 @media only screen and (min-width: 1650px) {
@@ -72,6 +82,8 @@ html {
   }
 }
 
+/* Only All Books CSS */
+
 @media only screen and (min-width: 1350px) {
   .image.horizontal-line {
     width: auto;
@@ -86,6 +98,10 @@ html {
     height: 10em;
     object-fit: cover;
   }
+}
+
+.ui.segment .all-books.sidebar-field {
+  margin-top: 0.5em; 
 }
 
 .ui.menu .ui.dropdown .menu>.item:hover {
@@ -384,7 +400,7 @@ html {
 }
 
 .book-listing-hover:hover {
-  box-shadow: 0 0 6px #4183c4;
+  box-shadow: 0 0 6px #118092;
 }
 
 .ui.teal.button.upload-image {

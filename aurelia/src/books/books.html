@@ -3,9 +3,7 @@
   <div class="ui fluid container custom-width">
     <div class="ui grid">
       <div class="twelve wide column">
-        <h1>All Books
-          <span if.bind="fetchingBooksFromApi" class="ui active small inline loader"></span><span if.bind="!fetchingBooksFromApi">(${numberOfBooks})</span>
-        </h1>
+        <h1>All Books (${numberOfBooks})</h1>
       </div>
 
       <div class="four wide column">
@@ -41,7 +39,7 @@
 
         <div class="ui red segment">
           <b>Your city</b>
-          <select class="ui fluid search dropdown" id="citySelector" value.bind="selectedCityID" change.delegate="filterDataChanged()">
+          <select class="ui fluid search dropdown all-books sidebar-field" id="citySelector" value.bind="selectedCityID" change.delegate="filterDataChanged()">
             <option model.bind="0" selected>All cities</option>
             <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
           </select>
@@ -49,7 +47,7 @@
 
         <div class="ui blue segment">
           <b>Genres</b>
-          <form class="ui form" method="post" change.delegate="filterDataChanged()">
+          <form class="ui form all-books sidebar-field" method="post" change.delegate="filterDataChanged()">
             <div class="grouped fields">
               <div class="field" repeat.for="genre of genres">
 
@@ -64,7 +62,7 @@
 
         <div class="ui orange segment">
           <b>Book condition</b>
-          <form class="ui form" method="post" change.delegate="filterDataChanged()">
+          <form class="ui form all-books sidebar-field" method="post" change.delegate="filterDataChanged()">
             <div class="grouped fields">
               <div class="field" repeat.for="condition of conditions">
                 <div class="ui checkbox">
@@ -79,7 +77,7 @@
         <div class="ui teal segment">
           <b>Language</b>
 
-          <select id="languageSelector" class="ui fluid search dropdown" value.bind="selectedLanguageID" change.delegate="filterDataChanged()">
+          <select id="languageSelector" class="ui fluid search dropdown all-books sidebar-field" value.bind="selectedLanguageID" change.delegate="filterDataChanged()">
             <option model.bind="0" selected>All languages</option>
             <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
           </select>

@@ -3,7 +3,9 @@
   <div class="ui fluid container custom-width">
     <div class="ui grid">
       <div class="twelve wide column">
-        <h1>All Books (${numberOfBooks})</h1>
+        <h1>All Books
+          <span if.bind="fetchingBooksFromApi" class="ui active small inline loader"></span><span if.bind="!fetchingBooksFromApi">(${numberOfBooks})</span>
+        </h1>
       </div>
 
       <div class="four wide column">

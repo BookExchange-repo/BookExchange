@@ -21,6 +21,7 @@ export class Books {
     this.languages = null;
     this.books = null;
     this.numberOfBooks;
+    this.fetchingBooksFromApi = false;
   }
 
   attached() {
@@ -74,20 +75,24 @@ export class Books {
     let indexOfElement = this.selectedGenreIDs.indexOf(tagIDtoDelete);
     this.selectedGenreIDs.splice(indexOfElement,1);
     this.correctURLaccordingToFilters();
+    this.refreshOutput();
   }
 
   conditionsTagDeleteButtonPressed(tagIDtoDelete) {
     let indexOfElement = this.selectedConditionIDs.indexOf(tagIDtoDelete);
     this.selectedConditionIDs.splice(indexOfElement,1);
     this.correctURLaccordingToFilters();
+    this.refreshOutput();
   }
 
   cityTagDeleteButtonPressed() {
     $('#citySelector').dropdown('set selected', 'All cities');
+    this.refreshOutput();
   }
 
   languageTagDeleteButtonPressed() {
     $('#languageSelector').dropdown('set selected', 'All languages');
+    this.refreshOutput();
   }
 
   ifJSONAttributeIsNull(text) {
@@ -181,10 +186,12 @@ https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=%5B3,4%5D&g
   }
 
   fetchBooksFromAPI(url) {
+    this.fetchingBooksFromApi = true;
     httpClient.fetch(url)
       .then(response => response.json())
       .then(data => {
         this.books = data;
+        this.fetchingBooksFromApi = false;
         this.numberOfBooks = Object.keys(this.books.books).length;
       });
   }

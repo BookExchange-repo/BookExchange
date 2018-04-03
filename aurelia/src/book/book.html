@@ -7,7 +7,7 @@
         <div class="ui big breadcrumb">
           <a class="section" click.delegate="router.navigateToRoute('books')">All books</a>
           <i class="right angle icon divider"></i>
-          <a class="section"><b>${bookbyid.genreid}</b></a>
+          <a class="section" href="#/books?city=0&condition=&genre=${bookbyid.genreid.id}&language=0&sort=0"><b>${bookbyid.genreid.string}</b></a>
         </div>
       </div>
 
@@ -17,7 +17,7 @@
         </div>
         <div class="ui segment center aligned pricebox more-about-book">
           <div class="price more-about-book"><span>${bookbyid.price}</span><span> €</span></div>
-          <button class="ui big teal button">BUY</button>
+          <button class="ui big teal button">ADD TO WATCHLIST</button>
         </div>
       </div>
 

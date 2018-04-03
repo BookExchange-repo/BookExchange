@@ -83,84 +83,6 @@
           </select>
 
         </div>
-
-
-
-        <!-- <div class="ui fluid vertical accordion menu">
-          <div class="item">
-            <a class="active title">
-              <i class="dropdown icon"></i>
-              <b>Your city</b>
-            </a>
-
-            <div class="active content">
-
-              <select class="ui fluid search dropdown" id="citySelector" value.bind="selectedCityID" change.delegate="filterDataChanged()">
-                <option model.bind="0" selected>All cities</option>
-                <option repeat.for="city of cities" model.bind="city.id">${city.id} - ${city.string}</option>
-              </select>
-
-            </div>
-          </div>
-
-          <div class="item">
-            <a class="active title">
-              <i class="dropdown icon"></i>
-              <b>Genres</b>
-            </a>
-
-            <div class="active content">
-              <form class="ui form" method="post" change.delegate="filterDataChanged()">
-                <div class="grouped fields">
-                  <div class="field" repeat.for="genre of genres">
-
-                    <div class="ui checkbox">
-                      <input type="checkbox" name="small" model.bind="genre.id" id="${genre.string}" checked.bind="selectedGenreIDs">
-                      <label for="${genre.string}">${genre.string}</label>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <div class="item">
-            <a class="active title">
-              <i class="dropdown icon"></i>
-              <b>Book condition</b>
-            </a>
-
-            <div class="active content">
-              <form class="ui form" method="post" change.delegate="filterDataChanged()">
-                <div class="grouped fields">
-                  <div class="field" repeat.for="condition of conditions">
-                    <div class="ui checkbox">
-                      <input type="checkbox" name="small" model.bind="condition.id" id="${condition.string}" checked.bind="selectedConditionIDs">
-                      <label for="${condition.string}">${condition.string}</label>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <div class="item">
-            <a class="active title">
-              <i class="dropdown icon"></i>
-              <b>Language</b>
-            </a>
-
-            <div class="active content">
-              <form class="ui form" method="post">
-                <select id="languageSelector" class="ui fluid search dropdown" value.bind="selectedLanguageID" change.delegate="filterDataChanged()">
-                  <option model.bind="0" selected>All languages</option>
-                  <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
-                </select>
-              </form>
-            </div>
-          </div>
-
-        </div> -->
       </div>
 
       <div class="thirteen wide column">
@@ -201,9 +123,9 @@
                 <div class="right aligned four wide column">
                   <div class="content seller horizontal-line">
                     <div class="title">Seller: </div>
-                    <div class="name">${bookbyid.userid.full_name}</div>
+                    <div class="name">${books.userid.full_name}</div>
                     <div if.bind="ifJSONAttributeIsNull(books.author)">
-                      <div class="place">${books.city}</div>
+                      <div class="place">${books.userid.city.string}</div>
                     </div>
                     <div class="date">${convertUnixTimeStamp(books.postdate)}</div>
                   </div>

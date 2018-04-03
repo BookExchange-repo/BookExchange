@@ -3,7 +3,4 @@ export class Home {
     this.message = '';
   }
 
-  attached() {
-    $('.ui.dropdown').dropdown();
-  }
 }

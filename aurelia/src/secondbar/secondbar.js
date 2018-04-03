@@ -17,4 +17,5 @@ export class Secondbar {
       $('.ui.dropdown').dropdown();
     });
   }
+
 }

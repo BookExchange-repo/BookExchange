@@ -1,7 +1,9 @@
 package ee.ttu.BookExchange.api.controllers;
 
 import ee.ttu.BookExchange.api.models.Users;
+import ee.ttu.BookExchange.api.services.BooksService;
 import ee.ttu.BookExchange.api.services.UsersService;
+import ee.ttu.BookExchange.api.services.WatchlistService;
 import ee.ttu.BookExchange.exceptions.APIException;
 import ee.ttu.BookExchange.utilities.Checksum;
 import org.springframework.http.HttpStatus;
@@ -19,9 +21,13 @@ public class UsersController {
     private static final int PASS_SALT_LENGTH = 10;
     private static HashMap<Integer, String> allSessions = new HashMap<>();
     private UsersService usersService;
+    private BooksService booksService;
+    private WatchlistService watchlistService;
 
-    public UsersController(UsersService usersService) {
+    public UsersController(UsersService usersService, BooksService booksService, WatchlistService watchlistService) {
         this.usersService = usersService;
+        this.booksService = booksService;
+        this.watchlistService = watchlistService;
     }
 
     private static String generateSession() {
@@ -125,6 +131,20 @@ public class UsersController {
     public Map<String, Object> logoutUser(@RequestParam(value = "session") String session) {
         Map<String, Object> result = new HashMap<>();
         getUserIdBySession(session).ifPresent(i -> allSessions.remove(i));
+        result.put("errors", new ArrayList<>());
+        return result;
+    }
+
+    @RequestMapping(value = "addtowatchlist", method = RequestMethod.GET)
+    public Map<String, Object> addToWatchlist(@RequestParam(value = "session") String session,
+                                              @RequestParam(value = "bookid") int bookId)
+    {
+        Optional<Integer> userId = getUserIdBySession(session);
+        if (!userId.isPresent() || booksService.getBookById(bookId) == null) {
+            throw new APIException("CANNOT_USERS_ADDTOWATCHLIST");
+        }
+        watchlistService.saveBook(userId.get(), bookId);
+        Map<String, Object> result = new HashMap<>();
         result.put("errors", new ArrayList<>());
         return result;
     }

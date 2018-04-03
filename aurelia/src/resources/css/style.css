@@ -163,7 +163,7 @@ html {
 }
 
 .google-sign-in-btn {
-  background: url(../images/google_sign_in_btn.svg) no-repeat;
+  background: url(../images/button-google.png) no-repeat;
   cursor: pointer;
   border: none;
   width: 200px;

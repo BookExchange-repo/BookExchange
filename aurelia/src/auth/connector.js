@@ -14,6 +14,15 @@ export class Connector {
     this.loggedInStatusMessage;
     this.loggedIn = false;
     this.JSONwithSessionData = [];
+    
+    this.userID;
+    this.username;
+    this.email;
+    this.fullname;
+    this.cityID;
+    this.cityString;
+    this.isVerified;
+
 
     this.ckeckLoginStatus(); 
     this.checkLogin();
@@ -22,11 +31,20 @@ export class Connector {
   ckeckLoginStatus() {
     this.authorization.isLoggedIn().then(data => {
       if (!data.errors) {
-        this.loggedInStatusMessage = data.full_name;
         this.loggedIn = true;
+        this.loggedInStatusMessage = data.full_name;
+        
+        this.userID = data.id;
+        this.username = data.username;
+        this.email = data.email;
+        this.fullname = data.full_name;
+        this.cityID = data.city.id;
+        this.cityString = data.city.string;
+        this.isVerified = data.isverified;
+
       } else {
-        this.loggedInStatusMessage = "Not logged in";
         this.loggedIn = false;
+        //this.loggedInStatusMessage = "Not logged in";
       }
     });
   }
@@ -35,9 +53,9 @@ export class Connector {
     httpClient.fetch('https://bookmarket.online/oauth2/api/users/google', {credentials: "same-origin"})
       .then(function (response) {
         if (response.status !== 403) {
-          return response.json()
+          return response.json();
         } else {
-          throw Error(response.statusText);
+          throw Error(response.statusText); // 403 error -> not logged in using google
         }
       })
       .then(data => {
@@ -71,7 +89,7 @@ export class Connector {
         console.log("Google: Logged out!");
 
         this.ckeckLoginStatus();
-        this.router.navigateToRoute('home');
+        //this.router.navigateToRoute('home');
       });
   }
 }

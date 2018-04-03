@@ -1,10 +1,11 @@
 import {HttpClient, json} from 'aurelia-fetch-client';
 import {customAttribute, bindable, inject} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
+import {Connector} from 'auth/connector';
 
 let httpClient = new HttpClient();
 
-@inject(Router)
+@inject(Router, Connector)
 export class AddBooks {
   quillDescription = "";
 
@@ -12,6 +13,7 @@ export class AddBooks {
   bookDataCondition = {};
   bookDataLanguage = {};
   bookDataGenre = {};
+  bookDataUserID = {};
 
   statusMessages = [];
   statusMessagesVisible = false;
@@ -22,10 +24,11 @@ export class AddBooks {
   selectedCity = null;
 
 
-  constructor(router) {
+  constructor(router, connector) {
     this.quill;
     this.objEditor1;
 
+    this.connector = connector;
     this.genres = null;
     this.conditions = null;
     this.languages = null;
@@ -149,7 +152,9 @@ export class AddBooks {
       this.bookData.conditiondesc = this.bookDataCondition;
       this.bookData.language = this.bookDataLanguage;
       this.bookData.genreid = this.bookDataGenre;
-
+      
+      this.bookDataUserID.id = this.connector.userID;
+      this.bookData.userid = this.bookDataUserID;
 
       client.fetch('https://bookmarket.online:18081/api/books/add', {
           'method': "POST",

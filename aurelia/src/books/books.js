@@ -8,28 +8,18 @@ let httpClient = new HttpClient();
 export class Books {
 
   sortIDs = [];
-
+  selectedCityID = 0;
   selectedGenreIDs = [];
   selectedConditionIDs = [];
-  selectedLanguageID;
-
-  products = [
-    { id: 0, name: 'Motherboard' },
-    { id: 1, name: 'CPU' },
-    { id: 2, name: 'Memory' },
-  ];
-
-  selectedProductId = null;
+  selectedLanguageID = 0;
 
   constructor(router) {
-    this.selectedCityID;
-    this.selectedCityID2;
+    this.router = router;
     this.cities = null;
     this.genres = null;
     this.conditions = null;
     this.languages = null;
     this.books = null;
-    this.router = router;
     this.numberOfBooks;
   }
 

@@ -41,7 +41,7 @@
           <b>Your city</b>
           <select class="ui fluid search dropdown" id="citySelector" value.bind="selectedCityID" change.delegate="filterDataChanged()">
             <option model.bind="0" selected>All cities</option>
-            <option repeat.for="city of cities" model.bind="city.id">${city.id} - ${city.string}</option>
+            <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
           </select>
         </div>
 

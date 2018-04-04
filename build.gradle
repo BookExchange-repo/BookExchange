@@ -60,8 +60,7 @@ task runSite {
     println 'Running Aurelia...'
     exec {
         workingDir 'aurelia/'
-        //commandLine 'au', 'run', '--watch'
-        commandLine 'cmd.exe', '/c', 'au', 'run', '--watch'
+        commandLine 'au', 'run', '--watch'
     }
 }
 

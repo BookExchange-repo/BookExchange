@@ -41,6 +41,7 @@ public class OAuth2Controller {
             user = usersService.getUserByEmail(googleEmail);
         }
         result.put("session", UsersController.externalGetSession(user.getId()));
+        result.put("firstLogin", user.getFull_name() == null || user.getCity() == null || user.getPhone() == null);
         result.put("errors", new ArrayList<>());
         return result;
     }

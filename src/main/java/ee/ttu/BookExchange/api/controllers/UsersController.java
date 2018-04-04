@@ -124,6 +124,7 @@ public class UsersController {
             allSessions.put(user.getId(), sessionKey);
         }
         result.put("session", sessionKey);
+        result.put("firstLogin", user.getFull_name() == null || user.getCity() == null || user.getPhone() == null);
         result.put("errors", allErrors);
         return result;
     }

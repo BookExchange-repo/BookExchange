@@ -2,6 +2,8 @@ package ee.ttu.BookExchange.api.controllers;
 
 import ee.ttu.BookExchange.api.models.Books;
 import ee.ttu.BookExchange.api.services.BooksService;
+import ee.ttu.BookExchange.exceptions.APIException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -174,5 +176,76 @@ public class BooksController {
     @RequestMapping(value = "getinfoid", method = RequestMethod.GET)
     public Books getBook(@RequestParam(value = "id") int bookId) {
         return booksService.getBookById(bookId);
+    }
+
+    private String getTableFieldByString(Books book, String tableField) {
+        switch (tableField) {
+            case "id":
+                return Integer.toString(book.getId());
+            case "title":
+                return book.getTitle();
+            case "author":
+                return book.getAuthor();
+            case "description":
+                return book.getDescription();
+            case "conditiondesc":
+                return Integer.toString(book.getConditiondesc().getId());
+            case "price":
+                return book.getPrice().toString();
+            case "likes":
+                return Integer.toString(book.getLikes());
+            case "isbn":
+                return book.getIsbn();
+            case "imagepath":
+                return book.getImagepath();
+            case "publisher":
+                return book.getPublisher();
+            case "pubyear":
+                return book.getPubyear();
+            case "language":
+                return Integer.toString(book.getLanguage().getId());
+            case "postdate":
+                return book.getPostdate().toString();
+            case "userid":
+                return Integer.toString(book.getUserid().getId());
+            case "genreid":
+                return Integer.toString(book.getGenreid().getId());
+            case "city":
+                return Integer.toString(book.getCity().getId());
+            default:
+                return null;
+        }
+    }
+
+    @ExceptionHandler(APIException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody Map<String, List<String>> apiErrorHandler(APIException e) {
+        Map<String, List<String>> result = new HashMap<>();
+        List<String> allErrors = new ArrayList<>();
+        allErrors.add(e.getMessage());
+        result.put("errors", allErrors);
+        return result;
+    }
+
+    @RequestMapping(value = "getcount", method = RequestMethod.GET)
+    public Map<String, Object> getClassifierCount(@RequestParam(value = "classifier") String classifier,
+                                                  @RequestParam(value = "value") String classifierValue)
+        throws APIException
+    {
+        String[] allClassifiers = {"id", "title", "author", "description",
+                "conditiondesc", "price", "likes", "isbn", "imagepath",
+                "publisher", "pubyear", "language", "postdate", "userid", "genreid", "city"};
+        if (!Arrays.asList(allClassifiers).contains(classifier)) {
+            throw new APIException("CANNOT_BOOKS_GETCOUNT");
+        }
+        int count = booksService.getAllBooks().stream()
+                        .filter(e -> getTableFieldByString(e, classifier).equals(classifierValue))
+                        .collect(Collectors.toList()).size();
+
+        Map<String, Object> result = new HashMap<>();
+        List<String> allErrors = new ArrayList<>();
+        result.put(classifier, count);
+        result.put("errors", allErrors);
+        return result;
     }
 }

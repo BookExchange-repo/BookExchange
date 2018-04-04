@@ -1,6 +1,7 @@
 package ee.ttu.BookExchange.api.controllers;
 
 import ee.ttu.BookExchange.api.models.Users;
+import ee.ttu.BookExchange.api.models.Watchlist;
 import ee.ttu.BookExchange.api.services.BooksService;
 import ee.ttu.BookExchange.api.services.UsersService;
 import ee.ttu.BookExchange.api.services.WatchlistService;
@@ -147,5 +148,14 @@ public class UsersController {
         Map<String, Object> result = new HashMap<>();
         result.put("errors", new ArrayList<>());
         return result;
+    }
+
+    @RequestMapping(value = "getwatchlist", method = RequestMethod.GET)
+    public List<Watchlist> getWatchlist(@RequestParam(value = "session") String session) {
+        Optional<Integer> userId = getUserIdBySession(session);
+        if (!userId.isPresent()) {
+            throw new APIException("CANNOT_USERS_ADDTOWATCHLIST");
+        }
+        return watchlistService.findByUserId(userId.get());
     }
 }

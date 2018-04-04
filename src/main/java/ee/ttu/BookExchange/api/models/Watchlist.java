@@ -14,9 +14,11 @@ public class Watchlist {
     @Column(nullable = false)
     int id;
 
-    @Column(nullable = false)
-    int userid;
+    @ManyToOne
+    @JoinColumn(name = "userid", referencedColumnName = "id", nullable = false)
+    Users userid;
 
-    @Column(nullable = false)
-    int bookid;
+    @ManyToOne
+    @JoinColumn(name = "bookid", referencedColumnName = "id", nullable = false)
+    Books bookid;
 }

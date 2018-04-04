@@ -3,6 +3,7 @@ package ee.ttu.BookExchange.api.controllers;
 import ee.ttu.BookExchange.api.models.Users;
 import ee.ttu.BookExchange.api.models.Watchlist;
 import ee.ttu.BookExchange.api.services.BooksService;
+import ee.ttu.BookExchange.api.services.CityService;
 import ee.ttu.BookExchange.api.services.UsersService;
 import ee.ttu.BookExchange.api.services.WatchlistService;
 import ee.ttu.BookExchange.exceptions.APIException;
@@ -24,11 +25,17 @@ public class UsersController {
     private UsersService usersService;
     private BooksService booksService;
     private WatchlistService watchlistService;
+    private CityService cityService;
 
-    public UsersController(UsersService usersService, BooksService booksService, WatchlistService watchlistService) {
+    public UsersController(UsersService usersService,
+                           BooksService booksService,
+                           WatchlistService watchlistService,
+                           CityService cityService)
+    {
         this.usersService = usersService;
         this.booksService = booksService;
         this.watchlistService = watchlistService;
+        this.cityService = cityService;
     }
 
     private static String generateSession() {
@@ -139,7 +146,7 @@ public class UsersController {
 
     @RequestMapping(value = "addtowatchlist", method = RequestMethod.GET)
     public Map<String, Object> addToWatchlist(@RequestParam(value = "session") String session,
-                                              @RequestParam(value = "bookid") int bookId)
+                                              @RequestParam(value = "bookid") int bookId) throws APIException
     {
         Optional<Integer> userId = getUserIdBySession(session);
         if (!userId.isPresent() || booksService.getBookById(bookId) == null) {
@@ -152,11 +159,31 @@ public class UsersController {
     }
 
     @RequestMapping(value = "getwatchlist", method = RequestMethod.GET)
-    public List<Watchlist> getWatchlist(@RequestParam(value = "session") String session) {
+    public List<Watchlist> getWatchlist(@RequestParam(value = "session") String session) throws APIException {
         Optional<Integer> userId = getUserIdBySession(session);
         if (!userId.isPresent()) {
-            throw new APIException("CANNOT_USERS_ADDTOWATCHLIST");
+            throw new APIException("CANNOT_USERS_GETWATCHLIST");
         }
         return watchlistService.findByUserId(userId.get());
+    }
+
+    @RequestMapping(value = "update", method = RequestMethod.GET)
+    public Map<String, Object> updateInfo(@RequestParam(value = "session") String session,
+                                          @RequestParam(value = "fullname") String fullName,
+                                          @RequestParam(value = "city") String city,
+                                          @RequestParam(value = "phone") String phone) throws APIException
+    {
+        Optional<Integer> userId = getUserIdBySession(session);
+        if (!userId.isPresent()) {
+            throw new APIException("CANNOT_USERS_UPDATE");
+        }
+        Users user = usersService.getUserById(userId.get());
+        user.setFull_name(fullName);
+        user.setCity(cityService.getCityById(Integer.parseInt(city)));
+        user.setPhone(phone);
+        usersService.saveUser(user);
+        Map<String, Object> map = new HashMap<>();
+        map.put("errors", new ArrayList<>());
+        return map;
     }
 }

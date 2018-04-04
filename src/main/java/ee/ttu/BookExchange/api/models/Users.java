@@ -24,12 +24,11 @@ public class Users {
     @Size(max = 64)
     String email;
 
-    @Column(nullable = false)
     @Size(max = 128)
     String full_name;
 
     @ManyToOne
-    @JoinColumn(name = "city", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "city", referencedColumnName = "id")
     City city;
 
     @Column(nullable = false)
@@ -45,4 +44,7 @@ public class Users {
 
     @Column(nullable = false, columnDefinition = "timestamp")
     Timestamp regdate;
+
+    @Size(max = 16)
+    String phone;
 }

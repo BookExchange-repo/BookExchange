@@ -16,6 +16,14 @@ a:hover {
   color: #0F707F;
 }
 
+.ui.breadcrumb a {
+  color: #118092;
+}
+
+.ui.breadcrumb a:hover {
+  color: #0F707F;
+}
+
 @media only screen and (min-width: 1650px) {
   .ui.fluid.container.custom-width {
     margin-bottom: 3em;
@@ -370,8 +378,22 @@ form.ui.large.form .field {
   padding: 0;
 }
 
+/* Only Sell Book CSS */
+
+.three.wide.field button {
+  height: 100%;
+}
+
 .ui.segment.sell-book {
   padding: 2.25em;
+}
+
+.ui.dividing.header.sell-book {
+  margin-bottom: 2em;
+}
+
+.ui.dividing.header.sell-book.second {
+  margin-top: 3em;
 }
 
 .ui.error.message.sell-book {

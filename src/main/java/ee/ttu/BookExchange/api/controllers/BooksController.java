@@ -107,6 +107,8 @@ public class BooksController {
                                     return Integer.toString(e.getUserid().getId()).equals(value);
                                 case "genreid":
                                     return Integer.toString(e.getGenreid().getId()).equals(value);
+                                case "city":
+                                    return Integer.toString(e.getCity().getId()).equals(value);
                                 default:
                                     return false;
                             }
@@ -153,6 +155,8 @@ public class BooksController {
                                 return Integer.compare(e1.getUserid().getId(), e2.getUserid().getId());
                             case "genreid":
                                 return Integer.compare(e1.getGenreid().getId(), e2.getGenreid().getId());
+                            case "city":
+                                return Integer.compare(e1.getCity().getId(), e2.getCity().getId());
                             default:
                                 return 0;
                         }

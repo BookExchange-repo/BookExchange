@@ -27,15 +27,24 @@
 
           <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
 
-            <h3 class="ui dividing header sell-book">Autocomplete</h3>
+            <div class="twelve wide field">
+              <div class="ui tiny icon message">
+                <i class="lightbulb outline icon icon"></i>
+                <div class="content">
+                  <div class="header">
+                    Use Magic Fill to complete 50% of fields!
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="field">
-              <label>ISBN code</label>
               <div class="fields">
-                <div class="six wide field">
+                <div class="five wide field sell-book isbn">
                   <input id="isbn" type="text" name="isbn" value.bind="bookData.isbn" placeholder="ISBN code">
                 </div>
-                <div class="three wide field">
-                  <button class="ui ${magicFillBusy ? 'loading' : ''} large button" click.delegate="magicFill(bookData.isbn)">Magic Fill</button>
+                <div class="three wide field sell-book magic-fill">
+                  <button class="ui ${magicFillBusy ? 'loading' : ''} orange large button" click.delegate="magicFill(bookData.isbn)">Magic Fill</button>
                 </div>
               </div>
             </div>
@@ -102,11 +111,11 @@
             </div>
 
             <div class="fields">
-              <div class="three wide field">
+              <div class="four wide field">
                 <label>Year of publication</label>
                 <input id="pubyear" type="text" name="pubyear" value.bind="bookData.pubyear">
               </div>
-              <div class="nine wide field">
+              <div class="eight wide field">
                 <label>Publisher</label>
                 <input id="publisher" type="text" name="publisher" value.bind="bookData.publisher">
               </div>

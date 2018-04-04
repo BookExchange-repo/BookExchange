@@ -380,8 +380,23 @@ form.ui.large.form .field {
 
 /* Only Sell Book CSS */
 
-.three.wide.field button {
-  height: 100%;
+.five.wide.field.sell-book.isbn {
+  background: url(../images/barcode.png);
+  height: 5.5em;
+  background-size: cover; 
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  margin-left: 0.5em;
+}
+
+.five.wide.field.sell-book.isbn input {
+  margin-top: 2.4em;
+  text-align: center;
+}
+
+.three.wide.field.sell-book.magic-fill {
+  margin-top: 2.4em;
+  margin-left: 1em;
 }
 
 .ui.segment.sell-book {

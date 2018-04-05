@@ -380,7 +380,7 @@ form.ui.large.form .field {
 
 /* Only Sell Book CSS */
 
-.five.wide.field.sell-book.isbn {
+.six.wide.field.sell-book.isbn {
   background: url(../images/barcode.png);
   height: 5.5em;
   background-size: cover; 
@@ -389,14 +389,27 @@ form.ui.large.form .field {
   margin-left: 0.5em;
 }
 
-.five.wide.field.sell-book.isbn input {
-  margin-top: 2.4em;
+.six.wide.field.sell-book.isbn input {
+  margin-top: 3.4em;
   text-align: center;
 }
 
-.three.wide.field.sell-book.magic-fill {
-  margin-top: 2.4em;
+.ten.wide.field.sell-book.magic-fill {
+  margin-top: 3.4em;
   margin-left: 1em;
+}
+
+.sell-book.isbn-info {
+  display: inline-block;
+  font-size: 0.9em;
+  color: grey;
+  margin-left: 1em;
+}
+
+img.ui.fluid.image.sell-book.upload-image {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ui.segment.sell-book {

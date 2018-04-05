@@ -11,7 +11,7 @@
         </div>
       </div>
 
-      <div class="twelve wide column">
+      <div class="eleven wide column">
         <div class="ui segment sell-book">
 
         <div if.bind="statusMessagesVisible">
@@ -27,7 +27,7 @@
 
           <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
 
-            <div class="twelve wide field">
+            <div class="sixteen wide field">
               <div class="ui tiny icon message">
                 <i class="lightbulb outline icon icon"></i>
                 <div class="content">
@@ -40,23 +40,24 @@
 
             <div class="field">
               <div class="fields">
-                <div class="five wide field sell-book isbn">
+                <div class="six wide field sell-book isbn">
                   <input id="isbn" type="text" name="isbn" value.bind="bookData.isbn" placeholder="ISBN code">
                 </div>
-                <div class="three wide field sell-book magic-fill">
+                <div class="ten wide field sell-book magic-fill">
                   <button class="ui ${magicFillBusy ? 'loading' : ''} orange large button" click.delegate="magicFill(bookData.isbn)">Magic Fill</button>
+                  <div class="sell-book isbn-info">*powered by Amazon and Ester Book Search</div>
                 </div>
               </div>
             </div>
 
             <h3 class="ui dividing header sell-book second">Required information</h3>
-            <div class="required twelve wide field">
+            <div class="required sixteen wide field">
               <label>Title</label>
               <input id="title" type="text" name="title" value.bind="bookData.title" placeholder="Title">
             </div>
 
             <div class="fields">
-              <div class="six wide required field">
+              <div class="eight wide required field">
                 <label>Genre</label>
                 <select class="ui dropdown" value.bind="bookDataGenre.id">
                   <option model.bind="null" value="">Choose...</option>
@@ -64,7 +65,7 @@
                 </select>
               </div>
 
-              <div class="six wide required field">
+              <div class="eight wide required field">
                 <label>Condition</label>
                 <select class="ui dropdown" value.bind="bookDataCondition.id">
                   <option model.bind="null" value="">Choose...</option>
@@ -74,7 +75,7 @@
             </div>
 
             <div class="fields">
-              <div class="four wide required field">
+              <div class="five wide required field">
                 <label>Price</label>
                 <div class="ui right labeled input">
                   <input id="bookPrice" type="number" step=".01" name="bookPrice" min="0" max="9999" value.bind="bookData.price" placeholder="0.00">
@@ -82,7 +83,7 @@
                 </div>
               </div>
 
-              <div class="eight wide required field">
+              <div class="eleven wide required field">
                 <label>Language</label>
                 <select class="ui dropdown" value.bind="bookDataLanguage.id">
                   <option model.bind="null" value="">Choose...</option>
@@ -91,12 +92,12 @@
               </div>
             </div>
 
-            <div class="required twelve wide field">
+            <div class="required sixteen wide field">
               <label>Description</label>
               <textarea name="richTextEditor"></textarea>
             </div>
 
-            <div class="required eight wide field">
+            <div class="required ten wide field">
               <label>Your city</label>
               <select class="ui search dropdown" value.bind="selectedCity">
                 <option model.bind="null" value="">choose or search...</option>
@@ -105,17 +106,17 @@
             </div>
 
             <h3 class="ui dividing header sell-book second">Additional information</h3>
-            <div class="twelve wide field">
+            <div class="sixteen wide field">
               <label>Author / Authors</label>
               <input id="author" type="text" name="author" value.bind="bookData.author">
             </div>
 
             <div class="fields">
-              <div class="four wide field">
+              <div class="five wide field">
                 <label>Year of publication</label>
                 <input id="pubyear" type="text" name="pubyear" value.bind="bookData.pubyear">
               </div>
-              <div class="eight wide field">
+              <div class="eleven wide field">
                 <label>Publisher</label>
                 <input id="publisher" type="text" name="publisher" value.bind="bookData.publisher">
               </div>
@@ -128,9 +129,9 @@
       </div>
       
 
-      <div class="four wide column">
+      <div class="five wide column">
         <div class="ui center aligned segment">
-          <img class="ui fluid image" src.bind="bookData.imagepath">
+          <img class="ui fluid image sell-book upload-image" src.bind="bookData.imagepath">
 
           <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
             <label for="image" class="ui big teal icon button upload-image">

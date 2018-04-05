@@ -67,11 +67,11 @@
               </div>
 
               <div class="eight wide required field">
-                <label>Condition</label>
-                <select class="ui dropdown" value.bind="bookDataCondition.id">
-                  <option model.bind="null" value="">Choose...</option>
-                  <option repeat.for="condition of conditions" model.bind="condition.id">${condition.string}</option>
-                </select>
+                  <label>Language</label>
+                  <select class="ui dropdown" value.bind="bookDataLanguage.id">
+                    <option model.bind="null" value="">Choose...</option>
+                    <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
+                  </select>
               </div>
             </div>
 
@@ -84,12 +84,12 @@
                 </div>
               </div>
 
-              <div class="eleven wide required field">
-                <label>Language</label>
-                <select class="ui dropdown" value.bind="bookDataLanguage.id">
-                  <option model.bind="null" value="">Choose...</option>
-                  <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
-                </select>
+              <div class="eight wide required field">
+                  <label>Condition</label>
+                  <select class="ui dropdown" value.bind="bookDataCondition.id">
+                    <option model.bind="null" value="">Choose...</option>
+                    <option repeat.for="condition of conditions" model.bind="condition.id">${condition.string}</option>
+                  </select>
               </div>
             </div>
 
@@ -98,7 +98,7 @@
               <textarea name="richTextEditor"></textarea>
             </div>
 
-            <div class="required ten wide field">
+            <div class="required eight wide field">
               <label>Your city</label>
               <select class="ui search dropdown" value.bind="selectedCity">
                 <option model.bind="null" value="">choose or search...</option>

@@ -121,10 +121,12 @@
                       <h2 class="author horizontal-line">by ${books.author}</h2>
                     </div>
                     <p class="description horizontal-line"></p>
+                    <div class="genre horizontal-line">
+                      <span>${books.genreid.string}</span>
+                    </div>
                     <div if.bind="ifJSONAttributeIsNull(books.author)">
                       <div class="condition horizontal-line">
                         <span>${books.conditiondesc.string}</span>
-                        <span>${books.condition}</span>
                       </div>
                     </div>
                     <div class="price horizontal-line">

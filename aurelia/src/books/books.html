@@ -1,22 +1,30 @@
 <template>
 
-  <div class="ui fluid container custom-width">
-    <div class="ui grid">
-      <div class="twelve wide column">
-        <h1>All Books
-          <span if.bind="fetchingBooksFromApi" class="ui active small inline loader"></span>
-          <span if.bind="!fetchingBooksFromApi">(${numberOfBooks})</span>
-        </h1>
-      </div>
 
-      <div class="four wide column">
+  <div class="ui fluid container custom-width">
+
+    <div class="ui grid add-book-breadcrumb">
+      <div class="twelve wide column">
+        <div class="ui huge breadcrumb">
+          <a href="#" class="section">
+            <i class="home icon"></i>
+            Home
+          </a>
+          <i class="right chevron icon divider"></i>
+          <div class="active section">
+            <span if.bind="fetchingBooksFromApi" class="ui active tiny inline loader"></span>
+            <span if.bind="!fetchingBooksFromApi">All books (${numberOfBooks})</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="middle aligned right aligned four wide column">
         <select class="ui fluid dropdown" value.bind="selectedSortID" change.delegate="dropdownSortIDChangedAndCorrectURL()">
           <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
         </select>
       </div>
 
-      <div class="sixteen wide column">
-
+      <div class="sixteen wide column all-books filters">
         <a class="ui red label" if.bind="selectedCityID!=0">
           ${cities[selectedCityID-1].string}
           <i class="delete icon" click.delegate="cityTagDeleteButtonPressed()"></i>
@@ -38,6 +46,9 @@
         </a>
       </div>
 
+    </div>
+
+    <div class="ui grid add-book">
       <div class="three wide column">
 
         <div class="ui red segment">

@@ -1,15 +1,19 @@
 <template>
 
   <div class="ui fluid container custom-width">
-    <div class="ui grid">
 
-      <div class="sixteen wide column">
-        <div class="ui big breadcrumb">
-          <a class="section" click.delegate="router.navigateToRoute('books')">All books</a>
-          <i class="right angle icon divider"></i>
-          <a class="section" href="#/books?city=0&condition=&genre=${bookbyid.genreid.id}&language=0&sort=0"><b>${bookbyid.genreid.string}</b></a>
-        </div>
+      <div class="ui huge breadcrumb sell-book">
+        <a href="#" class="section">
+          <i class="home icon"></i>
+          Home
+        </a>
+        <i class="right chevron icon divider"></i>
+        <a click.delegate="router.navigateToRoute('books')" class="section">All books</a>
+        <i class="right chevron icon divider"></i>
+        <div class="active section">${bookbyid.genreid.string}</div>
       </div>
+
+    <div class="ui grid">
 
       <div class="four wide column">
         <div class="ui segment">

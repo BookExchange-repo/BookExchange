@@ -6,7 +6,6 @@
         <div class="ui huge breadcrumb">
           <a href="#" class="section">
             <i class="home icon"></i>
-            Home
           </a>
           <i class="right chevron icon divider"></i>
           <div class="active section">
@@ -24,6 +23,7 @@
       </div>
 
       <div class="sixteen wide column all-books filters">
+
         <a class="ui red label" if.bind="selectedCityID!=0">
           ${cities[selectedCityID-1].string}
           <i class="delete icon" click.delegate="cityTagDeleteButtonPressed()"></i>

@@ -22,7 +22,7 @@ export class Books {
     this.books = null;
     this.numberOfBooks;
     this.fetchingBooksFromApi = false;
-    this.bookTypes = "All";
+    this.bookTypes = "";
     this.noBooks = false;
   }
 
@@ -48,11 +48,17 @@ export class Books {
   }
 
   filteredOrAllBooks() {
-    if (this.selectedCityID===0 && this.selectedGenreIDs.length === 0 && this.selectedConditionIDs.length === 0 && this.selectedLanguageID == 0) {
+    if (this.noFiltersAreSelected()) {
       this.bookTypes = "All";
+      this.noFiltersSelected = true;
     } else {
       this.bookTypes = "Filtered";
+      this.noFiltersSelected = false;
     }
+  }
+
+  noFiltersAreSelected() {
+    return this.selectedCityID === 0 && this.selectedGenreIDs.length === 0 && this.selectedConditionIDs.length === 0 && this.selectedLanguageID == 0;
   }
 
   getSortAndFilterParamsFromURL() {
@@ -122,13 +128,7 @@ export class Books {
 
   convertUnixTimeStamp(unixTimeStamp) {
     let date = new Date(unixTimeStamp);
-
-    var options = {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    };
-
+    let options = { day: 'numeric', month: 'long', year: 'numeric' };
     return date.toLocaleTimeString('en-GB', options);
   }
 
@@ -176,8 +176,8 @@ export class Books {
   }
 
   convertArrayToDottedView(arrayToConvert) {
-    var string = "";
-    var item;
+    let string = "";
+    let item;
     if (arrayToConvert.length >= 1) string = arrayToConvert[0];
     for (let i = 0; i < arrayToConvert.length - 1; i++) {
       string += "." + arrayToConvert[i + 1];
@@ -200,9 +200,9 @@ export class Books {
   }
 
   sortOrFilterParamsChanged() {
-    this.refreshOutput();
     this.correctURLaccordingToFilters();
-    this.filteredOrAllBooks();
+    this.refreshOutput();
+    this.filteredOrAllBooks();    
   }
 
   fetchBooksFromAPI(url) {
@@ -254,7 +254,6 @@ export class Books {
   }
 
   navigateToBookById(bookid) {
-    //console.log(bookid);
     this.router.navigateToRoute('bookbyid', {
       id: bookid
     });

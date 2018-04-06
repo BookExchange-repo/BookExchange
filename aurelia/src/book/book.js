@@ -1,6 +1,6 @@
-import {HttpClient, json} from 'aurelia-fetch-client';
-import {customAttribute, bindable, inject} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
+import { HttpClient, json } from 'aurelia-fetch-client';
+import { customAttribute, bindable, inject } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
 
 let httpClient = new HttpClient();
 
@@ -38,14 +38,7 @@ export class Book {
 
   convertUnixTimeStamp(unixTimeStamp) {
     let date = new Date(unixTimeStamp);
-
-    var options = {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    };
-
+    let options = { day: 'numeric', month: 'long', year: 'numeric' };
     return "Added " + date.toLocaleTimeString('en-GB', options);
   }
-
 }

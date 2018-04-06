@@ -17,6 +17,8 @@ export class SignUp {
   attached() {
     this.fetchCitiesFromAPI();
 
+    $('.ui.dropdown').dropdown();
+
     $('.ui.form')
       .form({
         fields: {

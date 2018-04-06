@@ -146,9 +146,6 @@ a:hover {
   margin-top: 0.5em; 
 }
 
-.ui.menu .ui.dropdown .menu>.item:hover {
-  background: rgba(0, 0, 0, 0.05)!important;
- }
 
 .black-box {
   width: 100%;
@@ -280,6 +277,10 @@ form.ui.large.form .field {
 
 .ui.menu .ui.dropdown .menu>.active.item {
   background: rgba(0, 0, 0, 0)!important;
+}
+
+.ui.menu .ui.dropdown .menu>.item:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
 }
 
 .ui.secondary.menu {

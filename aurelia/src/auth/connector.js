@@ -61,7 +61,7 @@ export class Connector {
       .then(data => {
         this.JSONwithSessionData = data;
         if (this.JSONwithSessionData.errors.length === 0) {
-          console.log(this.JSONwithSessionData.session);
+          //console.log(this.JSONwithSessionData.session);
           this.authorization.saveSessionID(this.JSONwithSessionData.session);
           this.ckeckLoginStatus();
           //this.router.navigateToRoute('myaccount');

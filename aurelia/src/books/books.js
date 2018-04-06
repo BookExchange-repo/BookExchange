@@ -22,6 +22,7 @@ export class Books {
     this.books = null;
     this.numberOfBooks;
     this.fetchingBooksFromApi = false;
+    this.bookTypes = "All";
   }
 
   attached() {
@@ -32,57 +33,76 @@ export class Books {
       { id: 3, string: 'Sort by price (descending)' },
     ];
 
-    
     this.fetchCitiesFromAPI();
     this.fetchGenresFromAPI();
     this.fetchConditionsFromAPI();
     this.fetchLanguagesFromAPI();
 
+    this.getSortAndFilterParamsFromURL();
 
+    this.filteredOrAllBooks();
+    this.refreshOutput();
+
+    $('.ui.dropdown').dropdown();
+  }
+
+  filteredOrAllBooks() {
+    if (this.selectedCityID===0 && this.selectedGenreIDs.length === 0 && this.selectedConditionIDs.length === 0 && this.selectedLanguageID == 0) {
+      this.bookTypes = "All";
+    } else {
+      this.bookTypes = "Filtered";
+    }
+  }
+
+  getSortAndFilterParamsFromURL() {
+    this.getSortParamsFromUrl();
+    this.getCityParamsFromUrl();
+    this.getGenreParamsFromUrl();
+    this.getConditionParamsFromUrl();
+    this.getLanguageParamsFromUrl();
+  }
+
+  getSortParamsFromUrl() {
     let sortParamFromURL = this.router.currentInstruction.queryParams.sort;
     (sortParamFromURL !== null && !isNaN(sortParamFromURL)) ? this.selectedSortID = parseInt(sortParamFromURL) : this.selectedSortID = 0;
+  }
 
+  getCityParamsFromUrl() {
     let cityParamFromURL = this.router.currentInstruction.queryParams.city;
     if (cityParamFromURL !== null && !isNaN(cityParamFromURL)) this.selectedCityID = parseInt(cityParamFromURL);
-    
+  }
+
+  getGenreParamsFromUrl() {
     let genreParamFromURL = this.router.currentInstruction.queryParams.genre;
     if (genreParamFromURL !== null && genreParamFromURL !== "") {
       let arrayOfIDs = String(genreParamFromURL).split('.').map(Number);
       this.selectedGenreIDs = arrayOfIDs.filter(value => !Number.isNaN(value));
     }
+  }
 
+  getConditionParamsFromUrl() {
     let conditionParamFromURL = this.router.currentInstruction.queryParams.condition;
     if (conditionParamFromURL !== null && conditionParamFromURL !== "") {
       let arrayOfIDs = String(conditionParamFromURL).split('.').map(Number);
       this.selectedConditionIDs = arrayOfIDs.filter(value => !Number.isNaN(value));
     }
+  }
 
+  getLanguageParamsFromUrl() {
     let languageParamFromURL = this.router.currentInstruction.queryParams.language;
     if (languageParamFromURL !== null && !isNaN(languageParamFromURL)) this.selectedLanguageID = parseInt(languageParamFromURL);
-
-
-    this.refreshOutput();
-
-    $('.ui.dropdown').dropdown();
-
-    $('.ui.accordion')
-    .accordion({
-      exclusive: false
-    });
   }
 
   genresTagDeleteButtonPressed(tagIDtoDelete) {
     let indexOfElement = this.selectedGenreIDs.indexOf(tagIDtoDelete);
-    this.selectedGenreIDs.splice(indexOfElement,1);
-    this.correctURLaccordingToFilters();
-    this.refreshOutput();
+    this.selectedGenreIDs.splice(indexOfElement, 1);
+    this.sortOrFilterParamsChanged();
   }
 
   conditionsTagDeleteButtonPressed(tagIDtoDelete) {
     let indexOfElement = this.selectedConditionIDs.indexOf(tagIDtoDelete);
-    this.selectedConditionIDs.splice(indexOfElement,1);
-    this.correctURLaccordingToFilters();
-    this.refreshOutput();
+    this.selectedConditionIDs.splice(indexOfElement, 1);
+    this.sortOrFilterParamsChanged();
   }
 
   cityTagDeleteButtonPressed() {
@@ -96,56 +116,61 @@ export class Books {
   }
 
   ifJSONAttributeIsNull(text) {
-    if (text === null) return false;
-    return true;
+    return text === null;
   }
 
   convertUnixTimeStamp(unixTimeStamp) {
-    var date = new Date(unixTimeStamp);
-    return date.toDateString();
+    let date = new Date(unixTimeStamp);
+
+    var options = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    };
+
+    return date.toLocaleTimeString('en-GB', options);
   }
 
 
-
   refreshOutput() {
-    let apiURL = "https://bookmarket.online:18081/api/books/getall?"
-//https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=&language=
-//https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=&language=[1,2]
-https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=%5B3,4%5D&genre=&language=&sort=price&sortdesc=true
-//https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=[1]&language=
-    apiURL += "city="
+    let apiURL = "https://bookmarket.online:18081/api/books/getall?";
+    // https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=&language=
+    // https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=&language=[1,2]
+    // https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=%5B3,4%5D&genre=&language=&sort=price&sortdesc=true
+    // https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=[1]&language=
+
+    apiURL += "city=";
     if (this.selectedCityID != 0) apiURL += this.selectedCityID;
-    apiURL += "&"
-    apiURL += "conditiondesc="
+    apiURL += "&";
+    apiURL += "conditiondesc=";
     apiURL += JSON.stringify(this.selectedConditionIDs);
-    apiURL += "&"
-    apiURL += "genreid="
+    apiURL += "&";
+    apiURL += "genreid=";
     apiURL += JSON.stringify(this.selectedGenreIDs);
-    apiURL += "&"
-    apiURL += "language="
+    apiURL += "&";
+    apiURL += "language=";
     if (this.selectedLanguageID != 0) apiURL += this.selectedLanguageID;
-    
 
     switch (this.selectedSortID) {
       case 0:
-          this.fetchBooksFromAPI(apiURL);
-          //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall');
-          break;
+        this.fetchBooksFromAPI(apiURL);
+        //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall');
+        break;
       case 1:
-          apiURL += "&sort=postdate&sortdesc=true";
-          this.fetchBooksFromAPI(apiURL);
-          //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=postdate&sortdesc=true');
-          break;
+        apiURL += "&sort=postdate&sortdesc=true";
+        this.fetchBooksFromAPI(apiURL);
+        //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=postdate&sortdesc=true');
+        break;
       case 2:
-          apiURL += "&sort=price";
-          this.fetchBooksFromAPI(apiURL);
-          //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price');
-          break;
+        apiURL += "&sort=price";
+        this.fetchBooksFromAPI(apiURL);
+        //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price');
+        break;
       case 3:
-          apiURL += "&sort=price&sortdesc=true";
-          this.fetchBooksFromAPI(apiURL);
-          //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price&sortdesc=true');
-          break;
+        apiURL += "&sort=price&sortdesc=true";
+        this.fetchBooksFromAPI(apiURL);
+        //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price&sortdesc=true');
+        break;
     }
   }
 
@@ -160,7 +185,6 @@ https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=%5B3,4%5D&g
   }
 
   correctURLaccordingToFilters() {
-    //console.log(">>" + this.selectedCityID);
     this.router.navigateToRoute(
       this.router.currentInstruction.config.name,
       {
@@ -172,17 +196,12 @@ https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=%5B3,4%5D&g
       },
       { trigger: false, replace: true }
     );
-    console.log(">>" + this.selectedCityID);
   }
 
-  dropdownSortIDChangedAndCorrectURL() {
+  sortOrFilterParamsChanged() {
     this.refreshOutput();
     this.correctURLaccordingToFilters();
-  }
-
-  filterDataChanged() {
-    this.correctURLaccordingToFilters();
-    this.refreshOutput();
+    this.filteredOrAllBooks();
   }
 
   fetchBooksFromAPI(url) {
@@ -229,7 +248,7 @@ https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=%5B3,4%5D&g
   }
 
   navigateToBookById(bookid) {
-    console.log(bookid);
+    //console.log(bookid);
     this.router.navigateToRoute('bookbyid', {
       id: bookid
     });

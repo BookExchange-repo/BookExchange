@@ -10,8 +10,12 @@
       <i class="right chevron icon divider"></i>
       <a click.delegate="router.navigateToRoute('books')" class="section">All books</a>
       <i class="right chevron icon divider"></i>
-      
-      <div class="active section" ><a style="color: black" class="section" href="#/books?city=0&condition=&genre=${bookbyid.genreid.id}&language=0&sort=0"><b>${bookbyid.genreid.string}</b></a></div>
+
+      <div class="active section">
+        <a class="section" href="#/books?city=0&condition=&genre=${bookbyid.genreid.id}&language=0&sort=0">
+          <b>${bookbyid.genreid.string}</b>
+        </a>
+      </div>
     </div>
 
     <div class="ui grid">

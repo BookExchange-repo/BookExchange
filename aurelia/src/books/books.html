@@ -1,6 +1,4 @@
 <template>
-
-
   <div class="ui fluid container custom-width">
 
     <div class="ui grid add-book-breadcrumb">
@@ -12,15 +10,15 @@
           </a>
           <i class="right chevron icon divider"></i>
           <div class="active section">
-            <span>All books</span>
+            <span>${bookTypes} books</span>
             <span if.bind="fetchingBooksFromApi" class="ui active tiny inline loader"></span>
             <span if.bind="!fetchingBooksFromApi">(${numberOfBooks})</span>
           </div>
         </div>
       </div>
-  
+
       <div class="middle aligned right aligned four wide column">
-        <select class="ui fluid dropdown" value.bind="selectedSortID" change.delegate="dropdownSortIDChangedAndCorrectURL()">
+        <select class="ui fluid dropdown" value.bind="selectedSortID" change.delegate="sortOrFilterParamsChanged()">
           <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
         </select>
       </div>
@@ -53,22 +51,22 @@
       <div class="three wide column">
 
         <div class="ui red segment">
-          <b>Your city</b>
-          <select class="ui fluid search dropdown all-books sidebar-field" id="citySelector" value.bind="selectedCityID" change.delegate="filterDataChanged()">
+          <b style="font-size: 1.15em">Your city</b>
+          <select class="ui fluid search dropdown all-books sidebar-field" id="citySelector" value.bind="selectedCityID" change.delegate="sortOrFilterParamsChanged()">
             <option model.bind="0" selected>All cities</option>
             <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
           </select>
         </div>
 
         <div class="ui blue segment">
-          <b>Genres</b>
-          <form class="ui form all-books sidebar-field" method="post" change.delegate="filterDataChanged()">
+          <b style="font-size: 1.15em">Genres</b>
+          <form class="ui form all-books sidebar-field" method="post" change.delegate="sortOrFilterParamsChanged()">
             <div class="grouped fields">
               <div class="field" repeat.for="genre of genres">
 
                 <div class="ui checkbox">
                   <input type="checkbox" name="small" model.bind="genre.id" id="${genre.string}" checked.bind="selectedGenreIDs">
-                  <label for="${genre.string}">${genre.string}</label>
+                  <label style="cursor: pointer;" for="${genre.string}">${genre.string}</label>
                 </div>
               </div>
             </div>
@@ -76,13 +74,13 @@
         </div>
 
         <div class="ui orange segment">
-          <b>Book condition</b>
-          <form class="ui form all-books sidebar-field" method="post" change.delegate="filterDataChanged()">
+          <b style="font-size: 1.15em">Book condition</b>
+          <form class="ui form all-books sidebar-field" method="post" change.delegate="sortOrFilterParamsChanged()">
             <div class="grouped fields">
               <div class="field" repeat.for="condition of conditions">
                 <div class="ui checkbox">
                   <input type="checkbox" name="small" model.bind="condition.id" id="${condition.string}" checked.bind="selectedConditionIDs">
-                  <label for="${condition.string}">${condition.string}</label>
+                  <label style="cursor: pointer;" for="${condition.string}">${condition.string}</label>
                 </div>
               </div>
             </div>
@@ -90,9 +88,9 @@
         </div>
 
         <div class="ui teal segment">
-          <b>Language</b>
+          <b style="font-size: 1.15em">Language</b>
 
-          <select id="languageSelector" class="ui fluid search dropdown all-books sidebar-field" value.bind="selectedLanguageID" change.delegate="filterDataChanged()">
+          <select id="languageSelector" class="ui fluid search dropdown all-books sidebar-field" value.bind="selectedLanguageID" change.delegate="sortOrFilterParamsChanged()">
             <option model.bind="0" selected>All languages</option>
             <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
           </select>
@@ -118,18 +116,18 @@
                     <a href="#" click.delegate="navigateToBookById(books.id)">
                       <h1 class="title horizontal-line">${books.title}</h1>
                     </a>
-                    <div if.bind="ifJSONAttributeIsNull(books.author)">
+                    <div if.bind="!ifJSONAttributeIsNull(books.author)">
                       <h2 class="author horizontal-line">by ${books.author}</h2>
                     </div>
                     <p class="description horizontal-line"></p>
                     <div class="genre horizontal-line">
                       <span>${books.genreid.string}</span>
                     </div>
-                    <div if.bind="ifJSONAttributeIsNull(books.author)">
-                      <div class="condition horizontal-line">
-                        <span>${books.conditiondesc.string}</span>
-                      </div>
+
+                    <div class="condition horizontal-line">
+                      <span>${books.conditiondesc.string}</span>
                     </div>
+
                     <div class="price horizontal-line">
                       <span>${books.price}</span>
                       <span> €</span>
@@ -141,9 +139,9 @@
                   <div class="content seller horizontal-line">
                     <div class="title">Seller: </div>
                     <div class="name">${books.userid.full_name}</div>
-                    <div if.bind="ifJSONAttributeIsNull(books.author)">
-                      <div class="place">${books.userid.city.string}</div>
-                    </div>
+
+                    <div class="place">TODO CITY!!!! ${books.userid.city.string}</div>
+                    <p></p>
                     <div class="date">${convertUnixTimeStamp(books.postdate)}</div>
                   </div>
                 </div>

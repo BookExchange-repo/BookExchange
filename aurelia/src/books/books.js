@@ -23,6 +23,7 @@ export class Books {
     this.numberOfBooks;
     this.fetchingBooksFromApi = false;
     this.bookTypes = "All";
+    this.noBooks = false;
   }
 
   attached() {
@@ -212,6 +213,11 @@ export class Books {
         this.books = data;
         this.fetchingBooksFromApi = false;
         this.numberOfBooks = Object.keys(this.books.books).length;
+        if (this.numberOfBooks === 0) {
+          this.noBooks = true;
+        } else {
+          this.noBooks = false;
+        }
       });
   }
 

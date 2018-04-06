@@ -101,6 +101,8 @@
       <div class="thirteen wide column">
         <div class="ui list">
 
+          <div if.bind="noBooks">Here are no books yet. Yours can be the first one!</div>
+
           <div class="item horizontal-line" repeat.for="books of books.books">
             <div class="ui segment">
               <div class="ui grid book-listing-hover">

@@ -2,16 +2,17 @@
 
   <div class="ui fluid container custom-width">
 
-      <div class="ui huge breadcrumb sell-book">
-        <a href="#" class="section">
-          <i class="home icon"></i>
-          Home
-        </a>
-        <i class="right chevron icon divider"></i>
-        <a click.delegate="router.navigateToRoute('books')" class="section">All books</a>
-        <i class="right chevron icon divider"></i>
-        <div class="active section">${bookbyid.genreid.string}</div>
-      </div>
+    <div class="ui huge breadcrumb sell-book">
+      <a href="#" class="section">
+        <i class="home icon"></i>
+        Home
+      </a>
+      <i class="right chevron icon divider"></i>
+      <a click.delegate="router.navigateToRoute('books')" class="section">All books</a>
+      <i class="right chevron icon divider"></i>
+      
+      <div class="active section" ><a style="color: black" class="section" href="#/books?city=0&condition=&genre=${bookbyid.genreid.id}&language=0&sort=0"><b>${bookbyid.genreid.string}</b></a></div>
+    </div>
 
     <div class="ui grid">
 
@@ -20,7 +21,10 @@
           <img id="book_image" data-featherlight="${bookbyid.imagepath}" src="${bookbyid.imagepath}" alt="${bookbyid.title}" class="ui fluid image">
         </div>
         <div class="ui segment center aligned pricebox more-about-book">
-          <div class="price more-about-book"><span>${bookbyid.price}</span><span> €</span></div>
+          <div class="price more-about-book">
+            <span>${bookbyid.price}</span>
+            <span> €</span>
+          </div>
           <button class="ui big teal button">ADD TO WATCHLIST</button>
         </div>
       </div>
@@ -28,58 +32,56 @@
       <div class="twelve wide column">
         <div class="ui segment information more-about-book">
           <h1 class="title more-about-book">${bookbyid.title}</h1>
-          <div if.bind="ifJSONAttributeIsNull(bookbyid.author)">
+          <div if.bind="!ifJSONAttributeIsNull(bookbyid.author)">
             <h2 class="author more-about-book">by ${bookbyid.author}</h2>
           </div>
-          <div if.bind="ifJSONAttributeIsNull(bookbyid.author)">
-            <table class="ui very basic collapsing celled table">
-              <tr>
-                <td>Genre</td>
-                <td>${bookbyid.genreid.string}</td>
-              </tr>
-              <tr>
-                <td>Year of publishing</td>
-                <td>${bookbyid.pubyear}</td>
-              </tr>
-              <tr>
-                <td>Publisher</td>
-                <td>${bookbyid.publisher}</td>
-              </tr>
-              <tr>
-                <td>Language</td>
-                <td>${bookbyid.language.string}</td>
-              </tr>
-              <tr>
-                <td>ISBN</td>
-                <td>${bookbyid.isbn}</td>
-              </tr>
-              <tr>
-                <td>Condition</td>
-                <td>${bookbyid.conditiondesc.string}</td>
-              </tr>
-            </table>
-          </div>
-  
+
+          <table class="ui very basic collapsing celled table">
+            <tr>
+              <td>Genre</td>
+              <td>${bookbyid.genreid.string}</td>
+            </tr>
+            <tr show.bind="!ifJSONAttributeIsNull(bookbyid.pubyear)">
+              <td>Year of publishing</td>
+              <td>${bookbyid.pubyear}</td>
+            </tr>
+            <tr if.bind="!ifJSONAttributeIsNull(bookbyid.publisher)">
+              <td>Publisher</td>
+              <td>${bookbyid.publisher}</td>
+            </tr>
+            <tr>
+              <td>Language</td>
+              <td>${bookbyid.language.string}</td>
+            </tr>
+            <tr if.bind="!ifJSONAttributeIsNull(bookbyid.isbn)">
+              <td>ISBN</td>
+              <td>${bookbyid.isbn}</td>
+            </tr>
+            <tr>
+              <td>Condition</td>
+              <td>${bookbyid.conditiondesc.string}</td>
+            </tr>
+          </table>
+
+
           <div class="description more-about-book">
-              <p class="title">Description: </p>
-              <div innerhtml="${bookbyid.description}"></div>
-              <!-- <p class="text">${bookbyid.description}</p> -->
+            <p class="title">Description: </p>
+            <div innerhtml="${bookbyid.description}"></div>
           </div>
-  
+
           <div class="seller more-about-book">
             <p class="title">Seller: </p>
             <div class="text">${bookbyid.userid.full_name}</div>
-            <div class="text" if.bind="ifJSONAttributeIsNull(bookbyid.author)">
-                <div>${bookbyid.city}</div>
-            </div>
+            <div class="text">TODO FROM CITY ${bookbyid.city}</div>
+            <p></p>
             <div class="text">${convertUnixTimeStamp(bookbyid.postdate)}</div>
           </div>
-  
+
         </div>
       </div>
 
     </div>
-    
+
   </div>
 
 </template>

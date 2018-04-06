@@ -19,7 +19,7 @@ export class Book {
   attached() {
     this.fetchBookByIdFromAPI();
 
-    $(window).on('popstate', function(event) {
+    $(window).on('popstate', function (event) {
       $.featherlight.current().close();
     });
   }
@@ -33,13 +33,19 @@ export class Book {
   }
 
   ifJSONAttributeIsNull(text) {
-    if (text === "null") return false;
-    return true;
+    return text === null;
   }
 
   convertUnixTimeStamp(unixTimeStamp) {
-    var date = new Date(unixTimeStamp);
-    return date.toDateString();
+    let date = new Date(unixTimeStamp);
+
+    var options = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    };
+
+    return "Added " + date.toLocaleTimeString('en-GB', options);
   }
 
 }

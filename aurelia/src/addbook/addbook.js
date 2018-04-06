@@ -8,7 +8,7 @@ let httpClient = new HttpClient();
 
 @inject(Router, Connector)
 export class AddBooks {
-  quillDescription = "";
+
 
   bookData = {};
   bookDataCondition = {};
@@ -62,15 +62,6 @@ export class AddBooks {
     this.fetchLanguagesFromAPI();
     this.fetchCitiesFromAPI();
   }
-
-/*   printQuillContent() {
-    // console.log(JSON.stringify(this.quill.root.innerHTML));
-    // console.log(this.quillDescription);
-
-    console.log(this.richTextEditor.getData());
-
-    // console.log(this.richTextEditor.getData().replace(SCRIPT_REGEX, ''));
-  } */
 
   addBook() {
     this.statusMessagesVisible = false;
@@ -155,7 +146,17 @@ export class AddBooks {
   }
 
   magicFill(isbn) {
-    this.fetchBookInformationByISBNFromAPI(isbn);
+    this.magicFillBusy = true;
+    httpClient.fetch(environment.apiURL + 'api/isbn/getinfo?isbn=' + isbn)
+      .then(response => response.json())
+      .then(data => {
+        this.bookData.title = data.title;
+        this.bookData.author = data.author;
+        this.bookData.pubyear = data.pubyear
+        this.bookData.publisher = data.publisher;
+        this.bookData.imagepath = data.imagepath;
+        this.magicFillBusy = false;
+      });
   }
 
   fetchGenresFromAPI() {
@@ -190,18 +191,6 @@ export class AddBooks {
       });
   }
 
-  fetchBookInformationByISBNFromAPI(isbn) {
-    this.magicFillBusy = true;
-    httpClient.fetch(environment.apiURL + 'api/isbn/getinfo?isbn=' + isbn)
-      .then(response => response.json())
-      .then(data => {
-        this.bookData.title = data.title;
-        this.bookData.author = data.author;
-        this.bookData.pubyear = data.pubyear
-        this.bookData.publisher = data.publisher;
-        this.bookData.imagepath = data.imagepath;
-        this.magicFillBusy = false;
-      });
-  }
-  
+
+
 }

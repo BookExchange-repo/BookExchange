@@ -27,11 +27,12 @@
         </a>
 
         <div class="right menu" show.bind="connector.loggedIn">
-          <div id="avatar" class="item avatar">
-            <img src="src/resources/images/user_icon.png">
-          </div>
 
           <div id="navbar_account" class="ui dropdown item navbar text">
+            <div id="avatar" class="item avatar">
+              <img src="src/resources/images/user_icon.png">
+            </div>
+
             ${connector.loggedInStatusMessage}
             <i class="left dropdown icon"></i>
             <div class="menu">

@@ -311,27 +311,20 @@ form.ui.large.form .field {
 
 /* Only Secondbar CSS */
 
-.hovered {
-  background: rgba(255, 255, 255, .08);
-  color: #fff;
-}
-
-.item.avatar.hovered {
-  background: rgba(255, 255, 255, .08);
-  color: #fff;
-}
-
 #navbar_account {
   height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
 }
 
 .ui.menu .item.avatar>img:not(.ui) {
   width: auto;
-  margin-right: -1em;
 }
 
-.item.avatar img {
-  height: 2.5em;
+#avatar img {
+  height: 1.7em;
+  margin-right: -0.5em;
 }
 
 .ui.input.search-navbar>input {
@@ -577,7 +570,40 @@ img.ui.fluid.image.sell-book.upload-image {
   margin-bottom: 1.5em;
 }
 
-.history-title {
+/* Only Dashboard CSS */
+
+.ui.secondary.menu.myaccount {
+  padding: 0;
+  margin: 0;
+}
+
+.ui.secondary.menu.myaccount .item.myaccount.breadcrumb {
+  padding: 0;
+  margin: 0;
+}
+
+.ui.segment.dashboard {
+  margin-top: 0;
+}
+
+.ui.header.dashboard {
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  color: #118092;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.ui.header.dashboard .content {
+  font-size: 0.9em;
+}
+
+.ui.header.dashboard>.icon {
+  font-size: 1.25em;
+}
+
+/* .history-title {
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 2.5em;
@@ -605,4 +631,4 @@ img.ui.fluid.image.sell-book.upload-image {
 
 .tab-history {
   margin-bottom: 2em;
-}
+} */

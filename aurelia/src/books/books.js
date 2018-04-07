@@ -51,9 +51,11 @@ export class Books {
     if (this.noFiltersAreSelected()) {
       this.bookTypes = "All";
       this.noFiltersSelected = true;
+      $("#tagPanel").slideUp();
     } else {
       this.bookTypes = "Filtered";
       this.noFiltersSelected = false;
+      $("#tagPanel").slideDown();
     }
   }
 

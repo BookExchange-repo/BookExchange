@@ -311,27 +311,20 @@ form.ui.large.form .field {
 
 /* Only Secondbar CSS */
 
-.hovered {
-  background: rgba(255, 255, 255, .08);
-  color: #fff;
-}
-
-.item.avatar.hovered {
-  background: rgba(255, 255, 255, .08);
-  color: #fff;
-}
-
 #navbar_account {
   height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
 }
 
 .ui.menu .item.avatar>img:not(.ui) {
   width: auto;
-  margin-right: -1em;
 }
 
-.item.avatar img {
-  height: 2.5em;
+#avatar img {
+  height: 1.7em;
+  margin-right: -0.5em;
 }
 
 .ui.input.search-navbar>input {

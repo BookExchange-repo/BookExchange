@@ -17,10 +17,10 @@ public class ImageController {
     public ImageController() { }
 
     @RequestMapping(value = "upload", method = RequestMethod.POST)
-    Map<String, Object> uploadImage(@RequestParam("fileToUpload") MultipartFile file) {
+    Map<String, Object> uploadImage(@RequestParam("images") List<MultipartFile> files) {
         Map<String, Object> result = new HashMap<>();
         List<String> allErrors = new ArrayList<>();
-        String fileExtension = file.getOriginalFilename().split("\\.")[1];
+        String fileExtension = files.get(0).getOriginalFilename().split("\\.")[1];
 
         try {
             if (!fileExtension.equals("png") && !fileExtension.equals("jpg"))
@@ -33,7 +33,7 @@ public class ImageController {
             Path filePath = Paths.get(fileSystemUploadPath + folderPath);
             Files.createDirectories(filePath);
             FileOutputStream fileOutputStream = new FileOutputStream(fileSystemUploadPath + fileSystemImagePath);
-            fileOutputStream.write(file.getBytes());
+            fileOutputStream.write(files.get(0).getBytes());
             fileOutputStream.close();
             result.put("imagepath", "https://bookmarket.online:18000/images/" + fileSystemImagePath);
         } catch (Exception e) {

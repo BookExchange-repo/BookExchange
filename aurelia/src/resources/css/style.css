@@ -264,6 +264,31 @@ form.ui.large.form .field {
   background: #118092;
 }
 
+/* Only Secondbar CSS */
+
+.hovered {
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+}
+
+.item.avatar.hovered {
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+}
+
+#navbar_account {
+  height: 100%;
+}
+
+.ui.menu .item.avatar>img:not(.ui) {
+  width: auto;
+  margin-right: -1em;
+}
+
+.item.avatar img {
+  height: 2.5em;
+}
+
 .ui.input.search-navbar>input {
   padding-top: 0.6em;
   padding-bottom: 0.6em;

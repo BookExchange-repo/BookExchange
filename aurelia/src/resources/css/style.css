@@ -38,6 +38,13 @@ a:hover {
   .ui.fluid.container.footer {
     width: 70%;
   }
+
+  .ui.homepage.grid {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6.5em;
+  }
 }
 
 @media only screen and (min-width: 1460px) and (max-width: 1649px) {
@@ -54,6 +61,13 @@ a:hover {
   .ui.fluid.container.footer {
     width: 80%;
   }
+
+  .ui.homepage.grid {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6.5em;
+  }
 }
 
 @media only screen and (min-width: 1300px) and (max-width: 1459px) {
@@ -69,6 +83,13 @@ a:hover {
 
   .ui.fluid.container.footer {
     width: 90%;
+  }
+
+  .ui.homepage.grid {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6.5em;
   }
 }
 
@@ -87,6 +108,12 @@ a:hover {
 
   .ui.fluid.container.footer {
     width: 95%;
+  }
+
+  .ui.homepage.grid {
+    margin-top: 6.5em;
+    margin-left: 30%;
+    text-align: center;
   }
 }
 

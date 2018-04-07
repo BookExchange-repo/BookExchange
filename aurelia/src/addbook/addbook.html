@@ -44,7 +44,7 @@
                   <input id="isbn" type="text" name="isbn" value.bind="bookData.isbn" placeholder="ISBN code">
                 </div>
                 <div class="ten wide field sell-book magic-fill">
-                  <button class="ui ${magicFillBusy ? 'loading' : ''} orange large button" click.delegate="magicFill(bookData.isbn)">Magic Fill</button>
+                  <button class="ui ${magicFillBusy ? 'loading' : ''} orange large button" click.delegate="magicFill(bookData.isbn)"><i class="magic icon"></i>Magic Fill</button>
                   <div class="sell-book isbn-info">*powered by Amazon and Ester Book Search</div>
                 </div>
               </div>
@@ -135,16 +135,16 @@
 
           <form class="ui large form" submit.delegate="submit(images)">
             <input type="file" name="images" accept=".png,.jpg" files.bind="images">
-            <button class="ui big teal icon button upload-image" type="submit"><i class="upload icon"></i>Upload image</button>
+            <button class="ui big teal icon button ${imageUploadBusy ? 'loading' : ''} upload-image" type="submit"><i class="upload icon"></i>Upload image</button>
           </form>
 
-          <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
-            <label for="image" class="ui big teal icon button upload-image">
+          <!-- <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
+            <label for="image" class="ui big teal icon  button upload-image">
               <i class="upload icon"></i>
               <span>add image</span>
             </label>
             <input type="file" id="image" style="display:none" name="imagepath" accept=".png,.jpg">
-          </form>
+          </form> -->
 
         </div>
       </div>

@@ -18,4 +18,6 @@ public class GenreEng {
     @Column(nullable = false)
     @Size(max = 128)
     String string;
+
+    int counter;
 }

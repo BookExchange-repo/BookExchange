@@ -78,93 +78,93 @@ public class ClassifierController {
     }
 
     @RequestMapping(value = "/api/cities/getall", method = RequestMethod.GET)
-    public List<Object> getAllCities() {
-        List<Object> allCities = (List<Object>)(List<?>)cityService.getAllCities();
-        Map<String, Object> countMap = new HashMap<>();
-        countMap.put("counters", true);
-        for (City city : (List<City>)(List<?>)allCities) {
-            countMap.put("count" + city.getId(), getClassifierCount("city",
+    public List<City> getAllCities() {
+        List<City> allCities = cityService.getAllCities();
+        for (City city : allCities) {
+            city.setCounter(getClassifierCount("city",
                     Integer.toString(city.getId())));
         }
-        allCities.add(countMap);
+        allCities = allCities.stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getCounter(), e1.getCounter()))
+                .collect(Collectors.toList());
         return allCities;
     }
 
     @RequestMapping(value = "/api/conditions/getall0", method = RequestMethod.GET)
-    public List<Object> getAllConditionsEng() {
-        List<Object> allConditions = (List<Object>)(List<?>)conditionService.getAllConditionsEng();
-        Map<String, Object> countMap = new HashMap<>();
-        countMap.put("counters", true);
-        for (ConditionEng condition : (List<ConditionEng>)(List<?>)allConditions) {
-            countMap.put("count" + condition.getId(), getClassifierCount("conditiondesc",
+    public List<ConditionEng> getAllConditionsEng() {
+        List<ConditionEng> allConditions = conditionService.getAllConditionsEng();
+        for (ConditionEng condition : allConditions) {
+            condition.setCounter(getClassifierCount("conditiondesc",
                     Integer.toString(condition.getId())));
         }
-        allConditions.add(countMap);
+        allConditions = allConditions.stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getCounter(), e1.getCounter()))
+                .collect(Collectors.toList());
         return allConditions;
     }
 
     @RequestMapping(value = "/api/conditions/getall1", method = RequestMethod.GET)
-    public List<Object> getAllConditionsEst() {
-        List<Object> allConditions = (List<Object>)(List<?>)conditionService.getAllConditionsEst();
-        Map<String, Object> countMap = new HashMap<>();
-        countMap.put("counters", true);
-        for (ConditionEst condition : (List<ConditionEst>)(List<?>)allConditions) {
-            countMap.put("count" + condition.getId(), getClassifierCount("conditiondesc",
+    public List<ConditionEst> getAllConditionsEst() {
+        List<ConditionEst> allConditions = conditionService.getAllConditionsEst();
+        for (ConditionEst condition : allConditions) {
+            condition.setCounter(getClassifierCount("conditiondesc",
                     Integer.toString(condition.getId())));
         }
-        allConditions.add(countMap);
+        allConditions = allConditions.stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getCounter(), e1.getCounter()))
+                .collect(Collectors.toList());
         return allConditions;
     }
 
     @RequestMapping(value = "/api/genres/getall0", method = RequestMethod.GET)
-    public List<Object> getAllGenresEng() {
-        List<Object> allGenres = (List<Object>)(List<?>)genreService.getAllGenresEng();
-        Map<String, Object> countMap = new HashMap<>();
-        countMap.put("counters", true);
-        for (GenreEng genre : (List<GenreEng>)(List<?>)allGenres) {
-            countMap.put("count" + genre.getId(), getClassifierCount("genreid",
+    public List<GenreEng> getAllGenresEng() {
+        List<GenreEng> allGenres = genreService.getAllGenresEng();
+        for (GenreEng genre : allGenres) {
+            genre.setCounter(getClassifierCount("genreid",
                     Integer.toString(genre.getId())));
         }
-        allGenres.add(countMap);
+        allGenres = allGenres.stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getCounter(), e1.getCounter()))
+                .collect(Collectors.toList());
         return allGenres;
     }
 
     @RequestMapping(value = "/api/genres/getall1", method = RequestMethod.GET)
-    public List<Object> getAllGenresEst() {
-        List<Object> allGenres = (List<Object>)(List<?>)genreService.getAllGenresEst();
-        Map<String, Object> countMap = new HashMap<>();
-        countMap.put("counters", true);
-        for (GenreEst genre : (List<GenreEst>)(List<?>)allGenres) {
-            countMap.put("count" + genre.getId(), getClassifierCount("genreid",
+    public List<GenreEst> getAllGenresEst() {
+        List<GenreEst> allGenres = genreService.getAllGenresEst();
+        for (GenreEst genre : allGenres) {
+            genre.setCounter(getClassifierCount("genreid",
                     Integer.toString(genre.getId())));
         }
-        allGenres.add(countMap);
+        allGenres = allGenres.stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getCounter(), e1.getCounter()))
+                .collect(Collectors.toList());
         return allGenres;
     }
 
     @RequestMapping(value = "/api/languages/getall0", method = RequestMethod.GET)
-    public List<Object> getAllLanguagesEng() {
-        List<Object> allLanguages = (List<Object>)(List<?>)languageService.getAllLanguagesEng();
-        Map<String, Object> countMap = new HashMap<>();
-        countMap.put("counters", true);
-        for (LanguageEng language : (List<LanguageEng>)(List<?>)allLanguages) {
-            countMap.put("count" + language.getId(), getClassifierCount("language",
+    public List<LanguageEng> getAllLanguagesEng() {
+        List<LanguageEng> allLanguages = languageService.getAllLanguagesEng();
+        for (LanguageEng language : allLanguages) {
+            language.setCounter(getClassifierCount("language",
                     Integer.toString(language.getId())));
         }
-        allLanguages.add(countMap);
+        allLanguages = allLanguages.stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getCounter(), e1.getCounter()))
+                .collect(Collectors.toList());
         return allLanguages;
     }
 
     @RequestMapping(value = "/api/languages/getall1", method = RequestMethod.GET)
-    public List<Object> getAllLanguagesEst() {
-        List<Object> allLanguages = (List<Object>)(List<?>)languageService.getAllLanguagesEst();
-        Map<String, Object> countMap = new HashMap<>();
-        countMap.put("counters", true);
-        for (LanguageEst language : (List<LanguageEst>)(List<?>)allLanguages) {
-            countMap.put("count" + language.getId(), getClassifierCount("language",
+    public List<LanguageEst> getAllLanguagesEst() {
+        List<LanguageEst> allLanguages = languageService.getAllLanguagesEst();
+        for (LanguageEst language : allLanguages) {
+            language.setCounter(getClassifierCount("language",
                     Integer.toString(language.getId())));
         }
-        allLanguages.add(countMap);
+        allLanguages = allLanguages.stream()
+                .sorted((e1, e2) -> Integer.compare(e2.getCounter(), e1.getCounter()))
+                .collect(Collectors.toList());
         return allLanguages;
     }
 }

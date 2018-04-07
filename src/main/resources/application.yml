@@ -5,7 +5,7 @@ spring:
    datasource:
       url: jdbc:mariadb://localhost/bookexchange_db
       username: root
-      password: toor
+      password: 3972C7fshtTdw9XDr
    jpa:
       hibernate:
          ddl-auto: update

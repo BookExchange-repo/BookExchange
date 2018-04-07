@@ -16,6 +16,10 @@ export class Authorization {
     localStorage.setItem("session", sessionID);
   }
 
+  getSessionID() {
+    return localStorage.getItem("session");
+  }
+
   deleteSession() {
     localStorage.removeItem("session");
   }

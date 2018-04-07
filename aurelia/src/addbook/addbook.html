@@ -78,7 +78,7 @@
               <div class="five wide required field">
                 <label>Price</label>
                 <div class="ui right labeled input">
-                  <input id="bookPrice" type="number" step=".01" name="bookPrice" min="0" max="9999" value.bind="bookData.price" placeholder="0.00">
+                  <input id="bookPrice" type="number" step=".01" name="bookPrice" min="0.01" max="9999" value.bind="bookData.price" placeholder="0.00">
                   <div class="ui label">€</div>
                 </div>
               </div>
@@ -99,7 +99,7 @@
 
             <div class="required eight wide field">
               <label>Your city</label>
-              <select class="ui search dropdown" value.bind="selectedCity">
+              <select class="ui search dropdown" value.bind="bookDataCity.id">
                 <option model.bind="null" value="">choose or search...</option>
                 <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
               </select>

@@ -227,6 +227,33 @@ export class Books {
       .then(data => {
         this.cities = data;
       });
+/* 
+
+    httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
+      .then(response => response.json())
+      .then(data => {
+        this.cities = data;
+        this.cities.forEach((element, index) => {
+          console.log(element.id);
+          console.log(element.string); // 100, 200, 300
+
+          httpClient.fetch('https://bookmarket.online:18081/api/books/getcount?classifier=city&value=' + element.id)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.city);
+            this.cities[index].count = 5;
+            console.log("~~~" + JSON.stringify(this.cities[index])); //.count = 2;
+          });
+          
+          console.log(">>" + JSON.stringify(this.cities[index]));
+      }
+      
+        
+    );
+    $('#citySelector').dropdown('refresh');
+    console.log(JSON.stringify(this.cities));
+        //console.log(this.cities);
+      }); */
   }
 
   fetchGenresFromAPI() {

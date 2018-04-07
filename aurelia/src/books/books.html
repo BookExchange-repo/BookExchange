@@ -3,14 +3,14 @@
 
     <div class="ui grid add-book-breadcrumb">
       <div class="twelve wide column">
-        <div class="ui huge breadcrumb">
+        <div class="ui massive breadcrumb">
           <a href="#" class="section">
             <i class="home icon"></i>
           </a>
           <i class="right chevron icon divider"></i>
           <div class="active section">
             <span>${bookTypes} books</span>
-            <span if.bind="fetchingBooksFromApi" class="ui active tiny inline loader"></span>
+            <span if.bind="fetchingBooksFromApi" class="ui active small inline loader all-books"></span>
             <span if.bind="!fetchingBooksFromApi">(${numberOfBooks})</span>
           </div>
         </div>
@@ -24,22 +24,22 @@
 
       <div class="sixteen wide column all-books filters">
 
-        <a class="ui red label" if.bind="selectedCityID!=0">
+        <a class="ui red label all-books filters" if.bind="selectedCityID!=0">
           ${cities[selectedCityID-1].string}
           <i class="delete icon" click.delegate="cityTagDeleteButtonPressed()"></i>
         </a>
 
-        <a class="ui blue label" repeat.for="selectedGenreID of selectedGenreIDs">
+        <a class="ui blue label all-books filters" repeat.for="selectedGenreID of selectedGenreIDs">
           ${genres[selectedGenreID-1].string}
           <i class="delete icon" click.delegate="genresTagDeleteButtonPressed(selectedGenreID)"></i>
         </a>
 
-        <a class="ui orange label" repeat.for="selectedConditionID of selectedConditionIDs">
+        <a class="ui orange label all-books filters" repeat.for="selectedConditionID of selectedConditionIDs">
           ${conditions[selectedConditionID-1].string}
           <i class="delete icon" click.delegate="conditionsTagDeleteButtonPressed(selectedConditionID)"></i>
         </a>
 
-        <a class="ui teal label" if.bind="selectedLanguageID!=0">
+        <a class="ui teal label all-books filters" if.bind="selectedLanguageID!=0">
           ${languages[selectedLanguageID-1].string}
           <i class="delete icon" click.delegate="languageTagDeleteButtonPressed()"></i>
         </a>

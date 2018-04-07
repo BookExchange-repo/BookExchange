@@ -90,9 +90,9 @@ a:hover {
   }
 }
 
-.ui.huge.breadcrumb {
-  margin-top: 2em;
-  margin-bottom: 2em;
+.ui.massive.breadcrumb {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 /* Only Footer CSS */
@@ -103,6 +103,10 @@ a:hover {
 }
 
 /* Only All Books CSS */
+
+.ui.inline.loader.all-books {
+  vertical-align: bottom;
+}
 
 .ui.grid.add-book-breadcrumb {
   margin: 0;
@@ -122,8 +126,13 @@ a:hover {
 }
 
 .sixteen.wide.column.all-books.filters {
-  margin-top: -1.5em;
-  margin-bottom: 2.2em; 
+  margin-top: 0;
+  margin-bottom: 0; 
+}
+
+.ui.label.all-books.filters {
+  margin-top: -0.5em;
+  margin-bottom: 2.5em;
 }
 
 @media only screen and (min-width: 1350px) {

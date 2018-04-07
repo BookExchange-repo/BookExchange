@@ -49,17 +49,26 @@ public class BooksController {
     public Map<String, List<Books>> getAllBooks(
             @RequestParam Map<String,String> requestParams,
             @RequestParam(value = "sort") Optional<String> sortMask,
-            @RequestParam(value = "sortdesc") Optional<Boolean> isSortDesc)
+            @RequestParam(value = "sortdesc") Optional<Boolean> isSortDesc,
+            @RequestParam(value = "session") Optional<String> session) throws APIException
     {
         int paramsSize = 0;
+        boolean blockSensitive = true;
         if (sortMask.isPresent())
             paramsSize++;
         if (isSortDesc.isPresent())
             paramsSize++;
+        if (session.isPresent()) {
+            paramsSize++;
+            if (UsersController.getUserIdBySession(session.get()).isPresent())
+                blockSensitive = false;
+            else
+                throw new APIException("CANNOT_BOOKS_GETALL");
+        }
 
         if (!isSortDesc.isPresent())
             isSortDesc = Optional.of(false);
-        Map<String, List<Books>> map = new HashMap<>();
+        Map<String, List<Books>> outputMap = new HashMap<>();
         List<Books> allBooks = booksService.getAllBooks();
         for (Map.Entry<String, String> entry : requestParams.entrySet()) {
             if (entry.getValue().isEmpty())
@@ -167,15 +176,39 @@ public class BooksController {
         }
         if (isSortDesc.get())
             Collections.reverse(allBooks);
-        map.put("books", allBooks);
-        map.put("errors", new ArrayList<>());
-        return map;
+        if (blockSensitive) {
+            for (Books book : allBooks) {
+                book.getUserid().setEmail("");
+                book.getUserid().setPass_hash("");
+                book.getUserid().setPass_salt("");
+                book.getUserid().setPhone("");
+            }
+        }
+        outputMap.put("books", allBooks);
+        outputMap.put("errors", new ArrayList<>());
+        return outputMap;
         //return booksService.getAllBooks();
     }
 
     @RequestMapping(value = "getinfoid", method = RequestMethod.GET)
-    public Books getBook(@RequestParam(value = "id") int bookId) {
-        return booksService.getBookById(bookId);
+    public Books getBook(@RequestParam(value = "id") int bookId,
+                         @RequestParam(value = "session") Optional<String> session) throws APIException
+    {
+        boolean blockSensitive = true;
+        if (session.isPresent()) {
+            if (UsersController.getUserIdBySession(session.get()).isPresent())
+                blockSensitive = false;
+            else
+                throw new APIException("CANNOT_BOOKS_GETINFOID");
+        }
+        Books book = booksService.getBookById(bookId);
+        if (blockSensitive) {
+            book.getUserid().setEmail("");
+            book.getUserid().setPass_hash("");
+            book.getUserid().setPass_salt("");
+            book.getUserid().setPhone("");
+        }
+        return book;
     }
 
     @ExceptionHandler(APIException.class)

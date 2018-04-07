@@ -184,10 +184,12 @@ public class BooksController {
                 book.getUserid().setPhone("");
             }
         }
+        allBooks = allBooks.stream()
+                .filter(e -> e.getStatus().getId() == 1)
+                .collect(Collectors.toList());
         outputMap.put("books", allBooks);
         outputMap.put("errors", new ArrayList<>());
         return outputMap;
-        //return booksService.getAllBooks();
     }
 
     @RequestMapping(value = "getinfoid", method = RequestMethod.GET)

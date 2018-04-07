@@ -1,6 +1,7 @@
 package ee.ttu.BookExchange.api.controllers;
 
-import ee.ttu.BookExchange.api.models.Sold;
+import ee.ttu.BookExchange.api.models.Books;
+import ee.ttu.BookExchange.api.models.StatusEng;
 import ee.ttu.BookExchange.api.models.Users;
 import ee.ttu.BookExchange.api.models.Watchlist;
 import ee.ttu.BookExchange.api.services.*;
@@ -10,8 +11,8 @@ import ee.ttu.BookExchange.utilities.Random;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.SecureRandom;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -23,19 +24,19 @@ public class UsersController {
     private BooksService booksService;
     private WatchlistService watchlistService;
     private CityService cityService;
-    private SoldService soldService;
+    private StatusService statusService;
 
     public UsersController(UsersService usersService,
                            BooksService booksService,
                            WatchlistService watchlistService,
                            CityService cityService,
-                           SoldService soldService)
+                           StatusService statusService)
     {
         this.usersService = usersService;
         this.booksService = booksService;
         this.watchlistService = watchlistService;
         this.cityService = cityService;
-        this.soldService = soldService;
+        this.statusService = statusService;
     }
 
     private static String generateSession() {
@@ -182,26 +183,35 @@ public class UsersController {
         return map;
     }
 
-    @RequestMapping(value = "addtosold", method = RequestMethod.GET)
-    public Map<String, Object> addToSold(@RequestParam(value = "session") String session,
-                                         @RequestParam(value = "bookid") int bookId) throws APIException
+    @RequestMapping(value = "setstatus", method = RequestMethod.GET)
+    public Map<String, Object> setBookStatus(@RequestParam(value = "session") String session,
+                                             @RequestParam(value = "bookid") int bookId,
+                                             @RequestParam(value = "status") int statusId) throws APIException
     {
         Optional<Integer> userId = getUserIdBySession(session);
-        if (!userId.isPresent() || booksService.getBookById(bookId) == null) {
-            throw new APIException("CANNOT_USERS_ADDTOSOLD");
+        Books foundBook = booksService.getBookById(bookId);
+        StatusEng statusToSet = statusService.getStatusByIdEng(statusId);
+        if (!userId.isPresent() || foundBook == null ||
+                foundBook.getUserid().getId() != userId.get() || statusToSet == null ||
+                foundBook.getStatus().getId() != 1)
+        {
+            throw new APIException("CANNOT_USERS_ADDTOMYBOOKS");
         }
-        soldService.saveBook(userId.get(), bookId);
+        foundBook.setStatus(statusToSet);
+        booksService.saveBook(foundBook);
         Map<String, Object> result = new HashMap<>();
         result.put("errors", new ArrayList<>());
         return result;
     }
 
-    @RequestMapping(value = "getsold", method = RequestMethod.GET)
-    public List<Sold> getSold(@RequestParam(value = "session") String session) throws APIException {
+    @RequestMapping(value = "getmybooks", method = RequestMethod.GET)
+    public List<Books> getMyBooks(@RequestParam(value = "session") String session) throws APIException {
         Optional<Integer> userId = getUserIdBySession(session);
         if (!userId.isPresent()) {
-            throw new APIException("CANNOT_USERS_GETSOLD");
+            throw new APIException("CANNOT_USERS_GETMYBOOKS");
         }
-        return soldService.findByUserId(userId.get());
+        return booksService.getAllBooks().stream()
+                .filter(e -> e.getUserid().getId() == userId.get())
+                .collect(Collectors.toList());
     }
 }

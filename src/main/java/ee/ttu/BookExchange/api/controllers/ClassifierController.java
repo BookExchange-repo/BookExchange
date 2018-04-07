@@ -18,18 +18,21 @@ public class ClassifierController {
     private GenreService genreService;
     private LanguageService languageService;
     private BooksService booksService;
+    private StatusService statusService;
 
     public ClassifierController(BooksService booksService,
                                 CityService cityService,
                                 ConditionService conditionService,
                                 GenreService genreService,
-                                LanguageService languageService)
+                                LanguageService languageService,
+                                StatusService statusService)
     {
         this.booksService = booksService;
         this.cityService = cityService;
         this.conditionService = conditionService;
         this.genreService = genreService;
         this.languageService = languageService;
+        this.statusService = statusService;
     }
 
     private String getTableFieldByString(Books book, String tableField) {
@@ -66,6 +69,8 @@ public class ClassifierController {
                 return Integer.toString(book.getGenreid().getId());
             case "city":
                 return Integer.toString(book.getCity().getId());
+            case "status":
+                return Integer.toString(book.getStatus().getId());
             default:
                 return null;
         }
@@ -160,5 +165,25 @@ public class ClassifierController {
                 .sorted((e1, e2) -> Integer.compare(e2.getCounter(), e1.getCounter()))
                 .collect(Collectors.toList());
         return allLanguages;
+    }
+
+    @RequestMapping(value = "/api/statuses/getall0", method = RequestMethod.GET)
+    public List<StatusEng> getAllStatusesEng() {
+        List<StatusEng> allStatuses = statusService.getAllStatusesEng();
+        for (StatusEng status : allStatuses) {
+            status.setCounter(getClassifierCount("status",
+                    Integer.toString(status.getId())));
+        }
+        return allStatuses;
+    }
+
+    @RequestMapping(value = "/api/statuses/getall1", method = RequestMethod.GET)
+    public List<StatusEst> getAllStatusesEst() {
+        List<StatusEst> allStatuses = statusService.getAllStatusesEst();
+        for (StatusEst status : allStatuses) {
+            status.setCounter(getClassifierCount("status",
+                    Integer.toString(status.getId())));
+        }
+        return allStatuses;
     }
 }

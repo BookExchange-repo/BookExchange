@@ -71,4 +71,8 @@ public class Books {
     @ManyToOne
     @JoinColumn(name = "city", referencedColumnName = "id", nullable = false)
     City city;
+
+    @ManyToOne
+    @JoinColumn(name = "status", referencedColumnName = "id", nullable = false, columnDefinition = "int default 1")
+    StatusEng status;
 }

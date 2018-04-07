@@ -92,7 +92,7 @@ export class AddBooks {
 
     for (let i = 0; i < files.length; i++) {
       formData.append('fileToUpload', files[i]);
-  }
+    }
 
     // for (let i = 0; i < files.length; i++) {
     //     formData.append(`files[${i}]`, files[i]);
@@ -100,15 +100,32 @@ export class AddBooks {
 
 
     return httpClient.fetch('https://bookmarket.online:18081/api/image/upload', {
-        method: method,
-       // fileToUpload: formData,
-        body: formData,
-        headers: new Headers()
+      method: method,
+      // fileToUpload: formData,
+      body: formData,
+      headers: new Headers()
     })
-    .then(response => response.json())
-    .then(data => console.log(data.message))
-    .catch(error => console.log(error));
-}
+      .then(response => console.log(response.json()))
+      .then(data => console.log(data.message))
+      .catch(error => console.log(error));
+  }
+
+  submit(images) {
+    let formData = new FormData();
+
+    for (let i = 0; i < images.length; i++) {
+      formData.append('images', images[i]);
+    }
+
+    httpClient.fetch('https://bookmarket.online:18081/api/image/upload', {
+      method: 'POST',
+      body: formData,
+      headers: new Headers()
+    })
+      .then(response => console.log(response.json()))
+      .then(data => console.log(data.message))
+      .catch(error => console.log(error));
+  }
 
   addBook() {
     this.statusMessagesVisible = false;

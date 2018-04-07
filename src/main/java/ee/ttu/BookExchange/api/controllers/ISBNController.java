@@ -63,9 +63,12 @@ public class ISBNController {
                     outputMap.put("description", element.select("div").first().html()
                             .replace("\n", "") +
                         "<br><br>" + amazonPage.split("ref=[a-zA-Z]{2}_[0-9]_[0-9]")[0]);
+                    elements = null;
                     break;
                 }
             }
+            if (elements != null)
+                outputMap.put("description", "");
 
             // Getting the author
             elements = document.select("div[id=byline]");
@@ -101,6 +104,7 @@ public class ISBNController {
             languageHtml = languageHtml.substring(
                     languageHtml.lastIndexOf("</b>") + 4, languageHtml.length()).trim();
             outputMap.put("language", languageHtml);
+            outputMap.put("languageid", Integer.toString(Language.languageStringToId(languageHtml)));
 
             // Getting the image
             elements = document.getElementsByClass("a-dynamic-image");
@@ -146,8 +150,10 @@ public class ISBNController {
             JSONObject thumbnailImages = (JSONObject)volumeInfo.get("imageLinks");
             outputMap.put("imagepath", thumbnailImages.get("thumbnail")
                     .toString().split(Pattern.quote("&imgtk="))[0]);
-            outputMap.put("language", Language.googleLanguageShortToLong(
-                    volumeInfo.get("language").toString()));
+            String languageString = Language.googleLanguageShortToLong(
+                    volumeInfo.get("language").toString());
+            outputMap.put("language", languageString);
+            outputMap.put("languageid", Integer.toString(Language.languageStringToId(languageString)));
         } catch (Exception e) {
             return null;
         }
@@ -183,6 +189,9 @@ public class ISBNController {
         outputMap.put("pubyear", null);
         outputMap.put("language", null);
         outputMap.put("imagepath", null);
+        if (isbnNumber.length() != 10 && isbnNumber.length() != 13)
+            return outputMap;
+
         Map<String, String> intermediateOut = getByIsbnAmazon(outputMap, isbnNumber);
         if (intermediateOut != null) {
             outputMap = intermediateOut;

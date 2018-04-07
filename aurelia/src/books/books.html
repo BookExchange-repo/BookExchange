@@ -18,12 +18,12 @@
 
       <div class="middle aligned right aligned four wide column">
         <i class="filter large icon"></i>
-        <select class="ui fluid dropdown" value.bind="selectedSortID" change.delegate="sortOrFilterParamsChanged()">
+        <select class="ui fluid dropdown all-books" value.bind="selectedSortID" change.delegate="sortOrFilterParamsChanged()">
           <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
         </select>
       </div>
 
-      <div id="tagPanel" style="height:100px" class="sixteen wide column all-books filters">
+      <div id="tagPanel" class="sixteen wide column all-books filters">
 
         <a class="ui red label all-books filters" if.bind="selectedCityID!=0">
           ${cities[selectedCityID-1].string}
@@ -102,7 +102,15 @@
       <div class="thirteen wide column">
         <div class="ui list">
 
-          <div if.bind="noBooks">Here are no books yet. Yours can be the first one!</div>
+          <div if.bind="noBooks">
+            <div class="center aligned ui grid all-books no-books">
+              <div class="column">
+                <img src="src/resources/images/no-books-icon.svg">
+                <h2>Here are no books yet</h2>
+                <h3>Yours can be the first one!</h3>
+              </div>
+            </div>
+          </div>
 
           <div class="item horizontal-line" repeat.for="books of books.books">
             <div class="ui segment">

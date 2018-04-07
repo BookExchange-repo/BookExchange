@@ -104,6 +104,25 @@ a:hover {
 
 /* Only All Books CSS */
 
+.center.aligned.ui.grid.all-books.no-books {
+  margin-top: 8%;
+  margin-bottom: 0;
+}
+
+.center.aligned.ui.grid.all-books.no-books img {
+  height: 18em;
+  width: auto;
+}
+
+.center.aligned.ui.grid.all-books.no-books h3{
+  font-weight: 100;
+  margin-top: 1em;
+}
+
+#tagPanel {
+  height: auto;
+}
+
 .ui.inline.loader.all-books {
   vertical-align: bottom;
 }
@@ -131,7 +150,6 @@ a:hover {
 }
 
 .ui.label.all-books.filters {
-  margin-top: -0.5em;
   margin-bottom: 2.5em;
 }
 

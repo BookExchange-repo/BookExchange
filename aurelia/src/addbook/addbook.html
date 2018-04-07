@@ -133,19 +133,11 @@
         <div class="ui center aligned segment">
           <img class="ui fluid image sell-book upload-image" src.bind="bookData.imagepath">
 
-          <form submit.delegate="submit(images)">
-
-            <input type="file" name="images" files.bind="images" multiple>
-
-            <button type="submit">Send</button>
+          <form class="ui large form" submit.delegate="submit(images)">
+            <input type="file" name="images" accept=".png,.jpg" files.bind="images">
+            <button class="ui big teal icon button upload-image" type="submit"><i class="upload icon"></i>Upload image</button>
           </form>
 
-          <form submit.delegate="doUpload()">
-            <input id="files" type="file" accept=".png,.jpg" files.bind="selectedFiles" class="form-control">
-            <input type="submit" class="btn btn-primary" value="Upload" if.bind="selectedFiles.length > 0" />
-          </form>
-
-          <!-- <form action="http://bookmarket.online:8081/api/image/upload" method="post" enctype="multipart/form-data"></form> -->
           <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
             <label for="image" class="ui big teal icon button upload-image">
               <i class="upload icon"></i>

@@ -44,6 +44,7 @@ export class Connector {
 
       } else {
         this.loggedIn = false;
+        this.authorization.deleteSession();
         //this.loggedInStatusMessage = "Not logged in";
       }
     });

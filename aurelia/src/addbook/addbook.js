@@ -36,7 +36,7 @@ export class AddBooks {
     this.cities = null;
     this.resultMessage = "";
     this.router = router;
-    this.bookData.imagepath = "src/resources/images/no-image.svg";
+    this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
     this.magicFillBusy = false;
   }
 
@@ -64,52 +64,6 @@ export class AddBooks {
     this.fetchCitiesFromAPI();
   }
 
-  // uploadImage() {
-  //   //https://bookmarket.online:18081/api/image/upload
-  //   client.fetch('https://bookmarket.online:18081/api/image/upload', {
-  //     'method': "POST",
-  //     'body': json(this.bookData)
-  //   })
-  //   .then(function (response) {
-  //     return response.json();
-  //   })
-  //   .then(data => {
-  //     console.log(data);
-  //   });
-
-  // }
-
-  doUpload() {
-    return this.upload('api/upload', {}, this.selectedFiles[0]).then(() => this.clearFiles());
-  }
-
-  clearFiles() {
-    document.getElementById("files").value = "";
-  }
-
-  upload(url, data, files, method = "POST") {
-    let formData = new FormData();
-
-    for (let i = 0; i < files.length; i++) {
-      formData.append('fileToUpload', files[i]);
-    }
-
-    // for (let i = 0; i < files.length; i++) {
-    //     formData.append(`files[${i}]`, files[i]);
-    // }
-
-
-    return httpClient.fetch('https://bookmarket.online:18081/api/image/upload', {
-      method: method,
-      // fileToUpload: formData,
-      body: formData,
-      headers: new Headers()
-    })
-      .then(response => console.log(response.json()))
-      .then(data => console.log(data.message))
-      .catch(error => console.log(error));
-  }
-
   submit(images) {
     let formData = new FormData();
 
@@ -119,11 +73,16 @@ export class AddBooks {
 
     httpClient.fetch('https://bookmarket.online:18081/api/image/upload', {
       method: 'POST',
-      body: formData,
-      headers: new Headers()
+      body: formData
     })
-      .then(response => console.log(response.json()))
-      .then(data => console.log(data.message))
+      .then(response => response.json())
+      .then(data => {
+        if (data.errors.length === 0) {
+          this.bookData.imagepath = data.imagepath;
+        } else {
+          throw Error(data);
+        }
+      })
       .catch(error => console.log(error));
   }
 
@@ -170,7 +129,7 @@ export class AddBooks {
       
 
       this.bookData.description = this.richTextEditor.getData();
-      this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
+     // this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
       this.bookData.conditiondesc = this.bookDataCondition;
       this.bookData.language = this.bookDataLanguage;
       this.bookData.genreid = this.bookDataGenre;

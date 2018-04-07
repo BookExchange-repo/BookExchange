@@ -38,6 +38,7 @@ export class AddBooks {
     this.router = router;
     this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
     this.magicFillBusy = false;
+    this.imageUploadBusy = false;
   }
 
   attached() {
@@ -70,7 +71,7 @@ export class AddBooks {
     for (let i = 0; i < images.length; i++) {
       formData.append('images', images[i]);
     }
-
+    this.imageUploadBusy = true;
     httpClient.fetch('https://bookmarket.online:18081/api/image/upload', {
       method: 'POST',
       body: formData
@@ -79,9 +80,11 @@ export class AddBooks {
       .then(data => {
         if (data.errors.length === 0) {
           this.bookData.imagepath = data.imagepath;
+          this.imageUploadBusy = false;
         } else {
           throw Error(data);
         }
+        
       })
       .catch(error => console.log(error));
   }

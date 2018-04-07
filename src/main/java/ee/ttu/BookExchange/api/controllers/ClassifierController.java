@@ -97,9 +97,6 @@ public class ClassifierController {
             condition.setCounter(getClassifierCount("conditiondesc",
                     Integer.toString(condition.getId())));
         }
-        allConditions = allConditions.stream()
-                .sorted((e1, e2) -> Integer.compare(e2.getCounter(), e1.getCounter()))
-                .collect(Collectors.toList());
         return allConditions;
     }
 
@@ -110,9 +107,6 @@ public class ClassifierController {
             condition.setCounter(getClassifierCount("conditiondesc",
                     Integer.toString(condition.getId())));
         }
-        allConditions = allConditions.stream()
-                .sorted((e1, e2) -> Integer.compare(e2.getCounter(), e1.getCounter()))
-                .collect(Collectors.toList());
         return allConditions;
     }
 

@@ -1,11 +1,9 @@
 package ee.ttu.BookExchange.api.controllers;
 
+import ee.ttu.BookExchange.api.models.Sold;
 import ee.ttu.BookExchange.api.models.Users;
 import ee.ttu.BookExchange.api.models.Watchlist;
-import ee.ttu.BookExchange.api.services.BooksService;
-import ee.ttu.BookExchange.api.services.CityService;
-import ee.ttu.BookExchange.api.services.UsersService;
-import ee.ttu.BookExchange.api.services.WatchlistService;
+import ee.ttu.BookExchange.api.services.*;
 import ee.ttu.BookExchange.exceptions.APIException;
 import ee.ttu.BookExchange.utilities.Checksum;
 import org.springframework.http.HttpStatus;
@@ -26,16 +24,19 @@ public class UsersController {
     private BooksService booksService;
     private WatchlistService watchlistService;
     private CityService cityService;
+    private SoldService soldService;
 
     public UsersController(UsersService usersService,
                            BooksService booksService,
                            WatchlistService watchlistService,
-                           CityService cityService)
+                           CityService cityService,
+                           SoldService soldService)
     {
         this.usersService = usersService;
         this.booksService = booksService;
         this.watchlistService = watchlistService;
         this.cityService = cityService;
+        this.soldService = soldService;
     }
 
     private static String generateSession() {
@@ -185,5 +186,28 @@ public class UsersController {
         Map<String, Object> map = new HashMap<>();
         map.put("errors", new ArrayList<>());
         return map;
+    }
+
+    @RequestMapping(value = "addtosold", method = RequestMethod.GET)
+    public Map<String, Object> addToSold(@RequestParam(value = "session") String session,
+                                         @RequestParam(value = "bookid") int bookId) throws APIException
+    {
+        Optional<Integer> userId = getUserIdBySession(session);
+        if (!userId.isPresent() || booksService.getBookById(bookId) == null) {
+            throw new APIException("CANNOT_USERS_ADDTOSOLD");
+        }
+        soldService.saveBook(userId.get(), bookId);
+        Map<String, Object> result = new HashMap<>();
+        result.put("errors", new ArrayList<>());
+        return result;
+    }
+
+    @RequestMapping(value = "getsold", method = RequestMethod.GET)
+    public List<Sold> getSold(@RequestParam(value = "session") String session) throws APIException {
+        Optional<Integer> userId = getUserIdBySession(session);
+        if (!userId.isPresent()) {
+            throw new APIException("CANNOT_USERS_GETSOLD");
+        }
+        return soldService.findByUserId(userId.get());
     }
 }

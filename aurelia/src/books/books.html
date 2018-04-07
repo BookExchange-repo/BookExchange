@@ -55,7 +55,7 @@
           <b style="font-size: 1.15em">Your city</b>
           <select class="ui fluid search dropdown all-books sidebar-field" id="citySelector" value.bind="selectedCityID" change.delegate="sortOrFilterParamsChanged()">
             <option model.bind="0" selected>All cities</option>
-            <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
+            <option repeat.for="city of cities" model.bind="city.id">${city.string} (${city.counter})</option>
           </select>
         </div>
 
@@ -67,7 +67,7 @@
 
                 <div class="ui checkbox">
                   <input type="checkbox" name="small" model.bind="genre.id" id="${genre.string}" checked.bind="selectedGenreIDs">
-                  <label style="cursor: pointer;" for="${genre.string}">${genre.string}</label>
+                  <label style="cursor: pointer;" for="${genre.string}">${genre.string} (${genre.counter})</label>
                 </div>
               </div>
             </div>
@@ -81,7 +81,7 @@
               <div class="field" repeat.for="condition of conditions">
                 <div class="ui checkbox">
                   <input type="checkbox" name="small" model.bind="condition.id" id="${condition.string}" checked.bind="selectedConditionIDs">
-                  <label style="cursor: pointer;" for="${condition.string}">${condition.string}</label>
+                  <label style="cursor: pointer;" for="${condition.string}">${condition.string} (${condition.counter})</label>
                 </div>
               </div>
             </div>
@@ -93,7 +93,7 @@
 
           <select id="languageSelector" class="ui fluid search dropdown all-books sidebar-field" value.bind="selectedLanguageID" change.delegate="sortOrFilterParamsChanged()">
             <option model.bind="0" selected>All languages</option>
-            <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
+            <option repeat.for="language of languages" model.bind="language.id">${language.string} (${language.counter})</option>
           </select>
 
         </div>

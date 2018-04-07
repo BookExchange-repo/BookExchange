@@ -135,7 +135,7 @@ public class BooksController {
                             case "conditiondesc":
                                 return Integer.compare(e1.getConditiondesc().getId(), e2.getConditiondesc().getId());
                             case "price":
-                                return e1.getPrice().toString().compareTo(e2.getPrice().toString());
+                                return e1.getPrice().compareTo(e2.getPrice());
                             case "likes":
                                 return Integer.compare(e1.getLikes(), e2.getLikes());
                             case "isbn":
@@ -152,7 +152,7 @@ public class BooksController {
                             case "language":
                                 return Integer.compare(e1.getLanguage().getId(), e2.getLanguage().getId());
                             case "postdate":
-                                return e1.getPostdate().toString().compareTo(e2.getPostdate().toString());
+                                return e1.getPostdate().compareTo(e2.getPostdate());
                             case "userid":
                                 return Integer.compare(e1.getUserid().getId(), e2.getUserid().getId());
                             case "genreid":

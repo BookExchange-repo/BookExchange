@@ -178,6 +178,18 @@ public class ISBNController {
         return outputMap;
     }
 
+    private Map<String, String> getDefaultMap() {
+        Map<String, String> outputMap = new HashMap<>();
+        outputMap.put("title", "");
+        outputMap.put("description", "");
+        outputMap.put("author", "");
+        outputMap.put("publisher", "");
+        outputMap.put("pubyear", "");
+        outputMap.put("language", "");
+        outputMap.put("imagepath", "https://bookmarket.online:18000/images/no-image.svg");
+        return outputMap;
+    }
+
     @RequestMapping(value = "getinfo", method = RequestMethod.GET)
     public Map<String, String> getBookIsbnInfo(@RequestParam(value = "isbn") String isbnNumber) {
         Map<String, String> outputMap = new HashMap<>();
@@ -190,7 +202,7 @@ public class ISBNController {
         outputMap.put("language", null);
         outputMap.put("imagepath", null);
         if (isbnNumber.length() != 10 && isbnNumber.length() != 13)
-            return outputMap;
+            return getDefaultMap();
 
         Map<String, String> intermediateOut = getByIsbnAmazon(outputMap, isbnNumber);
         if (intermediateOut != null) {
@@ -209,6 +221,6 @@ public class ISBNController {
                 }
             }
         }
-        return outputMap;
+        return getDefaultMap();
     }
 }

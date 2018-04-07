@@ -64,6 +64,52 @@ export class AddBooks {
     this.fetchCitiesFromAPI();
   }
 
+  // uploadImage() {
+  //   //https://bookmarket.online:18081/api/image/upload
+  //   client.fetch('https://bookmarket.online:18081/api/image/upload', {
+  //     'method': "POST",
+  //     'body': json(this.bookData)
+  //   })
+  //   .then(function (response) {
+  //     return response.json();
+  //   })
+  //   .then(data => {
+  //     console.log(data);
+  //   });
+
+  // }
+
+  doUpload() {
+    return this.upload('api/upload', {}, this.selectedFiles[0]).then(() => this.clearFiles());
+  }
+
+  clearFiles() {
+    document.getElementById("files").value = "";
+  }
+
+  upload(url, data, files, method = "POST") {
+    let formData = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append('fileToUpload', files[i]);
+  }
+
+    // for (let i = 0; i < files.length; i++) {
+    //     formData.append(`files[${i}]`, files[i]);
+    // }
+
+
+    return httpClient.fetch('https://bookmarket.online:18081/api/image/upload', {
+        method: method,
+       // fileToUpload: formData,
+        body: formData,
+        headers: new Headers()
+    })
+    .then(response => response.json())
+    .then(data => console.log(data.message))
+    .catch(error => console.log(error));
+}
+
   addBook() {
     this.statusMessagesVisible = false;
     this.statusMessages = [];
@@ -104,7 +150,7 @@ export class AddBooks {
     // }
 
     if (this.checkIfEveryInputfieldIsFilled()) {
-      let client = new HttpClient();
+      
 
       this.bookData.description = this.richTextEditor.getData();
       this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
@@ -116,7 +162,7 @@ export class AddBooks {
       this.bookDataUserID.id = this.connector.userID;
       this.bookData.userid = this.bookDataUserID;
 
-      client.fetch(environment.apiURL + 'api/books/add', {
+      httpClient.fetch(environment.apiURL + 'api/books/add', {
           'method': "POST",
           'body': json(this.bookData)
         })

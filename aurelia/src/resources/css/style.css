@@ -570,7 +570,40 @@ img.ui.fluid.image.sell-book.upload-image {
   margin-bottom: 1.5em;
 }
 
-.history-title {
+/* Only Dashboard CSS */
+
+.ui.secondary.menu.myaccount {
+  padding: 0;
+  margin: 0;
+}
+
+.ui.secondary.menu.myaccount .item.myaccount.breadcrumb {
+  padding: 0;
+  margin: 0;
+}
+
+.ui.segment.dashboard {
+  margin-top: 0;
+}
+
+.ui.header.dashboard {
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  color: #118092;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.ui.header.dashboard .content {
+  font-size: 0.9em;
+}
+
+.ui.header.dashboard>.icon {
+  font-size: 1.25em;
+}
+
+/* .history-title {
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 2.5em;
@@ -598,4 +631,4 @@ img.ui.fluid.image.sell-book.upload-image {
 
 .tab-history {
   margin-bottom: 2em;
-}
+} */

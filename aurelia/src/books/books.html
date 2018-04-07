@@ -23,25 +23,25 @@
         </select>
       </div>
 
-      <div id="tagPanel" class="sixteen wide column all-books filters">
+      <div id="tagPanel" style="height:3.9em" class="sixteen wide column all-books filters">
 
         <a class="ui red label all-books filters" if.bind="selectedCityID!=0">
-          ${cities[selectedCityID-1].string}
+          ${citiesSortedById[selectedCityID-1].string}
           <i class="delete icon" click.delegate="cityTagDeleteButtonPressed()"></i>
         </a>
 
         <a class="ui blue label all-books filters" repeat.for="selectedGenreID of selectedGenreIDs">
-          ${genres[selectedGenreID-1].string}
+          ${genresSortedById[selectedGenreID-1].string}
           <i class="delete icon" click.delegate="genresTagDeleteButtonPressed(selectedGenreID)"></i>
         </a>
 
         <a class="ui orange label all-books filters" repeat.for="selectedConditionID of selectedConditionIDs">
-          ${conditions[selectedConditionID-1].string}
+          ${conditionsSortedById[selectedConditionID-1].string}
           <i class="delete icon" click.delegate="conditionsTagDeleteButtonPressed(selectedConditionID)"></i>
         </a>
 
         <a class="ui teal label all-books filters" if.bind="selectedLanguageID!=0">
-          ${languages[selectedLanguageID-1].string}
+          ${languagesSortedById[selectedLanguageID-1].string}
           <i class="delete icon" click.delegate="languageTagDeleteButtonPressed()"></i>
         </a>
       </div>

@@ -19,6 +19,10 @@ export class Books {
     this.genres = null;
     this.conditions = null;
     this.languages = null;
+    this.citiesSortedById = null;
+    this.genresSortedById = null;
+    this.conditionsSortedById = null;
+    this.languagesSortedById = null;
     this.books = null;
     this.numberOfBooks;
     this.fetchingBooksFromApi = false;
@@ -47,8 +51,6 @@ export class Books {
     this.filteredOrAllBooks();
     this.refreshOutput();
 
-
-
     $('.ui.dropdown').dropdown();
   }
 
@@ -60,6 +62,16 @@ export class Books {
     }
   }
 
+  getRightGenreNameById(selectedGenreID) {
+    let selectedGenre = "";
+    Object.entries(this.genres).forEach(([key, value]) => {
+      if (value.hasOwnProperty('id') && value['id'] === selectedGenreID) {
+        selectedGenre = value.string;
+      }
+    });
+    return selectedGenre;
+  }
+
   filteredOrAllBooks() {
     if (this.noFiltersAreSelected()) {
       this.bookTypes = "All";
@@ -68,12 +80,12 @@ export class Books {
         $('#tagPanel').hide();
         this.noFiltersAreSelectedFirstTime = false;
       } else {
-        $("#tagPanel").slideUp();
+        $("#tagPanel").slideUp(400, "swing");
       }
     } else {
       this.bookTypes = "Filtered";
       this.noFiltersSelected = false;
-      $("#tagPanel").slideDown();
+      $("#tagPanel").slideDown(400, "swing");
     }
   }
 
@@ -121,12 +133,14 @@ export class Books {
   }
 
   genresTagDeleteButtonPressed(tagIDtoDelete) {
+    console.log(tagIDtoDelete);
     let indexOfElement = this.selectedGenreIDs.indexOf(tagIDtoDelete);
     this.selectedGenreIDs.splice(indexOfElement, 1);
     this.sortOrFilterParamsChanged();
   }
 
   conditionsTagDeleteButtonPressed(tagIDtoDelete) {
+    console.log(tagIDtoDelete);
     let indexOfElement = this.selectedConditionIDs.indexOf(tagIDtoDelete);
     this.selectedConditionIDs.splice(indexOfElement, 1);
     this.sortOrFilterParamsChanged();
@@ -222,7 +236,7 @@ export class Books {
   sortOrFilterParamsChanged() {
     this.correctURLaccordingToFilters();
     this.refreshOutput();
-    this.filteredOrAllBooks();    
+    this.filteredOrAllBooks();
   }
 
   fetchBooksFromAPI(url) {
@@ -241,11 +255,19 @@ export class Books {
       });
   }
 
+  sortByKey(array, key) {
+    return array.sort(function (a, b) {
+      var x = a[key]; var y = b[key];
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+  }
+
   fetchCitiesFromAPI() {
     httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
       .then(response => response.json())
       .then(data => {
         this.cities = data;
+        this.citiesSortedById = this.sortByKey(JSON.parse(JSON.stringify(data)), 'id');
       });
   }
 
@@ -254,6 +276,7 @@ export class Books {
       .then(response => response.json())
       .then(data => {
         this.genres = data;
+        this.genresSortedById = this.sortByKey(JSON.parse(JSON.stringify(data)), 'id');
       });
   }
 
@@ -262,6 +285,7 @@ export class Books {
       .then(response => response.json())
       .then(data => {
         this.conditions = data;
+        this.conditionsSortedById = this.sortByKey(JSON.parse(JSON.stringify(data)), 'id');
       });
   }
 
@@ -270,6 +294,7 @@ export class Books {
       .then(response => response.json())
       .then(data => {
         this.languages = data;
+        this.languagesSortedById = this.sortByKey(JSON.parse(JSON.stringify(data)), 'id');
       });
   }
 

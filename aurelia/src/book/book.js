@@ -29,11 +29,18 @@ export class Book {
   }
 
   fetchBookByIdFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/books/getinfoid?id=' + this.id)
+    this.authorization.isLoggedIn().then(data => {
+      let apiURL = 'https://bookmarket.online:18081/api/books/getinfoid?id=' + this.id;
+      if (!data.errors) {
+        let userSession = this.authorization.getSessionID();
+        apiURL += "&session=" + userSession;
+      }
+      httpClient.fetch(apiURL)
       .then(response => response.json())
       .then(data => {
         this.bookbyid = data;
       });
+    });
   }
 
   ifJSONAttributeIsNull(text) {

@@ -80,12 +80,12 @@ export class Books {
         $('#tagPanel').hide();
         this.noFiltersAreSelectedFirstTime = false;
       } else {
-        $("#tagPanel").slideUp(400, "swing");
+        $("#tagPanel").slideUp();
       }
     } else {
       this.bookTypes = "Filtered";
       this.noFiltersSelected = false;
-      $("#tagPanel").slideDown(400, "swing");
+      $("#tagPanel").slideDown();
     }
   }
 
@@ -255,10 +255,11 @@ export class Books {
       });
   }
 
-  sortByKey(array, key) {
-    return array.sort(function (a, b) {
-      var x = a[key]; var y = b[key];
-      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+  sortByKey(objectToSort, key) {
+    return objectToSort.sort(function (first, second) {
+      let firstElement = first[key]; 
+      let secondElement = second[key];
+      return ((firstElement < secondElement) ? -1 : ((firstElement > secondElement) ? 1 : 0));
     });
   }
 

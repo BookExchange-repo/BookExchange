@@ -74,8 +74,14 @@
 
           <div class="seller more-about-book">
             <p class="title">Seller: </p>
-            <div class="text">${bookbyid.userid.full_name}</div>
-            <div class="text">${bookbyid.city.string}</div>
+
+
+
+            <div class="ui teal large image label">
+              ${bookbyid.userid.full_name}
+              <div class="detail"><i class="phone icon"></i>${bookbyid.userid.phone ? bookbyid.userid.phone : "+372*******"}</div>
+            </div>
+            <div class="text">from ${bookbyid.city.string}</div>
             <p></p>
             <div class="text">${convertUnixTimeStamp(bookbyid.postdate)}</div>
           </div>

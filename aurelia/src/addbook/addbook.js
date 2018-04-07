@@ -14,6 +14,7 @@ export class AddBooks {
   bookDataCondition = {};
   bookDataLanguage = {};
   bookDataGenre = {};
+  bookDataCity = {};
   bookDataUserID = {};
 
   statusMessages = [];
@@ -110,6 +111,7 @@ export class AddBooks {
       this.bookData.conditiondesc = this.bookDataCondition;
       this.bookData.language = this.bookDataLanguage;
       this.bookData.genreid = this.bookDataGenre;
+      this.bookData.city = this.bookDataCity;
       
       this.bookDataUserID.id = this.connector.userID;
       this.bookData.userid = this.bookDataUserID;

@@ -6,6 +6,7 @@ import ee.ttu.BookExchange.api.models.Watchlist;
 import ee.ttu.BookExchange.api.services.*;
 import ee.ttu.BookExchange.exceptions.APIException;
 import ee.ttu.BookExchange.utilities.Checksum;
+import ee.ttu.BookExchange.utilities.Random;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,7 @@ import java.util.*;
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/users", produces = "application/json")
 public class UsersController {
-    private static final String RAND_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
     private static final int SESS_KEY_LENGTH = 64;
-    private static final int PASS_SALT_LENGTH = 10;
     private static HashMap<Integer, String> allSessions = new HashMap<>();
     private UsersService usersService;
     private BooksService booksService;
@@ -40,12 +39,7 @@ public class UsersController {
     }
 
     private static String generateSession() {
-        String sessionKey = "";
-        Random random = new SecureRandom();
-        for (int i = 0; i < SESS_KEY_LENGTH; i++) {
-            sessionKey += RAND_CHARS.charAt(random.nextInt(RAND_CHARS.length()));
-        }
-        return sessionKey;
+        return Random.genRandomString(SESS_KEY_LENGTH, true);
     }
 
     public static String externalGetSession(int userId) {

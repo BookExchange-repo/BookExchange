@@ -17,6 +17,7 @@
       </div>
 
       <div class="middle aligned right aligned four wide column">
+        <i class="filter large icon"></i>
         <select class="ui fluid dropdown" value.bind="selectedSortID" change.delegate="sortOrFilterParamsChanged()">
           <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
         </select>

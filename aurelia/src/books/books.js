@@ -24,6 +24,7 @@ export class Books {
     this.fetchingBooksFromApi = false;
     this.bookTypes = "";
     this.noBooks = false;
+    this.filteredOrAllBooksFirstCall = true;
   }
 
   attached() {
@@ -41,17 +42,34 @@ export class Books {
 
     this.getSortAndFilterParamsFromURL();
 
+    this.setFirstTimeParamForTagBarAnimation();
+
     this.filteredOrAllBooks();
     this.refreshOutput();
 
+
+
     $('.ui.dropdown').dropdown();
+  }
+
+  setFirstTimeParamForTagBarAnimation() {
+    if (this.noFiltersAreSelected()) {
+      this.noFiltersAreSelectedFirstTime = true;
+    } else {
+      this.noFiltersAreSelectedFirstTime = false;
+    }
   }
 
   filteredOrAllBooks() {
     if (this.noFiltersAreSelected()) {
       this.bookTypes = "All";
       this.noFiltersSelected = true;
-      $("#tagPanel").slideUp();
+      if (this.noFiltersAreSelectedFirstTime) {
+        $('#tagPanel').hide();
+        this.noFiltersAreSelectedFirstTime = false;
+      } else {
+        $("#tagPanel").slideUp();
+      }
     } else {
       this.bookTypes = "Filtered";
       this.noFiltersSelected = false;

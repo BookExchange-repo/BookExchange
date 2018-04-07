@@ -18,4 +18,6 @@ public class LanguageEng {
     @Column(nullable = false)
     @Size(max = 128)
     String string;
+
+    int counter;
 }

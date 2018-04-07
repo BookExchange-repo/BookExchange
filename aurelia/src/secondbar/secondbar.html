@@ -26,9 +26,13 @@
           Sign in
         </a>
 
-        <div show.bind="connector.loggedIn">
+        <div class="right menu" show.bind="connector.loggedIn">
+          <div id="avatar" class="item avatar">
+            <img src="src/resources/images/user_icon.png">
+          </div>
+
           <div id="navbar_account" class="ui dropdown item navbar text">
-            <i class="user large circle icon"></i>${connector.loggedInStatusMessage}
+            ${connector.loggedInStatusMessage}
             <i class="left dropdown icon"></i>
             <div class="menu">
               <a class="item" click.delegate="router.navigateToRoute('history')">
@@ -44,5 +48,5 @@
       </div>
     </div>
   </div>
-
-</template>
+  
+  </template>

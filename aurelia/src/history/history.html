@@ -34,12 +34,12 @@
           <div class="ui link items">
             <div class="item dashboard" repeat.for="followedBook of followedBooks">
               <div class="ui tiny image">
-                <img class="dashboard image" src="${followedBook.imagepath}">
+                <img class="dashboard image" src="${followedBook.imagepath}" click.delegate="navigateToBookById(followedBook.id)">
               </div>
               <div class="content">
                 <a class="header" click.delegate="navigateToBookById(followedBook.id)">${followedBook.title}</a>
                 <div class="description">
-                  <div class="item-description-watch-list">
+                  <div class="item-description-watch-list" click.delegate="navigateToBookById(followedBook.id)">
                     <p>${followedBook.userid.full_name}</p>
                     <p>
                       <i class="ui phone icon"></i>${followedBook.userid.phone}<br>

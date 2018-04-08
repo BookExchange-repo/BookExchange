@@ -2,11 +2,12 @@ import {HttpClient, json} from 'aurelia-fetch-client';
 import {customAttribute, bindable, inject} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Connector} from 'auth/connector';
+import {Authorization} from 'auth/authorization';
 import environment from '../environment';
 
 let httpClient = new HttpClient();
 
-@inject(Router, Connector)
+@inject(Router, Connector, Authorization)
 export class AddBooks {
 
   bookData = {};
@@ -25,10 +26,11 @@ export class AddBooks {
   selectedCity = null;
 
 
-  constructor(router, connector) {
+  constructor(router, connector, authorization) {
     this.richTextEditor;
 
     this.connector = connector;
+    this.authorization = authorization;
     this.genres = null;
     this.conditions = null;
     this.languages = null;
@@ -46,6 +48,12 @@ export class AddBooks {
     this.richTextEditor = CKEDITOR.instances["richTextEditor"];
 
     $('.ui.dropdown').dropdown();
+
+    this.authorization.isLoggedIn().then(data => {
+      if (!data.errors) {
+        this.bookDataCity.id = data.city.id;
+      }
+    });
 
     $('.ui.accordion')
     .accordion({
@@ -180,6 +188,13 @@ export class AddBooks {
         this.bookData.author = data.author;
         this.bookData.pubyear = data.pubyear
         this.bookData.publisher = data.publisher;
+        $('#bookLanguageSelector').dropdown('set selected', data.language);
+
+        // console.log(this.bookDataLanguage.id + " " + data.languageid);
+        // this.bookDataLanguage.id = data.languageid;
+         console.log(this.bookDataLanguage.id + " " + data.languageid);
+
+
         this.bookData.imagepath = data.imagepath;
         this.magicFillBusy = false;
       });

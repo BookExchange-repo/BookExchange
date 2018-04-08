@@ -29,10 +29,11 @@
 
             <div class="sixteen wide field">
               <div class="ui tiny icon message">
-                <i class="lightbulb outline icon icon"></i>
+
                 <div class="content">
-                  <div class="header">
-                    Use Magic Fill to complete 50% of fields!
+                 <div class="header">
+                    <i class="lightbulb outline normal icon icon"></i>
+                    Tip! Magic Fill can automatically fill in most fields for you by ISBN code!
                   </div>
                 </div>
               </div>
@@ -45,7 +46,7 @@
                 </div>
                 <div class="ten wide field sell-book magic-fill">
                   <button class="ui ${magicFillBusy ? 'loading' : ''} orange large button" click.delegate="magicFill(bookData.isbn)"><i class="magic icon"></i>Magic Fill</button>
-                  <div class="sell-book isbn-info">*powered by Amazon, Google and Ester Book Search</div>
+                  <div class="sell-book isbn-info">powered by Amazon, Google and other resources</div>
                 </div>
               </div>
             </div>
@@ -67,7 +68,7 @@
 
               <div class="eight wide required field">
                 <label>Language</label>
-                <select class="ui dropdown" value.bind="bookDataLanguage.id">
+                <select id="bookLanguageSelector" class="ui dropdown" value.bind="bookDataLanguage.id">
                   <option model.bind="null" value="">Choose...</option>
                   <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
                 </select>
@@ -99,7 +100,7 @@
 
             <div class="required eight wide field">
               <label>Your city</label>
-              <select class="ui search dropdown" value.bind="bookDataCity.id">
+              <select id="citySelector" class="ui search dropdown" value.bind="bookDataCity.id">
                 <option model.bind="null" value="">choose or search...</option>
                 <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
               </select>
@@ -132,6 +133,8 @@
       <div class="five wide column">
         <div class="ui center aligned segment">
           <img class="ui fluid image sell-book upload-image" src.bind="bookData.imagepath">
+          
+          <p></p>
 
           <form class="ui large form" submit.delegate="submit(images)">
             <input type="file" name="images" accept=".png,.jpg" files.bind="images">

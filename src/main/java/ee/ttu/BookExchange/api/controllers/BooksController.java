@@ -2,6 +2,7 @@ package ee.ttu.BookExchange.api.controllers;
 
 import ee.ttu.BookExchange.api.models.Books;
 import ee.ttu.BookExchange.api.services.BooksService;
+import ee.ttu.BookExchange.api.services.StatusService;
 import ee.ttu.BookExchange.exceptions.APIException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +16,18 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/books", produces = "application/json")
 public class BooksController {
     private BooksService booksService;
+    private StatusService statusService;
 
-    public BooksController(BooksService booksService) {
+    public BooksController(BooksService booksService,
+                           StatusService statusService)
+    {
         this.booksService = booksService;
+        this.statusService = statusService;
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     Map<String, Object> addBook(@RequestBody Books inputBook) {
+        inputBook.setStatus(statusService.getStatusByIdEng(1));
         booksService.saveBook(inputBook);
         Map<String, Object> result = new HashMap<>();
         List<String> allErrors = new ArrayList<>();

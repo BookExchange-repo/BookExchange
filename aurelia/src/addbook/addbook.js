@@ -18,12 +18,14 @@ export class AddBooks {
   bookDataUserID = {};
 
   statusMessages = [];
-  statusMessagesVisible = false;
+  // statusMessagesVisible = false;
 
   selectedGenre = null;
   selectedCondition = null;
   selectedLanguage = null;
   selectedCity = null;
+
+  richTextEditorClone = null;
 
 
   constructor(router, connector, authorization) {
@@ -46,6 +48,7 @@ export class AddBooks {
 
     CKEDITOR.replace('richTextEditor', { customConfig: '/ckeditorconfig.js' });
     this.richTextEditor = CKEDITOR.instances["richTextEditor"];
+    this.richTextEditorClone = "hhhh";
 
     $('.ui.dropdown').dropdown();
 
@@ -70,6 +73,80 @@ export class AddBooks {
     this.fetchConditionsFromAPI();
     this.fetchLanguagesFromAPI();
     this.fetchCitiesFromAPI();
+
+    $('#isbnform')
+    .form({
+      fields: {
+        isbn: {
+          rules: [
+            {
+              type   : 'integer',
+              prompt : 'Please enter a numeric ISBN'
+            },
+            {
+              type: 'exactLength[13]',
+              prompt: 'ISBN should be exactly 13 digits long (ISBN-13)'
+            },
+          ]
+        },
+      }
+    });
+
+
+    $('#bookaddform')
+    .form({
+      fields: {
+        titleField: {
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please enter your book\'s title'
+            }
+          ]
+        },
+        genreField: {
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please select the genre'
+            }
+          ]
+        },
+        languageField: {
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please choose the language'
+            }
+          ]
+        },
+        bookPrice: {
+          rules: [
+            {
+              type   : 'decimal',
+              prompt: 'Please enter your price'
+            }
+          ]
+        },
+        conditionField: {
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please select the condition of your book'
+            }
+          ]
+        },
+        cityField: {
+          rules: [
+            {
+              type: 'empty',
+              prompt: 'Please choose the nearest city to you'
+            }
+          ]
+        },
+      }
+    });
+
   }
 
   submit(images) {
@@ -160,13 +237,14 @@ export class AddBooks {
           console.log(data.id);
 
           if (data.id) {
-            this.statusMessagesVisible = false;
+            // this.statusMessagesVisible = false;
             this.router.navigateToRoute('bookbyid', {
               id: data.id
             });
           } else {
-            this.statusMessagesVisible = true;
-            this.statusMessages.push("API Error: " + JSON.stringify(data.errors));
+            $('#bookaddform').form('add errors', {apiError: 'We could not add your book (API error)'});
+            // this.statusMessagesVisible = true;
+            // this.statusMessages.push("API Error: " + JSON.stringify(data.errors));
           }
         });
     }
@@ -184,18 +262,23 @@ export class AddBooks {
     httpClient.fetch(environment.apiURL + 'api/isbn/getinfo?isbn=' + isbn)
       .then(response => response.json())
       .then(data => {
-        this.bookData.title = data.title;
-        this.bookData.author = data.author;
-        this.bookData.pubyear = data.pubyear
-        this.bookData.publisher = data.publisher;
-        $('#bookLanguageSelector').dropdown('set selected', data.language);
+        if(data.title !== "" || data.author !== "" || data.publisher !== "") {
+          this.bookData.title = data.title;
+          this.bookData.author = data.author;
+          this.bookData.pubyear = data.pubyear
+          this.bookData.publisher = data.publisher;
+          $('#bookLanguageSelector').dropdown('set selected', data.language);
 
-        // console.log(this.bookDataLanguage.id + " " + data.languageid);
-        // this.bookDataLanguage.id = data.languageid;
-         console.log(this.bookDataLanguage.id + " " + data.languageid);
+          // console.log(this.bookDataLanguage.id + " " + data.languageid);
+          // this.bookDataLanguage.id = data.languageid;
+          console.log(this.bookDataLanguage.id + " " + data.languageid);
 
 
-        this.bookData.imagepath = data.imagepath;
+          this.bookData.imagepath = data.imagepath;
+        } else {
+          $('#isbnform').form('add errors', {apiError: 'We could not find any information based on your ISBN'});
+        }
+
         this.magicFillBusy = false;
       });
   }

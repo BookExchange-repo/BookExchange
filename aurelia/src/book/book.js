@@ -14,6 +14,7 @@ export class Book {
     this.router = router;
     this.connector = connector;
     this.authorization = authorization;
+    this.loggedIn = false;
   }
 
   activate(params) {
@@ -32,6 +33,7 @@ export class Book {
     this.authorization.isLoggedIn().then(data => {
       let apiURL = 'https://bookmarket.online:18081/api/books/getinfoid?id=' + this.id;
       if (!data.errors) {
+        this.loggedIn = true;
         let userSession = this.authorization.getSessionID();
         apiURL += "&session=" + userSession;
       }

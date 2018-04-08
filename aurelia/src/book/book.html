@@ -79,7 +79,7 @@
 
             <div class="ui teal large image label">
               ${bookbyid.userid.full_name}
-              <div class="detail"><i class="phone icon"></i>${bookbyid.userid.phone ? bookbyid.userid.phone : "+372*******"}</div>
+              <div class="detail"><i class="phone icon"></i>${loggedIn ? bookbyid.userid.phone : "+372*******"}</div>
             </div>
             <div class="text">from ${bookbyid.city.string}</div>
             <p></p>

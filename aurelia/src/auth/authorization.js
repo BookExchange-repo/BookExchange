@@ -13,11 +13,16 @@ export class Authorization {
   }
 
   saveSessionID(sessionID) {
+    this.deleteSession();
     localStorage.setItem("session", sessionID);
   }
 
   getSessionID() {
-    return localStorage.getItem("session");
+    if (this.checkIfSessionExists()) {
+      return localStorage.getItem("session");
+    } else {
+      return "";
+    }
   }
 
   deleteSession() {
@@ -35,13 +40,13 @@ export class Authorization {
   }
 
   async isLoggedIn() {
-    let response = await fetch('https://bookmarket.online:18081/api/users/getinfo?session=' + localStorage.getItem("session"));
+    let response = await fetch('https://bookmarket.online:18081/api/users/getinfo?session=' + this.getSessionID());
     let data = await response.json();
     return data;
   }
 
   async logout() {
-    let response = await fetch('https://bookmarket.online:18081/api/users/logout?session=' + localStorage.getItem("session"));
+    let response = await fetch('https://bookmarket.online:18081/api/users/logout?session=' + this.getSessionID());
     let data = await response.json();
     return data;
   }

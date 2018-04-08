@@ -31,6 +31,7 @@ export class Connector {
   ckeckLoginStatus() {
     this.authorization.isLoggedIn().then(data => {
       if (!data.errors) {
+        ///console.log("Internal logged in");
         this.loggedIn = true;
         this.loggedInStatusMessage = data.full_name;
         
@@ -43,9 +44,8 @@ export class Connector {
         this.isVerified = data.isverified;
 
       } else {
+        //console.log("Internal not logged in");
         this.loggedIn = false;
-        this.authorization.deleteSession();
-        //this.loggedInStatusMessage = "Not logged in";
       }
     });
   }
@@ -59,13 +59,14 @@ export class Connector {
           throw Error(response.statusText); // 403 error -> not logged in using google
         }
       })
-      .then(data => {
+      .then(data => { // always loggedIn
         this.JSONwithSessionData = data;
-        if (this.JSONwithSessionData.errors.length === 0) {
-          //console.log(this.JSONwithSessionData.session);
-          this.authorization.saveSessionID(this.JSONwithSessionData.session);
+        if (this.JSONwithSessionData.errors.length === 0) { 
+          if (this.JSONwithSessionData.session !== this.authorization.getSessionID()) {
+            this.authorization.saveSessionID(String(this.JSONwithSessionData.session));
+            //this.router.navigateToRoute('home');
+          }            
           this.ckeckLoginStatus();
-          //this.router.navigateToRoute('myaccount');
         }
       }).catch(function (error) {
         console.log(error);
@@ -73,22 +74,19 @@ export class Connector {
   }
 
   logout() {
+    this.authorization.deleteSession();
+    this.loggedIn = false;
     this.authorization.logout().then(data => {
       if (data.errors.length !== 0) {
         console.log("Error logging out!")
       } else {
-        this.authorization.deleteSession();
-        this.loggedIn = false;
         console.log("Logged out!");
       }
     });
 
-    httpClient.fetch('https://bookmarket.online/oauth2/sign_out', {
-        credentials: "same-origin"
-      })
+    httpClient.fetch('https://bookmarket.online/oauth2/sign_out', { credentials: "same-origin" })
       .then(response => {
         console.log("Google: Logged out!");
-
         this.ckeckLoginStatus();
         //this.router.navigateToRoute('home');
       });

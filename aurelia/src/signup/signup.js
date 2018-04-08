@@ -16,16 +16,16 @@ export class SignUp {
  // signupData = {};
 
   constructor(router, authorization, connector) {
-    this.helloMessage = "username";
     this.cities = null;
     this.authorization = authorization;
     this.connector = connector;
     this.router = router;
+    
   }
 
   attached() {
     this.fetchCitiesFromAPI();
-
+    this.helloMessage = this.connector.username; 
     $('.ui.dropdown').dropdown();
 
     $('.ui.form')

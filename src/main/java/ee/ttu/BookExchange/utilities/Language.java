@@ -163,6 +163,8 @@ public class Language {
                 return "Estonian";
             case "ingliskeelne":
                 return "English";
+            case "venekeelne":
+                return "Russian";
             default:
                 return "Other";
         }

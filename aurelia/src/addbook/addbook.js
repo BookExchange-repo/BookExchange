@@ -9,7 +9,6 @@ let httpClient = new HttpClient();
 @inject(Router, Connector)
 export class AddBooks {
 
-
   bookData = {};
   bookDataCondition = {};
   bookDataLanguage = {};
@@ -217,7 +216,5 @@ export class AddBooks {
         this.cities = data;
       });
   }
-
-
 
 }

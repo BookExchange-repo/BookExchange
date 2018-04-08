@@ -16,17 +16,17 @@
 
             <div class="required field">
               <label>First Name</label>
-              <input type="text" name="firstname" value.bind="signupData.firstname">
+              <input type="text" name="firstname" value.bind="firstname">
             </div>
 
             <div class="required field">
               <label>Last name</label>
-              <input type="text" name="lastname" value.bind="signupData.lastname">
+              <input type="text" name="lastname" value.bind="lastname">
             </div>
 
             <div class="required field">
               <label>City</label>
-              <select class="ui search dropdown" name="city" value.bind="signupData.city">
+              <select class="ui search dropdown" name="city" value.bind="city">
                 <option model.bind="null" value="">Select city</option>
                 <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
               </select>
@@ -36,7 +36,7 @@
               <label>Phone number</label>
               <div class="ui labeled input">
                 <label for="phone" class="ui label">+372</label>
-                <input type="text" name="phone" id="phone" value.bind="signupData.phone">
+                <input type="text" name="phone" id="phone" value.bind="phone">
               </div>
             </div>
 

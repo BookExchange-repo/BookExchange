@@ -33,6 +33,33 @@ export class Authorization {
     return localStorage.getItem("session") !== null;
   }
 
+
+
+
+  savePostregistrationRequiredSessionID(sessionID) {
+    this.deletePostregistrationRequiredSession();
+    localStorage.setItem("firstLogin", sessionID);
+  }
+
+  getPostregistrationRequiredSessionID() {
+    if (this.checkIfPostregistrationRequiredSessionExists()) {
+      return localStorage.getItem("firstLogin");
+    } else {
+      return "";
+    }
+  }
+
+  deletePostregistrationRequiredSession() {
+    localStorage.removeItem("firstLogin");
+  }
+
+  checkIfPostregistrationRequiredSessionExists() {
+    return localStorage.getItem("firstLogin") !== null;
+  }
+
+
+
+
   async loginButtonPressed(email, password) {
     let response = await fetch('https://bookmarket.online:18081/api/users/login?email=' + email + '&pass=' + password);
     let data = await response.json();

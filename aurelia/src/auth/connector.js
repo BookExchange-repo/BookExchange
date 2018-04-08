@@ -31,7 +31,7 @@ export class Connector {
   ckeckLoginStatus() {
     this.authorization.isLoggedIn().then(data => {
       if (!data.errors) {
-        ///console.log("Internal logged in");
+        console.log("Internal logged in");
         this.loggedIn = true;
         this.loggedInStatusMessage = data.full_name;
         
@@ -51,6 +51,7 @@ export class Connector {
   }
 
   checkLogin() {
+    this.authorization.deletePostregistrationRequiredSession();
     httpClient.fetch('https://bookmarket.online/oauth2/api/users/google', {credentials: "same-origin"})
       .then(function (response) {
         if (response.status !== 403) {
@@ -63,10 +64,14 @@ export class Connector {
         this.JSONwithSessionData = data;
         if (this.JSONwithSessionData.errors.length === 0) { 
           if (this.JSONwithSessionData.session !== this.authorization.getSessionID()) {
-            this.authorization.saveSessionID(String(this.JSONwithSessionData.session));
+            this.authorization.saveSessionID(this.JSONwithSessionData.session);
             //this.router.navigateToRoute('home');
           }            
           this.ckeckLoginStatus();
+          if (this.JSONwithSessionData.firstLogin) {
+            this.router.navigateToRoute('signup');
+            this.authorization.savePostregistrationRequiredSessionID(true);
+          }
         }
       }).catch(function (error) {
         console.log(error);
@@ -75,6 +80,7 @@ export class Connector {
 
   logout() {
     this.authorization.deleteSession();
+    this.authorization.deletePostregistrationRequiredSession();
     this.loggedIn = false;
     this.authorization.logout().then(data => {
       if (data.errors.length !== 0) {
@@ -88,7 +94,7 @@ export class Connector {
       .then(response => {
         console.log("Google: Logged out!");
         this.ckeckLoginStatus();
-        //this.router.navigateToRoute('home');
+        this.router.navigateToRoute('home');
       });
   }
 }

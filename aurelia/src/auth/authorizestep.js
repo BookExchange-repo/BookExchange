@@ -14,9 +14,12 @@ export class AuthorizeStep {
 		if (navigationInstruction.getAllInstructions().some(i => i.config.settings.roles.indexOf('reggeduser') !== -1)) {
 
 			let isLoggedInUser = this.authorization.checkIfSessionExists(); 
-			
+			let isLoggedInPostregistrationRequiredUser = this.authorization.checkIfPostregistrationRequiredSessionExists(); 
+
 			if (!isLoggedInUser) {
 				return next.cancel(new Redirect('login'));
+			} else if (isLoggedInUser && isLoggedInPostregistrationRequiredUser) {
+				return next.cancel(new Redirect('signup'));
 			}
 		}
 

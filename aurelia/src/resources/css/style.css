@@ -572,6 +572,10 @@ img.ui.fluid.image.sell-book.upload-image {
 
 /* Only Dashboard CSS */
 
+.eight.wide.column.dashboard {
+  padding: 0;
+}
+
 .ui.secondary.menu.myaccount {
   padding: 0;
   margin: 0;
@@ -580,6 +584,10 @@ img.ui.fluid.image.sell-book.upload-image {
 .ui.secondary.menu.myaccount .item.myaccount.breadcrumb {
   padding: 0;
   margin: 0;
+}
+
+.myaccount .right.menu {
+  font-size: 1.15em;
 }
 
 .ui.segment.dashboard {
@@ -591,44 +599,58 @@ img.ui.fluid.image.sell-book.upload-image {
   margin-left: auto;
   margin-right: auto;
   color: #118092;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
 }
 
 .ui.header.dashboard .content {
   font-size: 0.9em;
+  font-weight: normal;
 }
 
 .ui.header.dashboard>.icon {
   font-size: 1.25em;
 }
 
-/* .history-title {
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 2.5em;
+.dashboard .ui.items>.item>.image>img {
+  width: 80%;
 }
 
-.history-title .icon {
-  margin-right: 1em;
+.dashboard .content {
+  padding: 0;
 }
 
-.ui.items>.item>.content>a.book-title {
-  font-size: 1.15em;
-  -webkit-font-smoothing: subpixel-antialiased !important;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -ms-backface-visibility: hidden;
+.dashboard .ui.items>.item>.image+.content {
+  padding-left: 0; 
 }
 
-.ui.items>.item>.image.history>img {
-  width: 90%;
+.dashboard .ui.items>.item {
+  padding-top: 1.25em;
+  padding-bottom: 1.25em;
+  padding-left: 2.5em;
+  padding-right: 2.5em;
+  margin: 0;
+  height: 12.5em;
 }
 
-.ui.grid.history {
-  padding: 2em;
+.item.dashboard:nth-child(odd) {
+  background: rgba(242, 242, 243, 0.8);
 }
 
-.tab-history {
-  margin-bottom: 2em;
-} */
+.dashboard .ui.items>.item>.content>.header:not(.ui) {
+  font-weight: normal;
+}
+
+.dashboard .item-description-watch-list {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.dashboard .item-description-sales-activity {
+  margin-top: 1em;
+  margin-bottom: 2.1em;
+}
+
+.item.dashboard a:hover {
+  color: #0F707F;
+}

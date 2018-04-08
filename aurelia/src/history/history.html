@@ -8,6 +8,8 @@
           <i class="home icon"></i>
         </a>
         <i class="right chevron icon divider"></i>
+        <div class="section">My Account</div>
+        <i class="right chevron icon divider"></i>
         <div class="active section">Dashboard</div>
       </div>
     </div>
@@ -21,7 +23,7 @@
     <div class="ui segment dashboard">
       <div class="ui divided grid">
         
-        <div class="eight wide column">
+        <div class="eight wide column dashboard">
           <h2 class="ui header dashboard">
             <i class="ui large bookmark outline icon"></i>
             <div class="content">
@@ -29,17 +31,61 @@
             </div>
           </h2>
 
+          <div class="ui link items">
+            <div class="item dashboard" repeat.for="followedBook of followedBooks">
+              <div class="ui tiny image">
+                <img class="dashboard image" src="${followedBook.imagepath}">
+              </div>
+              <div class="content">
+                <a class="header" click.delegate="navigateToBookById(followedBook.id)">${followedBook.title}</a>
+                <div class="description">
+                  <div class="item-description-watch-list">
+                    <p>${followedBook.userid.full_name}</p>
+                    <p>
+                      <i class="ui phone icon"></i>${followedBook.userid.phone}<br>
+                      <i class="ui at icon"></i>${followedBook.userid.email}
+                    </p>
+                  </div>
+                  <div class="ui green tag label">Available</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
         </div>
 
-        <div class="eight wide column">
+        <div class="eight wide column dashboard">
           <h2 class="ui header dashboard">
             <i class="ui large handshake outline icon"></i>
             <div class="content">
-              For Sale
+              Sales Activity
             </div>
           </h2>
 
+          <div class="ui link items">
+            <div class="item dashboard" repeat.for="followedBook of followedBooks">
+              <div class="ui tiny image">
+                <img class="dashboard image" src="${followedBook.imagepath}" click.delegate="navigateToBookById(followedBook.id)">
+              </div>
+              <div class="content">
+                <a class="header" click.delegate="navigateToBookById(followedBook.id)">${followedBook.title}</a>
+                <div class="description">
+                  <div class="item-description-sales-activity" click.delegate="navigateToBookById(followedBook.id)">
+                    <p>${followedBook.userid.full_name}</p>
+                    <p><b>${followedBook.price}</b><i class="ui euro icon"></i></p>
+                  </div>
+                  <div class="ui labels">
+                    <div class="ui green tag label">Available</div>
+                    <a class="ui label">
+                      <i class="ui gem outline icon"></i>
+                      Mark as sold
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
 

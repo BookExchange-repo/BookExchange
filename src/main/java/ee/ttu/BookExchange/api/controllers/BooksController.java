@@ -49,17 +49,26 @@ public class BooksController {
     public Map<String, List<Books>> getAllBooks(
             @RequestParam Map<String,String> requestParams,
             @RequestParam(value = "sort") Optional<String> sortMask,
-            @RequestParam(value = "sortdesc") Optional<Boolean> isSortDesc)
+            @RequestParam(value = "sortdesc") Optional<Boolean> isSortDesc,
+            @RequestParam(value = "session") Optional<String> session) throws APIException
     {
         int paramsSize = 0;
+        boolean blockSensitive = true;
         if (sortMask.isPresent())
             paramsSize++;
         if (isSortDesc.isPresent())
             paramsSize++;
+        if (session.isPresent()) {
+            paramsSize++;
+            if (UsersController.getUserIdBySession(session.get()).isPresent())
+                blockSensitive = false;
+            else
+                throw new APIException("CANNOT_BOOKS_GETALL");
+        }
 
         if (!isSortDesc.isPresent())
             isSortDesc = Optional.of(false);
-        Map<String, List<Books>> map = new HashMap<>();
+        Map<String, List<Books>> outputMap = new HashMap<>();
         List<Books> allBooks = booksService.getAllBooks();
         for (Map.Entry<String, String> entry : requestParams.entrySet()) {
             if (entry.getValue().isEmpty())
@@ -135,7 +144,7 @@ public class BooksController {
                             case "conditiondesc":
                                 return Integer.compare(e1.getConditiondesc().getId(), e2.getConditiondesc().getId());
                             case "price":
-                                return e1.getPrice().toString().compareTo(e2.getPrice().toString());
+                                return e1.getPrice().compareTo(e2.getPrice());
                             case "likes":
                                 return Integer.compare(e1.getLikes(), e2.getLikes());
                             case "isbn":
@@ -152,7 +161,7 @@ public class BooksController {
                             case "language":
                                 return Integer.compare(e1.getLanguage().getId(), e2.getLanguage().getId());
                             case "postdate":
-                                return e1.getPostdate().toString().compareTo(e2.getPostdate().toString());
+                                return e1.getPostdate().compareTo(e2.getPostdate());
                             case "userid":
                                 return Integer.compare(e1.getUserid().getId(), e2.getUserid().getId());
                             case "genreid":
@@ -167,15 +176,41 @@ public class BooksController {
         }
         if (isSortDesc.get())
             Collections.reverse(allBooks);
-        map.put("books", allBooks);
-        map.put("errors", new ArrayList<>());
-        return map;
-        //return booksService.getAllBooks();
+        if (blockSensitive) {
+            for (Books book : allBooks) {
+                book.getUserid().setEmail("");
+                book.getUserid().setPass_hash("");
+                book.getUserid().setPass_salt("");
+                book.getUserid().setPhone("");
+            }
+        }
+        allBooks = allBooks.stream()
+                .filter(e -> e.getStatus().getId() == 1)
+                .collect(Collectors.toList());
+        outputMap.put("books", allBooks);
+        outputMap.put("errors", new ArrayList<>());
+        return outputMap;
     }
 
     @RequestMapping(value = "getinfoid", method = RequestMethod.GET)
-    public Books getBook(@RequestParam(value = "id") int bookId) {
-        return booksService.getBookById(bookId);
+    public Books getBook(@RequestParam(value = "id") int bookId,
+                         @RequestParam(value = "session") Optional<String> session) throws APIException
+    {
+        boolean blockSensitive = true;
+        if (session.isPresent()) {
+            if (UsersController.getUserIdBySession(session.get()).isPresent())
+                blockSensitive = false;
+            else
+                throw new APIException("CANNOT_BOOKS_GETINFOID");
+        }
+        Books book = booksService.getBookById(bookId);
+        if (blockSensitive) {
+            book.getUserid().setEmail("");
+            book.getUserid().setPass_hash("");
+            book.getUserid().setPass_salt("");
+            book.getUserid().setPhone("");
+        }
+        return book;
     }
 
     @ExceptionHandler(APIException.class)

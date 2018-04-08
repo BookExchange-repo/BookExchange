@@ -1,6 +1,8 @@
 package ee.ttu.BookExchange.utilities;
 
 public class Language {
+    public final static int OTHER_LANGUAGE_ID = 15;
+
     public static String googleLanguageShortToLong(String shortLanguage) {
         switch (shortLanguage) {
             case "ar":
@@ -25,6 +27,8 @@ public class Language {
                 return "English (Australian)";
             case "en-GB":
                 return "English (Great Britain)";
+            case "et":
+                return "Estonian";
             case "es":
                 return "Spanish";
             case "eu":
@@ -110,7 +114,46 @@ public class Language {
             case "zh-TW":
                 return "Chinese (Traditional)";
             default:
-                return "Unknown";
+                return "Other";
+        }
+    }
+
+    public static int languageStringToId(String languageString) {
+        switch (languageString) {
+            case "Danish":
+                return 11;
+            case "German":
+                return 4;
+            case "English":
+            case "English (Australian)":
+            case "English (Great Britain)":
+                return 1;
+            case "Estonian":
+                return 2;
+            case "Spanish":
+                return 6;
+            case "French":
+                return 5;
+            case "Italian":
+                return 7;
+            case "Dutch":
+                return 9;
+            case "Norwegian":
+                return 12;
+            case "Polish":
+                return 14;
+            case "Portuguese":
+            case "Portuguese (Brazil)":
+            case "Portuguese (Portugal)":
+                return 8;
+            case "Russian":
+                return 3;
+            case "Swedish":
+                return 10;
+            case "Turkish":
+                return 13;
+            default:
+                return OTHER_LANGUAGE_ID;
         }
     }
 }

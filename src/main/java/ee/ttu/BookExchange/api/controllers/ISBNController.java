@@ -163,8 +163,61 @@ public class ISBNController {
         return outputMap;
     }
 
-    private Map<String, String> getByIsbnEster(Map<String, String> map, String isbn) {
+    private String allCapsToNormal(String string) {
+        String[] splitString = string.toLowerCase().split(Pattern.quote(" "));
+        String output = "";
+        for (String inner : splitString) {
+            output += Character.toUpperCase(inner.charAt(0)) + inner.substring(1) + " ";
+        }
+        return output.trim();
+    }
+
+    private Map<String, String> getByIsbnRahva(Map<String, String> map, String isbn) {
         Map<String, String> outputMap = new HashMap<>(map);
+        try {
+            String rahvaPrefix = "https://www.rahvaraamat.ee";
+            String rahvaPage = "https://www.rahvaraamat.ee/search/productList/et?offset=0&searchTerm=";
+            Document document = Jsoup.connect(rahvaPage + isbn).get();
+            Elements elements = document.select("a[class=js-link-product]");
+            if (elements.isEmpty())
+                throw new RuntimeException();
+            rahvaPage = elements.first().attr("href");
+            rahvaPage = (rahvaPage.charAt(0) == '/') ? rahvaPrefix + rahvaPage : rahvaPage;
+            document = Jsoup.connect(rahvaPage).get();
+            elements = document.select("div[id=productImages]").first().select("a");
+            String imageLink = elements.attr("href");
+            imageLink = (imageLink.charAt(0) == '/') ? rahvaPrefix + imageLink : imageLink;
+            outputMap.put("imagepath", imageLink);
+            elements = document.select("p.author > span.label").parents().first().select("a");
+            outputMap.put("author", allCapsToNormal(elements.first().ownText()));
+            outputMap.put("title", allCapsToNormal(document.select("h1[class=type01]").first().ownText()));
+            elements = document.select("table.type01 > tbody");
+            outputMap.put("pubyear", elements.select("th:contains(Ilmumisaasta)")
+                    .parents().first().select("td").first().ownText());
+            outputMap.put("publisher", allCapsToNormal(elements.select("th:contains(Kirjastus)")
+                    .parents().first().select("td").first().select("a").first().ownText()));
+            String language = Language.rahvaLanguageStringConvert(elements.select("th:contains(Keel)")
+                    .parents().first().select("td").first().ownText());
+            outputMap.put("language", language);
+            outputMap.put("languageid", Integer.toString(Language.languageStringToId(language)));
+            elements = document.select("div[class=description]").select("p");
+            String descriptionString = "";
+            for (Element element : elements) {
+                if (element.html().isEmpty())
+                    continue;
+                descriptionString += element.html() + "<br>";
+            }
+            descriptionString += "<br>" + rahvaPage;
+            outputMap.put("description", descriptionString);
+        } catch (Exception e) {
+            return null;
+        }
+
+        return outputMap;
+    }
+
+    private Map<String, String> getByIsbnEster(Map<String, String> map, String isbn) {
+        Map<String, String> outputMap = getDefaultMap();
         try {
             String esterPage = "https://www.ester.ee/search~S1*est/X?searchtype=i&searcharg=";
             Document document = Jsoup.connect(esterPage + isbn).get();
@@ -172,7 +225,38 @@ public class ISBNController {
             if (!elements.isEmpty())
                 throw new RuntimeException();
 
-            outputMap.put("publisher", "ester");
+            elements = document.select("a[id=recordnum]");
+            if (elements.isEmpty())
+                throw new RuntimeException();
+            String bookPage = elements.first().html();
+            document = Jsoup.connect(bookPage).get();
+            elements = document.select("table[class=bibDetail]");
+            elements = elements.first().select("table").not("[class]").select("tr");
+            for (Element element : elements) {
+                switch (element.select("td[class=bibInfoLabel]").html()) {
+                    case "Autor": {
+                        String[] authorSplit = element.select("a").html().split(Pattern.quote(", "));
+                        outputMap.put("author", authorSplit[1] + " " + authorSplit[0]);
+                        break;
+                    }
+                    case "Pealkiri": {
+                        outputMap.put("title", element.select("strong")
+                                .html().split(Pattern.quote(" / "))[0].replace(" : ", ": "));
+                        break;
+                    }
+                    case "Ilmunud": {
+                        String[] publishedSplit = element.select("td[class=bibInfoData]")
+                                .html().replace(" : ", ", ").split(Pattern.quote(", "));
+                        outputMap.put("publisher", publishedSplit[1]);
+                        String[] yearSplit = publishedSplit[2].split(Pattern.quote(" "));
+                        outputMap.put("pubyear", yearSplit[0].substring(yearSplit[0].length() - 4));
+                        break;
+                    }
+                }
+            }
+            outputMap.put("description", bookPage);
+            outputMap.put("languageid", Integer.toString(Language.OTHER_LANGUAGE_ID));
+            outputMap.put("language", "Other");
         } catch (Exception e) {
             return null;
         }
@@ -216,10 +300,16 @@ public class ISBNController {
                 outputMap = intermediateOut;
                 return outputMap;
             } else {
-                intermediateOut = getByIsbnEster(outputMap, isbnNumber);
+                intermediateOut = getByIsbnRahva(outputMap, isbnNumber);
                 if (intermediateOut != null) {
                     outputMap = intermediateOut;
                     return outputMap;
+                } else {
+                    intermediateOut = getByIsbnEster(outputMap, isbnNumber);
+                    if (intermediateOut != null) {
+                        outputMap = intermediateOut;
+                        return outputMap;
+                    }
                 }
             }
         }

@@ -156,4 +156,15 @@ public class Language {
                 return OTHER_LANGUAGE_ID;
         }
     }
+
+    public static String rahvaLanguageStringConvert(String languageString) {
+        switch (languageString) {
+            case "eestikeelne":
+                return "Estonian";
+            case "ingliskeelne":
+                return "English";
+            default:
+                return "Other";
+        }
+    }
 }

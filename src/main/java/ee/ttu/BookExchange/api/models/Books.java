@@ -29,7 +29,7 @@ public class Books {
     @Size(max = 8192)
     String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "conditiondesc", referencedColumnName = "id", nullable = false)
     ConditionEng conditiondesc;
 
@@ -53,26 +53,26 @@ public class Books {
     @Size(max = 6)
     String pubyear;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "language", referencedColumnName = "id", nullable = false)
     LanguageEng language;
 
     @Column(nullable = false, columnDefinition = "timestamp")
     Timestamp postdate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "userid", referencedColumnName = "id", nullable = false)
     Users userid;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "genreid", referencedColumnName = "id", nullable = false)
     GenreEng genreid;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "city", referencedColumnName = "id", nullable = false)
     City city;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "status", referencedColumnName = "id", nullable = false, columnDefinition = "int default 1")
     StatusEng status;
 }

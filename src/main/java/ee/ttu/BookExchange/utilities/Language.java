@@ -1,6 +1,8 @@
 package ee.ttu.BookExchange.utilities;
 
 public class Language {
+    public final static int OTHER_LANGUAGE_ID = 15;
+
     public static String googleLanguageShortToLong(String shortLanguage) {
         switch (shortLanguage) {
             case "ar":
@@ -112,7 +114,7 @@ public class Language {
             case "zh-TW":
                 return "Chinese (Traditional)";
             default:
-                return "Unknown";
+                return "Other";
         }
     }
 
@@ -151,7 +153,7 @@ public class Language {
             case "Turkish":
                 return 13;
             default:
-                return 0;
+                return OTHER_LANGUAGE_ID;
         }
     }
 }

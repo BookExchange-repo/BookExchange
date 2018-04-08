@@ -103,7 +103,8 @@ public class ISBNController {
             String languageHtml = elements.first().parent().html();
             languageHtml = languageHtml.substring(
                     languageHtml.lastIndexOf("</b>") + 4, languageHtml.length()).trim();
-            outputMap.put("language", languageHtml);
+            outputMap.put("language", (Language.languageStringToId(languageHtml)
+                    == Language.OTHER_LANGUAGE_ID) ? "Other" : languageHtml);
             outputMap.put("languageid", Integer.toString(Language.languageStringToId(languageHtml)));
 
             // Getting the image
@@ -145,14 +146,15 @@ public class ISBNController {
                     .split("http[s]*://books.google.[a-z]+")[1]
                     .split(Pattern.quote("&"))[0]);
             outputMap.put("publisher", volumeInfo.get("publisher").toString());
-            outputMap.put("pubyear", volumeInfo.get("publishedDate").toString());
+            outputMap.put("pubyear", volumeInfo.get("publishedDate").toString().substring(0, 4));
             outputMap.put("author", arrayStringToSequence(volumeInfo.get("authors").toString()));
             JSONObject thumbnailImages = (JSONObject)volumeInfo.get("imageLinks");
             outputMap.put("imagepath", thumbnailImages.get("thumbnail")
                     .toString().split(Pattern.quote("&imgtk="))[0]);
             String languageString = Language.googleLanguageShortToLong(
                     volumeInfo.get("language").toString());
-            outputMap.put("language", languageString);
+            outputMap.put("language", (Language.languageStringToId(languageString)
+                    == Language.OTHER_LANGUAGE_ID) ? "Other" : languageString);
             outputMap.put("languageid", Integer.toString(Language.languageStringToId(languageString)));
         } catch (Exception e) {
             return null;

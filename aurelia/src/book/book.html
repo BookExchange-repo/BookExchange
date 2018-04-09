@@ -33,15 +33,15 @@
             <span> €</span>
           </div>
 
-            <button class="ui big teal ${bookbyid.status.id === 1 ? '' : 'disabled'} button vertical animated button" click.delegate="addToWatchList()">
-              <div class="hidden content">
-                <i if.bind="loggedIn" class="bookmark outline icon"></i>
-                <span if.bind="!loggedIn">PLEASE SIGN IN</span>
-              </div>
-              <div class="visible content">
-                ADD TO WATCHLIST
-              </div>
-            </button>
+          <button class="ui big teal ${bookbyid.status.id === 1 ? '' : 'disabled'} button vertical animated button" click.delegate="addToWatchList()">
+            <div class="hidden content">
+              <i if.bind="loggedIn" class="bookmark outline icon"></i>
+              <span if.bind="!loggedIn">PLEASE SIGN IN</span>
+            </div>
+            <div class="visible content">
+              ADD TO WATCHLIST
+            </div>
+          </button>
 
         </div>
       </div>

@@ -13,6 +13,8 @@ export class History {
     this.authorization = authorization;
     this.booksForWatchList = [];
     this.booksForSalesActivity = [];
+    this.noBooksInWatchlist = false;
+    this.noBooksInSaleActivity = false;
   }
 
   attached() {
@@ -30,6 +32,8 @@ export class History {
     httpClient.fetch('https://bookmarket.online:18081/api/users/getwatchlist?session=' + this.authorization.getSessionID())
       .then(response => response.json())
       .then(data => {
+        if (Object.keys(data).length === 0) this.noBooksInWatchlist = true;
+
         let JSONInformation = JSON.parse(JSON.stringify(data));
 
         for (let i = 0; i < JSONInformation.length; i++) {
@@ -43,6 +47,8 @@ export class History {
     httpClient.fetch('https://bookmarket.online:18081/api/users/getmybooks?session=' + this.authorization.getSessionID())
       .then(response => response.json())
       .then(data => {
+        if (Object.keys(data).length === 0) this.noBooksInSaleActivity = true;
+
         let JSONInformation = JSON.parse(JSON.stringify(data));
 
         for (let i = 0; i < JSONInformation.length; i++) {

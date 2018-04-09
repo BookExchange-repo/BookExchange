@@ -56,9 +56,7 @@ export class Book {
   }
 
   addToWatchList() {
-    //console.log(this.connector.loggedIn);
     if (!this.connector.loggedIn) {
-      console.log("Not logged in!");
       this.router.navigateToRoute('login');
     } else {
       let userSession = this.authorization.getSessionID();

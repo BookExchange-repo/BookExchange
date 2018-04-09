@@ -3,26 +3,26 @@
 
     <div class="ui secondary menu myaccount">
       <div class="item myaccount breadcrumb">
-      <div class="ui massive breadcrumb">
-        <a href="#" class="section">
-          <i class="home icon"></i>
-        </a>
-        <i class="right chevron icon divider"></i>
-        <div class="section">My Account</div>
-        <i class="right chevron icon divider"></i>
-        <div class="active section">Dashboard</div>
+        <div class="ui massive breadcrumb">
+          <a href="#" class="section">
+            <i class="home icon"></i>
+          </a>
+          <i class="right chevron icon divider"></i>
+          <div class="section">My Account</div>
+          <i class="right chevron icon divider"></i>
+          <div class="active section">Dashboard</div>
+        </div>
       </div>
-    </div>
 
-    <div class="right menu">
-      <a class="active item" click.delegate="router.navigateToRoute('history')">Dashboard</a>
-      <a class="item" click.delegate="router.navigateToRoute('myaccount')">Personal Information</a>
-    </div>
+      <div class="right menu">
+        <a class="active item" click.delegate="router.navigateToRoute('history')">Dashboard</a>
+        <a class="item" click.delegate="router.navigateToRoute('myaccount')">Personal Information</a>
+      </div>
     </div>
 
     <div class="ui segment dashboard">
       <div class="ui divided grid">
-        
+
         <div class="eight wide column dashboard">
           <h2 class="ui header dashboard">
             <i class="ui large bookmark outline icon"></i>
@@ -30,6 +30,15 @@
               My Watch List
             </div>
           </h2>
+
+          <div if.bind="noBooksInWatchlist">
+            <div class="center aligned ui grid all-books no-books">
+              <div class="column">
+                <h2>Your watchlist is empty!</h2>
+                <h3>Try adding books you like to your watchlist</h3>
+              </div>
+            </div>
+          </div>
 
           <div class="ui link items">
             <div class="item dashboard" repeat.for="bookForWatchList of booksForWatchList">
@@ -42,7 +51,8 @@
                   <div class="item-description-watch-list" click.delegate="navigateToBookById(bookForWatchList.id)">
                     <p>${bookForWatchList.userid.full_name}</p>
                     <p>
-                      <i class="ui phone icon"></i>${bookForWatchList.userid.phone}<br>
+                      <i class="ui phone icon"></i>${bookForWatchList.userid.phone}
+                      <br>
                       <i class="ui at icon"></i>${bookForWatchList.userid.email}
                     </p>
                   </div>
@@ -64,6 +74,15 @@
             </div>
           </h2>
 
+          <div if.bind="noBooksInSaleActivity">
+              <div class="center aligned ui grid all-books no-books">
+                <div class="column">
+                  <h2>Your have no sale acitivity yet!</h2>
+                  <h3>Try selling your first book</h3>
+                </div>
+              </div>
+            </div>
+
           <div class="ui link items">
             <div class="item dashboard" repeat.for="bookForSalesActivity of booksForSalesActivity">
               <div class="ui tiny image">
@@ -74,7 +93,10 @@
                 <div class="description">
                   <div class="item-description-sales-activity" click.delegate="navigateToBookById(bookForSalesActivity.id)">
                     <p>${bookForSalesActivity.userid.full_name}</p>
-                    <p><b>${bookForSalesActivity.price}</b><i class="ui euro icon"></i></p>
+                    <p>
+                      <b>${bookForSalesActivity.price}</b>
+                      <i class="ui euro icon"></i>
+                    </p>
                   </div>
                   <div class="ui labels">
                     <div class="ui green tag label" if.bind="bookForSalesActivity.status.id==1">${bookForSalesActivity.status.string}</div>

@@ -21,7 +21,22 @@
     </div>
 
     <div class="ui segment myaccount">
-      
+      <div class="ui grid">
+
+        <div class="center aligned two wide column">
+          <img src="src/resources/images/user_icon.png" class="avatar">
+        </div>
+        <div class="middle aligned fourteen wide column fullname">
+          <h1>${myAccount.full_name}</h1>
+        </div>
+
+        <div class="sixteen wide column information">
+          <p><i class="ui map marker alternate icon"></i>${myAccount.city.string}</p>
+          <p><i class="ui phone icon"></i>${myAccount.phone}</p>
+          <p><i class="ui at icon"></i>${myAccount.email}</p>
+        </div>
+
+      </div>
     </div>
 
   </div>

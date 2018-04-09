@@ -659,4 +659,26 @@ img.ui.fluid.image.sell-book.upload-image {
 
 .ui.segment.myaccount {
   margin-top: 0;
+  padding: 2.25em;
+}
+
+.myaccount .fullname h1 {
+  font-weight: normal;
+  font-size: 2.5em;
+}
+
+.myaccount .avatar {
+  width: 85%;
+}
+
+.myaccount .information {
+  font-size: 1.25em;
+}
+
+.myaccount .information i {
+  margin-right: 0.5em;
+}
+
+.myaccount .middle.aligned.fourteen.wide.column {
+  padding-top: 0;
 }

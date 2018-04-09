@@ -415,6 +415,25 @@ form.ui.large.form .field {
   cursor: pointer;
 }
 
+.more-about-book .line {
+  border-left: thick solid #118092;
+  padding-left: 0.8em;
+}
+
+.line-content .title {
+  margin-bottom: 0.5em;
+}
+
+.line-content .ui.teal.large.image.label {
+  margin-top: 0.25em;
+  margin-bottom: 1.25em;
+  margin-left: 0;
+}
+
+.line-contact {
+  margin-bottom: 0.5em;
+}
+
 .ui.segment.information.more-about-book {
   padding: 2em;
 }

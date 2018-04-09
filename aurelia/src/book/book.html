@@ -83,22 +83,27 @@
 
           <div class="description more-about-book">
             <p class="title">Description: </p>
-            <div innerhtml="${bookbyid.description}"></div>
+            <p innerhtml="${bookbyid.description}"></p>
           </div>
 
           <div class="seller more-about-book">
-            <p class="title">Seller: </p>
+            <div class="line">
+              <div class="line-content">
+                <p class="title">Seller: </p>
+                <p>${bookbyid.userid.full_name}</p>
 
+                <div class="ui teal large image label">
+                  Contact
+                  <div class="detail">
+                    <i class="phone icon"></i>${loggedIn ? bookbyid.userid.phone : "*******"}</div>
+                </div>
 
-
-            <div class="ui teal large image label">
-              ${bookbyid.userid.full_name}
-              <div class="detail">
-                <i class="phone icon"></i>${loggedIn ? bookbyid.userid.phone : "*******"}</div>
+                <p class="line-contact"><i class="ui map marker alternate icon"></i>${bookbyid.city.string}</p>
+                <p><i class="ui calendar alternate icon"></i>${convertUnixTimeStamp(bookbyid.postdate)}</p>
+                
+              </div>
             </div>
-            <div class="text">from ${bookbyid.city.string}</div>
-            <p></p>
-            <div class="text">${convertUnixTimeStamp(bookbyid.postdate)}</div>
+
           </div>
 
         </div>

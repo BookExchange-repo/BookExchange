@@ -50,8 +50,8 @@ export class History {
       });
   }
 
-  markAsSold(bookForSalesActivityid) {
-    httpClient.fetch('https://bookmarket.online:18081/api/users/setstatus?session=' + this.authorization.getSessionID() +'&bookid=' + bookForSalesActivityid + '&status=2')
+  changeBookStatus(bookForSalesActivityid, statusID) {
+    httpClient.fetch('https://bookmarket.online:18081/api/users/setstatus?session=' + this.authorization.getSessionID() +'&bookid=' + bookForSalesActivityid + '&status=' + statusID)
       .then(response => response.json())
       .then(data => {
         if (data.errors.length === 0){
@@ -60,5 +60,6 @@ export class History {
         }
       });
   }
+
 
 }

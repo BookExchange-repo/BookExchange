@@ -166,6 +166,25 @@ public class UsersController {
         return watchlistService.findByUserId(userId.get());
     }
 
+    @RequestMapping(value = "removefromwatchlist", method = RequestMethod.GET)
+    public Map<String, Object> removeFromWatchlist(@RequestParam(value = "session") String session,
+                                                   @RequestParam(value = "bookid") int bookId) throws APIException
+    {
+        Optional<Integer> userId = getUserIdBySession(session);
+        if (!userId.isPresent()) {
+            throw new APIException("CANNOT_USERS_REMOVEFROMWATCHLIST");
+        }
+        for (Watchlist watchlist : watchlistService.findByUserId(userId.get())) {
+            if (watchlist.getBookid().getId() == bookId) {
+                watchlistService.deleteWatchlistWithBook(watchlist);
+                break;
+            }
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("errors", new ArrayList<>());
+        return result;
+    }
+
     @RequestMapping(value = "update", method = RequestMethod.GET)
     public Map<String, Object> updateInfo(@RequestParam(value = "session") String session,
                                           @RequestParam(value = "fullname") String fullName,

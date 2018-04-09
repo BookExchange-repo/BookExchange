@@ -36,4 +36,8 @@ public class WatchlistService {
         return findByUserId(userId).stream()
                 .anyMatch(e -> e.getBookid().getId() == bookId);
     }
+
+    public void deleteWatchlistWithBook(Watchlist watchlist) {
+        watchlistRepository.delete(watchlist);
+    }
 }

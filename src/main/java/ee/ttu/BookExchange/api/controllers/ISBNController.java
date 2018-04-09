@@ -151,8 +151,8 @@ public class ISBNController {
             JSONObject thumbnailImages = (JSONObject)volumeInfo.get("imageLinks");
             String imageLink = thumbnailImages.get("thumbnail")
                     .toString().split(Pattern.quote("&imgtk="))[0];
-            if (imageLink.matches("^http://.*"))
-                imageLink = "https://" + imageLink.substring(7);
+            imageLink = imageLink
+                    .replaceAll("^http[s]*://books.google.com", "https://bookmarket.online:18999");
             outputMap.put("imagepath", imageLink);
             String languageString = Language.googleLanguageShortToLong(
                     volumeInfo.get("language").toString());

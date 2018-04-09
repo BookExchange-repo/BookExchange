@@ -61,5 +61,14 @@ export class History {
       });
   }
 
+  deleteFromWatchlist(bookForWatchListBookId) {
+    httpClient.fetch('https://bookmarket.online:18081/api/users/removefromwatchlist?session=' + this.authorization.getSessionID() +'&bookid=' + bookForWatchListBookId)
+    .then(response => response.json())
+    .then(data => {
+      if (data.errors.length === 0){
+        this.fetchBooksForWatchList();
+      }
+    });
+  }
 
 }

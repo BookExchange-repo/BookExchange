@@ -7,12 +7,12 @@
       <div class="center aligned twelve wide column">
         <div class="ui segment signup">
 
-          <h1>Hi, ${helloMessage}! Welcome to BookMarket!</h1>
+          <h1>Hi, ${connector.username}! Welcome to BookMarket!</h1>
           <h3>We need some more information about you to get started:</h3>
 
           <!-- <div class="ui error message"></div> -->
 
-          <form class="ui large form" action="javascript:myFunction(); return false;">
+          <form class="ui large form" submit.delegate="continueButtonPressed()">
 
             <div class="required field">
               <label>First Name</label>
@@ -42,8 +42,10 @@
 
             <div class="ui error message"></div>
 
-            <div class="ui submit large ui teal button" click.delegate="continueButtonPressed()">Get started</div>
-    
+            <button type="submit" class="ui submit large ui teal button">
+              Get started
+            </button>
+
           </form>
 
         </div>

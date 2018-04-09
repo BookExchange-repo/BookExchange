@@ -9,7 +9,7 @@
 
           <h2>Sign in to BookMarket</h2>
 
-          <form class="ui large form" action="javascript:myFunction(); return false;">
+          <form class="ui large form" submit.delegate="loginButton()">
 
             <div class="ui error message"></div>
 
@@ -23,7 +23,9 @@
               <input type="password" name="password" value.bind="password">
             </div>
 
-            <div class="ui submit large ui teal button" click.delegate="loginButton()">Sign in</div>
+            <button type="submit" class="ui submit large ui teal button">
+              Sign in
+            </button>
 
           </form>
 

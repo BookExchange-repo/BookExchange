@@ -43,7 +43,6 @@ export class AddBooks {
 
     CKEDITOR.replace('richTextEditor', { customConfig: '/ckeditorconfig.js' });
     this.richTextEditor = CKEDITOR.instances["richTextEditor"];
-    this.richTextEditorClone = "hhhh";
 
     $('.ui.dropdown').dropdown();
 
@@ -76,11 +75,15 @@ export class AddBooks {
             rules: [
               {
                 type: 'integer',
-                prompt: 'Please enter a numeric ISBN'
+                prompt: 'Please enter only a numeric part of ISBN'
               },
               {
-                type: 'exactLength[13]',
-                prompt: 'ISBN should be exactly 13 digits long (ISBN-13)'
+                type: 'minLength[10]',
+                prompt: 'ISBN should be at least 10 digits long (ISBN-10)'
+              },
+              {
+                type: 'maxLength[13]',
+                prompt: 'ISBN should be not longer than 13 digits (ISBN-13)'
               },
             ]
           },
@@ -205,7 +208,7 @@ export class AddBooks {
     httpClient.fetch(environment.apiURL + 'api/isbn/getinfo?isbn=' + isbn)
       .then(response => response.json())
       .then(data => {
-        if (data.title !== "" || data.author !== "" || data.publisher !== "") {
+        if (this.checkIfISBNwasFound(data)) {
           this.bookData.title = data.title;
           this.bookData.author = data.author;
           this.bookData.pubyear = data.pubyear
@@ -217,6 +220,10 @@ export class AddBooks {
         }
         this.magicFillBusy = false;
       });
+  }
+
+  checkIfISBNwasFound(data) {
+    return data.title !== "" || data.author !== "" || data.publisher !== "" || data.language !== "" || data.description !== "" || data.pubyear !== "";
   }
 
   fetchGenresFromAPI() {

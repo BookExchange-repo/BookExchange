@@ -56,20 +56,38 @@ export class Book {
   }
 
   addToWatchList() {
-    console.log(this.connector.loggedIn);
+    //console.log(this.connector.loggedIn);
     if (!this.connector.loggedIn) {
       console.log("Not logged in!");
       this.router.navigateToRoute('login');
     } else {
       let userSession = this.authorization.getSessionID();
       httpClient.fetch('https://bookmarket.online:18081/api/users/addtowatchlist?session=' + userSession + "&bookid=" + this.id)
-      //https://bookmarket.online:18081/api/users/addtowatchlist?session=   &bookid=1
       .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      });
-      
-      
+        .then(data => {
+          if (data.errors.length === 0) {
+            $.uiAlert({
+              textHead: 'Success!',
+              text: 'Book successfully added to My Watchlist!',
+              bgcolor: '#19c3aa',
+              textcolor: '#fff',
+              position: 'bottom-left',
+              icon: 'checkmark box',
+              time: 5,
+                })
+          } else {
+            $.uiAlert({
+              textHead: 'API error',
+              text: 'Book could not be added to My Watchlist',
+              bgcolor: '#F2711C',
+              textcolor: '#fff',
+              position: 'bottom-left',
+              icon: 'warning sign',
+              time: 5,
+                })
+          }
+        });
     }
   }
+
 }

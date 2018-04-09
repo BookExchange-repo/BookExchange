@@ -18,7 +18,11 @@
     </div>
 
     <div class="ui grid">
-
+      <div class="sixteen wide column" if.bind="bookbyid.status.id === 2">
+        <div class="ui big center aligned message">
+          <div class="header"> This book is marked as sold. The item is archived.</div>
+        </div>
+      </div>
       <div class="four wide column">
         <div class="ui segment">
           <img id="book_image" data-featherlight="${bookbyid.imagepath}" src="${bookbyid.imagepath}" alt="${bookbyid.title}" class="ui fluid image">
@@ -28,7 +32,17 @@
             <span>${bookbyid.price}</span>
             <span> €</span>
           </div>
-          <a href="#" click.delegate="addToWatchList()" class="ui big teal button">ADD TO WATCHLIST</a>
+
+            <button class="ui big teal ${bookbyid.status.id === 1 ? '' : 'disabled'} button vertical animated button" click.delegate="addToWatchList()">
+              <div class="hidden content">
+                <i if.bind="loggedIn" class="bookmark outline icon"></i>
+                <span if.bind="!loggedIn">PLEASE SIGN IN</span>
+              </div>
+              <div class="visible content">
+                ADD TO WATCHLIST
+              </div>
+            </button>
+
         </div>
       </div>
 
@@ -79,7 +93,8 @@
 
             <div class="ui teal large image label">
               ${bookbyid.userid.full_name}
-              <div class="detail"><i class="phone icon"></i>${loggedIn ? bookbyid.userid.phone : "+372*******"}</div>
+              <div class="detail">
+                <i class="phone icon"></i>${loggedIn ? bookbyid.userid.phone : "*******"}</div>
             </div>
             <div class="text">from ${bookbyid.city.string}</div>
             <p></p>

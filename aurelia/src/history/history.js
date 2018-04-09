@@ -1,14 +1,16 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { customAttribute, bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
+import { Authorization } from 'auth/authorization';
 
 let httpClient = new HttpClient();
 
-@inject(Router)
+@inject(Router, Authorization)
 export class History {
 
-  constructor(router) {
+  constructor(router, authorization) {
     this.router = router;
+    this.authorization = authorization;
     this.booksForWatchList = [];
     this.booksForSalesActivity = [];
   }
@@ -25,7 +27,7 @@ export class History {
   }
 
   fetchBooksForWatchList() {
-    httpClient.fetch('https://bookmarket.online:18081/api/users/getwatchlist?session=vVSicGLfDb2qxU3dUHXwV3Q49NUL29odJM-_yzsntRCvSrSyelW6FdlhIBp6Ld0a')
+    httpClient.fetch('https://bookmarket.online:18081/api/users/getwatchlist?session=' + this.authorization.getSessionID())
       .then(response => response.json())
       .then(data => {
         let JSONInformation = JSON.parse(JSON.stringify(data));
@@ -38,7 +40,7 @@ export class History {
   }
 
   fetchBooksForSalesActivity() {
-    httpClient.fetch('https://bookmarket.online:18081/api/users/getmybooks?session=vVSicGLfDb2qxU3dUHXwV3Q49NUL29odJM-_yzsntRCvSrSyelW6FdlhIBp6Ld0a')
+    httpClient.fetch('https://bookmarket.online:18081/api/users/getmybooks?session=' + this.authorization.getSessionID())
       .then(response => response.json())
       .then(data => {
         let JSONInformation = JSON.parse(JSON.stringify(data));

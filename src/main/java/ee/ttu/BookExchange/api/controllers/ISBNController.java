@@ -72,6 +72,8 @@ public class ISBNController {
 
             // Getting the author
             elements = document.select("div[id=byline]");
+            if (elements.size() == 0)
+                elements = document.select("div[id=bylineInfo]");
             elements = elements.select(":containsOwn((Author))");
             boolean aSizeFound = false;
             String author = null;

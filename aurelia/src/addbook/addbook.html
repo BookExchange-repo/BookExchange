@@ -27,7 +27,7 @@
 
 
 
-          <form class="ui large form" id="isbnform" submit.delegate="magicFill(bookData.isbn)">
+          <form class="ui large form" id="isbnform" method="post" submit.delegate="magicFill(bookData.isbn)">
 
             <div class="sixteen wide field">
               <div class="ui tiny icon message">
@@ -57,7 +57,7 @@
             </div>
           </form>
 
-          <form class="ui large form" id="bookaddform" submit.delegate="addBook()">
+          <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
 
             <h3 class="ui dividing header sell-book second">Required information</h3>
 
@@ -147,7 +147,7 @@
 
           <p></p>
 
-          <form class="ui large form" submit.delegate="submit(images)">
+          <form class="ui large form" method="post" submit.delegate="submit(images)">
             <input type="file" name="images" accept=".png,.jpg" files.bind="images">
             <button class="ui big teal icon button ${imageUploadBusy ? 'loading' : ''} upload-image" type="submit">
               <i class="upload icon"></i>Upload image</button>

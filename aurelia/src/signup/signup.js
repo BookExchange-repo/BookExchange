@@ -59,7 +59,7 @@ export class SignUp {
             identifier: 'phone',
             rules: [
               {
-                type: 'empty',
+                type: 'integer',
                 prompt: 'Please enter your phone number'
               }
             ]
@@ -78,12 +78,11 @@ export class SignUp {
   }
 
   continueButtonPressed () {
+
     if( $('.ui.form').form('is valid')) {
       //console.log(this.signupData);
       //console.log(JSON.stringify(this.signupData));
-      
-      
-
+    
       httpClient.fetch('https://bookmarket.online:18081/api/users/update?session=' + this.authorization.getSessionID() + '&fullname=' + 
       this.firstname + " " + this.lastname + '&city=' + this.city + '&phone=' + this.phone)
       .then(function (response) {

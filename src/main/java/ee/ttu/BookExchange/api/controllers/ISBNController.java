@@ -153,7 +153,7 @@ public class ISBNController {
                     .toString().split(Pattern.quote("&imgtk="))[0];
             imageLink = imageLink
                     .replaceAll("^http[s]*://books.google.com", "https://bookmarket.online:18999");
-            outputMap.put("imagepath", imageLink);
+            outputMap.put("imagepath", imageLink + ".jpg");
             String languageString = Language.googleLanguageShortToLong(
                     volumeInfo.get("language").toString());
             outputMap.put("language", (Language.languageStringToId(languageString)

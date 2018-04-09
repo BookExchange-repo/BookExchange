@@ -13,4 +13,6 @@ public interface WatchlistRepository extends CrudRepository<Watchlist, Integer> 
     List<Watchlist> findAll();
 
     List<Watchlist> findByUseridIn(Users userid);
+
+    void delete(Watchlist entity);
 }

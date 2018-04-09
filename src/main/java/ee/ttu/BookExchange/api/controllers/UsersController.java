@@ -148,6 +148,9 @@ public class UsersController {
         if (!userId.isPresent() || booksService.getBookById(bookId) == null) {
             throw new APIException("CANNOT_USERS_ADDTOWATCHLIST");
         }
+        if (watchlistService.isBookInWatchlist(userId.get(), bookId)) {
+            throw new APIException("FAIL_EXISTS_BOOKID");
+        }
         watchlistService.saveBook(userId.get(), bookId);
         Map<String, Object> result = new HashMap<>();
         result.put("errors", new ArrayList<>());

@@ -21,22 +21,69 @@
     </div>
 
     <div class="ui segment myaccount">
-      <div class="ui grid">
-
+      <div class="ui grid" if.bind="!editMode">
         <div class="center aligned two wide column">
           <img src="src/resources/images/user_icon.png" class="avatar">
         </div>
-        <div class="middle aligned fourteen wide column fullname">
+        <div class="middle aligned ten wide column fullname">
           <h1>${myAccount.full_name}</h1>
+        </div>
+        <div class="right aligned four wide column">
+          <button class="ui basic button" click.delegate="enableEditMode()">
+            <i class="icon edit"></i>
+            Edit Information
+          </button>
         </div>
 
         <div class="sixteen wide column information">
-          <p><i class="ui map marker alternate icon"></i>${myAccount.city.string}</p>
-          <p><i class="ui phone icon"></i>${myAccount.phone}</p>
-          <p><i class="ui at icon"></i>${myAccount.email}</p>
+          <div class="information-field"><i class="ui map marker alternate icon"></i>${myAccount.city.string}</div>
+          <div class="information-field"><i class="ui phone icon"></i>${myAccount.phone}</div>
+          <div class="information-field"><i class="ui at icon"></i>${myAccount.email}</div>
+        </div>
+      </div>
+
+      
+
+      <form method="post" class="ui grid" if.bind="editMode" submit.delegate="updateInformation()">
+        <div class="center aligned two wide column">
+          <img src="src/resources/images/user_icon.png" class="avatar">
+        </div>
+        <div class="middle aligned ten wide column fullname">
+          <div class="ui input">
+            <input type="text" name="firstname" value.bind="firstName" placeholder="First Name" value.bind="firstName">
+          </div>
+          <div class="ui input">
+            <input type="text" name="lastname" value.bind="lastName" placeholder="Last Name" value.bind="lastName">
+          </div>
+        </div>
+        <div class="right aligned four wide column">
+          <button type="submit" class="ui green button" click.delegate="disableEditMode()">
+            <i class="icon edit"></i>
+            Save
+          </button>
         </div>
 
-      </div>
+        <div class="sixteen wide column edit-mode">
+          <div class="edit-mode-field">
+            <i class="ui map marker alternate icon"></i>
+            <select class="ui search dropdown" name="city" value.bind="city">
+              <option model.bind="null" value="">Select city</option>
+              <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
+            </select>
+          </div>
+
+          <div class="edit-mode-field">
+            <i class="ui phone icon"></i>
+            <div class="ui labeled input">
+              <label for="phone_edit_mode" class="ui label">+372</label>
+              <input type="text" name="phone" id="phone_edit_mode" value.bind="phone">
+            </div>
+          </div>
+
+          <div class="edit-mode-field-email"><i class="ui at icon"></i>${myAccount.email}</div>
+        </div>
+      </form>
+
     </div>
 
   </div>

@@ -694,6 +694,30 @@ img.ui.fluid.image.sell-book.upload-image {
   font-size: 1.25em;
 }
 
+.information-field {
+  margin-bottom: 1.25em;
+}
+
+.edit-mode-field {
+  margin-bottom: 1em;
+}
+
+.edit-mode-field i {
+  font-size: 1.25em;
+  margin-right: 0.5em;
+}
+
+.edit-mode-field-email {
+  margin-bottom: 1em;
+  font-size: 1.25em;
+}
+
+.edit-mode-field-email i {
+  margin-bottom: 1em;
+  font-size: 1.25em;
+  margin-right: 0.5em;
+}
+
 .myaccount .information i {
   margin-right: 0.5em;
 }

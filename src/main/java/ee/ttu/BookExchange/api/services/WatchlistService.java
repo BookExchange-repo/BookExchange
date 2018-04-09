@@ -31,4 +31,9 @@ public class WatchlistService {
     public List<Watchlist> findByUserId(int userId) {
         return watchlistRepository.findByUseridIn(usersService.getUserById(userId));
     }
+
+    public boolean isBookInWatchlist(int userId, int bookId) {
+        return findByUserId(userId).stream()
+                .anyMatch(e -> e.getBookid().getId() == bookId);
+    }
 }

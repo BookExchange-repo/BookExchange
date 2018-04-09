@@ -19,27 +19,22 @@ export class History {
 
   attached() {
     this.fetchBooksForWatchList();
-    this.fetchBooksForSalesActivity()
+    this.fetchBooksForSalesActivity();
   }
 
   navigateToBookById(bookid) {
-    this.router.navigateToRoute('bookbyid', {
-      id: bookid
-    });
+    this.router.navigateToRoute('bookbyid', {id: bookid});
   }
 
   fetchBooksForWatchList() {
     httpClient.fetch('https://bookmarket.online:18081/api/users/getwatchlist?session=' + this.authorization.getSessionID())
       .then(response => response.json())
       .then(data => {
-        if (Object.keys(data).length === 0) this.noBooksInWatchlist = true;
-
-        let JSONInformation = JSON.parse(JSON.stringify(data));
-
-        for (let i = 0; i < JSONInformation.length; i++) {
-          this.booksForWatchList.push(JSONInformation[i].bookid);
+        if (Object.keys(data).length === 0) {
+          this.noBooksInWatchlist = true;
+        } else {
+          this.booksForWatchList = data;
         }
-
       });
   }
 
@@ -47,12 +42,21 @@ export class History {
     httpClient.fetch('https://bookmarket.online:18081/api/users/getmybooks?session=' + this.authorization.getSessionID())
       .then(response => response.json())
       .then(data => {
-        if (Object.keys(data).length === 0) this.noBooksInSaleActivity = true;
+        if (Object.keys(data).length === 0) {
+          this.noBooksInSaleActivity = true;
+        } else {
+          this.booksForSalesActivity = data;
+        }
+      });
+  }
 
-        let JSONInformation = JSON.parse(JSON.stringify(data));
-
-        for (let i = 0; i < JSONInformation.length; i++) {
-          this.booksForSalesActivity.push(JSONInformation[i]);
+  markAsSold(bookForSalesActivityid) {
+    httpClient.fetch('https://bookmarket.online:18081/api/users/setstatus?session=' + this.authorization.getSessionID() +'&bookid=' + bookForSalesActivityid + '&status=2')
+      .then(response => response.json())
+      .then(data => {
+        if (data.errors.length === 0){
+          this.fetchBooksForSalesActivity();
+          this.fetchBooksForWatchList();
         }
       });
   }

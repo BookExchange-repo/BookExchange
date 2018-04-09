@@ -71,8 +71,18 @@ export class Book {
               textcolor: '#fff',
               position: 'bottom-left',
               icon: 'checkmark box',
-              time: 5,
-                })
+              time: 4,
+            })
+          } else if (data.errors.includes("FAIL_EXISTS_BOOKID")) {
+            $.uiAlert({
+              textHead: 'Error adding',
+              text: 'You have already this book in your Watchlist',
+              bgcolor: '#55a9ee',
+              textcolor: '#fff',
+              position: 'bottom-left',
+              icon: 'info circle',
+              time: 4,
+            })
           } else {
             $.uiAlert({
               textHead: 'API error',
@@ -81,8 +91,8 @@ export class Book {
               textcolor: '#fff',
               position: 'bottom-left',
               icon: 'warning sign',
-              time: 5,
-                })
+              time: 4,
+            })
           }
         });
     }

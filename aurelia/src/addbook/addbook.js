@@ -194,6 +194,7 @@ export class AddBooks {
       .then(data => {
         console.log(data.id);
         if (data.id) {
+          this.showBookAddSuccessMessage();
           this.router.navigateToRoute('bookbyid', {
             id: data.id
           });
@@ -201,6 +202,18 @@ export class AddBooks {
           $('#bookaddform').form('add errors', { apiError: 'We could not add your book (API error)' });
         }
       });
+  }
+
+  showBookAddSuccessMessage() {
+    $.uiAlert({
+      textHead: 'Success!',
+      text: 'Your book has been added to BookMarket!',
+      bgcolor: '#19c3aa',
+      textcolor: '#fff',
+      position: 'bottom-left',
+      icon: 'checkmark box',
+      time: 4,
+    })
   }
 
   magicFill(isbn) {

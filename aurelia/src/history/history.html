@@ -43,27 +43,24 @@
           <div class="ui link items">
             <div class="item dashboard" repeat.for="bookForWatchList of booksForWatchList">
               <div class="ui tiny image">
-                <img class="dashboard image" src="${bookForWatchList.imagepath}" click.delegate="navigateToBookById(bookForWatchList.id)">
+                <img class="dashboard image" src="${bookForWatchList.bookid.imagepath}" click.delegate="navigateToBookById(bookForWatchList.id)">
               </div>
               <div class="content">
-                <a class="header" click.delegate="navigateToBookById(bookForWatchList.id)">${bookForWatchList.title}</a>
+                <a class="header" click.delegate="navigateToBookById(bookForWatchList.bookid.id)">${bookForWatchList.bookid.title}</a>
                 <div class="description">
-                  <div class="item-description-watch-list" click.delegate="navigateToBookById(bookForWatchList.id)">
-                    <p>${bookForWatchList.userid.full_name}</p>
+                  <div class="item-description-watch-list" click.delegate="navigateToBookById(bookForWatchList.bookid.id)">
+                    <p>${bookForWatchList.bookid.userid.full_name}</p>
                     <p>
-                      <i class="ui phone icon"></i>${bookForWatchList.userid.phone}
+                      <i class="ui phone icon"></i>${bookForWatchList.bookid.userid.phone}
                       <br>
-                      <i class="ui at icon"></i>${bookForWatchList.userid.email}
+                      <i class="ui at icon"></i>${bookForWatchList.bookid.userid.email}
                     </p>
                   </div>
-                  <div class="ui green tag label" if.bind="bookForWatchList.status.id==1">${bookForWatchList.status.string}</div>
-                  <div class="ui red tag label" if.bind="bookForWatchList.status.id==2">${bookForWatchList.status.string}</div>
+                  <div class="ui ${bookForWatchList.bookid.status.id === 1 ? 'green' : ''} ${bookForWatchList.bookid.status.id === 2 ? 'red' : ''} tag label">${bookForWatchList.bookid.status.string}</div>
                 </div>
               </div>
             </div>
           </div>
-
-
         </div>
 
         <div class="eight wide column dashboard">
@@ -75,13 +72,13 @@
           </h2>
 
           <div if.bind="noBooksInSaleActivity">
-              <div class="center aligned ui grid all-books no-books">
-                <div class="column">
-                  <h2>Your have no sale acitivity yet!</h2>
-                  <h3>Try selling your first book</h3>
-                </div>
+            <div class="center aligned ui grid all-books no-books">
+              <div class="column">
+                <h2>Your have no sale acitivity yet!</h2>
+                <h3>Try selling your first book</h3>
               </div>
             </div>
+          </div>
 
           <div class="ui link items">
             <div class="item dashboard" repeat.for="bookForSalesActivity of booksForSalesActivity">
@@ -99,9 +96,8 @@
                     </p>
                   </div>
                   <div class="ui labels">
-                    <div class="ui green tag label" if.bind="bookForSalesActivity.status.id==1">${bookForSalesActivity.status.string}</div>
-                    <div class="ui red tag label" if.bind="bookForSalesActivity.status.id==2">${bookForSalesActivity.status.string}</div>
-                    <a class="ui label">
+                    <div class="ui ${bookForSalesActivity.status.id === 1 ? 'green' : ''} ${bookForSalesActivity.status.id === 2 ? 'red' : ''} tag label">${bookForSalesActivity.status.string}</div>
+                    <a class="ui label" click.delegate="markAsSold(bookForSalesActivity.id)">
                       <i class="ui gem outline icon"></i>
                       Mark as sold
                     </a>

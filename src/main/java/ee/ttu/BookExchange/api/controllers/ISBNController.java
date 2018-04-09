@@ -149,8 +149,11 @@ public class ISBNController {
             outputMap.put("pubyear", volumeInfo.get("publishedDate").toString().substring(0, 4));
             outputMap.put("author", arrayStringToSequence(volumeInfo.get("authors").toString()));
             JSONObject thumbnailImages = (JSONObject)volumeInfo.get("imageLinks");
-            outputMap.put("imagepath", thumbnailImages.get("thumbnail")
-                    .toString().split(Pattern.quote("&imgtk="))[0]);
+            String imageLink = thumbnailImages.get("thumbnail")
+                    .toString().split(Pattern.quote("&imgtk="))[0];
+            imageLink = imageLink
+                    .replaceAll("^http[s]*://books.google.com", "https://bookmarket.online:18999");
+            outputMap.put("imagepath", imageLink);
             String languageString = Language.googleLanguageShortToLong(
                     volumeInfo.get("language").toString());
             outputMap.put("language", (Language.languageStringToId(languageString)

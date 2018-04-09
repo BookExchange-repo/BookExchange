@@ -95,6 +95,19 @@ export class Connector {
         console.log("Google: Logged out!");
         this.ckeckLoginStatus();
         this.router.navigateToRoute('home');
+        this.showLogoutMessage();
       });
+  }
+
+  showLogoutMessage() {
+    $.uiAlert({
+      textHead: 'Logged out successfully!',
+      text: 'See you next time',
+      bgcolor: '#55a9ee',
+      textcolor: '#fff',
+      position: 'bottom-left',
+      icon: 'info circle',
+      time: 4,
+    })
   }
 }

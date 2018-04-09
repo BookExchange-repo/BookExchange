@@ -26,8 +26,10 @@ public class BooksController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    Map<String, Object> addBook(@RequestBody Books inputBook) {
+    Map<String, Object> addBook(@RequestBody Books inputBook) throws APIException {
         inputBook.setStatus(statusService.getStatusByIdEng(1));
+        if (inputBook.getDescription() == null || inputBook.getDescription().isEmpty())
+            throw new APIException("CANNOT_BOOKS_ADD");
         booksService.saveBook(inputBook);
         Map<String, Object> result = new HashMap<>();
         List<String> allErrors = new ArrayList<>();

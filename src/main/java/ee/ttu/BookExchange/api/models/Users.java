@@ -27,7 +27,7 @@ public class Users {
     @Size(max = 128)
     String full_name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "city", referencedColumnName = "id")
     City city;
 

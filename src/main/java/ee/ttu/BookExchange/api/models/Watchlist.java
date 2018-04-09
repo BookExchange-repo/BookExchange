@@ -14,11 +14,11 @@ public class Watchlist {
     @Column(nullable = false)
     int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "userid", referencedColumnName = "id", nullable = false)
     Users userid;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "bookid", referencedColumnName = "id", nullable = false)
     Books bookid;
 }

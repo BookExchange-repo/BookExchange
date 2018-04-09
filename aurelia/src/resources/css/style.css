@@ -654,3 +654,9 @@ img.ui.fluid.image.sell-book.upload-image {
 .item.dashboard a:hover {
   color: #0F707F;
 }
+
+/* Only My Account CSS */
+
+.ui.segment.myaccount {
+  margin-top: 0;
+}

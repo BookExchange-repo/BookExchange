@@ -1,6 +1,29 @@
 <template>
-  <div class="ui main grid fluid container">
-    <h1>${helloMessage}</h1>
+  <div class="ui fluid container custom-width">
+
+    <div class="ui secondary menu myaccount">
+      <div class="item myaccount breadcrumb">
+        <div class="ui massive breadcrumb">
+          <a href="#" class="section">
+            <i class="home icon"></i>
+          </a>
+          <i class="right chevron icon divider"></i>
+          <div class="section">My Account</div>
+          <i class="right chevron icon divider"></i>
+          <div class="active section">Personal Information</div>
+        </div>
+      </div>
+
+      <div class="right menu">
+        <a class="item" click.delegate="router.navigateToRoute('history')">Dashboard</a>
+        <a class="active item" click.delegate="router.navigateToRoute('myaccount')">Personal Information</a>
+      </div>
+    </div>
+
+    <div class="ui segment myaccount">
+      
+    </div>
 
   </div>
+
 </template>

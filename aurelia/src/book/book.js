@@ -24,9 +24,9 @@ export class Book {
   attached() {
     this.fetchBookByIdFromAPI();
 
-    $(window).on('popstate', function (event) {
-      $.featherlight.current().close();
-    });
+    $(window).on('popstate', function (event) { 
+      $.featherlight.current().close(); 
+    }); 
   }
 
   fetchBookByIdFromAPI() {

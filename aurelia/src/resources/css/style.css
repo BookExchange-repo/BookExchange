@@ -591,6 +591,16 @@ img.ui.fluid.image.sell-book.upload-image {
 
 /* Only Dashboard CSS */
 
+.dashboard .ui.items>.item .extra {
+  width: 5%;
+  margin-left: 1em;
+  margin-top: 0;
+}
+
+.dashboard .ui.items>.item .extra i {
+  margin-top: 0;
+}
+
 .eight.wide.column.dashboard {
   padding: 0;
 }
@@ -644,12 +654,13 @@ img.ui.fluid.image.sell-book.upload-image {
 }
 
 .dashboard .ui.items>.item {
+  position: relative;
   padding-top: 1.25em;
   padding-bottom: 1.25em;
   padding-left: 2.5em;
-  padding-right: 2.5em;
+  padding-right: 1.5em;
   margin: 0;
-  height: 12.5em;
+  height: 14em;
 }
 
 .item.dashboard:nth-child(odd) {
@@ -660,14 +671,17 @@ img.ui.fluid.image.sell-book.upload-image {
   font-weight: normal;
 }
 
+.item-label {
+  position: absolute;
+  bottom: 1em;
+}
+
 .dashboard .item-description-watch-list {
   margin-top: 1em;
-  margin-bottom: 1em;
 }
 
 .dashboard .item-description-sales-activity {
   margin-top: 1em;
-  margin-bottom: 2.1em;
 }
 
 .item.dashboard a:hover {

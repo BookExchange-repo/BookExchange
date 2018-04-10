@@ -2,6 +2,7 @@ import {inject} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Redirect} from 'aurelia-router';
 import {HttpClient, json} from 'aurelia-fetch-client';
+import environment from '../environment';
 
 let httpClient = new HttpClient();
 
@@ -61,19 +62,19 @@ export class Authorization {
 
 
   async loginButtonPressed(email, password) {
-    let response = await fetch('https://bookmarket.online:18081/api/users/login?email=' + email + '&pass=' + password);
+    let response = await fetch(environment.apiURL + 'api/users/login?email=' + email + '&pass=' + password);
     let data = await response.json();
     return data;
   }
 
   async isLoggedIn() {
-    let response = await fetch('https://bookmarket.online:18081/api/users/getinfo?session=' + this.getSessionID());
+    let response = await fetch(environment.apiURL + 'api/users/getinfo?session=' + this.getSessionID());
     let data = await response.json();
     return data;
   }
 
   async logout() {
-    let response = await fetch('https://bookmarket.online:18081/api/users/logout?session=' + this.getSessionID());
+    let response = await fetch(environment.apiURL + 'api/users/logout?session=' + this.getSessionID());
     let data = await response.json();
     return data;
   }

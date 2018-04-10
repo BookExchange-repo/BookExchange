@@ -3,6 +3,7 @@ import {Router} from 'aurelia-router';
 import {Authorization} from 'auth/authorization';
 import {Connector} from 'auth/connector';
 import {HttpClient, json} from 'aurelia-fetch-client';
+import environment from '../environment';
 
 let httpClient = new HttpClient();
 
@@ -43,7 +44,7 @@ export class Login {
   }
 
   loginWithGoogleButton() {
-    window.location.href="https://bookmarket.online/oauth2/start";
+    window.location.href = environment.apiURLwoPort + 'oauth2/start';
   }
 
   loginButton() {

@@ -1,6 +1,7 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { customAttribute, bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
+import environment from '../environment';
 
 let httpClient = new HttpClient();
 
@@ -168,7 +169,7 @@ export class Books {
 
 
   refreshOutput() {
-    let apiURL = "https://bookmarket.online:18081/api/books/getall?";
+    let apiURL = environment.apiURL + 'api/books/getall?';
     // https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=&language=
     // https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=&language=[1,2]
     // https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=%5B3,4%5D&genre=&language=&sort=price&sortdesc=true
@@ -264,7 +265,7 @@ export class Books {
   }
 
   fetchCitiesFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
+    httpClient.fetch(environment.apiURL + 'api/cities/getall')
       .then(response => response.json())
       .then(data => {
         this.cities = data;
@@ -273,7 +274,7 @@ export class Books {
   }
 
   fetchGenresFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/genres/getall0')
+    httpClient.fetch(environment.apiURL + 'api/genres/getall0')
       .then(response => response.json())
       .then(data => {
         this.genres = data;
@@ -282,7 +283,7 @@ export class Books {
   }
 
   fetchConditionsFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/conditions/getall0')
+    httpClient.fetch(environment.apiURL + 'api/conditions/getall0')
       .then(response => response.json())
       .then(data => {
         this.conditions = data;
@@ -291,7 +292,7 @@ export class Books {
   }
 
   fetchLanguagesFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/languages/getall0')
+    httpClient.fetch(environment.apiURL + 'api/languages/getall0')
       .then(response => response.json())
       .then(data => {
         this.languages = data;

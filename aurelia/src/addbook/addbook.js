@@ -154,7 +154,7 @@ export class AddBooks {
       formData.append('images', images[i]);
     }
     this.imageUploadBusy = true;
-    httpClient.fetch('https://bookmarket.online:18081/api/image/upload', {
+    httpClient.fetch(environment.apiURL + 'api/image/upload', {
       method: 'POST',
       body: formData
     })

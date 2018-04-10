@@ -6,7 +6,10 @@ import ee.ttu.BookExchange.api.services.StatusService;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -15,9 +18,13 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.support.membermodification.MemberMatcher.method;
+import static org.powermock.api.support.membermodification.MemberModifier.stub;
 
+@RunWith(PowerMockRunner.class)
 public class BooksControllerTest {
     @Mock
     private static BooksService booksServiceMock;
@@ -90,6 +97,8 @@ public class BooksControllerTest {
         booksServiceMock = mock(BooksService.class);
         statusServiceMock = mock(StatusService.class);
         when(booksServiceMock.getAllBooks()).thenReturn(allBooks);
+        when(booksServiceMock.getBookById(any(Integer.class))).thenReturn(allBooks.get(0));
+        stub(method(UsersController.class, "getUserIdBySession")).toReturn(Optional.of(123));
     }
 
     @Before
@@ -99,6 +108,7 @@ public class BooksControllerTest {
     }
 
     @Test
+    @PrepareForTest(UsersController.class)
     public void testGetBookInfo() {
         System.out.println(booksController.getBook(1, Optional.of("SESSION")));
     }

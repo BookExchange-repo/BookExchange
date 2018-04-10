@@ -2,6 +2,7 @@ import {inject} from 'aurelia-framework';
 import {Connector} from 'auth/connector';
 import {Router} from 'aurelia-router';
 import {TaskQueue} from 'aurelia-task-queue';
+import environment from '../environment';
 
 @inject(Connector, Router, TaskQueue)
 export class Secondbar {

@@ -3,6 +3,7 @@ import { customAttribute, bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Connector } from 'auth/connector';
 import { Authorization } from 'auth/authorization';
+import environment from '../environment';
 
 let httpClient = new HttpClient();
 
@@ -31,7 +32,7 @@ export class Book {
 
   fetchBookByIdFromAPI() {
     this.authorization.isLoggedIn().then(data => {
-      let apiURL = 'https://bookmarket.online:18081/api/books/getinfoid?id=' + this.id;
+      let apiURL = environment.apiURL + 'api/books/getinfoid?id=' + this.id;
       if (!data.errors) {
         this.loggedIn = true;
         let userSession = this.authorization.getSessionID();
@@ -60,7 +61,7 @@ export class Book {
       this.router.navigateToRoute('login');
     } else {
       let userSession = this.authorization.getSessionID();
-      httpClient.fetch('https://bookmarket.online:18081/api/users/addtowatchlist?session=' + userSession + "&bookid=" + this.id)
+      httpClient.fetch(environment.apiURL + 'api/users/addtowatchlist?session=' + userSession + '&bookid=' + this.id)
       .then(response => response.json())
         .then(data => {
           if (data.errors.length === 0) {

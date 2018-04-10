@@ -2,6 +2,7 @@ import {inject} from 'aurelia-framework';
 import {Redirect} from 'aurelia-router';
 import {Authorization} from 'auth/authorization';
 import {Connector} from 'auth/connector';
+import environment from '../environment';
 
 @inject(Connector, Authorization)
 export class AuthorizeStep {

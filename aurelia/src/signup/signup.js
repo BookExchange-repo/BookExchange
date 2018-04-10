@@ -3,6 +3,7 @@ import { customAttribute, bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import {Connector} from 'auth/connector';
 import {Authorization} from 'auth/authorization';
+import environment from '../environment';
 
 let httpClient = new HttpClient();
 
@@ -70,7 +71,7 @@ export class SignUp {
   }
 
   fetchCitiesFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
+    httpClient.fetch(environment.apiURL + 'api/cities/getall')
       .then(response => response.json())
       .then(data => {
         this.cities = data;
@@ -83,7 +84,7 @@ export class SignUp {
       //console.log(this.signupData);
       //console.log(JSON.stringify(this.signupData));
     
-      httpClient.fetch('https://bookmarket.online:18081/api/users/update?session=' + this.authorization.getSessionID() + '&fullname=' + 
+      httpClient.fetch(environment.apiURL + 'api/users/update?session=' + this.authorization.getSessionID() + '&fullname=' + 
       this.firstname + " " + this.lastname + '&city=' + this.city + '&phone=' + this.phone)
       .then(function (response) {
         return response.json();

@@ -2,6 +2,7 @@ import {inject} from 'aurelia-framework';
 import {Authorization} from 'auth/authorization';
 import {Router} from 'aurelia-router';
 import {HttpClient, json} from 'aurelia-fetch-client';
+import environment from '../environment';
 
 let httpClient = new HttpClient();
 
@@ -52,7 +53,7 @@ export class Connector {
 
   checkLogin() {
     this.authorization.deletePostregistrationRequiredSession();
-    httpClient.fetch('https://bookmarket.online/oauth2/api/users/google', {credentials: "same-origin"})
+    httpClient.fetch(environment.apiURLwoPort + 'oauth2/api/users/google', {credentials: "same-origin"})
       .then(function (response) {
         if (response.status !== 403) {
           return response.json();
@@ -90,7 +91,7 @@ export class Connector {
       }
     });
 
-    httpClient.fetch('https://bookmarket.online/oauth2/sign_out', { credentials: "same-origin" })
+    httpClient.fetch(environment.apiURLwoPort + 'oauth2/sign_out', { credentials: "same-origin" })
       .then(response => {
         console.log("Google: Logged out!");
         this.ckeckLoginStatus();

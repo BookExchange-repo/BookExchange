@@ -2,6 +2,7 @@ import { HttpClient, json } from 'aurelia-fetch-client';
 import { customAttribute, bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Authorization } from 'auth/authorization';
+import environment from '../environment';
 
 let httpClient = new HttpClient();
 
@@ -38,7 +39,7 @@ export class MyAccount {
   }
 
   fetchMyAccount() {
-    httpClient.fetch('https://bookmarket.online:18081/api/users/getinfo?session=' + this.authorization.getSessionID())
+    httpClient.fetch(environment.apiURL + 'api/users/getinfo?session=' + this.authorization.getSessionID())
       .then(response => response.json())
       .then(data => {
         this.myAccount = JSON.parse(JSON.stringify(data));
@@ -46,7 +47,7 @@ export class MyAccount {
   }
 
   fetchCitiesFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
+    httpClient.fetch(environment.apiURL + 'api/cities/getall')
       .then(response => response.json())
       .then(data => {
         this.cities = data;

@@ -174,34 +174,39 @@ export class AddBooks {
   addBook() {
     console.log("Starting adding book");
 
-    this.bookData.description = this.richTextEditor.getData();
-    // this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
-    this.bookData.conditiondesc = this.bookDataCondition;
-    this.bookData.language = this.bookDataLanguage;
-    this.bookData.genreid = this.bookDataGenre;
-    this.bookData.city = this.bookDataCity;
+    if (this.richTextEditor.getData() === null || this.richTextEditor.getData() === "") {
+      $('#bookaddform').form('add errors', { apiError: 'Please enter your description' });
+    } else {
+      this.bookData.description = this.richTextEditor.getData();
+      // this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
+      this.bookData.conditiondesc = this.bookDataCondition;
+      this.bookData.language = this.bookDataLanguage;
+      this.bookData.genreid = this.bookDataGenre;
+      this.bookData.city = this.bookDataCity;
 
-    this.bookDataUserID.id = this.connector.userID;
-    this.bookData.userid = this.bookDataUserID;
+      this.bookDataUserID.id = this.connector.userID;
+      this.bookData.userid = this.bookDataUserID;
 
-    httpClient.fetch(environment.apiURL + 'api/books/add', {
-      'method': "POST",
-      'body': json(this.bookData)
-    })
-      .then(function (response) {
-        return response.json();
+      httpClient.fetch(environment.apiURL + 'api/books/add', {
+        'method': "POST",
+        'body': json(this.bookData)
       })
-      .then(data => {
-        console.log(data.id);
-        if (data.id) {
-          this.showBookAddSuccessMessage();
-          this.router.navigateToRoute('bookbyid', {
-            id: data.id
-          });
-        } else {
-          $('#bookaddform').form('add errors', { apiError: 'We could not add your book (API error)' });
-        }
-      });
+        .then(function (response) {
+          return response.json();
+        })
+        .then(data => {
+          console.log(data.id);
+          if (data.id) {
+            this.showBookAddSuccessMessage();
+            this.router.navigateToRoute('bookbyid', {
+              id: data.id
+            });
+          } else {
+            $('#bookaddform').form('add errors', { apiError: 'We could not add your book (API error)' });
+          }
+        });
+    }
+
   }
 
   showBookAddSuccessMessage() {

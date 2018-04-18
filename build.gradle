@@ -40,6 +40,8 @@ dependencies {
     testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '1.7.3'
     // https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4-rule
     testCompile group: 'org.powermock', name: 'powermock-module-junit4-rule', version: '1.7.3'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.1.RELEASE'
 
     implementation "org.mariadb.jdbc:mariadb-java-client:2.2.1"
     // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client

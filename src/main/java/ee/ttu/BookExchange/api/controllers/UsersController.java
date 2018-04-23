@@ -1,7 +1,7 @@
 package ee.ttu.BookExchange.api.controllers;
 
 import ee.ttu.BookExchange.api.models.Books;
-import ee.ttu.BookExchange.api.models.StatusEng;
+import ee.ttu.BookExchange.api.models.StatusEst;
 import ee.ttu.BookExchange.api.models.Users;
 import ee.ttu.BookExchange.api.models.Watchlist;
 import ee.ttu.BookExchange.api.services.*;
@@ -212,7 +212,7 @@ public class UsersController {
     {
         Optional<Integer> userId = getUserIdBySession(session);
         Books foundBook = booksService.getBookById(bookId);
-        StatusEng statusToSet = statusService.getStatusByIdEng(statusId);
+        StatusEst statusToSet = statusService.getStatusByIdEst(statusId);
         if (!userId.isPresent() || foundBook == null ||
                 foundBook.getUserid().getId() != userId.get() || statusToSet == null ||
                 foundBook.getStatus().getId() != 1)

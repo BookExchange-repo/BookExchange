@@ -31,7 +31,7 @@ public class Books {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "conditiondesc", referencedColumnName = "id", nullable = false)
-    ConditionEng conditiondesc;
+    ConditionEst conditiondesc;
 
     @Digits(integer = 8, fraction = 2)
     @Column(nullable = false, columnDefinition = "decimal(8,2) unsigned")
@@ -55,7 +55,7 @@ public class Books {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "language", referencedColumnName = "id", nullable = false)
-    LanguageEng language;
+    LanguageEst language;
 
     @Column(nullable = false, columnDefinition = "timestamp")
     Timestamp postdate;
@@ -66,7 +66,7 @@ public class Books {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "genreid", referencedColumnName = "id", nullable = false)
-    GenreEng genreid;
+    GenreEst genreid;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "city", referencedColumnName = "id", nullable = false)
@@ -74,7 +74,7 @@ public class Books {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "status", referencedColumnName = "id", nullable = false, columnDefinition = "int default 1")
-    StatusEng status;
+    StatusEst status;
 
     long amountOfAdds;
 }

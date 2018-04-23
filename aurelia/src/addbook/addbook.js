@@ -245,7 +245,7 @@ export class AddBooks {
   }
 
   fetchGenresFromAPI() {
-    httpClient.fetch(environment.apiURL + 'api/genres/getall0')
+    httpClient.fetch(environment.apiURL + 'api/genres/getall1')
       .then(response => response.json())
       .then(data => {
         this.genres = data;
@@ -253,7 +253,7 @@ export class AddBooks {
   }
 
   fetchConditionsFromAPI() {
-    httpClient.fetch(environment.apiURL + 'api/conditions/getall0')
+    httpClient.fetch(environment.apiURL + 'api/conditions/getall1')
       .then(response => response.json())
       .then(data => {
         this.conditions = data;
@@ -261,7 +261,7 @@ export class AddBooks {
   }
 
   fetchLanguagesFromAPI() {
-    httpClient.fetch(environment.apiURL + 'api/languages/getall0')
+    httpClient.fetch(environment.apiURL + 'api/languages/getall1')
       .then(response => response.json())
       .then(data => {
         this.languages = data;

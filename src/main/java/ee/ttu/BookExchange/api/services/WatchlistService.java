@@ -40,4 +40,10 @@ public class WatchlistService {
     public void deleteWatchlistWithBook(Watchlist watchlist) {
         watchlistRepository.delete(watchlist);
     }
+
+    public long findAmountByBookId(int bookId) {
+        return watchlistRepository.findAll().stream()
+                .filter(e -> e.getBookid().getId() == bookId)
+                .count();
+    }
 }

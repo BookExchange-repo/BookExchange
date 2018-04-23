@@ -3,6 +3,7 @@ package ee.ttu.BookExchange.api.controllers;
 import ee.ttu.BookExchange.api.models.Books;
 import ee.ttu.BookExchange.api.services.BooksService;
 import ee.ttu.BookExchange.api.services.StatusService;
+import ee.ttu.BookExchange.api.services.WatchlistService;
 import ee.ttu.BookExchange.exceptions.APIException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,15 @@ import java.util.stream.Collectors;
 public class BooksController {
     private BooksService booksService;
     private StatusService statusService;
+    private WatchlistService watchlistService;
 
     public BooksController(BooksService booksService,
-                           StatusService statusService)
+                           StatusService statusService,
+                           WatchlistService watchlistService)
     {
         this.booksService = booksService;
         this.statusService = statusService;
+        this.watchlistService = watchlistService;
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
@@ -178,6 +182,9 @@ public class BooksController {
                                 return Integer.compare(e1.getGenreid().getId(), e2.getGenreid().getId());
                             case "city":
                                 return Integer.compare(e1.getCity().getId(), e2.getCity().getId());
+                            case "watchlist":
+                                return Long.compare(watchlistService.findAmountByBookId(e1.getId()),
+                                    watchlistService.findAmountByBookId(e2.getId()));
                             default:
                                 return 0;
                         }

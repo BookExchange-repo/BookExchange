@@ -193,13 +193,14 @@ public class BooksController {
         }
         if (isSortDesc.get())
             Collections.reverse(allBooks);
-        if (blockSensitive) {
-            for (Books book : allBooks) {
+        for (Books book : allBooks) {
+            if (blockSensitive) {
                 book.getUserid().setEmail("");
                 book.getUserid().setPass_hash("");
                 book.getUserid().setPass_salt("");
                 book.getUserid().setPhone("");
             }
+            book.setAmountOfAdds(watchlistService.findAmountByBookId(book.getId()));
         }
         allBooks = allBooks.stream()
                 .filter(e -> e.getStatus().getId() == 1)
@@ -227,6 +228,7 @@ public class BooksController {
             book.getUserid().setPass_salt("");
             book.getUserid().setPhone("");
         }
+        book.setAmountOfAdds(watchlistService.findAmountByBookId(book.getId()));
         return book;
     }
 

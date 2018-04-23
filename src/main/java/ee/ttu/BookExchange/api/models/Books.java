@@ -75,4 +75,6 @@ public class Books {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "status", referencedColumnName = "id", nullable = false, columnDefinition = "int default 1")
     StatusEng status;
+
+    long amountOfAdds;
 }

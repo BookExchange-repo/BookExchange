@@ -3,8 +3,10 @@ package ee.ttu.BookExchange.api.controllers;
 import ee.ttu.BookExchange.api.models.Books;
 import ee.ttu.BookExchange.api.services.BooksService;
 import ee.ttu.BookExchange.api.services.StatusService;
+import ee.ttu.BookExchange.api.services.UsersService;
 import ee.ttu.BookExchange.api.services.WatchlistService;
 import ee.ttu.BookExchange.exceptions.APIException;
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,23 +19,34 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/books", produces = "application/json")
 public class BooksController {
     private BooksService booksService;
+    private UsersService usersService;
     private StatusService statusService;
     private WatchlistService watchlistService;
 
     public BooksController(BooksService booksService,
+                           UsersService usersService,
                            StatusService statusService,
                            WatchlistService watchlistService)
     {
         this.booksService = booksService;
+        this.usersService = usersService;
         this.statusService = statusService;
         this.watchlistService = watchlistService;
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    Map<String, Object> addBook(@RequestBody Books inputBook) throws APIException {
+    Map<String, Object> addBook(@RequestParam(value = "session") Optional<String> session,
+                                @RequestBody Books inputBook) throws APIException
+    {
         inputBook.setStatus(statusService.getStatusByIdEst(1));
+        if (!session.isPresent())
+            throw new APIException("CANNOT_BOOKS_ADD");
+        Optional<Integer> userId = UsersController.getUserIdBySession(session.get());
+        if (!userId.isPresent())
+            throw new APIException("CANNOT_BOOKS_ADD");
         if (inputBook.getDescription() == null || inputBook.getDescription().isEmpty())
             throw new APIException("CANNOT_BOOKS_ADD");
+        inputBook.setUserid(usersService.getUserById(userId.get()));
         booksService.saveBook(inputBook);
         Map<String, Object> result = new HashMap<>();
         List<String> allErrors = new ArrayList<>();

@@ -128,6 +128,8 @@ public class BooksController {
                                     return Integer.toString(e.getGenreid().getId()).equals(value);
                                 case "city":
                                     return Integer.toString(e.getCity().getId()).equals(value);
+                                case "search":
+                                    return e.getTitle().toLowerCase().contains(value.toLowerCase());
                                 default:
                                     return false;
                             }

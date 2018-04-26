@@ -34,6 +34,7 @@ export class Books {
     this.bookTypes = "";
     this.noBooks = false;
     this.filteredOrAllBooksFirstCall = true;
+    this.searchQuery = "";
   }
 
   attached() {
@@ -58,6 +59,18 @@ export class Books {
 
     $('.ui.dropdown').dropdown();
   }
+
+  searchQueryEntered(event) { 
+    if (event.which == 13) { 
+ 
+      console.log(this.searchQuery);
+      this.refreshOutput();
+ 
+      event.preventDefault(); 
+      return false; 
+    } 
+    return true; 
+  } 
 
   setFirstTimeParamForTagBarAnimation() {
     if (this.noFiltersAreSelected()) {
@@ -190,6 +203,9 @@ export class Books {
     apiURL += "&";
     apiURL += "language=";
     if (this.selectedLanguageID != 0) apiURL += this.selectedLanguageID;
+    apiURL += "&"; 
+    apiURL += "search="; 
+    apiURL += this.searchQuery; 
 
     switch (this.selectedSortID) {
       case 0:

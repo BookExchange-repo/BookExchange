@@ -15,7 +15,7 @@ export class Connector {
     this.loggedInStatusMessage;
     this.loggedIn = false;
     this.JSONwithSessionData = [];
-    
+
     this.userID;
     this.username;
     this.email;

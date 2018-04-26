@@ -12,6 +12,12 @@
             <span>${bookTypes} books</span>
             <span if.bind="fetchingBooksFromApi" class="ui active small inline loader all-books"></span>
             <span if.bind="!fetchingBooksFromApi">(${numberOfBooks})</span>
+            
+            <div class="ui inverted left icon input search-navbar">
+              <input class="prompt" keypress.delegate="searchQueryEntered($event)" value.bind="searchQuery" placeholder="Search" type="text">
+              <i class="search icon"></i>
+            </div>
+
           </div>
         </div>
       </div>
@@ -146,6 +152,9 @@
                 </div>
 
                 <div class="right aligned four wide column">
+
+                  <button if.bind="connector.loggedIn" click.delegate="book.addToWatchList(books.id)">Add to Watchlist</button>
+                  <p></p>
                   <div class="content seller horizontal-line">
                     <div class="title">Seller: </div>
                     <div class="name">${books.userid.full_name}</div>
@@ -154,8 +163,6 @@
                     <p></p>
                     <div class="date">${convertUnixTimeStamp(books.postdate)}</div>
                   </div>
-
-                  <button if.bind="connector.loggedIn" click.delegate="book.addToWatchList(books.id)">Add to Watchlist</button>
                 </div>
 
               </div>

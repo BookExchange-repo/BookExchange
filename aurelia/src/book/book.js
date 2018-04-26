@@ -56,12 +56,12 @@ export class Book {
     return "Added " + date.toLocaleTimeString('en-GB', options);
   }
 
-  addToWatchList() {
+  addToWatchList(bookID) {
     if (!this.connector.loggedIn) {
       this.router.navigateToRoute('login');
     } else {
       let userSession = this.authorization.getSessionID();
-      httpClient.fetch(environment.apiURL + 'api/users/addtowatchlist?session=' + userSession + '&bookid=' + this.id)
+      httpClient.fetch(environment.apiURL + 'api/users/addtowatchlist?session=' + userSession + '&bookid=' + bookID)
       .then(response => response.json())
         .then(data => {
           if (data.errors.length === 0) {

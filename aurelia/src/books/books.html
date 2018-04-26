@@ -154,6 +154,8 @@
                     <p></p>
                     <div class="date">${convertUnixTimeStamp(books.postdate)}</div>
                   </div>
+
+                  <button if.bind="connector.loggedIn" click.delegate="book.addToWatchList(books.id)">Add to Watchlist</button>
                 </div>
 
               </div>

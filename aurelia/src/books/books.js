@@ -1,11 +1,13 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { customAttribute, bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
+import { Connector } from 'auth/connector';
+import { Book } from 'book/book';
 import environment from '../environment';
 
 let httpClient = new HttpClient();
 
-@inject(Router)
+@inject(Router, Connector, Book)
 export class Books {
 
   sortIDs = [];
@@ -14,8 +16,10 @@ export class Books {
   selectedConditionIDs = [];
   selectedLanguageID = 0;
 
-  constructor(router) {
+  constructor(router, connector, book) {
     this.router = router;
+    this.connector = connector;
+    this.book = book;
     this.cities = null;
     this.genres = null;
     this.conditions = null;

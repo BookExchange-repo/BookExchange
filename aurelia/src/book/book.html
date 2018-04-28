@@ -42,7 +42,9 @@
               ADD TO WATCHLIST
             </div>
           </button>
-
+          <p></p>
+          <div if.bind="bookbyid.amountOfAdds">
+            <i class="users icon"></i> ${bookbyid.amountOfAdds} ${bookbyid.amountOfAdds === 1 ? 'person is' : 'people are'} watching</div>
         </div>
       </div>
 
@@ -98,9 +100,11 @@
                     <i class="phone icon"></i>${loggedIn ? bookbyid.userid.phone : "*******"}</div>
                 </div>
 
-                <p class="line-contact"><i class="ui map marker alternate icon"></i>${bookbyid.city.string}</p>
-                <p><i class="ui calendar alternate icon"></i>${convertUnixTimeStamp(bookbyid.postdate)}</p>
-                
+                <p class="line-contact">
+                  <i class="ui map marker alternate icon"></i>${bookbyid.city.string}</p>
+                <p>
+                  <i class="ui calendar alternate icon"></i>${convertUnixTimeStamp(bookbyid.postdate)}</p>
+
               </div>
             </div>
 

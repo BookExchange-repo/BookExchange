@@ -43,6 +43,7 @@ export class Books {
       { id: 1, string: 'Sort by date added (the newest first)' },
       { id: 2, string: 'Sort by price (ascending)' },
       { id: 3, string: 'Sort by price (descending)' },
+      { id: 4, string: 'Sort by popularity' },
     ];
 
     this.fetchCitiesFromAPI();
@@ -224,6 +225,11 @@ export class Books {
         break;
       case 3:
         apiURL += "&sort=price&sortdesc=true";
+        this.fetchBooksFromAPI(apiURL);
+        //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price&sortdesc=true');
+        break;
+      case 4:
+        apiURL += "&sort=watchlist&sortdesc=true";
         this.fetchBooksFromAPI(apiURL);
         //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price&sortdesc=true');
         break;

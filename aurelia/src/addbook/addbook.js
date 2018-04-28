@@ -22,6 +22,8 @@ export class AddBooks {
   selectedLanguage = null;
   selectedCity = null;
 
+  images = null;
+
 
   constructor(router, connector, authorization) {
     this.richTextEditor;
@@ -43,6 +45,10 @@ export class AddBooks {
 
     CKEDITOR.replace('richTextEditor', { customConfig: '/ckeditorconfig.js' });
     this.richTextEditor = CKEDITOR.instances["richTextEditor"];
+
+    this.richTextEditor.on('change', (e) => {
+      this.descriptionCloneValue = e.editor.getData();
+    });
 
     $('.ui.dropdown').dropdown();
 
@@ -134,6 +140,14 @@ export class AddBooks {
               }
             ]
           },
+          descriptionClone: {
+            rules: [
+              {
+                type: 'empty',
+                prompt: 'Please enter your description'
+              }
+            ]
+          },
           cityField: {
             rules: [
               {
@@ -145,9 +159,32 @@ export class AddBooks {
         }
       });
 
+      $('#imageuploadform')
+      .form({
+        fields : {
+          file: {
+            identifier : 'images',
+            rules      : [
+              {
+                type   : 'empty',
+                prompt : 'Please select an image to upload'
+              },
+              {
+                type   : 'regExp',
+                value  : '/^(.*.((png|jpg)$))?[^.]*$/i',
+                prompt : 'Please upload a file in png or jpg format'
+              }
+            ]
+          }
+        }
+      });
+
+
+
   }
 
   submit(images) {
+    
     let formData = new FormData();
 
     for (let i = 0; i < images.length; i++) {
@@ -237,6 +274,11 @@ export class AddBooks {
           $('#isbnform').form('add errors', { apiError: 'We could not find any information based on your ISBN' });
         }
         this.magicFillBusy = false;
+
+        // let cloned = $("#imageuploadformselectedfile").clone(true);
+        // cloned.val("");
+        // $("#imageuploadformselectedfile").replaceWith(cloned);
+        // this.images = "";
       });
   }
 

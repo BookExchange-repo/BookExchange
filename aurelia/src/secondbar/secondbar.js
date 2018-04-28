@@ -23,11 +23,19 @@ export class Secondbar {
         apiSettings: {
           url: 'https://bookmarket.online:18081/api/books/getall?search={query}'
         },
+        error : {
+          source      : 'Cannot search. No source used, and Semantic API module was not included',
+          noResults   : 'Your search returned no books',
+          logging     : 'Error in debug logging, exiting.',
+          noTemplate  : 'A valid template name was not specified.',
+          serverError : 'There was an issue with querying the server.',
+          maxResults  : 'Results must be an array to use maxResults setting',
+          method      : 'The method you called is not defined.'
+        },
         fields: {
           results: 'books',
           title: 'title',
           image: 'imagepath',
-          url: '#/books/1',
           price: '',
           description: ''
         },

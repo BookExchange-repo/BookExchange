@@ -107,6 +107,7 @@
             <div class="required sixteen wide field">
               <label>Description</label>
               <textarea name="richTextEditor"></textarea>
+              <input type="hidden" id="descriptionClone" value.bind="descriptionCloneValue" />
             </div>
 
             <div class="required eight wide field">
@@ -147,10 +148,13 @@
 
           <p></p>
 
-          <form class="ui large form" method="post" submit.delegate="submit(images)">
-            <input type="file" name="images" accept=".png,.jpg" files.bind="images">
-            <button class="ui big teal icon button ${imageUploadBusy ? 'loading' : ''} upload-image" type="submit">
-              <i class="upload icon"></i>Upload image</button>
+          <form class="ui large form" id="imageuploadform" method="post" submit.delegate="submit(images)">
+            <input type="file" id="imageuploadformselectedfile" name="images" id="file" accept=".png,.jpg" files.bind="images">
+            <button class="ui big teal icon submit button ${imageUploadBusy ? 'loading' : ''} upload-image" type="submit">
+              <i class="upload icon"></i>Upload image
+            </button>
+            <div class="ui error message"></div>
+
           </form>
 
           <!-- <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">

@@ -3,12 +3,14 @@ import { customAttribute, bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Connector } from 'auth/connector';
 import { Book } from 'book/book';
+import { observable } from 'aurelia-framework';
 import environment from '../environment';
 
 let httpClient = new HttpClient();
 
 @inject(Router, Connector, Book)
 export class Books {
+  @observable searchQuery = "";
 
   sortIDs = [];
   selectedCityID = 0;
@@ -34,7 +36,7 @@ export class Books {
     this.bookTypes = "";
     this.noBooks = false;
     this.filteredOrAllBooksFirstCall = true;
-    this.searchQuery = "";
+    //this.searchQuery = "";
   }
 
   attached() {
@@ -61,17 +63,9 @@ export class Books {
     $('.ui.dropdown').dropdown();
   }
 
-  searchQueryEntered(event) { 
-    if (event.which == 13) { 
- 
-      console.log(this.searchQuery);
-      this.refreshOutput();
- 
-      event.preventDefault(); 
-      return false; 
-    } 
-    return true; 
-  } 
+  searchQueryChanged(newvalue, oldvalue) {
+    this.refreshOutput();
+  }
 
   setFirstTimeParamForTagBarAnimation() {
     if (this.noFiltersAreSelected()) {
@@ -188,10 +182,6 @@ export class Books {
 
   refreshOutput() {
     let apiURL = environment.apiURL + 'api/books/getall?';
-    // https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=&language=
-    // https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=&language=[1,2]
-    // https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=%5B3,4%5D&genre=&language=&sort=price&sortdesc=true
-    // https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genre=[1]&language=
 
     apiURL += "city=";
     if (this.selectedCityID != 0) apiURL += this.selectedCityID;

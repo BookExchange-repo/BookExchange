@@ -26,13 +26,8 @@ export class Secondbar {
           url: 'https://bookmarket.online:18081/api/books/getall?search={query}'
         },
         error : {
-          source      : 'Cannot search. No source used, and Semantic API module was not included',
           noResults   : 'Your search returned no books',
-          logging     : 'Error in debug logging, exiting.',
-          noTemplate  : 'A valid template name was not specified.',
-          serverError : 'There was an issue with querying the server.',
-          maxResults  : 'Results must be an array to use maxResults setting',
-          method      : 'The method you called is not defined.'
+          serverError : 'There was an issue with querying the server.'
         },
         fields: {
           results: 'books',
@@ -48,7 +43,7 @@ export class Secondbar {
         onSelect: (result) => {
           this.searchQuery = '';
           //console.log(this.searchQuery);
-          console.log($('#searchInput').search('get query'));
+          //console.log($('#searchInput').search('get query'));
           this.router.navigateToRoute('bookbyid', {
             id: result.id
           });

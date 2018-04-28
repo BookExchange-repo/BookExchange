@@ -14,7 +14,7 @@
             <span if.bind="!fetchingBooksFromApi">(${numberOfBooks})</span>
 
             <div class="ui inverted left icon input search-navbar">
-              <input class="prompt" keypress.delegate="searchQueryEntered($event)" value.bind="searchQuery" placeholder="Search" type="text">
+              <input class="prompt" value.bind="searchQuery" placeholder="Search" type="text">
               <i class="search icon"></i>
             </div>
 

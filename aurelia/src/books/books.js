@@ -3,12 +3,14 @@ import { customAttribute, bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Connector } from 'auth/connector';
 import { Book } from 'book/book';
+import { Authorization } from 'auth/authorization';
 import { observable } from 'aurelia-framework';
 import environment from '../environment';
+import {activationStrategy} from "aurelia-router";
 
 let httpClient = new HttpClient();
 
-@inject(Router, Connector, Book)
+@inject(Router, Connector, Book, Authorization)
 export class Books {
   @observable searchQuery = '';
 
@@ -18,10 +20,11 @@ export class Books {
   selectedConditionIDs = [];
   selectedLanguageID = 0;
 
-  constructor(router, connector, book) {
+  constructor(router, connector, book, authorization) {
     this.router = router;
     this.connector = connector;
     this.book = book;
+    this.authorization = authorization;
     this.cities = null;
     this.genres = null;
     this.conditions = null;
@@ -41,6 +44,7 @@ export class Books {
     this.genresLoaded = false;
     this.conditionsLoaded = false;
     this.languagesLoaded = false;
+    this.booksForWatchList = [];
   }
 
   attached() {
@@ -64,7 +68,14 @@ export class Books {
     this.filteredOrAllBooks();
     this.refreshOutput();
 
+    // this.fetchBooksForWatchList();
+
+
     $('.ui.dropdown').dropdown();
+  }
+
+  determineActivationStrategy() {
+    return activationStrategy.replace;
   }
 
   searchQueryChanged(newvalue, oldvalue) {
@@ -279,6 +290,17 @@ export class Books {
       let secondElement = second[key];
       return ((firstElement < secondElement) ? -1 : ((firstElement > secondElement) ? 1 : 0));
     });
+  }
+
+  fetchBooksForWatchList() {
+    httpClient.fetch(environment.apiURL + 'api/users/getwatchlist?session=' + this.authorization.getSessionID())
+      .then(response => response.json())
+      .then(data => {
+        this.booksForWatchList = data;
+        // console.log(this.booksForWatchList);
+        // console.log(JSON.parse(JSON.stringify(data).slice(1, -1)));
+
+      });
   }
 
   fetchCitiesFromAPI() {

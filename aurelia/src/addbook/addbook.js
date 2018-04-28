@@ -197,9 +197,9 @@ export class AddBooks {
     })
       .then(response => response.json())
       .then(data => {
+        this.imageUploadBusy = false;
         if (data.errors.length === 0) {
           this.bookData.imagepath = data.imagepath;
-          this.imageUploadBusy = false;
         } else {
           throw Error(data);
         }

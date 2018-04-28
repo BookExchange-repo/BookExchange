@@ -24,27 +24,32 @@
 
       <div id="tagPanel" style="height:3.9em" class="sixteen wide column all-books filters">
 
-        <a class="ui yellow label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded" if.bind="searchQuery">
+        <a class="ui yellow label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded"
+          if.bind="searchQuery">
           ${searchQuery}
           <i class="delete icon" click.delegate="seachQueryDeleteButtonPressed()"></i>
         </a>
 
-        <a class="ui red label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded" if.bind="selectedCityID!=0">
+        <a class="ui red label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded"
+          if.bind="selectedCityID!=0">
           ${citiesSortedById[selectedCityID-1].string}
           <i class="delete icon" click.delegate="cityTagDeleteButtonPressed()"></i>
         </a>
 
-        <a class="ui blue label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded" repeat.for="selectedGenreID of selectedGenreIDs">
+        <a class="ui blue label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded"
+          repeat.for="selectedGenreID of selectedGenreIDs">
           ${genresSortedById[selectedGenreID-1].string}
           <i class="delete icon" click.delegate="genresTagDeleteButtonPressed(selectedGenreID)"></i>
         </a>
 
-        <a class="ui orange label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded" repeat.for="selectedConditionID of selectedConditionIDs">
+        <a class="ui orange label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded"
+          repeat.for="selectedConditionID of selectedConditionIDs">
           ${conditionsSortedById[selectedConditionID-1].string}
           <i class="delete icon" click.delegate="conditionsTagDeleteButtonPressed(selectedConditionID)"></i>
         </a>
 
-        <a class="ui green label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded" if.bind="selectedLanguageID!=0">
+        <a class="ui green label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded"
+          if.bind="selectedLanguageID!=0">
           ${languagesSortedById[selectedLanguageID-1].string}
           <i class="delete icon" click.delegate="languageTagDeleteButtonPressed()"></i>
         </a>
@@ -161,8 +166,10 @@
 
                 <div class="right aligned four wide column">
 
-                  <i if.bind="connector.loggedIn" click.delegate="book.addToWatchList(books.id)" style="cursor: pointer; background-color: #118092 !important;"
-                    class="bordered inverted teal bookmark outline icon"></i>
+                  <i class="huge icons">
+                    <i if.bind="connector.loggedIn" click.delegate="book.addToWatchList(books.id)" style="cursor: pointer;" class="teal bookmark icon"></i>
+                    <!-- <i class="corner check icon"></i> -->
+                  </i>
 
 
                   <p></p>

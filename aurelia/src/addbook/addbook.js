@@ -222,9 +222,9 @@ export class AddBooks {
       this.bookData.city = this.bookDataCity;
 
       this.bookDataUserID.id = this.connector.userID;
-      this.bookData.userid = this.bookDataUserID;
+      // this.bookData.userid = this.bookDataUserID;
 
-      httpClient.fetch(environment.apiURL + 'api/books/add', {
+      httpClient.fetch(environment.apiURL + 'api/books/add?session=' + this.authorization.getSessionID(), {
         'method': "POST",
         'body': json(this.bookData)
       })

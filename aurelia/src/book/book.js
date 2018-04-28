@@ -4,6 +4,8 @@ import { Router } from 'aurelia-router';
 import { Connector } from 'auth/connector';
 import { Authorization } from 'auth/authorization';
 import environment from '../environment';
+import {activationStrategy} from "aurelia-router";
+
 
 let httpClient = new HttpClient();
 
@@ -28,6 +30,10 @@ export class Book {
     $(window).on('popstate', function (event) { 
       $.featherlight.current().close(); 
     }); 
+  }
+
+  determineActivationStrategy() {
+    return activationStrategy.replace;
   }
 
   fetchBookByIdFromAPI() {

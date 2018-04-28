@@ -13,13 +13,15 @@
       </a>
       <div class="right menu">
         <div class="item navbar">
+
           <div class="ui fluid search">
             <div class="ui inverted left icon input search-navbar">
-              <input class="prompt" placeholder="Search" type="text">
+              <input class="prompt" id="searchInput" value.bind="searchQuery" placeholder="Search" type="text">
               <i class="search icon"></i>
             </div>
             <div class="results"></div>
           </div>
+
         </div>
 
         <a class="item navbar text ${router.navigation[3].isActive ? 'active' : ''}" if.bind="!connector.loggedIn" click.delegate="router.navigateToRoute('login')">

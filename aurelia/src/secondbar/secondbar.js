@@ -7,6 +7,8 @@ import environment from '../environment';
 @inject(Connector, Router, TaskQueue)
 export class Secondbar {
 
+  searchQuery = "";
+
   constructor(connector, router, taskQueue) {
     this.connector = connector;
     this.router = router;
@@ -18,7 +20,7 @@ export class Secondbar {
       $('.ui.dropdown').dropdown();
     });
 
-    let searchElement = $('.ui.search')
+    $('.ui.search')
       .search({
         apiSettings: {
           url: 'https://bookmarket.online:18081/api/books/getall?search={query}'
@@ -41,15 +43,25 @@ export class Secondbar {
         },
         minCharacters: 1,
         searchDelay: 0,
+        maxResults: 7,
         duration:	150,
         onSelect: (result) => {
+          this.searchQuery = '';
+          //console.log(this.searchQuery);
+          console.log($('#searchInput').search('get query'));
           this.router.navigateToRoute('bookbyid', {
             id: result.id
           });
-          // searchElement.search('set value', '');
-          // $('#searchInput').search('set value', '');
-          // $(this).parent('.ui.search').search("query");
-      }
+
+          //$('#searchInput').search('hide results');
+          //return false;
+      },
+
+    //   onResultsClose: (result) => {
+    //     console.log(this.searchQuery);
+    //     this.searchQuery = '';
+    //     //return false;
+    // }
       });
   }
 

@@ -12,12 +12,6 @@
             <span>${bookTypes} books</span>
             <span if.bind="fetchingBooksFromApi" class="ui active small inline loader all-books"></span>
             <span if.bind="!fetchingBooksFromApi">(${numberOfBooks})</span>
-
-            <div class="ui inverted left icon input search-navbar">
-              <input class="prompt" value.bind="searchQuery" placeholder="Search" type="text">
-              <i class="search icon"></i>
-            </div>
-
           </div>
         </div>
       </div>
@@ -29,6 +23,11 @@
       </div>
 
       <div id="tagPanel" style="height:3.9em" class="sixteen wide column all-books filters">
+
+        <a class="ui yellow label all-books filters" if.bind="searchQuery">
+          ${searchQuery}
+          <i class="delete icon" click.delegate="seachQueryDeleteButtonPressed()"></i>
+        </a>
 
         <a class="ui red label all-books filters" if.bind="selectedCityID!=0">
           ${citiesSortedById[selectedCityID-1].string}
@@ -45,7 +44,7 @@
           <i class="delete icon" click.delegate="conditionsTagDeleteButtonPressed(selectedConditionID)"></i>
         </a>
 
-        <a class="ui teal label all-books filters" if.bind="selectedLanguageID!=0">
+        <a class="ui green label all-books filters" if.bind="selectedLanguageID!=0">
           ${languagesSortedById[selectedLanguageID-1].string}
           <i class="delete icon" click.delegate="languageTagDeleteButtonPressed()"></i>
         </a>
@@ -55,6 +54,14 @@
 
     <div class="ui grid add-book">
       <div class="three wide column">
+
+        <div class="ui yellow segment">
+          <b style="font-size: 1.15em">Search</b>
+          <div class="ui left icon input all-books sidebar-field">
+            <input type="text" value.bind="searchQuery" placeholder="Search">
+            <i class="search icon"></i>
+          </div>
+        </div>
 
         <div class="ui red segment">
           <b style="font-size: 1.15em">Your city</b>
@@ -93,7 +100,7 @@
           </form>
         </div>
 
-        <div class="ui teal segment">
+        <div class="ui green segment">
           <b style="font-size: 1.15em">Language</b>
 
           <select id="languageSelector" class="ui fluid search dropdown all-books sidebar-field" value.bind="selectedLanguageID" change.delegate="sortOrFilterParamsChanged()">

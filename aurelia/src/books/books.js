@@ -10,7 +10,7 @@ let httpClient = new HttpClient();
 
 @inject(Router, Connector, Book)
 export class Books {
-  @observable searchQuery = "";
+  @observable searchQuery = '';
 
   sortIDs = [];
   selectedCityID = 0;
@@ -36,7 +36,7 @@ export class Books {
     this.bookTypes = "";
     this.noBooks = false;
     this.filteredOrAllBooksFirstCall = true;
-    //this.searchQuery = "";
+    this.searchQuery = "";
   }
 
   attached() {
@@ -64,7 +64,7 @@ export class Books {
   }
 
   searchQueryChanged(newvalue, oldvalue) {
-    this.refreshOutput();
+    this.sortOrFilterParamsChanged();
   }
 
   setFirstTimeParamForTagBarAnimation() {
@@ -75,15 +75,15 @@ export class Books {
     }
   }
 
-  getRightGenreNameById(selectedGenreID) {
-    let selectedGenre = "";
-    Object.entries(this.genres).forEach(([key, value]) => {
-      if (value.hasOwnProperty('id') && value['id'] === selectedGenreID) {
-        selectedGenre = value.string;
-      }
-    });
-    return selectedGenre;
-  }
+  // getRightGenreNameById(selectedGenreID) {
+  //   let selectedGenre = "";
+  //   Object.entries(this.genres).forEach(([key, value]) => {
+  //     if (value.hasOwnProperty('id') && value['id'] === selectedGenreID) {
+  //       selectedGenre = value.string;
+  //     }
+  //   });
+  //   return selectedGenre;
+  // }
 
   filteredOrAllBooks() {
     if (this.noFiltersAreSelected()) {
@@ -103,7 +103,7 @@ export class Books {
   }
 
   noFiltersAreSelected() {
-    return this.selectedCityID === 0 && this.selectedGenreIDs.length === 0 && this.selectedConditionIDs.length === 0 && this.selectedLanguageID == 0;
+    return this.selectedCityID === 0 && this.selectedGenreIDs.length === 0 && this.selectedConditionIDs.length === 0 && this.selectedLanguageID === 0 && !this.searchQuery;
   }
 
   getSortAndFilterParamsFromURL() {
@@ -112,6 +112,7 @@ export class Books {
     this.getGenreParamsFromUrl();
     this.getConditionParamsFromUrl();
     this.getLanguageParamsFromUrl();
+    this.getFilterParamsFromUrl();
   }
 
   getSortParamsFromUrl() {
@@ -145,6 +146,16 @@ export class Books {
     if (languageParamFromURL !== null && !isNaN(languageParamFromURL)) this.selectedLanguageID = parseInt(languageParamFromURL);
   }
 
+  getFilterParamsFromUrl() {
+    let filterParamFromURL = this.router.currentInstruction.queryParams.filter;
+    console.log(filterParamFromURL);
+    if (filterParamFromURL !== null) {
+      this.searchQuery = filterParamFromURL;
+    } else {
+      this.searchQuery = '';
+    };
+  }
+
   genresTagDeleteButtonPressed(tagIDtoDelete) {
     console.log(tagIDtoDelete);
     let indexOfElement = this.selectedGenreIDs.indexOf(tagIDtoDelete);
@@ -166,6 +177,11 @@ export class Books {
 
   languageTagDeleteButtonPressed() {
     $('#languageSelector').dropdown('set selected', 'All languages');
+    this.refreshOutput();
+  }
+
+  seachQueryDeleteButtonPressed() {
+    this.searchQuery = '';
     this.refreshOutput();
   }
 
@@ -193,10 +209,10 @@ export class Books {
     apiURL += JSON.stringify(this.selectedGenreIDs);
     apiURL += "&";
     apiURL += "language=";
-    if (this.selectedLanguageID != 0) apiURL += this.selectedLanguageID;
+    if (this.selectedLanguageID !== 0) apiURL += this.selectedLanguageID;
     apiURL += "&"; 
     apiURL += "search="; 
-    apiURL += this.searchQuery; 
+    if (this.searchQuery !== null && this.searchQuery !== undefined) apiURL += this.searchQuery; 
 
     switch (this.selectedSortID) {
       case 0:
@@ -239,7 +255,8 @@ export class Books {
         city: this.selectedCityID,
         genre: this.convertArrayToDottedView(this.selectedGenreIDs),
         condition: this.convertArrayToDottedView(this.selectedConditionIDs),
-        language: this.selectedLanguageID
+        language: this.selectedLanguageID,
+        filter: this.searchQuery
       },
       { trigger: false, replace: true }
     );

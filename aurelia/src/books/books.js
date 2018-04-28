@@ -45,6 +45,11 @@ export class Books {
     this.conditionsLoaded = false;
     this.languagesLoaded = false;
     this.booksForWatchList = [];
+    this.addedToWatchlist = []; 
+  }
+
+  listChanged(splices) {
+    console.log(splices);
   }
 
   attached() {
@@ -68,8 +73,7 @@ export class Books {
     this.filteredOrAllBooks();
     this.refreshOutput();
 
-    // this.fetchBooksForWatchList();
-
+    this.fetchBooksForWatchList();
 
     $('.ui.dropdown').dropdown();
   }
@@ -292,15 +296,64 @@ export class Books {
     });
   }
 
+  clickAddToWatchlistButton(bookID) {
+    this.addToWatchList(bookID);
+  }
+
   fetchBooksForWatchList() {
     httpClient.fetch(environment.apiURL + 'api/users/getwatchlist?session=' + this.authorization.getSessionID())
       .then(response => response.json())
       .then(data => {
-        this.booksForWatchList = data;
-        // console.log(this.booksForWatchList);
-        // console.log(JSON.parse(JSON.stringify(data).slice(1, -1)));
-
+        Object.entries(data).forEach(
+          ([key, value]) => {
+            if (!this.addedToWatchlist.includes(value.bookid.id)) this.addedToWatchlist.push(value.bookid.id);
+          }
+        );
+        this.refreshOutput();
+        console.log(this.addedToWatchlist);
       });
+  }
+
+  addToWatchList(bookID) {
+    if (this.connector.loggedIn) {
+      let userSession = this.authorization.getSessionID();
+      httpClient.fetch(environment.apiURL + 'api/users/addtowatchlist?session=' + userSession + '&bookid=' + bookID)
+      .then(response => response.json())
+        .then(data => {
+          if (data.errors.length === 0) {
+            this.fetchBooksForWatchList();
+            $.uiAlert({
+              textHead: 'Success!',
+              text: 'Book successfully added to My Watchlist!',
+              bgcolor: '#19c3aa',
+              textcolor: '#fff',
+              position: 'bottom-left',
+              icon: 'checkmark box',
+              time: 4,
+            })
+          } else if (data.errors.includes("FAIL_EXISTS_BOOKID")) {
+            $.uiAlert({
+              textHead: 'Error adding',
+              text: 'You have already this book in your Watchlist',
+              bgcolor: '#55a9ee',
+              textcolor: '#fff',
+              position: 'bottom-left',
+              icon: 'info circle',
+              time: 4,
+            })
+          } else {
+            $.uiAlert({
+              textHead: 'API error',
+              text: 'Book could not be added to My Watchlist',
+              bgcolor: '#F2711C',
+              textcolor: '#fff',
+              position: 'bottom-left',
+              icon: 'warning sign',
+              time: 4,
+            })
+          }
+        });
+    }
   }
 
   fetchCitiesFromAPI() {
@@ -348,4 +401,5 @@ export class Books {
       id: bookid
     });
   }
+
 }

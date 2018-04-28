@@ -21,6 +21,9 @@ export class Book {
     this.noBookFound = false;
     this.bookFound = false;
     this.fetchingBookFromApi = true;
+    this.fetchBooksForWatchList();
+    this.addedToWatchlist = [];
+    this.bookAlreadyInWathList = false;
   }
 
   activate(params) {
@@ -39,6 +42,25 @@ export class Book {
 
   determineActivationStrategy() {
     return activationStrategy.replace;
+  }
+
+  fetchBooksForWatchList() {
+    httpClient.fetch(environment.apiURL + 'api/users/getwatchlist?session=' + this.authorization.getSessionID())
+      .then(response => response.json())
+      .then(data => {
+        Object.entries(data).forEach(
+          ([key, value]) => {
+            if (!this.addedToWatchlist.includes(value.bookid.id)) this.addedToWatchlist.push(value.bookid.id);
+          }
+        );
+        //console.log(this.addedToWatchlist);
+       // console.log(typeof this.bookAlreadyInWathList);
+       // console.log(typeof Number.parseInt(this.id));
+        if (this.addedToWatchlist.includes(Number.parseInt(this.id))) {
+          this.bookAlreadyInWathList = true;
+          //console.log("includes!");
+        }
+      });
   }
 
   fetchBookByIdFromAPI() {
@@ -88,6 +110,7 @@ export class Book {
         .then(data => {
           if (data.errors.length === 0) {
             this.fetchBookByIdFromAPI();
+            this.fetchBooksForWatchList();
             $.uiAlert({
               textHead: 'Success!',
               text: 'Book successfully added to My Watchlist!',

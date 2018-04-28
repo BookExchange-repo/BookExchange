@@ -41,15 +41,18 @@
           </div>
 
           <div class="ui link items" if.bind="!noBooksInWatchlist">
-            
+
             <div class="item dashboard" repeat.for="bookForWatchList of booksForWatchList">
-                
+
               <div class="ui tiny image">
                 <img class="dashboard image" src="${bookForWatchList.bookid.imagepath}" click.delegate="navigateToBookById(bookForWatchList.id)">
               </div>
               <div class="content">
-                  
-                <a class="header" click.delegate="navigateToBookById(bookForWatchList.bookid.id)">${bookForWatchList.bookid.title}</a>
+
+                <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                  <a class="header" click.delegate="navigateToBookById(bookForWatchList.bookid.id)">${bookForWatchList.bookid.title}</a>
+                </div>
+                
                 <div class="description">
                   <div class="item-description-watch-list" click.delegate="navigateToBookById(bookForWatchList.bookid.id)">
                     <p>${bookForWatchList.bookid.userid.full_name}</p>

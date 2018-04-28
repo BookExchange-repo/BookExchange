@@ -211,27 +211,22 @@ export class Books {
     switch (this.selectedSortID) {
       case 0:
         this.fetchBooksFromAPI(apiURL);
-        //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall');
         break;
       case 1:
         apiURL += "&sort=postdate&sortdesc=true";
         this.fetchBooksFromAPI(apiURL);
-        //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=postdate&sortdesc=true');
         break;
       case 2:
         apiURL += "&sort=price";
         this.fetchBooksFromAPI(apiURL);
-        //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price');
         break;
       case 3:
         apiURL += "&sort=price&sortdesc=true";
         this.fetchBooksFromAPI(apiURL);
-        //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price&sortdesc=true');
         break;
       case 4:
         apiURL += "&sort=watchlist&sortdesc=true";
         this.fetchBooksFromAPI(apiURL);
-        //this.fetchBooksFromAPI('https://bookmarket.online:18081/api/books/getall?sort=price&sortdesc=true');
         break;
     }
   }

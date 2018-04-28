@@ -24,27 +24,27 @@
 
       <div id="tagPanel" style="height:3.9em" class="sixteen wide column all-books filters">
 
-        <a class="ui yellow label all-books filters" if.bind="searchQuery">
+        <a class="ui yellow label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded" if.bind="searchQuery">
           ${searchQuery}
           <i class="delete icon" click.delegate="seachQueryDeleteButtonPressed()"></i>
         </a>
 
-        <a class="ui red label all-books filters" if.bind="selectedCityID!=0">
+        <a class="ui red label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded" if.bind="selectedCityID!=0">
           ${citiesSortedById[selectedCityID-1].string}
           <i class="delete icon" click.delegate="cityTagDeleteButtonPressed()"></i>
         </a>
 
-        <a class="ui blue label all-books filters" repeat.for="selectedGenreID of selectedGenreIDs">
+        <a class="ui blue label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded" repeat.for="selectedGenreID of selectedGenreIDs">
           ${genresSortedById[selectedGenreID-1].string}
           <i class="delete icon" click.delegate="genresTagDeleteButtonPressed(selectedGenreID)"></i>
         </a>
 
-        <a class="ui orange label all-books filters" repeat.for="selectedConditionID of selectedConditionIDs">
+        <a class="ui orange label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded" repeat.for="selectedConditionID of selectedConditionIDs">
           ${conditionsSortedById[selectedConditionID-1].string}
           <i class="delete icon" click.delegate="conditionsTagDeleteButtonPressed(selectedConditionID)"></i>
         </a>
 
-        <a class="ui green label all-books filters" if.bind="selectedLanguageID!=0">
+        <a class="ui green label all-books filters" show.bind="citiesLoaded && genresLoaded && conditionsLoaded && languagesLoaded" if.bind="selectedLanguageID!=0">
           ${languagesSortedById[selectedLanguageID-1].string}
           <i class="delete icon" click.delegate="languageTagDeleteButtonPressed()"></i>
         </a>
@@ -54,60 +54,61 @@
 
     <div class="ui grid add-book">
       <div class="three wide column">
-
-        <div class="ui yellow segment">
-          <b style="font-size: 1.15em">Search</b>
-          <div class="ui left icon input all-books sidebar-field">
-            <input type="text" value.bind="searchQuery" placeholder="Search">
-            <i class="search icon"></i>
+        <div show.bind="genresLoaded && conditionsLoaded">
+          <div class="ui yellow segment">
+            <b style="font-size: 1.15em">Search</b>
+            <div class="ui left icon input all-books sidebar-field">
+              <input type="text" value.bind="searchQuery" placeholder="Search">
+              <i class="search icon"></i>
+            </div>
           </div>
-        </div>
 
-        <div class="ui red segment">
-          <b style="font-size: 1.15em">Your city</b>
-          <select class="ui fluid search dropdown all-books sidebar-field" id="citySelector" value.bind="selectedCityID" change.delegate="sortOrFilterParamsChanged()">
-            <option model.bind="0" selected>All cities</option>
-            <option repeat.for="city of cities" model.bind="city.id">${city.string} (${city.counter})</option>
-          </select>
-        </div>
+          <div class="ui red segment">
+            <b style="font-size: 1.15em">Your city</b>
+            <select class="ui fluid search dropdown all-books sidebar-field" id="citySelector" value.bind="selectedCityID" change.delegate="sortOrFilterParamsChanged()">
+              <option model.bind="0" selected>All cities</option>
+              <option repeat.for="city of cities" model.bind="city.id">${city.string} (${city.counter})</option>
+            </select>
+          </div>
 
-        <div class="ui blue segment">
-          <b style="font-size: 1.15em">Genres</b>
-          <form class="ui form all-books sidebar-field" method="post" change.delegate="sortOrFilterParamsChanged()">
-            <div class="grouped fields">
-              <div class="field" repeat.for="genre of genres">
+          <div class="ui blue segment">
+            <b style="font-size: 1.15em">Genres</b>
+            <form class="ui form all-books sidebar-field" method="post" change.delegate="sortOrFilterParamsChanged()">
+              <div class="grouped fields">
+                <div class="field" repeat.for="genre of genres">
 
-                <div class="ui checkbox">
-                  <input type="checkbox" name="small" model.bind="genre.id" id="${genre.string}" checked.bind="selectedGenreIDs">
-                  <label style="cursor: pointer;" for="${genre.string}">${genre.string} (${genre.counter})</label>
+                  <div class="ui checkbox">
+                    <input type="checkbox" name="small" model.bind="genre.id" id="${genre.string}" checked.bind="selectedGenreIDs">
+                    <label style="cursor: pointer;" for="${genre.string}">${genre.string} (${genre.counter})</label>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
 
-        <div class="ui orange segment">
-          <b style="font-size: 1.15em">Book condition</b>
-          <form class="ui form all-books sidebar-field" method="post" change.delegate="sortOrFilterParamsChanged()">
-            <div class="grouped fields">
-              <div class="field" repeat.for="condition of conditions">
-                <div class="ui checkbox">
-                  <input type="checkbox" name="small" model.bind="condition.id" id="${condition.string}" checked.bind="selectedConditionIDs">
-                  <label style="cursor: pointer;" for="${condition.string}">${condition.string} (${condition.counter})</label>
+          <div class="ui orange segment">
+            <b style="font-size: 1.15em">Book condition</b>
+            <form class="ui form all-books sidebar-field" method="post" change.delegate="sortOrFilterParamsChanged()">
+              <div class="grouped fields">
+                <div class="field" repeat.for="condition of conditions">
+                  <div class="ui checkbox">
+                    <input type="checkbox" name="small" model.bind="condition.id" id="${condition.string}" checked.bind="selectedConditionIDs">
+                    <label style="cursor: pointer;" for="${condition.string}">${condition.string} (${condition.counter})</label>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
 
-        <div class="ui green segment">
-          <b style="font-size: 1.15em">Language</b>
+          <div class="ui green segment">
+            <b style="font-size: 1.15em">Language</b>
 
-          <select id="languageSelector" class="ui fluid search dropdown all-books sidebar-field" value.bind="selectedLanguageID" change.delegate="sortOrFilterParamsChanged()">
-            <option model.bind="0" selected>All languages</option>
-            <option repeat.for="language of languages" model.bind="language.id">${language.string} (${language.counter})</option>
-          </select>
+            <select id="languageSelector" class="ui fluid search dropdown all-books sidebar-field" value.bind="selectedLanguageID" change.delegate="sortOrFilterParamsChanged()">
+              <option model.bind="0" selected>All languages</option>
+              <option repeat.for="language of languages" model.bind="language.id">${language.string} (${language.counter})</option>
+            </select>
 
+          </div>
         </div>
       </div>
 

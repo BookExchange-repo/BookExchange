@@ -18,6 +18,9 @@ export class Book {
     this.connector = connector;
     this.authorization = authorization;
     this.loggedIn = false;
+    this.noBookFound = false;
+    this.bookFound = false;
+    this.fetchingBookFromApi = true;
   }
 
   activate(params) {
@@ -47,9 +50,20 @@ export class Book {
         apiURL += "&session=" + userSession;
       }
       httpClient.fetch(apiURL)
-      .then(response => response.json())
+      .then(response => {
+        this.fetchingBookFromApi = false;
+        if (response.status !== 500) {
+          return response.json();
+        } else {
+          this.noBookFound = true;
+          throw Error(response.statusText); // 500 error -> no book found
+        }
+      })
       .then(data => {
         this.bookbyid = data;
+        this.bookFound = true;
+      }).catch(error => {
+        console.log("No book found");
       });
     });
   }
@@ -73,6 +87,7 @@ export class Book {
       .then(response => response.json())
         .then(data => {
           if (data.errors.length === 0) {
+            this.fetchBookByIdFromAPI();
             $.uiAlert({
               textHead: 'Success!',
               text: 'Book successfully added to My Watchlist!',

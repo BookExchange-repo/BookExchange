@@ -11,16 +11,24 @@
       <i class="right chevron icon divider"></i>
 
       <div class="active section">
-        <a class="section" href="#/books?city=0&condition=&genre=${bookbyid.genreid.id}&language=0&sort=0">
+        <span if.bind="fetchingBookFromApi" class="ui active small inline loader all-books"></span>
+
+        <a class="section" href="#/books?city=0&condition=&filter=&genre=${bookbyid.genreid.id}&language=0&sort=0">
           <b>${bookbyid.genreid.string}</b>
         </a>
       </div>
     </div>
 
-    <div class="ui grid book-page">
+    <div class="sixteen wide column" show.bind="noBookFound">
+      <div class="ui big error center aligned message">
+        <div class="header">No book found</div>
+      </div>
+    </div>
+
+    <div class="ui grid book-page" show.bind="bookFound">
       <div class="sixteen wide column" if.bind="bookbyid.status.id === 2">
         <div class="ui big center aligned message">
-          <div class="header"> This book is marked as sold. The item is archived.</div>
+          <div class="header">This book is marked as sold. The item is archived.</div>
         </div>
       </div>
       <div class="four wide column">

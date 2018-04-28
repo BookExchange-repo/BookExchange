@@ -37,6 +37,10 @@ export class Books {
     this.noBooks = false;
     this.filteredOrAllBooksFirstCall = true;
     this.searchQuery = "";
+    this.citiesLoaded = false;
+    this.genresLoaded = false;
+    this.conditionsLoaded = false;
+    this.languagesLoaded = false;
   }
 
   attached() {
@@ -66,7 +70,7 @@ export class Books {
   searchQueryChanged(newvalue, oldvalue) {
     this.sortOrFilterParamsChanged();
   }
-
+  
   setFirstTimeParamForTagBarAnimation() {
     if (this.noFiltersAreSelected()) {
       this.noFiltersAreSelectedFirstTime = true;
@@ -74,16 +78,6 @@ export class Books {
       this.noFiltersAreSelectedFirstTime = false;
     }
   }
-
-  // getRightGenreNameById(selectedGenreID) {
-  //   let selectedGenre = "";
-  //   Object.entries(this.genres).forEach(([key, value]) => {
-  //     if (value.hasOwnProperty('id') && value['id'] === selectedGenreID) {
-  //       selectedGenre = value.string;
-  //     }
-  //   });
-  //   return selectedGenre;
-  // }
 
   filteredOrAllBooks() {
     if (this.noFiltersAreSelected()) {
@@ -148,12 +142,7 @@ export class Books {
 
   getFilterParamsFromUrl() {
     let filterParamFromURL = this.router.currentInstruction.queryParams.filter;
-    console.log(filterParamFromURL);
-    if (filterParamFromURL !== null) {
-      this.searchQuery = filterParamFromURL;
-    } else {
-      this.searchQuery = '';
-    };
+    if (filterParamFromURL !== null) this.searchQuery = filterParamFromURL;
   }
 
   genresTagDeleteButtonPressed(tagIDtoDelete) {
@@ -297,6 +286,7 @@ export class Books {
       .then(response => response.json())
       .then(data => {
         this.cities = data;
+        this.citiesLoaded = true;
         this.citiesSortedById = this.sortByKey(JSON.parse(JSON.stringify(data)), 'id');
       });
   }
@@ -306,6 +296,7 @@ export class Books {
       .then(response => response.json())
       .then(data => {
         this.genres = data;
+        this.genresLoaded = true;
         this.genresSortedById = this.sortByKey(JSON.parse(JSON.stringify(data)), 'id');
       });
   }
@@ -315,6 +306,7 @@ export class Books {
       .then(response => response.json())
       .then(data => {
         this.conditions = data;
+        this.conditionsLoaded = true;
         this.conditionsSortedById = this.sortByKey(JSON.parse(JSON.stringify(data)), 'id');
       });
   }
@@ -324,6 +316,7 @@ export class Books {
       .then(response => response.json())
       .then(data => {
         this.languages = data;
+        this.languagesLoaded = true;
         this.languagesSortedById = this.sortByKey(JSON.parse(JSON.stringify(data)), 'id');
       });
   }

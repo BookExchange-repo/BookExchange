@@ -16,6 +16,10 @@ export class History {
     this.booksForSalesActivity = [];
     this.noBooksInWatchlist = false;
     this.noBooksInSaleActivity = false;
+    this.numberOfWatchlistItems = null;
+    this.numberOfSalesActivityItems = null;
+    this.fetchingSalesActivityFromApi = true;
+    this.fetchingMyWatchlistFromApi = true;
   }
 
   attached() {
@@ -33,9 +37,12 @@ export class History {
       .then(data => {
         if (Object.keys(data).length === 0) {
           this.noBooksInWatchlist = true;
+          this.numberOfWatchlistItems = 0;
         } else {
           this.booksForWatchList = data;
+          this.numberOfWatchlistItems = Object.keys(this.booksForWatchList).length;
         }
+        this.fetchingMyWatchlistFromApi = false;
       });
   }
 
@@ -45,9 +52,12 @@ export class History {
       .then(data => {
         if (Object.keys(data).length === 0) {
           this.noBooksInSaleActivity = true;
+          this.numberOfSalesActivityItems = 0;
         } else {
           this.booksForSalesActivity = data;
+          this.numberOfSalesActivityItems = Object.keys(this.booksForSalesActivity).length;
         }
+        this.fetchingSalesActivityFromApi = false;
       });
   }
 

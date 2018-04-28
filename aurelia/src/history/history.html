@@ -27,7 +27,9 @@
           <h2 class="ui header dashboard">
             <i class="ui large bookmark outline icon"></i>
             <div class="content">
-              My Watch List
+              My Watch List 
+              <span if.bind="fetchingMyWatchlistFromApi" class="ui active small inline loader all-books"></span>
+              <span if.bind="!fetchingMyWatchlistFromApi">(${numberOfWatchlistItems})</span>
             </div>
           </h2>
 
@@ -80,6 +82,8 @@
             <i class="ui large handshake outline icon"></i>
             <div class="content">
               Sales Activity
+              <span if.bind="fetchingSalesActivityFromApi" class="ui active small inline loader all-books"></span>
+              <span if.bind="!fetchingSalesActivityFromApi">(${numberOfSalesActivityItems})</span>
             </div>
           </h2>
 
@@ -102,6 +106,10 @@
                 <div class="description">
                   <div class="item-description-sales-activity" click.delegate="navigateToBookById(bookForSalesActivity.id)">
                     <p>${bookForSalesActivity.userid.full_name}</p>
+                    <div>
+                    <!-- <div if.bind="bookForSalesActivity.amountOfAdds"> -->
+                        <i class="users icon"></i> ${bookForSalesActivity.amountOfAdds} ${bookForSalesActivity.amountOfAdds === 1 ? 'person is' : 'people are'} watching</div>
+                    </div>
                     <p>
                       <b>${bookForSalesActivity.price}</b>
                       <i class="ui euro icon"></i>

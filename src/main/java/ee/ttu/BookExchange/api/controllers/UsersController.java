@@ -244,8 +244,12 @@ public class UsersController {
         if (!userId.isPresent()) {
             throw new APIException("CANNOT_USERS_GETMYBOOKS");
         }
-        return booksService.getAllBooks().stream()
+        List<Books> allBooks = booksService.getAllBooks().stream()
                 .filter(e -> e.getUserid().getId() == userId.get())
                 .collect(Collectors.toList());
+        for (Books book : allBooks) {
+            book.setAmountOfAdds(watchlistService.findAmountByBookId(book.getId()));
+        }
+        return allBooks;
     }
 }

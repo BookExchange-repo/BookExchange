@@ -235,6 +235,8 @@ public class BooksController {
                 throw new APIException("CANNOT_BOOKS_GETINFOID");
         }
         Books book = booksService.getBookById(bookId);
+        if (book == null)
+            throw new APIException("FAIL_NOTFOUND_ID");
         if (blockSensitive) {
             book.getUserid().setEmail("");
             book.getUserid().setPass_hash("");

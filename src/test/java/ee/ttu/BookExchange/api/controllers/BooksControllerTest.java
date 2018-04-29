@@ -3,6 +3,8 @@ package ee.ttu.BookExchange.api.controllers;
 import ee.ttu.BookExchange.api.models.*;
 import ee.ttu.BookExchange.api.services.BooksService;
 import ee.ttu.BookExchange.api.services.StatusService;
+import ee.ttu.BookExchange.api.services.UsersService;
+import ee.ttu.BookExchange.api.services.WatchlistService;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,14 +31,20 @@ public class BooksControllerTest {
     private static BooksService booksServiceMock;
 
     @Mock
+    private static UsersService usersServiceMock;
+
+    @Mock
     private static StatusService statusServiceMock;
+
+    @Mock
+    private static WatchlistService watchlistServiceMock;
 
     private static List<Books> allBooks;
     private static BooksController booksController;
     private static Books book1;
-    private static StatusEng statusActive;
-    private static StatusEng statusSold;
-    private static StatusEng statusCancelled;
+    private static StatusEst statusActive;
+    private static StatusEst statusSold;
+    private static StatusEst statusCancelled;
     private static City newYork;
     private static City london;
     private static City tallinn;
@@ -48,9 +56,9 @@ public class BooksControllerTest {
         book1.setTitle("Good book");
         book1.setAuthor("Author");
         book1.setDescription("This is a description of a book.");
-        ConditionEng condition = new ConditionEng();
+        ConditionEst condition = new ConditionEst();
         condition.setId(1);
-        condition.setString("Good condition");
+        condition.setString("Hea seisukord");
         condition.setCounter(0);
         book1.setConditiondesc(condition);
         book1.setPrice(new BigDecimal("123.45"));
@@ -59,9 +67,9 @@ public class BooksControllerTest {
         book1.setImagepath("http://example.com/image/path.jpg");
         book1.setPublisher("Publisher Inc.");
         book1.setPubyear("2001");
-        LanguageEng language = new LanguageEng();
+        LanguageEst language = new LanguageEst();
         language.setId(1);
-        language.setString("English");
+        language.setString("Inglise");
         language.setCounter(0);
         book1.setLanguage(language);
         book1.setPostdate(new Timestamp(981173106));
@@ -81,9 +89,9 @@ public class BooksControllerTest {
         user.setRegdate(new Timestamp(968396765));
         user.setPhone("12345678");
         book1.setUserid(user);
-        GenreEng genre = new GenreEng();
+        GenreEst genre = new GenreEst();
         genre.setId(1);
-        genre.setString("Fiction");
+        genre.setString("Ilukirjandus");
         genre.setCounter(0);
         book1.setGenreid(genre);
         book1.setCity(city);
@@ -91,17 +99,17 @@ public class BooksControllerTest {
     }
 
     public static void createStatuses() {
-        statusActive = new StatusEng();
+        statusActive = new StatusEst();
         statusActive.setId(1);
-        statusActive.setString("Active");
+        statusActive.setString("Aktiivne");
         statusActive.setCounter(0);
-        statusSold = new StatusEng();
+        statusSold = new StatusEst();
         statusSold.setId(2);
-        statusSold.setString("Sold");
+        statusSold.setString("Müüdud");
         statusSold.setCounter(0);
-        statusCancelled = new StatusEng();
+        statusCancelled = new StatusEst();
         statusCancelled.setId(3);
-        statusCancelled.setString("Cancelled");
+        statusCancelled.setString("Tühistatud");
         statusCancelled.setCounter(0);
     }
 
@@ -142,14 +150,17 @@ public class BooksControllerTest {
         createUser();
         createOneBook();
         booksServiceMock = mock(BooksService.class);
+        usersServiceMock = mock(UsersService.class);
         statusServiceMock = mock(StatusService.class);
+        watchlistServiceMock = mock(WatchlistService.class);
         stub(method(UsersController.class, "getUserIdBySession")).toReturn(Optional.of(123));
     }
 
     @Before
     public void setUpTest() {
         // before each test
-        booksController = new BooksController(booksServiceMock, statusServiceMock);
+        booksController = new BooksController(booksServiceMock, usersServiceMock,
+                statusServiceMock, watchlistServiceMock);
     }
 
     private void makeReadyBookToListAndStub(Books... bookList) {
@@ -176,7 +187,7 @@ public class BooksControllerTest {
         Books newBook = new Books();
         newBook.setTitle("NEW Book_Title123");
         newBook.setDescription("Description OF NEW book");
-        booksController.addBook(newBook);
+        booksController.addBook(Optional.of("SESSION"), newBook);
         verify(booksServiceMock).saveBook(newBook);
     }
 

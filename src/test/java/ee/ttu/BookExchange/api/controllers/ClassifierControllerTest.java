@@ -38,9 +38,9 @@ public class ClassifierControllerTest {
         book1.setTitle("Good book");
         book1.setAuthor("Author");
         book1.setDescription("This is a description of a book.");
-        ConditionEng condition = new ConditionEng();
+        ConditionEst condition = new ConditionEst();
         condition.setId(1);
-        condition.setString("Good condition");
+        condition.setString("Hea seisukord");
         condition.setCounter(0);
         book1.setConditiondesc(condition);
         book1.setPrice(new BigDecimal("123.45"));
@@ -49,9 +49,9 @@ public class ClassifierControllerTest {
         book1.setImagepath("http://example.com/image/path.jpg");
         book1.setPublisher("Publisher Inc.");
         book1.setPubyear("2001");
-        LanguageEng language = new LanguageEng();
+        LanguageEst language = new LanguageEst();
         language.setId(1);
-        language.setString("English");
+        language.setString("Inglise");
         language.setCounter(0);
         book1.setLanguage(language);
         book1.setPostdate(new Timestamp(981173106));
@@ -67,15 +67,15 @@ public class ClassifierControllerTest {
         user.setRegdate(new Timestamp(968396765));
         user.setPhone("12345678");
         book1.setUserid(user);
-        GenreEng genre = new GenreEng();
+        GenreEst genre = new GenreEst();
         genre.setId(1);
-        genre.setString("Fiction");
+        genre.setString("Ilukirjandus");
         genre.setCounter(0);
         book1.setGenreid(genre);
         book1.setCity(london);
-        StatusEng statusActive = new StatusEng();
+        StatusEst statusActive = new StatusEst();
         statusActive.setId(1);
-        statusActive.setString("Active");
+        statusActive.setString("Aktiivne");
         statusActive.setCounter(0);
         book1.setStatus(statusActive);
     }

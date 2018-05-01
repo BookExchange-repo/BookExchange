@@ -9,7 +9,7 @@
           </a>
           <i class="right chevron icon divider"></i>
           <div class="active section">
-            <span>${bookTypes} books</span>
+            <span>${bookTypes} raamatut</span>
             <span if.bind="fetchingBooksFromApi" class="ui active small inline loader all-books"></span>
             <span if.bind="!fetchingBooksFromApi">(${numberOfBooks})</span>
           </div>
@@ -61,23 +61,23 @@
       <div class="three wide column">
         <div show.bind="genresLoaded && conditionsLoaded">
           <div class="ui yellow segment">
-            <b style="font-size: 1.15em">Search</b>
+            <b style="font-size: 1.15em">Otsing</b>
             <div class="ui left icon input all-books sidebar-field">
-              <input type="text" value.bind="searchQuery" placeholder="Search">
+              <input type="text" value.bind="searchQuery" placeholder="Otsing">
               <i class="search icon"></i>
             </div>
           </div>
 
           <div class="ui red segment">
-            <b style="font-size: 1.15em">Your city</b>
+            <b style="font-size: 1.15em">Teie linn</b>
             <select class="ui fluid search dropdown all-books sidebar-field" id="citySelector" value.bind="selectedCityID" change.delegate="sortOrFilterParamsChanged()">
-              <option model.bind="0" selected>All cities</option>
+              <option model.bind="0" selected>Kõik linnad</option>
               <option repeat.for="city of cities" model.bind="city.id">${city.string} (${city.counter})</option>
             </select>
           </div>
 
           <div class="ui blue segment">
-            <b style="font-size: 1.15em">Genres</b>
+            <b style="font-size: 1.15em">Žanrid</b>
             <form class="ui form all-books sidebar-field" method="post" change.delegate="sortOrFilterParamsChanged()">
               <div class="grouped fields">
                 <div class="field" repeat.for="genre of genres">
@@ -92,7 +92,7 @@
           </div>
 
           <div class="ui orange segment">
-            <b style="font-size: 1.15em">Book condition</b>
+            <b style="font-size: 1.15em">Raamatu seisukord</b>
             <form class="ui form all-books sidebar-field" method="post" change.delegate="sortOrFilterParamsChanged()">
               <div class="grouped fields">
                 <div class="field" repeat.for="condition of conditions">
@@ -106,10 +106,10 @@
           </div>
 
           <div class="ui green segment">
-            <b style="font-size: 1.15em">Language</b>
+            <b style="font-size: 1.15em">Keel</b>
 
             <select id="languageSelector" class="ui fluid search dropdown all-books sidebar-field" value.bind="selectedLanguageID" change.delegate="sortOrFilterParamsChanged()">
-              <option model.bind="0" selected>All languages</option>
+              <option model.bind="0" selected>Kõik keeled</option>
               <option repeat.for="language of languages" model.bind="language.id">${language.string} (${language.counter})</option>
             </select>
 
@@ -124,8 +124,8 @@
             <div class="center aligned ui grid all-books no-books">
               <div class="column">
                 <img src="src/resources/images/no-books-icon.svg">
-                <h2>Here are no books yet</h2>
-                <h3>Yours can be the first one!</h3>
+                <h2>Siin ei ole veel raamatuid</h2>
+                <h3>Teie raamat võiks olla esimeseks!</h3>
               </div>
             </div>
           </div>
@@ -175,7 +175,7 @@
 
                   <p></p>
                   <div class="content seller horizontal-line">
-                    <div class="title">Seller: </div>
+                    <div class="title">Müüja: </div>
                     <div class="name">${books.userid.full_name}</div>
 
                     <div class="place">${books.city.string}</div>

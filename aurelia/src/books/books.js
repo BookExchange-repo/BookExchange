@@ -54,11 +54,11 @@ export class Books {
 
   attached() {
     this.sortIDs = [
-      { id: 0, string: 'Sort by date added (the oldest first)' },
-      { id: 1, string: 'Sort by date added (the newest first)' },
-      { id: 2, string: 'Sort by price (ascending)' },
-      { id: 3, string: 'Sort by price (descending)' },
-      { id: 4, string: 'Sort by popularity' },
+      { id: 0, string: 'Sorteeri lisamise aega järgi (kõige vanemad)' },
+      { id: 1, string: 'Sorteeri lisamise aega järgi (kõige uuemad)' },
+      { id: 2, string: 'Sorteeri hinna järgi (kasvavas suunas)' },
+      { id: 3, string: 'Sorteeri hinna järgi (kahanevas suunas)' },
+      { id: 4, string: 'Sorteeri populaarsuse järgi' },
     ];
 
     this.fetchCitiesFromAPI();
@@ -96,7 +96,7 @@ export class Books {
 
   filteredOrAllBooks() {
     if (this.noFiltersAreSelected()) {
-      this.bookTypes = "All";
+      this.bookTypes = "Kõik";
       this.noFiltersSelected = true;
       if (this.noFiltersAreSelectedFirstTime) {
         $('#tagPanel').hide();
@@ -105,7 +105,7 @@ export class Books {
         $("#tagPanel").slideUp();
       }
     } else {
-      this.bookTypes = "Filtered";
+      this.bookTypes = "Filtreeritud";
       this.noFiltersSelected = false;
       $("#tagPanel").slideDown();
     }
@@ -175,12 +175,12 @@ export class Books {
   }
 
   cityTagDeleteButtonPressed() {
-    $('#citySelector').dropdown('set selected', 'All cities');
+    $('#citySelector').dropdown('määra valitud', 'Kõik linnad');
     this.refreshOutput();
   }
 
   languageTagDeleteButtonPressed() {
-    $('#languageSelector').dropdown('set selected', 'All languages');
+    $('#languageSelector').dropdown('määra valitud', 'Kõik keeled');
     this.refreshOutput();
   }
 
@@ -196,7 +196,7 @@ export class Books {
   convertUnixTimeStamp(unixTimeStamp) {
     let date = new Date(unixTimeStamp);
     let options = { day: 'numeric', month: 'long', year: 'numeric' };
-    return date.toLocaleTimeString('en-GB', options);
+    return date.toLocaleTimeString('et-EE', options);
   }
 
 
@@ -323,8 +323,8 @@ export class Books {
           if (data.errors.length === 0) {
             this.fetchBooksForWatchList();
             $.uiAlert({
-              textHead: 'Success!',
-              text: 'Book successfully added to My Watchlist!',
+              textHead: 'Õnnestus!',
+              text: 'Raamat oli lisatud Teie Jälgimisnimekirja!',
               bgcolor: '#19c3aa',
               textcolor: '#fff',
               position: 'bottom-left',
@@ -333,8 +333,8 @@ export class Books {
             })
           } else if (data.errors.includes("FAIL_EXISTS_BOOKID")) {
             $.uiAlert({
-              textHead: 'Error adding',
-              text: 'You have already this book in your Watchlist',
+              textHead: 'Lisamise viga',
+              text: 'See raamat on juba olemas Teie Jälgimisnimekirjas',
               bgcolor: '#55a9ee',
               textcolor: '#fff',
               position: 'bottom-left',
@@ -343,8 +343,8 @@ export class Books {
             })
           } else {
             $.uiAlert({
-              textHead: 'API error',
-              text: 'Book could not be added to My Watchlist',
+              textHead: 'API viga',
+              text: 'Ei saanud lisada raamatut Teie Jälgimisnimekirja',
               bgcolor: '#F2711C',
               textcolor: '#fff',
               position: 'bottom-left',

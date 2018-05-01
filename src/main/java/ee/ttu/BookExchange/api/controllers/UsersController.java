@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:9000", "https://bookmarket.online"})
 @RequestMapping(value = "/api/users", produces = "application/json")
 public class UsersController {
     private static final int SESS_KEY_LENGTH = 64;

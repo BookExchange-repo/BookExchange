@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:9000", "https://bookmarket.online"})
 @RequestMapping(value = "/oauth2", produces = "application/json")
 public class OAuth2Controller {
     private UsersService usersService;

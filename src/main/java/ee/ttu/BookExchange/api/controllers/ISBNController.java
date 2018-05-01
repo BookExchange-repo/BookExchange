@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:9000", "https://bookmarket.online"})
 @RequestMapping(value = "/api/isbn", produces = "application/json")
 public class ISBNController {
     private String[] splitPublisherString(String pubString) {

@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:9000", "https://bookmarket.online"})
 @RequestMapping(value = "/api/books", produces = "application/json")
 public class BooksController {
     private BooksService booksService;

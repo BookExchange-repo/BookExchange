@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:9000", "https://bookmarket.online"})
 @RequestMapping(value = "/api/image", produces = "application/json")
 public class ImageController {
     public ImageController() { }

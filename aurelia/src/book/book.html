@@ -7,7 +7,7 @@
         <i class="home icon"></i>
       </a>
       <i class="right chevron icon divider"></i>
-      <a click.delegate="router.navigateToRoute('books')" class="section">All books</a>
+      <a click.delegate="router.navigateToRoute('books')" class="section">Kõik raamatud</a>
       <i class="right chevron icon divider"></i>
 
       <div class="active section">
@@ -21,14 +21,14 @@
 
     <div class="sixteen wide column" show.bind="noBookFound">
       <div class="ui big error center aligned message">
-        <div class="header">No book found</div>
+        <div class="header">Raamatuid ei leitud</div>
       </div>
     </div>
 
     <div class="ui grid book-page" show.bind="bookFound">
       <div class="sixteen wide column" if.bind="bookbyid.status.id === 2">
         <div class="ui big center aligned message">
-          <div class="header">This book is marked as sold. The item is archived.</div>
+          <div class="header">See raamat on markeeritud müüdetuks. Selline kaup on arhiveeritud.</div>
         </div>
       </div>
       <div class="four wide column">
@@ -49,10 +49,10 @@
                   <i class="bookmark outline icon"></i>
                   <i class="black corner check icon"></i>
                 </i>
-              <span if.bind="!loggedIn">PLEASE SIGN IN</span>
+              <span if.bind="!loggedIn">PALUN LOGIGE SISSE</span>
             </div>
             <div show.bind="!bookAlreadyInWathList" class="visible content">
-              ADD TO WATCHLIST
+              LISA JÄLGIMISNIMEKIRJA
             </div>
             <div show.bind="bookAlreadyInWathList" class="visible content">
               <i class="icons">
@@ -63,7 +63,7 @@
           </button>
           <p></p>
           <div if.bind="bookbyid.amountOfAdds">
-            <i class="users icon"></i> ${bookbyid.amountOfAdds} ${bookbyid.amountOfAdds === 1 ? 'person is' : 'people are'} watching</div>
+            <i class="users icon"></i> ${bookbyid.amountOfAdds} ${bookbyid.amountOfAdds === 1 ? 'inimene vaatab' : 'inimesed vaatavad'}</div>
         </div>
       </div>
 
@@ -76,19 +76,19 @@
 
           <table class="ui very basic collapsing celled table">
             <tr>
-              <td>Genre</td>
+              <td>Žanr</td>
               <td>${bookbyid.genreid.string}</td>
             </tr>
             <tr show.bind="!ifJSONAttributeIsNull(bookbyid.pubyear)">
-              <td>Year of publishing</td>
+              <td>Ilmumisaasta</td>
               <td>${bookbyid.pubyear}</td>
             </tr>
             <tr if.bind="!ifJSONAttributeIsNull(bookbyid.publisher)">
-              <td>Publisher</td>
+              <td>Kirjastus</td>
               <td>${bookbyid.publisher}</td>
             </tr>
             <tr>
-              <td>Language</td>
+              <td>Keel</td>
               <td>${bookbyid.language.string}</td>
             </tr>
             <tr if.bind="!ifJSONAttributeIsNull(bookbyid.isbn)">
@@ -96,25 +96,25 @@
               <td>${bookbyid.isbn}</td>
             </tr>
             <tr>
-              <td>Condition</td>
+              <td>Seisukord</td>
               <td>${bookbyid.conditiondesc.string}</td>
             </tr>
           </table>
 
 
           <div class="description more-about-book">
-            <p class="title">Description: </p>
+            <p class="title">Kirjeldus: </p>
             <p innerhtml="${bookbyid.description}"></p>
           </div>
 
           <div class="seller more-about-book">
             <div class="line">
               <div class="line-content">
-                <p class="title">Seller: </p>
+                <p class="title">Müüja: </p>
                 <p>${bookbyid.userid.full_name}</p>
 
                 <div class="ui teal large image label">
-                  Contact
+                  Kontaktinfo
                   <div class="detail">
                     <i class="phone icon"></i>${loggedIn ? bookbyid.userid.phone : "*******"}</div>
                 </div>

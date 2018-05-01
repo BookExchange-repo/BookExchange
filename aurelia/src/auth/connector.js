@@ -102,8 +102,8 @@ export class Connector {
 
   showLogoutMessage() {
     $.uiAlert({
-      textHead: 'Logged out successfully!',
-      text: 'See you next time',
+      textHead: 'Väljalogimine õnnestus!',
+      text: 'Nägemist',
       bgcolor: '#55a9ee',
       textcolor: '#fff',
       position: 'bottom-left',

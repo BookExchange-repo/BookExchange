@@ -85,7 +85,7 @@ export class Book {
         this.bookbyid = data;
         this.bookFound = true;
       }).catch(error => {
-        console.log("No book found");
+        console.log("Mitte ükski raamat ei leitud");
       });
     });
   }
@@ -97,7 +97,7 @@ export class Book {
   convertUnixTimeStamp(unixTimeStamp) {
     let date = new Date(unixTimeStamp);
     let options = { day: 'numeric', month: 'long', year: 'numeric' };
-    return "Added " + date.toLocaleTimeString('en-GB', options);
+    return "Lisatud " + date.toLocaleTimeString('et-EE', options);
   }
 
   addToWatchList(bookID) {
@@ -112,8 +112,8 @@ export class Book {
             this.fetchBookByIdFromAPI();
             this.fetchBooksForWatchList();
             $.uiAlert({
-              textHead: 'Success!',
-              text: 'Book successfully added to My Watchlist!',
+              textHead: 'Õnnestus!',
+              text: 'Raamat oli lisatud Teie Jälgimisnimekirja!',
               bgcolor: '#19c3aa',
               textcolor: '#fff',
               position: 'bottom-left',
@@ -122,8 +122,8 @@ export class Book {
             })
           } else if (data.errors.includes("FAIL_EXISTS_BOOKID")) {
             $.uiAlert({
-              textHead: 'Error adding',
-              text: 'You have already this book in your Watchlist',
+              textHead: 'Lisamise viga',
+              text: 'See raamat on juba olemas Teie Jälgimisnimekirjas',
               bgcolor: '#55a9ee',
               textcolor: '#fff',
               position: 'bottom-left',
@@ -132,8 +132,8 @@ export class Book {
             })
           } else {
             $.uiAlert({
-              textHead: 'API error',
-              text: 'Book could not be added to My Watchlist',
+              textHead: 'API viga',
+              text: 'Ei saanud lisada raamatut Teie Jälgimisnimekirja',
               bgcolor: '#F2711C',
               textcolor: '#fff',
               position: 'bottom-left',

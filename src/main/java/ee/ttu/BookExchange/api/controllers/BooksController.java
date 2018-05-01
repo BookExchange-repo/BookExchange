@@ -78,17 +78,12 @@ public class BooksController {
             @RequestParam(value = "session") Optional<String> session) throws APIException
     {
         int paramsSize = 0;
-        boolean blockSensitive = true;
         if (sortMask.isPresent())
             paramsSize++;
         if (isSortDesc.isPresent())
             paramsSize++;
         if (session.isPresent()) {
             paramsSize++;
-            if (UsersController.getUserIdBySession(session.get()).isPresent())
-                blockSensitive = false;
-            else
-                throw new APIException("CANNOT_BOOKS_GETALL");
         }
 
         if (!isSortDesc.isPresent())
@@ -207,12 +202,10 @@ public class BooksController {
         if (isSortDesc.get())
             Collections.reverse(allBooks);
         for (Books book : allBooks) {
-            if (blockSensitive) {
-                book.getUserid().setEmail("");
-                book.getUserid().setPass_hash("");
-                book.getUserid().setPass_salt("");
-                book.getUserid().setPhone("");
-            }
+            book.getUserid().setEmail("");
+            book.getUserid().setPass_hash("");
+            book.getUserid().setPass_salt("");
+            book.getUserid().setPhone("");
             book.setAmountOfAdds(watchlistService.findAmountByBookId(book.getId()));
         }
         allBooks = allBooks.stream()
@@ -227,22 +220,13 @@ public class BooksController {
     public Books getBook(@RequestParam(value = "id") int bookId,
                          @RequestParam(value = "session") Optional<String> session) throws APIException
     {
-        boolean blockSensitive = true;
-        if (session.isPresent()) {
-            if (UsersController.getUserIdBySession(session.get()).isPresent())
-                blockSensitive = false;
-            else
-                throw new APIException("CANNOT_BOOKS_GETINFOID");
-        }
         Books book = booksService.getBookById(bookId);
         if (book == null)
             throw new APIException("FAIL_NOTFOUND_ID");
-        if (blockSensitive) {
-            book.getUserid().setEmail("");
-            book.getUserid().setPass_hash("");
-            book.getUserid().setPass_salt("");
-            book.getUserid().setPhone("");
-        }
+        book.getUserid().setEmail("");
+        book.getUserid().setPass_hash("");
+        book.getUserid().setPass_salt("");
+        book.getUserid().setPhone("");
         book.setAmountOfAdds(watchlistService.findAmountByBookId(book.getId()));
         return book;
     }

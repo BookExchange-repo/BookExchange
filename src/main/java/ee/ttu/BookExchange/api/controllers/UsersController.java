@@ -77,19 +77,13 @@ public class UsersController {
 
     @RequestMapping(value = "getall", method = RequestMethod.GET)
     public Map<String, List<Users>> getAllUsers(@RequestParam(value = "session") Optional<String> session) {
-        Optional<Integer> userId = Optional.empty();
-        if (session.isPresent())
-            userId = getUserIdBySession(session.get());
-
         Map<String, List<Users>> map = new HashMap<>();
         List<Users> allUsers = usersService.getAllUsers();
-        if (!userId.isPresent()) {
-            for (Users user : allUsers) {
-                user.setEmail("");
-                user.setPass_hash("");
-                user.setPass_salt("");
-                user.setPhone("");
-            }
+        for (Users user : allUsers) {
+            user.setEmail("");
+            user.setPass_hash("");
+            user.setPass_salt("");
+            user.setPhone("");
         }
         map.put("users", allUsers);
         map.put("errors", new ArrayList<>());

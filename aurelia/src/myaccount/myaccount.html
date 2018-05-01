@@ -8,15 +8,15 @@
             <i class="home icon"></i>
           </a>
           <i class="right chevron icon divider"></i>
-          <div class="section">My Account</div>
+          <div class="section">Minu konto</div>
           <i class="right chevron icon divider"></i>
-          <div class="active section">Personal Information</div>
+          <div class="active section">Isiklik informatsioon</div>
         </div>
       </div>
 
       <div class="right menu">
-        <a class="item" click.delegate="router.navigateToRoute('history')">Dashboard</a>
-        <a class="active item" click.delegate="router.navigateToRoute('myaccount')">Personal Information</a>
+        <a class="item" click.delegate="router.navigateToRoute('history')">Esipaneel</a>
+        <a class="active item" click.delegate="router.navigateToRoute('myaccount')">Isiklik informatsioon</a>
       </div>
     </div>
 
@@ -31,7 +31,7 @@
         <div class="right aligned four wide column">
           <button class="ui basic button" click.delegate="enableEditMode()">
             <i class="icon edit"></i>
-            Edit Information
+            Muuta informatsioon
           </button>
         </div>
 
@@ -50,10 +50,10 @@
         </div>
         <div class="middle aligned ten wide column fullname">
           <div class="ui input">
-            <input type="text" name="firstname" value.bind="firstName" placeholder="First Name" value.bind="firstName">
+            <input type="text" name="firstname" value.bind="firstName" placeholder="Eesnimi" value.bind="firstName">
           </div>
           <div class="ui input">
-            <input type="text" name="lastname" value.bind="lastName" placeholder="Last Name" value.bind="lastName">
+            <input type="text" name="lastname" value.bind="lastName" placeholder="Perenimi" value.bind="lastName">
           </div>
         </div>
         <div class="right aligned four wide column">
@@ -67,7 +67,7 @@
           <div class="edit-mode-field">
             <i class="ui map marker alternate icon"></i>
             <select class="ui search dropdown" name="city" value.bind="city">
-              <option model.bind="null" value="">Select city</option>
+              <option model.bind="null" value="">Vali linna</option>
               <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
             </select>
           </div>

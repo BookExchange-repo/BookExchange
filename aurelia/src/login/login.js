@@ -14,7 +14,7 @@ export class Login {
     this.authorization = authorization;
     this.connector = connector;
     this.router = router;
-    this.helloMessage = "Log in";
+    this.helloMessage = "Logi sisse";
     this.email;
     this.password;
   }
@@ -27,7 +27,7 @@ export class Login {
             rules: [
               {
                 type: 'empty',
-                prompt: 'Please enter your email'
+                prompt: 'Palun sisestage e-posti aadress'
               }
             ]
           },
@@ -35,7 +35,7 @@ export class Login {
             rules: [
               {
                 type: 'empty',
-                prompt: 'Please enter your password'
+                prompt: 'Palun sisestage parool'
               }
             ]
           },
@@ -54,7 +54,7 @@ export class Login {
           this.authorization.saveSessionID(data.session);
           this.router.navigateToRoute('home');
         } else {
-          $('.ui.form').form('add errors', {apiError: 'Cannot connect to the authorization API'});
+          $('.ui.form').form('add errors', {apiError: 'Ei saanud võta ühendust autoriseerimise API-ga'});
         }
         this.connector.ckeckLoginStatus();
         console.log(JSON.stringify(data));

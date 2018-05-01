@@ -7,35 +7,35 @@
       <div class="center aligned five wide column">
         <div class="ui segment login">
 
-          <h2>Sign in to BookMarket</h2>
+          <h2>Logi sisse BookMarket'ile</h2>
 
           <form class="ui large form" method="post" submit.delegate="loginButton()">
 
             <div class="ui error message"></div>
 
             <div class="required field">
-              <label>Email</label>
+              <label>E-post</label>
               <input type="text" name="email" value.bind="email">
             </div>
 
             <div class="required field">
-              <label>Password</label>
+              <label>Parool</label>
               <input type="password" name="password" value.bind="password">
             </div>
 
             <button type="submit" class="ui submit large ui teal button">
-              Sign in
+              Logi sisse
             </button>
 
           </form>
 
           <div class="ui horizontal divider login">
-            <b>OR</b>
+            <b>VÕI</b>
           </div>
 
           <button class="google-sign-in-btn" click.delegate="loginWithGoogleButton()">
           </button>
-          <p>Secured with OAuth2 Proxy version 2.2.0</p>
+          <p>Kaitstud kasutades OAuth2 Proxy versioon 2.2.0</p>
         </div>
       </div>
     </div>

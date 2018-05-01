@@ -8,15 +8,15 @@
             <i class="home icon"></i>
           </a>
           <i class="right chevron icon divider"></i>
-          <div class="section">My Account</div>
+          <div class="section">Minu konto</div>
           <i class="right chevron icon divider"></i>
-          <div class="active section">Dashboard</div>
+          <div class="active section">Esipaneel</div>
         </div>
       </div>
 
       <div class="right menu">
-        <a class="active item" click.delegate="router.navigateToRoute('history')">Dashboard</a>
-        <a class="item" click.delegate="router.navigateToRoute('myaccount')">Personal Information</a>
+        <a class="active item" click.delegate="router.navigateToRoute('history')">Esipaneel</a>
+        <a class="item" click.delegate="router.navigateToRoute('myaccount')">Isiklik informatsioon</a>
       </div>
     </div>
 
@@ -27,7 +27,7 @@
           <h2 class="ui header dashboard">
             <i class="ui large bookmark outline icon"></i>
             <div class="content">
-              My Watch List 
+              Minu Jälgimisnimekiri 
               <span if.bind="fetchingMyWatchlistFromApi" class="ui active small inline loader all-books"></span>
               <span if.bind="!fetchingMyWatchlistFromApi">(${numberOfWatchlistItems})</span>
             </div>
@@ -36,8 +36,8 @@
           <div if.bind="noBooksInWatchlist">
             <div class="center aligned ui grid all-books no-books">
               <div class="column">
-                <h2>Your watchlist is empty!</h2>
-                <h3>Try adding books you like to your watchlist</h3>
+                <h2>Teie jälgimisnimekiri on tühi!</h2>
+                <h3>Proovi lisada soovitud raamatuid jälgimisnimekirja</h3>
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@
           <h2 class="ui header dashboard">
             <i class="ui large handshake outline icon"></i>
             <div class="content">
-              Sales Activity
+              Müügiaktiivsus
               <span if.bind="fetchingSalesActivityFromApi" class="ui active small inline loader all-books"></span>
               <span if.bind="!fetchingSalesActivityFromApi">(${numberOfSalesActivityItems})</span>
             </div>
@@ -90,8 +90,8 @@
           <div if.bind="noBooksInSaleActivity">
             <div class="center aligned ui grid all-books no-books">
               <div class="column">
-                <h2>Your have no sale acitivity yet!</h2>
-                <h3>Try selling your first book</h3>
+                <h2>Teil ei ole veel müügiaktiivsust!</h2>
+                <h3>Proovige müüa Teie esimene raamat</h3>
               </div>
             </div>
           </div>
@@ -108,7 +108,7 @@
                     <p>${bookForSalesActivity.userid.full_name}</p>
                     <div>
                     <!-- <div if.bind="bookForSalesActivity.amountOfAdds"> -->
-                        <i class="users icon"></i> ${bookForSalesActivity.amountOfAdds} ${bookForSalesActivity.amountOfAdds === 1 ? 'person is' : 'people are'} watching</div>
+                        <i class="users icon"></i> ${bookForSalesActivity.amountOfAdds} ${bookForSalesActivity.amountOfAdds === 1 ? 'inimene vaatab' : 'inimesed vaatavad'}</div>
                     </div>
                     <p>
                       <b>${bookForSalesActivity.price}</b>
@@ -119,10 +119,10 @@
                     <div class="ui ${bookForSalesActivity.status.id === 1 ? 'green' : ''} ${bookForSalesActivity.status.id === 2 ? 'red' : ''} tag label">${bookForSalesActivity.status.string}</div>
                     <a class="ui label" if.bind="bookForSalesActivity.status.id === 1" click.delegate="changeBookStatus(bookForSalesActivity.id, 2)">
                       <i class="ui gem outline icon"></i>
-                      Mark as sold
+                      Markeeri müüdetuks
                     </a>
                     <!-- <a class="ui label" if.bind="bookForSalesActivity.status.id === 2" click.delegate="changeBookStatus(bookForSalesActivity.id, 1)">
-                      Activate
+                      Aktiveeri
                     </a> -->
                   </div>
                 </div>

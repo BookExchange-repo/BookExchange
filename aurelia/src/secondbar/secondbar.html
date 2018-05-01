@@ -6,10 +6,10 @@
         <img src="src/resources/images/logo_mono.svg">
       </div>
       <a class="item navbar text ${router.navigation[1].isActive ? 'active' : ''}" click.delegate="router.navigateToRoute('books')">
-        All Books
+        Kõik raamatud
       </a>
       <a class="item navbar text ${router.navigation[2].isActive ? 'active' : ''}" click.delegate="router.navigateToRoute('addbook')">
-        Sell Book
+        Müü raamatut
       </a>
       <div class="right menu">
         <div class="item navbar">
@@ -25,7 +25,7 @@
         </div>
 
         <a class="item navbar text ${router.navigation[3].isActive ? 'active' : ''}" if.bind="!connector.loggedIn" click.delegate="router.navigateToRoute('login')">
-          Sign in
+          Logi sisse
         </a>
 
         <div class="right menu" show.bind="connector.loggedIn">
@@ -39,10 +39,10 @@
             <i class="left dropdown icon"></i>
             <div class="menu">
               <a class="item" click.delegate="router.navigateToRoute('history')">
-                <div class="noBoldMenuItem">My account</div>
+                <div class="noBoldMenuItem">Minu konto</div>
               </a>
               <a class="item" click.delegate="connector.logout()">
-                <div class="noBoldMenuItem">Sign out</div>
+                <div class="noBoldMenuItem">Logi välja</div>
               </a>
             </div>
           </div>

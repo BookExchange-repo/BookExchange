@@ -36,7 +36,7 @@ export class SignUp {
             rules: [
               {
                 type: 'empty',
-                prompt: 'Please enter your firstname'
+                prompt: 'Palun sisestage Teie eesnimi'
               }
             ]
           },
@@ -44,7 +44,7 @@ export class SignUp {
             rules: [
               {
                 type: 'empty',
-                prompt: 'Please enter your lastname'
+                prompt: 'Palun sisestage Teie perenimi'
               }
             ]
           },
@@ -52,7 +52,7 @@ export class SignUp {
             rules: [
               {
                 type: 'empty',
-                prompt: 'Please choose the nearest city to you'
+                prompt: 'Palun valige linn, mis on kõige lähem Teile'
               }
             ]
           },
@@ -61,7 +61,7 @@ export class SignUp {
             rules: [
               {
                 type: 'integer',
-                prompt: 'Please enter your phone number'
+                prompt: 'Palun sisestage Teie telefoninumber'
               }
             ]
           },
@@ -96,7 +96,7 @@ export class SignUp {
           this.authorization.deletePostregistrationRequiredSession();
           this.connector.ckeckLoginStatus(); // to refresh data
         } else {
-          $('.ui.form').form('add errors', {apiError: 'API error in postregistration'});
+          $('.ui.form').form('add errors', {apiError: 'Post-registratsioonis on olemas API viga'});
         }
       });
 

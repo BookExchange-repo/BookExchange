@@ -7,33 +7,33 @@
       <div class="center aligned twelve wide column">
         <div class="ui segment signup">
 
-          <h1>Hi, ${connector.username}! Welcome to BookMarket!</h1>
-          <h3>We need some more information about you to get started:</h3>
+          <h1>Tere, ${connector.username}! Tere tulemast BookMarket'ile!</h1>
+          <h3>Meie vajame rohkem infot Teie kohta, et alustada:</h3>
 
           <!-- <div class="ui error message"></div> -->
 
           <form class="ui large form" method="post" submit.delegate="continueButtonPressed()">
 
             <div class="required field">
-              <label>First Name</label>
+              <label>Eesnimi</label>
               <input type="text" name="firstname" value.bind="firstname">
             </div>
 
             <div class="required field">
-              <label>Last name</label>
+              <label>Perenimi</label>
               <input type="text" name="lastname" value.bind="lastname">
             </div>
 
             <div class="required field">
-              <label>City</label>
+              <label>Linn</label>
               <select class="ui search dropdown" name="city" value.bind="city">
-                <option model.bind="null" value="">Select city</option>
+                <option model.bind="null" value="">Vali linna</option>
                 <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
               </select>
             </div>
 
             <div class="required field">
-              <label>Phone number</label>
+              <label>Telefoninumber</label>
               <div class="ui labeled input">
                 <label for="phone" class="ui label">+372</label>
                 <input type="text" name="phone" id="phone" value.bind="phone">
@@ -43,7 +43,7 @@
             <div class="ui error message"></div>
 
             <button type="submit" class="ui submit large ui teal button">
-              Get started
+              Alusta
             </button>
 
           </form>

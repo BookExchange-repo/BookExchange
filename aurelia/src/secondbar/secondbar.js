@@ -26,8 +26,8 @@ export class Secondbar {
           url: 'https://bookmarket.online:18081/api/books/getall?search={query}'
         },
         error : {
-          noResults   : 'Your search returned no books',
-          serverError : 'There was an issue with querying the server.'
+          noResults   : 'Teie otsing ei tagastanud ükski raamatuid',
+          serverError : 'On olemas probleem serveri kontakteerimisega.'
         },
         fields: {
           results: 'books',

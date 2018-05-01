@@ -6,7 +6,7 @@
         <i class="home icon"></i>
       </a>
       <i class="right chevron icon divider"></i>
-      <div class="active section">Sell Book</div>
+      <div class="active section">Müüa raamatut</div>
     </div>
 
     <div class="ui grid">
@@ -34,7 +34,7 @@
                 <div class="content">
                   <div class="header">
                     <i class="lightbulb outline normal icon icon"></i>
-                    Tip! Magic Fill can automatically fill in most fields for you by ISBN code!
+                    Vihje! Magic Fill võimaldab automaatseks lünkade täitmiseks kasutades ISBN koodi!
                   </div>
                 </div>
               </div>
@@ -51,7 +51,7 @@
                   <button type="submit" class="ui ${magicFillBusy ? 'loading' : ''} orange large button">
                     <i class="magic icon"></i>Magic Fill
                   </button>
-                  <div class="sell-book isbn-info">powered by Amazon, Google and other resources</div>
+                  <div class="sell-book isbn-info">töötab Amazon, Google ja muude ressursside abil</div>
                 </div>
               </div>
             </div>
@@ -59,28 +59,28 @@
 
           <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
 
-            <h3 class="ui dividing header sell-book second">Required information</h3>
+            <h3 class="ui dividing header sell-book second">Kohustuslik info</h3>
 
             <div class="ui error message"></div>
 
             <div class="required sixteen wide field">
-              <label>Title</label>
-              <input id="title" type="text" name="titleField" value.bind="bookData.title" placeholder="Title">
+              <label>Pealkiri</label>
+              <input id="title" type="text" name="titleField" value.bind="bookData.title" placeholder="Pealkiri">
             </div>
 
             <div class="fields">
               <div class="eight wide required field">
-                <label>Genre</label>
+                <label>Žanr</label>
                 <select class="ui dropdown" name="genreField" value.bind="bookDataGenre.id">
-                  <option model.bind="null" value="">Choose...</option>
+                  <option model.bind="null" value="">Vali...</option>
                   <option repeat.for="genre of genres" model.bind="genre.id">${genre.string}</option>
                 </select>
               </div>
 
               <div class="eight wide required field">
-                <label>Language</label>
+                <label>Keel</label>
                 <select id="bookLanguageSelector" name="languageField" class="ui dropdown" value.bind="bookDataLanguage.id">
-                  <option model.bind="null" value="">Choose...</option>
+                  <option model.bind="null" value="">Vali...</option>
                   <option repeat.for="language of languages" model.bind="language.id">${language.string}</option>
                 </select>
               </div>
@@ -88,7 +88,7 @@
 
             <div class="fields">
               <div class="five wide required field">
-                <label>Price</label>
+                <label>Hind</label>
                 <div class="ui right labeled input">
                   <input id="bookPrice" type="number" step=".01" name="bookPrice" min="0.01" max="9999" value.bind="bookData.price" placeholder="0.00">
                   <div class="ui label">€</div>
@@ -96,41 +96,41 @@
               </div>
 
               <div class="eight wide required field">
-                <label>Condition</label>
+                <label>Seisukord</label>
                 <select class="ui dropdown" name="conditionField" value.bind="bookDataCondition.id">
-                  <option model.bind="null" value="">Choose...</option>
+                  <option model.bind="null" value="">Vali...</option>
                   <option repeat.for="condition of conditions" model.bind="condition.id">${condition.string}</option>
                 </select>
               </div>
             </div>
 
             <div class="required sixteen wide field">
-              <label>Description</label>
+              <label>Kirjeldus</label>
               <textarea name="richTextEditor"></textarea>
               <input type="hidden" id="descriptionClone" value.bind="descriptionCloneValue" />
             </div>
 
             <div class="required eight wide field">
-              <label>Your city</label>
+              <label>Teie linn</label>
               <select id="citySelector" name="cityField" class="ui search dropdown" value.bind="bookDataCity.id">
-                <option model.bind="null" value="">choose or search...</option>
+                <option model.bind="null" value="">Vali või otsi...</option>
                 <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
               </select>
             </div>
 
             <h3 class="ui dividing header sell-book second">Additional information</h3>
             <div class="sixteen wide field">
-              <label>Author / Authors</label>
+              <label>Autor / Autorid</label>
               <input id="author" type="text" name="author" value.bind="bookData.author">
             </div>
 
             <div class="fields">
               <div class="five wide field">
-                <label>Year of publication</label>
+                <label>Ilmumisaasta</label>
                 <input id="pubyear" type="text" name="pubyear" value.bind="bookData.pubyear">
               </div>
               <div class="eleven wide field">
-                <label>Publisher</label>
+                <label>Kirjastus</label>
                 <input id="publisher" type="text" name="publisher" value.bind="bookData.publisher">
               </div>
             </div>
@@ -151,7 +151,7 @@
           <form class="ui large form" id="imageuploadform" method="post" submit.delegate="submit(images)">
             <input type="file" id="imageuploadformselectedfile" name="images" id="file" accept=".png,.jpg" files.bind="images">
             <button class="ui big teal icon submit button ${imageUploadBusy ? 'loading' : ''} upload-image" type="submit">
-              <i class="upload icon"></i>Upload image
+              <i class="upload icon"></i>Laadi pilt
             </button>
             <div class="ui error message"></div>
 

@@ -81,15 +81,15 @@ export class AddBooks {
             rules: [
               {
                 type: 'integer',
-                prompt: 'Please enter only a numeric part of ISBN'
+                prompt: 'Palun täitke ainult ISBN koodi numbrilist osa'
               },
               {
                 type: 'minLength[10]',
-                prompt: 'ISBN should be at least 10 digits long (ISBN-10)'
+                prompt: 'ISBN kood peab olema peaks olema vähemalt 10 numbrit pikk (ISBN-10)'
               },
               {
                 type: 'maxLength[13]',
-                prompt: 'ISBN should be not longer than 13 digits (ISBN-13)'
+                prompt: 'ISBN kood ei tohiks olla pikem kui 13 numbrit (ISBN-13)'
               },
             ]
           },
@@ -104,7 +104,7 @@ export class AddBooks {
             rules: [
               {
                 type: 'empty',
-                prompt: 'Please enter your book\'s title'
+                prompt: 'Palun täitke raamatu pealkiri'
               }
             ]
           },
@@ -112,7 +112,7 @@ export class AddBooks {
             rules: [
               {
                 type: 'empty',
-                prompt: 'Please select the genre'
+                prompt: 'Palun valige žanri'
               }
             ]
           },
@@ -120,7 +120,7 @@ export class AddBooks {
             rules: [
               {
                 type: 'empty',
-                prompt: 'Please choose the language'
+                prompt: 'Palun valige keelt'
               }
             ]
           },
@@ -128,7 +128,7 @@ export class AddBooks {
             rules: [
               {
                 type: 'decimal',
-                prompt: 'Please enter your price'
+                prompt: 'Palun sisestage hinda'
               }
             ]
           },
@@ -136,7 +136,7 @@ export class AddBooks {
             rules: [
               {
                 type: 'empty',
-                prompt: 'Please select the condition of your book'
+                prompt: 'Palun valige raamatu seisukorda'
               }
             ]
           },
@@ -144,7 +144,7 @@ export class AddBooks {
             rules: [
               {
                 type: 'empty',
-                prompt: 'Please enter your description'
+                prompt: 'Palun sisestage Teie kirjeldus'
               }
             ]
           },
@@ -152,7 +152,7 @@ export class AddBooks {
             rules: [
               {
                 type: 'empty',
-                prompt: 'Please choose the nearest city to you'
+                prompt: 'Palun valige Teie lähimat linna'
               }
             ]
           },
@@ -167,12 +167,12 @@ export class AddBooks {
             rules      : [
               {
                 type   : 'empty',
-                prompt : 'Please select an image to upload'
+                prompt : 'Palun valige pilti, et seda laadida'
               },
               {
                 type   : 'regExp',
                 value  : '/^(.*.((png|jpg)$))?[^.]*$/i',
-                prompt : 'Please upload a file in png or jpg format'
+                prompt : 'Tohib laadida ainult .PNG või .JPG formaadi pilte'
               }
             ]
           }
@@ -212,7 +212,7 @@ export class AddBooks {
     console.log("Starting adding book");
 
     if (this.richTextEditor.getData() === null || this.richTextEditor.getData() === "") {
-      $('#bookaddform').form('add errors', { apiError: 'Please enter your description' });
+      $('#bookaddform').form('add errors', { apiError: 'Palun sisestage Teie kirjeldus' });
     } else {
       this.bookData.description = this.richTextEditor.getData();
       // this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
@@ -239,7 +239,7 @@ export class AddBooks {
               id: data.id
             });
           } else {
-            $('#bookaddform').form('add errors', { apiError: 'We could not add your book (API error)' });
+            $('#bookaddform').form('add errors', { apiError: 'Meie ei saanud Teie raamatut lisada (API viga)' });
           }
         });
     }
@@ -248,8 +248,8 @@ export class AddBooks {
 
   showBookAddSuccessMessage() {
     $.uiAlert({
-      textHead: 'Success!',
-      text: 'Your book has been added to BookMarket!',
+      textHead: 'Õnnestus!',
+      text: 'Teie raamat oli lisatud BookMarket\'ile!',
       bgcolor: '#19c3aa',
       textcolor: '#fff',
       position: 'bottom-left',
@@ -271,7 +271,7 @@ export class AddBooks {
           this.bookData.imagepath = data.imagepath;
           $('#bookLanguageSelector').dropdown('set selected', data.language);
         } else {
-          $('#isbnform').form('add errors', { apiError: 'We could not find any information based on your ISBN' });
+          $('#isbnform').form('add errors', { apiError: 'Meie ei suutnud leida ühtki informatsiooni selle ISBN koodi järgi' });
         }
         this.magicFillBusy = false;
 

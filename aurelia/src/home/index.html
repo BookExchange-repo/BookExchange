@@ -1,6 +1,21 @@
 <template>
 
-  <div class="ui vertical segment homepage">
+  <!-- <div class="ui vertical segment homepage">
+    <div class="black-box"></div>
+
+    <div class="ui homepage grid">
+      <div class="eight wide column">
+        <h1>Helping you sell and buy books nearby</h1>
+        <a href="#" click.delegate="router.navigateToRoute('books')" class="ui huge teal button">BROWSE BOOKS</a>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="ui inverted vertical segment homepage">
+    <video autoplay loop>
+      <source src="src/resources/videos/background_video.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
     <div class="black-box"></div>
 
     <div class="ui homepage grid">
@@ -9,6 +24,74 @@
         <a href="#" click.delegate="router.navigateToRoute('books')" class="ui huge teal button">VAATA RAAMATUD</a>
       </div>
     </div>
+
+  </div>
+
+  <div class="ui vertical segment homepage-content recent-books">
+    <div class="ui homepage-content grid">
+      <h2>Recent books</h2>
+
+      <div class="ui link five cards">
+        <div class="card homepage-content" repeat.for="book of books.books">
+          <div class="image">
+            <a href="#" click.delegate="navigateToBookById(book.id)">
+              <img src="${book.imagepath}">
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="ui vertical segment homepage-content">
+    <div id="map">
+    </div>
+
+  </div>
+
+  <div class="ui vertical segment homepage-content stat">
+
+    <div class="ui center aligned homepage-content grid">
+      <div class="ui statistics">
+        <div class="statistic">
+          <div class="value">
+            10000
+          </div>
+          <div class="label">
+            have been sold
+          </div>
+        </div>
+  
+        <div class="statistic">
+          <div class="value">
+            25000
+          </div>
+          <div class="label">
+            on sale
+          </div>
+        </div>
+  
+        <div class="statistic">
+          <div class="value">
+            For children
+          </div>
+          <div class="label">
+            the most popular genre
+          </div>
+        </div>
+  
+        <div class="statistic">
+          <div class="value">
+            Tallinn
+          </div>
+          <div class="label">
+            the most popular city
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </template>

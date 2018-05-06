@@ -175,12 +175,12 @@ export class Books {
   }
 
   cityTagDeleteButtonPressed() {
-    $('#citySelector').dropdown('määra valitud', 'Kõik linnad');
+    $('#citySelector').dropdown('set selected', 'Kõik linnad');
     this.refreshOutput();
   }
 
   languageTagDeleteButtonPressed() {
-    $('#languageSelector').dropdown('määra valitud', 'Kõik keeled');
+    $('#languageSelector').dropdown('set selected', 'Kõik keeled');
     this.refreshOutput();
   }
 
@@ -216,7 +216,7 @@ export class Books {
     if (this.selectedLanguageID !== 0) apiURL += this.selectedLanguageID;
     apiURL += "&"; 
     apiURL += "search="; 
-    if (this.searchQuery !== null && this.searchQuery !== undefined) apiURL += this.searchQuery; 
+    if (this.searchQuery !== null && this.searchQuery !== undefined) apiURL += encodeURIComponent(this.searchQuery); 
 
     switch (this.selectedSortID) {
       case 0:
@@ -310,7 +310,7 @@ export class Books {
           }
         );
         this.refreshOutput();
-        console.log(this.addedToWatchlist);
+        //console.log(this.addedToWatchlist);
       });
   }
 

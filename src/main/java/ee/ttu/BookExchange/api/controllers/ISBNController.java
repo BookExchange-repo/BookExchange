@@ -106,7 +106,7 @@ public class ISBNController {
             languageHtml = languageHtml.substring(
                     languageHtml.lastIndexOf("</b>") + 4, languageHtml.length()).trim();
             outputMap.put("language", (Language.languageStringToId(languageHtml)
-                    == Language.OTHER_LANGUAGE_ID) ? "Other" : languageHtml);
+                    == Language.OTHER_LANGUAGE_ID) ? "Muu keel" : Language.englishToEstonian(languageHtml));
             outputMap.put("languageid", Integer.toString(Language.languageStringToId(languageHtml)));
 
             // Getting the image
@@ -159,7 +159,7 @@ public class ISBNController {
             String languageString = Language.googleLanguageShortToLong(
                     volumeInfo.get("language").toString());
             outputMap.put("language", (Language.languageStringToId(languageString)
-                    == Language.OTHER_LANGUAGE_ID) ? "Other" : languageString);
+                    == Language.OTHER_LANGUAGE_ID) ? "Muu keel" : Language.englishToEstonian(languageString));
             outputMap.put("languageid", Integer.toString(Language.languageStringToId(languageString)));
         } catch (Exception e) {
             return null;

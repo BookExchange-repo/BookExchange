@@ -160,13 +160,48 @@ public class Language {
     public static String rahvaLanguageStringConvert(String languageString) {
         switch (languageString) {
             case "eestikeelne":
-                return "Estonian";
+                return "Eesti";
             case "ingliskeelne":
-                return "English";
+                return "Inglise";
             case "venekeelne":
-                return "Russian";
+                return "Vene";
             default:
-                return "Other";
+                return "Muu keel";
+        }
+    }
+
+    public static String englishToEstonian(String languageString) {
+        switch (languageString){
+            case "English":
+                return "Inglise";
+            case "Estonian":
+                return "Eesti";
+            case "Russian":
+                return "Vene";
+            case "German":
+                return "Saksa";
+            case "French":
+                return "Prantsuse";
+            case "Spanish":
+                return "Hispaania";
+            case "Italian":
+                return "Itaalia";
+            case "Portuguese":
+                return "Portugali";
+            case "Dutch":
+                return "Hollandi";
+            case "Swedish":
+                return "Rootsi";
+            case "Danish":
+                return "Taani";
+            case "Norwegian":
+                return "Norra";
+            case "Turkish":
+                return "Türgi";
+            case "Polish":
+                return "Poola";
+            default:
+                return "Muu keel";
         }
     }
 }

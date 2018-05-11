@@ -140,7 +140,17 @@ public class BooksController {
                                 case "city":
                                     return Integer.toString(e.getCity().getId()).equals(value);
                                 case "search":
-                                    return e.getTitle().toLowerCase().contains(value.toLowerCase());
+                                {
+                                    boolean doesContain = e.getTitle().toLowerCase().contains(value.toLowerCase());
+                                    if (doesContain) {
+                                        int index = e.getTitle().toLowerCase().indexOf(value.toLowerCase());
+                                        int length = value.toLowerCase().length();
+                                        e.setTitle(e.getTitle().substring(0, index) +
+                                                "<b>" + e.getTitle().substring(index, index + length) + "</b>" +
+                                                e.getTitle().substring(length));
+                                    }
+                                    return doesContain;
+                                }
                                 default:
                                     return false;
                             }

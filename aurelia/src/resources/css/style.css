@@ -223,6 +223,10 @@ a:hover {
   border-bottom: none;
 }
 
+.ui[class*="left icon"].input > input {
+  padding-right: 0px !important;
+}
+
 /* Only SignUp CSS */
 
 .ui.grid.login, .ui.grid.signup {

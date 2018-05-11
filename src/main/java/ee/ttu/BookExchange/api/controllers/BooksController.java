@@ -6,7 +6,6 @@ import ee.ttu.BookExchange.api.services.StatusService;
 import ee.ttu.BookExchange.api.services.UsersService;
 import ee.ttu.BookExchange.api.services.WatchlistService;
 import ee.ttu.BookExchange.exceptions.APIException;
-import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

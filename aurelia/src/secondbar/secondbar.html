@@ -9,14 +9,14 @@
         Kõik raamatud
       </a>
       <a class="item navbar text ${router.navigation[2].isActive ? 'active' : ''}" click.delegate="router.navigateToRoute('addbook')">
-        Müü raamatut
+        Müü raamat
       </a>
       <div class="right menu">
         <div class="item navbar">
 
           <div class="ui fluid search">
             <div class="ui inverted left icon input search-navbar">
-              <input class="prompt" id="searchInput" value.bind="searchQuery" placeholder="Search" type="text">
+              <input class="prompt" id="searchInput" value.bind="searchQuery" placeholder="Otsing" type="text">
               <i class="search icon"></i>
             </div>
             <div class="results"></div>

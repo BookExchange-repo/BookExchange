@@ -45,7 +45,7 @@
             <div class="field">
               <div class="fields">
                 <div class="six wide field sell-book isbn">
-                  <input id="isbn" type="text" name="isbn" value.bind="bookData.isbn" placeholder="ISBN code">
+                  <input id="isbn" type="text" name="isbn" value.bind="bookData.isbn" placeholder="ISBN kood">
                 </div>
                 <div class="ten wide field sell-book magic-fill">
                   <button type="submit" class="ui ${magicFillBusy ? 'loading' : ''} orange large button">
@@ -111,14 +111,14 @@
             </div>
 
             <div class="required eight wide field">
-              <label>Teie linn</label>
+              <label>Linn</label>
               <select id="citySelector" name="cityField" class="ui search dropdown" value.bind="bookDataCity.id">
                 <option model.bind="null" value="">Vali või otsi...</option>
                 <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
               </select>
             </div>
 
-            <h3 class="ui dividing header sell-book second">Additional information</h3>
+            <h3 class="ui dividing header sell-book second">Lisainfo</h3>
             <div class="sixteen wide field">
               <label>Autor / Autorid</label>
               <input id="author" type="text" name="author" value.bind="bookData.author">

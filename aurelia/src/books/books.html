@@ -69,7 +69,7 @@
           </div>
 
           <div class="ui red segment">
-            <b style="font-size: 1.15em">Teie linn</b>
+            <b style="font-size: 1.15em">Linn</b>
             <select class="ui fluid search dropdown all-books sidebar-field" id="citySelector" value.bind="selectedCityID" change.delegate="sortOrFilterParamsChanged()">
               <option model.bind="0" selected>Kõik linnad</option>
               <option repeat.for="city of cities" model.bind="city.id">${city.string} (${city.counter})</option>

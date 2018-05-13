@@ -540,6 +540,14 @@ form.ui.large.form .field {
   background-color: #3A92A1 !important;
 } 
 
+.zoom {
+  transition: transform .2s;
+}
+
+.zoom:hover {
+  transform: scale(1.1); 
+}
+
 .author.horizontal-line {
   font-size: 1.2em;
   margin-top: 0.5em;

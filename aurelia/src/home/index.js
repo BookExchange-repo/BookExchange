@@ -17,10 +17,11 @@ export class Home {
   }
 
   fetchBooksFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/books/getall?city=&conditiondesc=&genreid=2&language=')
+    httpClient.fetch('https://bookmarket.online:18081/api/stats/recent?amount=4')
       .then(response => response.json())
       .then(data => {
-        this.books = data;        
+        this.books = data;
+        console.log(this.books);        
       });
   }
 

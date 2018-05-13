@@ -340,7 +340,7 @@ form.ui.large.form .field {
   top: 0;
 }
 
-.card.homepage-content {
+/* .card.homepage-content {
   height: 21.5em;
 }
 
@@ -354,11 +354,6 @@ form.ui.large.form .field {
   object-fit: fill
 }
 
-.ui.vertical.segment.homepage-content.recent-books {
-  margin-top: 3.5em;
-  margin-bottom: 5em
-}
-
 .ui.vertical.segment.homepage-content.recent-books .ui.five.cards {
   margin-top: 0.5em;
 }
@@ -367,11 +362,38 @@ form.ui.large.form .field {
   width: calc(20% - 2.5em);
   margin-left: 1.25em;
   margin-right: 1.25em
+} */
+
+.ui.card.homepage-card>.image, .ui.cards>.card.homepage-card>.image {
+  height: 25em;
+}
+
+.ui.card.homepage-card>.image:not(.ui)>a>img, .ui.cards>.card.homepage-card>.image:not(.ui)>a>img {
+  height: 100%;
+  width: 100%;
+  object-fit: scale-down;
+}
+
+.ui.fluid.card.homepage-card .content .header {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ui.vertical.segment.homepage-content.recent-books {
+  margin-top: 5em;
+  margin-bottom: 7em
+}
+
+.ui.grid.homepage-content>.column:not(.row), .ui.grid.homepage-content>.row>.column {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .ui.vertical.segment.homepage-content.recent-books h2 {
   color: #118092;
-  text-transform: uppercase
+  text-transform: uppercase;
+  margin-bottom: 2em;
 }
 
 #map {

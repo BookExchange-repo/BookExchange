@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = {"http://localhost:9000", "https://bookmarket.online"})
 @RequestMapping(value = "/api/books", produces = "application/json")
 public class BooksController {
+    private static final int LENGTH_OF_B_TAG = 7;
+
     private BooksService booksService;
     private UsersService usersService;
     private StatusService statusService;
@@ -148,11 +150,18 @@ public class BooksController {
                                 {
                                     boolean doesContain = e.getTitle().toLowerCase().contains(value.toLowerCase());
                                     if (doesContain) {
-                                        int index = e.getTitle().toLowerCase().indexOf(value.toLowerCase());
-                                        int length = value.toLowerCase().length();
-                                        e.setTitle(e.getTitle().substring(0, index) +
-                                                "<b>" + e.getTitle().substring(index, index + length) + "</b>" +
-                                                e.getTitle().substring(index + length, e.getTitle().length()));
+                                        int startingIndex = 0;
+                                        while (true) {
+                                            int index = e.getTitle().toLowerCase()
+                                                    .indexOf(value.toLowerCase(), startingIndex);
+                                            if (index == -1)
+                                                break;
+                                            int length = value.toLowerCase().length();
+                                            e.setTitle(e.getTitle().substring(0, index) +
+                                                    "<b>" + e.getTitle().substring(index, index + length) + "</b>" +
+                                                    e.getTitle().substring(index + length, e.getTitle().length()));
+                                            startingIndex = index + LENGTH_OF_B_TAG + 1;
+                                        }
                                     }
                                     return doesContain;
                                 }

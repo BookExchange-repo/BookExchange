@@ -8,11 +8,13 @@ let httpClient = new HttpClient();
 export class Home {
   constructor(router) {
     this.books = null;
+    this.stat = null;
     this.router = router;
   }
 
   attached() {
     this.fetchBooksFromAPI();
+    this.fetchStatFromAPI();
     this.initMap();
   }
 
@@ -20,8 +22,15 @@ export class Home {
     httpClient.fetch('https://bookmarket.online:18081/api/stats/recent?amount=4')
       .then(response => response.json())
       .then(data => {
-        this.books = data;
-        console.log(this.books);        
+        this.books = data;     
+      });
+  }
+
+  fetchStatFromAPI() {
+    httpClient.fetch('https://bookmarket.online:18081/api/stats/main')
+      .then(response => response.json())
+      .then(data => {
+        this.stat = data;    
       });
   }
 

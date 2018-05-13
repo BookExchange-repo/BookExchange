@@ -340,29 +340,23 @@ form.ui.large.form .field {
   top: 0;
 }
 
-/* .card.homepage-content {
-  height: 21.5em;
+.ui.card.homepage-card>.image, .ui.cards>.card.homepage-card>.image {
+  background: unset;
 }
 
-.card.homepage-content .image {
-  height: 100%;
+.ui.card.homepage-card>.content, .ui.cards>.card.homepage-card>.content {
+  border-top: unset;
 }
 
-.ui.cards>.card.homepage-content>.image>a>img {
-  height: 100%;
-  width: 100%;
-  object-fit: fill
-}
-
-.ui.vertical.segment.homepage-content.recent-books .ui.five.cards {
-  margin-top: 0.5em;
+.ui.card.homepage-card, .ui.cards>.card.homepage-card {
+  box-shadow: unset;
 }
 
 .ui.five.cards>.card.homepage-content {
   width: calc(20% - 2.5em);
   margin-left: 1.25em;
   margin-right: 1.25em
-} */
+}
 
 .ui.card.homepage-card>.image, .ui.cards>.card.homepage-card>.image {
   height: 25em;
@@ -378,6 +372,16 @@ form.ui.large.form .field {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
+  margin-top: 1.15em;
+  font-size: 1.7em;
+}
+
+.ui.card.homepage-card .meta, .ui.cards>.card.homepage-card .meta {
+  text-align: center;
+  margin-top: 1em;
+  font-size: 1.7em;
+  color: #118092;
 }
 
 .ui.vertical.segment.homepage-content.recent-books {
@@ -404,6 +408,11 @@ form.ui.large.form .field {
 .ui.vertical.segment.homepage-content.stat {
   margin-top: 2.5em;
   margin-bottom: 2em
+}
+
+.ui.statistics>.statistic.stat {
+  margin-left: 3em;
+  margin-right: 3em;
 }
 
 /* .ui.vertical.segment.homepage {

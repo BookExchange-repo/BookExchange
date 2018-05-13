@@ -76,39 +76,40 @@
 
     <div class="ui center aligned homepage-content grid">
       <div class="ui statistics">
-        <div class="statistic">
+        <div class="statistic stat">
           <div class="value">
-            10000
+            ${stat.totalBooks}
           </div>
           <div class="label">
-            have been sold
+            raamatut
           </div>
         </div>
   
         <div class="statistic">
           <div class="value">
-            25000
+            ${stat.averageBookPrice}
+            <span>€</span>
           </div>
           <div class="label">
-            on sale
+            keskmine raamatude hind
           </div>
         </div>
   
         <div class="statistic">
           <div class="value">
-            For children
+            ${stat.mostPopularGenre.string}
           </div>
           <div class="label">
-            the most popular genre
+            kõige populaarsem žanr
           </div>
         </div>
   
         <div class="statistic">
           <div class="value">
-            Tallinn
+            ${stat.mostPopularCity.string}
           </div>
           <div class="label">
-            the most popular city
+            kõige populaarsem linn
           </div>
         </div>
       </div>

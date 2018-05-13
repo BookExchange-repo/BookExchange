@@ -76,6 +76,7 @@ public class ClassifierController {
 
     private int getClassifierCount(String classifier, String classifierValue) {
         return booksService.getAllBooks().stream()
+                .filter(e -> e.getStatus().getId() == 1)
                 .filter(e -> getTableFieldByString(e, classifier).equals(classifierValue))
                 .collect(Collectors.toList()).size();
     }

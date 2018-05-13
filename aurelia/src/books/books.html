@@ -143,7 +143,8 @@
                 <div class="eight wide column">
                   <div class="content">
                     <a href="#" click.delegate="navigateToBookById(books.id)">
-                      <h1 class="title horizontal-line">${books.title}</h1>
+                      <h1 class="title horizontal-line" innerhtml="${books.title}"></h1>
+                      <!-- <h1 class="title horizontal-line">${books.title}</h1> -->
                     </a>
                     <div if.bind="!ifJSONAttributeIsNull(books.author)">
                       <h2 class="author horizontal-line">by ${books.author}</h2>

@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = {"http://localhost:9000", "https://bookmarket.online"})
 @RequestMapping(value = "/api/stats", produces = "application/json")
 public class StatsController {
+    public static final int DEFAULT_RECENT_BOOK_AMOUNT = 5;
+
     private BooksService booksService;
     private WatchlistService watchlistService;
 
@@ -67,7 +69,7 @@ public class StatsController {
     @RequestMapping(value = "recent", method = RequestMethod.GET)
     List<Books> getRecentBooks(@RequestParam(value = "amount") Optional<Integer> recentAmount) {
         if (!recentAmount.isPresent())
-            recentAmount = Optional.of(5);
+            recentAmount = Optional.of(DEFAULT_RECENT_BOOK_AMOUNT);
 
         List<Books> lastBooksDesc = booksService.getAllBooks();
         Collections.reverse(lastBooksDesc);

@@ -70,7 +70,7 @@ public class BooksController {
     }
 
     @RequestMapping(value = "getall", method = RequestMethod.GET)
-    public Map<String, List<Books>> getAllBooks(
+    public Map<String, Object> getAllBooks(
             @RequestParam Map<String,String> requestParams,
             @RequestParam(value = "sort") Optional<String> sortMask,
             @RequestParam(value = "sortdesc") Optional<Boolean> isSortDesc,
@@ -92,8 +92,9 @@ public class BooksController {
         boolean showPhoneNumber = shouldShowPhoneNumber(session, "CANNOT_BOOKS_GETALL");
         if (!isSortDesc.isPresent())
             isSortDesc = Optional.of(false);
-        Map<String, List<Books>> outputMap = new HashMap<>();
+        Map<String, Object> outputMap = new HashMap<>();
         List<Books> allBooks = booksService.getAllBooks();
+        int initialListSize = allBooks.size();
         for (Map.Entry<String, String> entry : requestParams.entrySet()) {
             if (entry.getValue().isEmpty())
                 continue;
@@ -227,6 +228,13 @@ public class BooksController {
         if (size.isPresent() && size.get() >= 0)
             allBooks = allBooks.stream().limit(size.get()).collect(Collectors.toList());
         outputMap.put("books", allBooks);
+        outputMap.put("allBooksAmount", initialListSize);
+        outputMap.put("shownBooksAmount", allBooks.size());
+        if (!offset.isPresent())
+            offset = Optional.of(0);
+        if (!size.isPresent())
+            size = Optional.of(initialListSize);
+        outputMap.put("doesExistNextPage", offset.get()+size.get() < initialListSize);
         outputMap.put("errors", new ArrayList<>());
         return outputMap;
     }

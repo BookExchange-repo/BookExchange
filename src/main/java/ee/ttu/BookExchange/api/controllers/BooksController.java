@@ -78,23 +78,18 @@ public class BooksController {
             @RequestParam(value = "offset") Optional<Integer> offset,
             @RequestParam(value = "size") Optional<Integer> size) throws APIException
     {
-        int paramsSize = 0;
-        if (sortMask.isPresent())
-            paramsSize++;
-        if (isSortDesc.isPresent())
-            paramsSize++;
-        if (session.isPresent()) {
-            paramsSize++;
-        }
-        if (offset.isPresent()) {
-            paramsSize++;
-        }
-        if (size.isPresent()) {
-            paramsSize++;
-        }
+        if (requestParams.containsKey("sort"))
+            requestParams.remove("sort");
+        if (requestParams.containsKey("sortdesc"))
+            requestParams.remove("sortdesc");
+        if (requestParams.containsKey("session"))
+            requestParams.remove("session");
+        if (requestParams.containsKey("offset"))
+            requestParams.remove("offset");
+        if (requestParams.containsKey("size"))
+            requestParams.remove("size");
 
         boolean showPhoneNumber = shouldShowPhoneNumber(session, "CANNOT_BOOKS_GETALL");
-
         if (!isSortDesc.isPresent())
             isSortDesc = Optional.of(false);
         Map<String, List<Books>> outputMap = new HashMap<>();
@@ -108,11 +103,7 @@ public class BooksController {
             if (valueArray.length == 1 && valueArray[0].isEmpty())
                 continue;
 
-            List<Books> filteredBooks;
-            if (requestParams.size() == paramsSize)
-                filteredBooks = allBooks;
-            else
-                filteredBooks = new ArrayList<>();
+            List<Books> filteredBooks = new ArrayList<>();
             for (String value : valueArray) {
                 filteredBooks.addAll(allBooks.stream()
                         .filter(e -> {
@@ -220,10 +211,6 @@ public class BooksController {
         }
         if (isSortDesc.get())
             Collections.reverse(allBooks);
-        if (offset.isPresent() && offset.get() > 0)
-            allBooks = allBooks.stream().skip(offset.get()).collect(Collectors.toList());
-        if (size.isPresent() && size.get() >= 0)
-            allBooks = allBooks.stream().limit(size.get()).collect(Collectors.toList());
         for (Books book : allBooks) {
             book.getUserid().setEmail("");
             book.getUserid().setPass_hash("");
@@ -235,6 +222,10 @@ public class BooksController {
         allBooks = allBooks.stream()
                 .filter(e -> e.getStatus().getId() == 1)
                 .collect(Collectors.toList());
+        if (offset.isPresent() && offset.get() > 0)
+            allBooks = allBooks.stream().skip(offset.get()).collect(Collectors.toList());
+        if (size.isPresent() && size.get() >= 0)
+            allBooks = allBooks.stream().limit(size.get()).collect(Collectors.toList());
         outputMap.put("books", allBooks);
         outputMap.put("errors", new ArrayList<>());
         return outputMap;

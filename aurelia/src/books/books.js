@@ -46,6 +46,8 @@ export class Books {
     this.languagesLoaded = false;
     this.booksForWatchList = [];
     this.addedToWatchlist = []; 
+    this.offsetParam = 0;
+    this.pageSize = 15;
   }
 
   listChanged(splices) {
@@ -199,10 +201,19 @@ export class Books {
     return date.toLocaleTimeString('et-EE', options);
   }
 
+  loadMore() {
+    this.pageSize += 15;
+    this.refreshOutput();
+  }
 
   refreshOutput() {
     let apiURL = environment.apiURL + 'api/books/getall?';
-
+    apiURL += "offset=";
+    apiURL += JSON.stringify(this.offsetParam);
+    apiURL += "&";
+    apiURL += "size=";
+    apiURL += JSON.stringify(this.pageSize);
+    apiURL += "&";
     apiURL += "city=";
     if (this.selectedCityID != 0) apiURL += this.selectedCityID;
     apiURL += "&";

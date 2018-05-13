@@ -493,6 +493,22 @@ form.ui.large.form .field {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
+.ui.toggle.checkbox input:checked + label:before {
+  background-color: #3A92A1 !important;
+}
+
+ .ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
+  background-color: #3A92A1 !important;
+}
+
+.ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
+  background-color: #3A92A1 !important;
+}
+
+.ui.toggle.checkbox input:focus:checked ~ .box:before, .ui.toggle.checkbox input:focus:checked ~ label:before {
+  background-color: #3A92A1 !important;
+} 
+
 .author.horizontal-line {
   font-size: 1.2em;
   margin-top: 0.5em;

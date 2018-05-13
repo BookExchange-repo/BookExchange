@@ -93,14 +93,7 @@ public class BooksController {
             paramsSize++;
         }
 
-        boolean showPhoneNumber = false;
-        if (session.isPresent()) {
-            Optional<Integer> userId = UsersController.getUserIdBySession(session.get());
-            if (!userId.isPresent()) {
-                throw new APIException("CANNOT_BOOKS_GETALL");
-            } else
-                showPhoneNumber = true;
-        }
+        boolean showPhoneNumber = shouldShowPhoneNumber(session, "CANNOT_BOOKS_GETALL");
 
         if (!isSortDesc.isPresent())
             isSortDesc = Optional.of(false);
@@ -247,19 +240,25 @@ public class BooksController {
         return outputMap;
     }
 
-    @RequestMapping(value = "getinfoid", method = RequestMethod.GET)
-    public Books getBook(@RequestParam(value = "id") int bookId,
-                         @RequestParam(value = "session") Optional<String> session) throws APIException
+    private boolean shouldShowPhoneNumber(Optional<String> session,
+                                          String exceptionMessage)
     {
         boolean showPhoneNumber = false;
         if (session.isPresent()) {
             Optional<Integer> userId = UsersController.getUserIdBySession(session.get());
             if (!userId.isPresent()) {
-                throw new APIException("CANNOT_BOOKS_GETINFOID");
+                throw new APIException(exceptionMessage);
             } else
                 showPhoneNumber = true;
         }
+        return showPhoneNumber;
+    }
 
+    @RequestMapping(value = "getinfoid", method = RequestMethod.GET)
+    public Books getBook(@RequestParam(value = "id") int bookId,
+                         @RequestParam(value = "session") Optional<String> session) throws APIException
+    {
+        boolean showPhoneNumber = shouldShowPhoneNumber(session, "CANNOT_BOOKS_GETINFOID");
         Books book = booksService.getBookById(bookId);
         if (book == null)
             throw new APIException("FAIL_NOTFOUND_ID");

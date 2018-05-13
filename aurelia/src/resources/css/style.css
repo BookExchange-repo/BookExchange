@@ -405,14 +405,23 @@ form.ui.large.form .field {
   height: 80vh;
 }
 
-.ui.vertical.segment.homepage-content.stat {
+.ui.vertical.segment.homepage-content.homepage-stat {
   margin-top: 2.5em;
   margin-bottom: 2em
 }
 
-.ui.statistics>.statistic.stat {
-  margin-left: 3em;
-  margin-right: 3em;
+.ui.statistics.homepage-stat>.statistic {
+  margin-left: 3.5em;
+  margin-right: 3.5em;
+}
+
+.ui.statistic>.value~.label, .ui.statistics.homepage-stat .statistic>.value~.label {
+  margin-top: 1.5em;
+}
+
+.ui.statistics.homepage-stat {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em; 
 }
 
 /* .ui.vertical.segment.homepage {

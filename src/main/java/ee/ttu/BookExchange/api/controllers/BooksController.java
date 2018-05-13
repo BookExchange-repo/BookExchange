@@ -93,6 +93,15 @@ public class BooksController {
             paramsSize++;
         }
 
+        boolean showPhoneNumber = false;
+        if (session.isPresent()) {
+            Optional<Integer> userId = UsersController.getUserIdBySession(session.get());
+            if (!userId.isPresent()) {
+                throw new APIException("CANNOT_BOOKS_GETALL");
+            } else
+                showPhoneNumber = true;
+        }
+
         if (!isSortDesc.isPresent())
             isSortDesc = Optional.of(false);
         Map<String, List<Books>> outputMap = new HashMap<>();
@@ -226,7 +235,8 @@ public class BooksController {
             book.getUserid().setEmail("");
             book.getUserid().setPass_hash("");
             book.getUserid().setPass_salt("");
-            book.getUserid().setPhone("");
+            if (!showPhoneNumber)
+                book.getUserid().setPhone("");
             book.setAmountOfAdds(watchlistService.findAmountByBookId(book.getId()));
         }
         allBooks = allBooks.stream()
@@ -241,13 +251,23 @@ public class BooksController {
     public Books getBook(@RequestParam(value = "id") int bookId,
                          @RequestParam(value = "session") Optional<String> session) throws APIException
     {
+        boolean showPhoneNumber = false;
+        if (session.isPresent()) {
+            Optional<Integer> userId = UsersController.getUserIdBySession(session.get());
+            if (!userId.isPresent()) {
+                throw new APIException("CANNOT_BOOKS_GETINFOID");
+            } else
+                showPhoneNumber = true;
+        }
+
         Books book = booksService.getBookById(bookId);
         if (book == null)
             throw new APIException("FAIL_NOTFOUND_ID");
         book.getUserid().setEmail("");
         book.getUserid().setPass_hash("");
         book.getUserid().setPass_salt("");
-        book.getUserid().setPhone("");
+        if (!showPhoneNumber)
+            book.getUserid().setPhone("");
         book.setAmountOfAdds(watchlistService.findAmountByBookId(book.getId()));
         return book;
     }

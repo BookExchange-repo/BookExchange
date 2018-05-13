@@ -2,8 +2,6 @@ package ee.ttu.BookExchange.api.services;
 
 import ee.ttu.BookExchange.api.models.GenreEng;
 import ee.ttu.BookExchange.api.models.GenreEst;
-import ee.ttu.BookExchange.api.models.StatusEng;
-import ee.ttu.BookExchange.api.models.StatusEst;
 import ee.ttu.BookExchange.api.repositories.GenreEngRepository;
 import ee.ttu.BookExchange.api.repositories.GenreEstRepository;
 import org.springframework.stereotype.Service;

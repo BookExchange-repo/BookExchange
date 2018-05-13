@@ -1,0 +1,14 @@
+server:
+  address: 127.0.0.1
+  port: 28081
+spring:
+   datasource:
+      url: jdbc:mariadb://localhost/bookexchange_db
+      username: root
+      password: toor
+   jpa:
+      hibernate:
+         ddl-auto: update
+   http:
+      multipart:
+         max-file-size: 10MB

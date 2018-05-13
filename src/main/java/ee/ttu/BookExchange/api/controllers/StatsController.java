@@ -16,9 +16,13 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/stats", produces = "application/json")
 public class StatsController {
     private BooksService booksService;
+    private WatchlistService watchlistService;
 
-    public StatsController(BooksService booksService) {
+    public StatsController(BooksService booksService,
+                           WatchlistService watchlistService)
+    {
         this.booksService = booksService;
+        this.watchlistService = watchlistService;
     }
 
     @RequestMapping(value = "main", method = RequestMethod.GET)
@@ -71,6 +75,13 @@ public class StatsController {
                 .filter(e -> !e.getImagepath().equals("https://bookmarket.online:18000/images/no-image.svg"))
                 .limit(recentAmount.get())
                 .collect(Collectors.toList());
+        for (Books book : lastBooksDesc) {
+            book.getUserid().setEmail("");
+            book.getUserid().setPass_hash("");
+            book.getUserid().setPass_salt("");
+            book.getUserid().setPhone("");
+            book.setAmountOfAdds(watchlistService.findAmountByBookId(book.getId()));
+        }
 
         return lastBooksDesc;
     }

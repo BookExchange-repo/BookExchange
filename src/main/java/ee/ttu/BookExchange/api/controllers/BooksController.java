@@ -94,6 +94,9 @@ public class BooksController {
             isSortDesc = Optional.of(false);
         Map<String, Object> outputMap = new HashMap<>();
         List<Books> allBooks = booksService.getAllBooks();
+        allBooks = allBooks.stream()
+                .filter(e -> e.getStatus().getId() == 1)
+                .collect(Collectors.toList());
         int initialListSize = allBooks.size();
         for (Map.Entry<String, String> entry : requestParams.entrySet()) {
             if (entry.getValue().isEmpty())
@@ -220,9 +223,6 @@ public class BooksController {
                 book.getUserid().setPhone("");
             book.setAmountOfAdds(watchlistService.findAmountByBookId(book.getId()));
         }
-        allBooks = allBooks.stream()
-                .filter(e -> e.getStatus().getId() == 1)
-                .collect(Collectors.toList());
         if (offset.isPresent() && offset.get() > 0)
             allBooks = allBooks.stream().skip(offset.get()).collect(Collectors.toList());
         if (size.isPresent() && size.get() >= 0)

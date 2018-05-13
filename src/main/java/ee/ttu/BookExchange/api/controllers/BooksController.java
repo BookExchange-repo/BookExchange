@@ -74,7 +74,9 @@ public class BooksController {
             @RequestParam Map<String,String> requestParams,
             @RequestParam(value = "sort") Optional<String> sortMask,
             @RequestParam(value = "sortdesc") Optional<Boolean> isSortDesc,
-            @RequestParam(value = "session") Optional<String> session) throws APIException
+            @RequestParam(value = "session") Optional<String> session,
+            @RequestParam(value = "offset") Optional<Integer> offset,
+            @RequestParam(value = "size") Optional<Integer> size) throws APIException
     {
         int paramsSize = 0;
         if (sortMask.isPresent())
@@ -82,6 +84,12 @@ public class BooksController {
         if (isSortDesc.isPresent())
             paramsSize++;
         if (session.isPresent()) {
+            paramsSize++;
+        }
+        if (offset.isPresent()) {
+            paramsSize++;
+        }
+        if (size.isPresent()) {
             paramsSize++;
         }
 
@@ -210,6 +218,10 @@ public class BooksController {
         }
         if (isSortDesc.get())
             Collections.reverse(allBooks);
+        if (offset.isPresent() && offset.get() > 0)
+            allBooks = allBooks.stream().skip(offset.get()).collect(Collectors.toList());
+        if (size.isPresent() && size.get() >= 0)
+            allBooks = allBooks.stream().limit(size.get()).collect(Collectors.toList());
         for (Books book : allBooks) {
             book.getUserid().setEmail("");
             book.getUserid().setPass_hash("");

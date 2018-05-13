@@ -59,4 +59,19 @@ public class StatsController {
 
         return result;
     }
+
+    @RequestMapping(value = "recent", method = RequestMethod.GET)
+    List<Books> getRecentBooks(@RequestParam(value = "amount") Optional<Integer> recentAmount) {
+        if (!recentAmount.isPresent())
+            recentAmount = Optional.of(5);
+
+        List<Books> lastBooksDesc = booksService.getAllBooks();
+        Collections.reverse(lastBooksDesc);
+        lastBooksDesc = lastBooksDesc.stream()
+                .filter(e -> !e.getImagepath().equals("https://bookmarket.online:18000/images/no-image.svg"))
+                .limit(recentAmount.get())
+                .collect(Collectors.toList());
+
+        return lastBooksDesc;
+    }
 }

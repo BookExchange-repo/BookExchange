@@ -150,9 +150,11 @@ public class BooksController {
                                     if (doesContain) {
                                         int index = e.getTitle().toLowerCase().indexOf(value.toLowerCase());
                                         int length = value.toLowerCase().length();
+                                        System.out.println(index);
+                                        System.out.println(length);
                                         e.setTitle(e.getTitle().substring(0, index) +
                                                 "<b>" + e.getTitle().substring(index, index + length) + "</b>" +
-                                                e.getTitle().substring(length));
+                                                e.getTitle().substring(index + length, e.getTitle().length()));
                                     }
                                     return doesContain;
                                 }

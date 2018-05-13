@@ -21,52 +21,48 @@
     </div>
 
     <div class="ui segment myaccount">
-      <div class="ui grid" if.bind="!editMode">
+      <div class="ui grid">
         <div class="center aligned two wide column">
           <img src="src/resources/images/user_icon.png" class="avatar">
         </div>
-        <div class="middle aligned ten wide column fullname">
+
+        <div class="middle aligned ten wide column fullname" show.bind="!editMode">
           <h1>${myAccount.full_name}</h1>
         </div>
-        <div class="right aligned four wide column">
-          <button class="ui basic button" click.delegate="enableEditMode()">
-            <i class="icon edit"></i>
-            Muuta informatsioon
-          </button>
-        </div>
 
-        <div class="sixteen wide column information">
-          <div class="information-field"><i class="ui map marker alternate icon"></i>${myAccount.city.string}</div>
-          <div class="information-field"><i class="ui phone icon"></i>${myAccount.phone}</div>
-          <div class="information-field"><i class="ui at icon"></i>${myAccount.email}</div>
-        </div>
-      </div>
-
-      
-
-      <form method="post" class="ui grid" if.bind="editMode" submit.delegate="updateInformation()">
-        <div class="center aligned two wide column">
-          <img src="src/resources/images/user_icon.png" class="avatar">
-        </div>
-        <div class="middle aligned ten wide column fullname">
+        <div class="middle aligned ten wide column fullname" show.bind="editMode">
           <div class="ui input">
-            <input type="text" name="firstname" value.bind="firstName" placeholder="Eesnimi" value.bind="firstName">
+            <input type="text" style="font-size: 1.35em;" name="firstname" placeholder="Eesnimi" value.bind="firstName">
           </div>
           <div class="ui input">
-            <input type="text" name="lastname" value.bind="lastName" placeholder="Perenimi" value.bind="lastName">
+            <input type="text" style="font-size: 1.35em;" name="lastname" placeholder="Perenimi" value.bind="lastName">
           </div>
         </div>
+
         <div class="right aligned four wide column">
-          <button type="submit" class="ui green button" click.delegate="disableEditMode()">
-            <i class="icon edit"></i>
-            Save
-          </button>
+
+          <div class="ui toggle big checkbox">
+            <input type="checkbox" name="public" change.delegate="editModeStatusChange()" checked.bind="editMode">
+            <label>
+              <a style="cursor: pointer;" click.delegate="changeEditMode()">Muuta informatsioon</a>
+            </label>
+          </div>
         </div>
 
-        <div class="sixteen wide column edit-mode">
+        <div class="sixteen wide column information" show.bind="!editMode">
+          <div class="information-field">
+            <i class="ui map marker alternate icon"></i>${myAccount.city.string}</div>
+          <div class="information-field">
+            <i class="ui phone icon"></i>${myAccount.phone}</div>
+          <div class="information-field">
+            <i class="ui at icon"></i>${myAccount.email}</div>
+        </div>
+
+        <div class="sixteen wide column edit-mode" show.bind="editMode">
+
           <div class="edit-mode-field">
             <i class="ui map marker alternate icon"></i>
-            <select class="ui search dropdown" name="city" value.bind="city">
+            <select class="ui search dropdown" id="citySelector" name="city" value.bind="city">
               <option model.bind="null" value="">Vali linna</option>
               <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
             </select>
@@ -80,12 +76,19 @@
             </div>
           </div>
 
-          <div class="edit-mode-field-email"><i class="ui at icon"></i>${myAccount.email}</div>
+          <div class="edit-mode-field-email">
+            <i class="ui at icon"></i>${myAccount.email}
+          </div>
+
+          <button type="submit" class="ui teal button" click.delegate="disableEditMode()">
+            <i class="icon edit"></i>
+            Salvesta
+          </button>
+
         </div>
-      </form>
 
+      </div>
     </div>
-
   </div>
 
 </template>

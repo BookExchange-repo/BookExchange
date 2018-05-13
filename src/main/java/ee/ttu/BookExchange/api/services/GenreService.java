@@ -25,4 +25,12 @@ public class GenreService {
     public List<GenreEst> getAllGenresEst() {
         return estRepository.findAll();
     }
+
+    public GenreEng getGenreByIdEng(int genreId) {
+        return engRepository.findOne(genreId);
+    }
+
+    public GenreEst getGenreByIdEst(int genreId) {
+        return estRepository.findOne(genreId);
+    }
 }

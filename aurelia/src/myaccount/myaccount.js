@@ -9,41 +9,47 @@ let httpClient = new HttpClient();
 @inject(Router, Authorization)
 export class MyAccount {
 
-  firstName = "";
-  lastName = "";
-  city = "";
-  phone = "";
+  myAccount = null;
+  myAccountForEditMode = null;
+  cities = null;
 
   constructor(router, authorization) {
     this.router = router;
     this.authorization = authorization;
-    this.myAccount = null;
     this.editMode = false;
-
-    this.cities = null;
+    this.firstName = "";
+    this.lastName = "";
+    this.city = "";
+    this.phone = "";
   }
 
   attached() {
     $('.ui.dropdown').dropdown();
-
     this.fetchMyAccount();
     this.fetchCitiesFromAPI();
-  }
-
-  enableEditMode() {
-    this.editMode = true;
-  }
-
-  disableEditMode() {
-    this.editMode = false;
   }
 
   fetchMyAccount() {
     httpClient.fetch(environment.apiURL + 'api/users/getinfo?session=' + this.authorization.getSessionID())
       .then(response => response.json())
       .then(data => {
-        this.myAccount = JSON.parse(JSON.stringify(data));
+        this.myAccount = data;
+        this.myAccountForEditMode = JSON.parse(JSON.stringify(data));
+        let firstAndLastNames = this.myAccountForEditMode.full_name.split(" ");
+        this.firstName = firstAndLastNames[0];
+        this.lastName = firstAndLastNames[1];
+        $('#citySelector').dropdown('set selected', this.myAccountForEditMode.city.string);
+        this.phone = this.myAccountForEditMode.phone;
       });
+  }
+
+  editModeStatusChange() {
+    this.fetchMyAccount();
+  }
+
+  changeEditMode() {
+    this.editMode = !this.editMode;
+    this.fetchMyAccount();
   }
 
   fetchCitiesFromAPI() {
@@ -56,24 +62,5 @@ export class MyAccount {
 
   updateInformation() {
     console.log(firstName);
-
-    // if ($('.ui.form').form('is valid')) {
-
-    //   httpClient.fetch('https://bookmarket.online:18081/api/users/update?session=' + this.authorization.getSessionID() + '&fullname=' + 
-    //   this.firstname + " " + this.lastname + '&city=' + this.city + '&phone=' + this.phone)
-    //   .then(function (response) {
-    //     return response.json();
-    //   })
-    //   .then(data => {
-    //     console.log(data);
-    //     if (data.errors.length === 0) {
-    //       this.authorization.deletePostregistrationRequiredSession();
-    //       this.connector.ckeckLoginStatus(); // to refresh data
-    //     } else {
-    //       $('.ui.form').form('add errors', {apiError: 'API error in postregistration'});
-    //     }
-    //   });
-
-    // }
   }
 }

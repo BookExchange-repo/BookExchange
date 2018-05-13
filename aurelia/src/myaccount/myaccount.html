@@ -26,67 +26,67 @@
           <img src="src/resources/images/user_icon.png" class="avatar">
         </div>
 
-        <div class="middle aligned ten wide column fullname" show.bind="!editMode">
-          <h1>${myAccount.full_name}</h1>
-        </div>
+        <form class="ui large form" method="post" submit.delegate="saveButtonPressed()">
 
-        <div class="middle aligned ten wide column fullname" show.bind="editMode">
-          <div class="ui input">
-            <input type="text" style="font-size: 1.35em;" name="firstname" placeholder="Eesnimi" value.bind="firstName">
-          </div>
-          <div class="ui input">
-            <input type="text" style="font-size: 1.35em;" name="lastname" placeholder="Perenimi" value.bind="lastName">
-          </div>
-        </div>
-
-        <div class="right aligned four wide column">
-
-          <div class="ui toggle big checkbox">
-            <input type="checkbox" name="public" change.delegate="editModeStatusChange()" checked.bind="editMode">
-            <label>
-              <a style="cursor: pointer;" click.delegate="changeEditMode()">Muuta informatsioon</a>
-            </label>
-          </div>
-        </div>
-
-        <div class="sixteen wide column information" show.bind="!editMode">
-          <div class="information-field">
-            <i class="ui map marker alternate icon"></i>${myAccount.city.string}</div>
-          <div class="information-field">
-            <i class="ui phone icon"></i>${myAccount.phone}</div>
-          <div class="information-field">
-            <i class="ui at icon"></i>${myAccount.email}</div>
-        </div>
-
-        <div class="sixteen wide column edit-mode" show.bind="editMode">
-
-          <div class="edit-mode-field">
-            <i class="ui map marker alternate icon"></i>
-            <select class="ui search dropdown" id="citySelector" name="city" value.bind="city">
-              <option model.bind="null" value="">Vali linna</option>
-              <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
-            </select>
+          <div class="middle aligned ten wide column fullname" show.bind="!editMode">
+            <h1>${myAccount.full_name}</h1>
           </div>
 
-          <div class="edit-mode-field">
-            <i class="ui phone icon"></i>
-            <div class="ui labeled input">
-              <label for="phone_edit_mode" class="ui label">+372</label>
-              <input type="text" name="phone" id="phone_edit_mode" value.bind="phone">
+          <div class="middle aligned ten wide column fullname" show.bind="editMode">
+            <div class="ui input required field">
+              <input type="text" style="font-size: 1.35em;" name="firstname" placeholder="Eesnimi" value.bind="firstName">
+            </div>
+            <div class="ui input required field">
+              <input type="text" style="font-size: 1.35em;" name="lastname" placeholder="Perenimi" value.bind="lastName">
             </div>
           </div>
 
-          <div class="edit-mode-field-email">
-            <i class="ui at icon"></i>${myAccount.email}
+          <div class="right aligned four wide column">
+            <div class="ui toggle big checkbox">
+              <input type="checkbox" name="public" change.delegate="editModeStatusChange()" checked.bind="editMode">
+              <label>
+                <a style="cursor: pointer;" click.delegate="changeEditMode()">Muuta informatsioon</a>
+              </label>
+            </div>
           </div>
 
-          <button type="submit" class="ui teal button" click.delegate="disableEditMode()">
-            <i class="icon edit"></i>
-            Salvesta
-          </button>
+          <div class="sixteen wide column information" show.bind="!editMode">
+            <div class="information-field">
+              <i class="ui map marker alternate icon"></i>${myAccount.city.string}</div>
+            <div class="information-field">
+              <i class="ui phone icon"></i>${myAccount.phone}</div>
+            <div class="information-field">
+              <i class="ui at icon"></i>${myAccount.email}</div>
+          </div>
 
-        </div>
+          <div class="sixteen wide column edit-mode" show.bind="editMode">
+            <div class="required field edit-mode-field">
+              <i class="ui map marker alternate icon"></i>
+              <select class="ui search dropdown" id="citySelector" name="city" value.bind="city">
+                <option model.bind="null" value="">Vali linna</option>
+                <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
+              </select>
+            </div>
+            <div class="required field edit-mode-field">
+              <i class="ui phone icon"></i>
+              <div class="ui labeled input">
+                <label for="phone_edit_mode" class="ui label">+372</label>
+                <input type="text" name="phone" id="phone_edit_mode" value.bind="phone">
+              </div>
+            </div>
+            <div class="edit-mode-field-email">
+              <i class="ui at icon"></i>${myAccount.email}
+            </div>
 
+            <div class="ui error message"></div>
+
+            <button type="submit" class="ui teal button">
+              <i class="icon edit"></i>
+              Salvesta
+            </button>
+
+          </div>
+        </form>
       </div>
     </div>
   </div>

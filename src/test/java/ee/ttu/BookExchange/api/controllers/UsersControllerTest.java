@@ -65,8 +65,8 @@ public class UsersControllerTest {
         cities.add(tallinn);
     }
 
-    private static void createUser() {
-        users = new ArrayList<>();
+    public static List<Users> createUser(List<Users> input) {
+        input = new ArrayList<>();
         Users user = new Users();
         user.setId(1);
         user.setUsername("someuser");
@@ -78,14 +78,15 @@ public class UsersControllerTest {
         user.setIsverified((byte)0);
         user.setRegdate(new Timestamp(968396765));
         user.setPhone("12345678");
-        users.add(user);
+        input.add(user);
+        return input;
     }
 
     @BeforeClass
     public static void setUpAllTests() {
         // before all tests
         createCities();
-        createUser();
+        users = createUser(users);
         usersServiceMock = mock(UsersService.class);
         booksServiceMock = mock(BooksService.class);
         watchlistServiceMock = mock(WatchlistService.class);
@@ -103,7 +104,7 @@ public class UsersControllerTest {
 
     @Test
     public void testGetAllUsersOneUser() {
-        Map<String, List<Users>> allUsers = usersController.getAllUsers();
+        Map<String, List<Users>> allUsers = usersController.getAllUsers(Optional.of("SESSION"));
         assertTrue(allUsers.containsKey("users"));
         assertEquals(1, allUsers.get("users").size());
         assertEquals("Some One", allUsers.get("users").get(0).getFull_name());

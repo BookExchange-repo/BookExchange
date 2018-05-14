@@ -12,14 +12,13 @@
   </div> -->
 
   <div class="ui inverted vertical segment homepage">
-    <video autoplay loop>
-      <source src="src/resources/videos/background_video.mp4" type="video/mp4"> Your browser does not support HTML5 video.
+    <video src.bind="'src/resources/videos/background_video.mp4'" ref="player" loop muted autoplay>
     </video>
     <div class="black-box"></div>
 
     <div class="ui homepage grid">
       <div class="eight wide column">
-        <h1>Aitame Teil müüa ja osta raamatuid lähedal</h1>
+        <h1>Aitame Teid müüa ja osta raamatuid lähedal</h1>
         <a href="#" click.delegate="router.navigateToRoute('books')" class="ui huge teal button">VAATA RAAMATUD</a>
       </div>
     </div>

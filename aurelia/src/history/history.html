@@ -50,19 +50,15 @@
                 <img class="dashboard image" src="${bookForWatchList.bookid.imagepath}" click.delegate="navigateToBookById(bookForWatchList.id)">
               </div>
               <div class="content">
-
-                <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                  <a class="header" click.delegate="navigateToBookById(bookForWatchList.bookid.id)">${bookForWatchList.bookid.title}</a>
-                </div>
+                <a class="header" click.delegate="navigateToBookById(bookForWatchList.bookid.id)">${bookForWatchList.bookid.title}</a>
                 
                 <div class="description">
                   <div class="item-description-watch-list" click.delegate="navigateToBookById(bookForWatchList.bookid.id)">
                     <p>${bookForWatchList.bookid.userid.full_name}</p>
-                    <p>
-                      <i class="ui phone icon"></i>${bookForWatchList.bookid.userid.phone}
-                      <br>
-                      <i class="ui at icon"></i>${bookForWatchList.bookid.userid.email}
-                    </p>
+                    <div class="history-contacts">
+                      <p><i class="ui phone icon"></i>${bookForWatchList.bookid.userid.phone}</p>
+                      <p><i class="ui at icon"></i>${bookForWatchList.bookid.userid.email}</p>
+                    </div>
                   </div>
                   <div class="ui labels item-label">
                     <div class="ui ${bookForWatchList.bookid.status.id === 1 ? 'green' : ''} ${bookForWatchList.bookid.status.id === 2 ? 'red' : ''} tag label">${bookForWatchList.bookid.status.string}</div>
@@ -106,26 +102,23 @@
                 <div class="description">
                   <div class="item-description-sales-activity" click.delegate="navigateToBookById(bookForSalesActivity.id)">
                     <p>${bookForSalesActivity.userid.full_name}</p>
-                    <div>
-                    <!-- <div if.bind="bookForSalesActivity.amountOfAdds"> -->
-                        <i class="users icon"></i> ${bookForSalesActivity.amountOfAdds} ${bookForSalesActivity.amountOfAdds === 1 ? 'inimene jälgib' : 'inimest jälgib'}</div>
+                    <div class="history-contacts">
+                      <p><i class="ui users icon"></i>${bookForSalesActivity.amountOfAdds} ${bookForSalesActivity.amountOfAdds === 1 ? 'inimene jälgib' : 'inimest jälgib'}</p>
+                      <p><i class="ui euro icon"></i>${bookForSalesActivity.price}</p>
                     </div>
-                    <p>
-                      <b>${bookForSalesActivity.price}</b>
-                      <i class="ui euro icon"></i>
-                    </p>
-                  </div>
-                  <div class="ui labels item-label">
-                    <div class="ui ${bookForSalesActivity.status.id === 1 ? 'green' : ''} ${bookForSalesActivity.status.id === 2 ? 'red' : ''} tag label">${bookForSalesActivity.status.string}</div>
-                    <a class="ui label" if.bind="bookForSalesActivity.status.id === 1" click.delegate="changeBookStatus(bookForSalesActivity.id, 2)">
-                      <i class="ui gem outline icon"></i>
-                      Markeeri müüdetuks
-                    </a>
-                    <!-- <a class="ui label" if.bind="bookForSalesActivity.status.id === 2" click.delegate="changeBookStatus(bookForSalesActivity.id, 1)">
-                      Aktiveeri
-                    </a> -->
                   </div>
                 </div>
+                <div class="ui labels item-label">
+                  <div class="ui ${bookForSalesActivity.status.id === 1 ? 'green' : ''} ${bookForSalesActivity.status.id === 2 ? 'red' : ''} tag label">${bookForSalesActivity.status.string}</div>
+                  <a class="ui label" if.bind="bookForSalesActivity.status.id === 1" click.delegate="changeBookStatus(bookForSalesActivity.id, 2)">
+                    <i class="ui gem outline icon"></i>
+                    Markeeri müüdetuks
+                  </a>
+                  <!-- <a class="ui label" if.bind="bookForSalesActivity.status.id === 2" click.delegate="changeBookStatus(bookForSalesActivity.id, 1)">
+                    Aktiveeri
+                  </a> -->
+                </div>
+              </div>
               </div>
             </div>
           </div>

@@ -27,6 +27,7 @@ a:hover {
 @media only screen and (min-width: 1650px) {
   .ui.fluid.container.custom-width {
     margin-top: 4.5em;
+    margin-bottom: 6.5em;
     width: 70%;
     min-height: calc(100vh - 12em);
   }
@@ -62,7 +63,7 @@ a:hover {
   .ui.vertical.segment.homepage video {
     height: 100vh;
     width: 100%;
-    object-fit: fill;
+    object-fit: cover;
     position: relative;
   }
 
@@ -78,6 +79,7 @@ a:hover {
 @media only screen and (min-width: 1460px) and (max-width: 1649px) {
   .ui.fluid.container.custom-width {
     margin-top: 4.5em;
+    margin-bottom: 6.5em;
     width: 80%;
     min-height: calc(100vh - 12em);
   }
@@ -113,7 +115,7 @@ a:hover {
   .ui.vertical.segment.homepage video {
     height: 100vh;
     width: 100%;
-    object-fit: fill;
+    object-fit: cover;
     position: relative;
   }
 
@@ -128,6 +130,7 @@ a:hover {
 @media only screen and (min-width: 1300px) and (max-width: 1459px) {
   .ui.fluid.container.custom-width {
     margin-top: 4.5em;
+    margin-bottom: 6.5em;
     width: 90%;
     min-height: calc(100vh - 12em);
   }
@@ -746,7 +749,6 @@ form.ui.large.form .field {
 
 .ui.segment.information.more-about-book {
   padding: 2em;
-  margin-bottom: 3em;
 }
 
 .author.more-about-book {
@@ -816,9 +818,9 @@ form.ui.large.form .field {
 
 /* Only Sell Book CSS */
 
-.custom-width .ui.grid .eleven.wide.column {
+/* .custom-width .ui.grid .eleven.wide.column {
   margin-bottom: 3em;
-}
+} */
 
 .six.wide.field.sell-book.isbn {
   background: url(../images/barcode.png);
@@ -906,6 +908,10 @@ img.ui.fluid.image.sell-book.upload-image {
 
 /* Only Dashboard CSS */
 
+.history-contacts {
+  margin-top: 1em;
+}
+
 .dashboard .ui.items>.item .extra {
   width: 5%;
   margin-left: 1em;
@@ -984,6 +990,10 @@ img.ui.fluid.image.sell-book.upload-image {
 
 .dashboard .ui.items>.item>.content>.header:not(.ui) {
   font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 }
 
 .item-label {
@@ -1059,13 +1069,4 @@ img.ui.fluid.image.sell-book.upload-image {
 
 .ui.grid.book-page {
   margin-bottom: 0;
-}
-
-/* Slider */
-.swiper-slide.swiper-slide-active {
-  display: inherit;
-}
-
-.ui.fluid.card {
-  width: unset;
 }

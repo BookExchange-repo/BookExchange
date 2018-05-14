@@ -31,7 +31,7 @@ export class Authorization {
   }
 
   checkIfSessionExists() {
-    return localStorage.getItem("session") !== null;
+    return localStorage.getItem("session") !== null && localStorage.getItem("session") !== "";
   }
 
 

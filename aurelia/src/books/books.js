@@ -2,7 +2,6 @@ import { HttpClient, json } from 'aurelia-fetch-client';
 import { customAttribute, bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Connector } from 'auth/connector';
-import { Book } from 'book/book';
 import { Authorization } from 'auth/authorization';
 import { observable } from 'aurelia-framework';
 import environment from '../environment';
@@ -10,7 +9,7 @@ import {activationStrategy} from "aurelia-router";
 
 let httpClient = new HttpClient();
 
-@inject(Router, Connector, Book, Authorization)
+@inject(Router, Connector, Authorization)
 export class Books {
   @observable searchQuery = '';
 
@@ -20,10 +19,9 @@ export class Books {
   selectedConditionIDs = [];
   selectedLanguageID = 0;
 
-  constructor(router, connector, book, authorization) {
+  constructor(router, connector, authorization) {
     this.router = router;
     this.connector = connector;
-    this.book = book;
     this.authorization = authorization;
     this.cities = null;
     this.genres = null;
@@ -312,17 +310,20 @@ export class Books {
   }
 
   fetchBooksForWatchList() {
-    httpClient.fetch(environment.apiURL + 'api/users/getwatchlist?session=' + this.authorization.getSessionID())
-      .then(response => response.json())
-      .then(data => {
-        Object.entries(data).forEach(
-          ([key, value]) => {
-            if (!this.addedToWatchlist.includes(value.bookid.id)) this.addedToWatchlist.push(value.bookid.id);
-          }
-        );
-        this.refreshOutput();
-        //console.log(this.addedToWatchlist);
-      });
+    if (this.authorization.checkIfSessionExists()) {
+      httpClient.fetch(environment.apiURL + 'api/users/getwatchlist?session=' + this.authorization.getSessionID())
+        .then(response => response.json())
+        .then(data => {
+          Object.entries(data).forEach(
+            ([key, value]) => {
+              if (!this.addedToWatchlist.includes(value.bookid.id)) this.addedToWatchlist.push(value.bookid.id);
+            }
+          );
+          this.refreshOutput();
+          //console.log(this.addedToWatchlist);
+        });
+    }
+
   }
 
   addToWatchList(bookID) {

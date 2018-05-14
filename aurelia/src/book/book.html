@@ -21,7 +21,7 @@
 
     <div class="sixteen wide column" show.bind="noBookFound">
       <div class="ui big error center aligned message">
-        <div class="header">Raamatuid ei leitud</div>
+        <div class="header">Raamat ei ole leitud</div>
       </div>
     </div>
 
@@ -51,9 +51,7 @@
                 </i>
               <span if.bind="!loggedIn">PALUN LOGIGE SISSE</span>
             </div>
-            <div show.bind="!bookAlreadyInWathList" class="visible content">
-              LISA JÄLGIMISNIMEKIRJA
-            </div>
+            <div show.bind="!bookAlreadyInWathList" class="visible content">LISA JÄLGIMISNIMEKIRJA</div>
             <div show.bind="bookAlreadyInWathList" class="visible content">
               <i class="icons">
                 <i class="bookmark outline icon"></i>

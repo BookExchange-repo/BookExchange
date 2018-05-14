@@ -22,6 +22,18 @@ export class SignUp {
     this.connector = connector;
     this.router = router;
     
+    this.redirectUsersIfNeeded();
+  }
+
+  redirectUsersIfNeeded() {
+    let isLoggedInUser = this.authorization.checkIfSessionExists();
+    let isLoggedInPostregistrationRequiredUser = this.authorization.checkIfPostregistrationRequiredSessionExists();
+    if (!isLoggedInUser) {
+      this.router.navigateToRoute('login');
+    }
+    else if (!isLoggedInPostregistrationRequiredUser) {
+      this.router.navigateToRoute('home');
+    }
   }
 
   attached() {

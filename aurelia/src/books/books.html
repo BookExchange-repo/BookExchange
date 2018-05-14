@@ -168,8 +168,8 @@
                 <div class="right aligned four wide column">
 
                   <i class="huge icons">
-                    <i if.bind="connector.loggedIn && addedToWatchlist.includes(books.id)" class="teal bookmark icon"></i>
-                    <i if.bind="connector.loggedIn && !addedToWatchlist.includes(books.id)" click.delegate="clickAddToWatchlistButton(books.id)" style="cursor: pointer;" class="teal bookmark icon"></i>
+                    <i if.bind="connector.loggedIn && addedToWatchlist.includes(books.id)" class="teal bookmark outline icon"></i>
+                    <i if.bind="connector.loggedIn && !addedToWatchlist.includes(books.id)" click.delegate="clickAddToWatchlistButton(books.id)" style="cursor: pointer;" class="teal bookmark outline icon"></i>
 
                     <i show.bind="addedToWatchlist.includes(books.id)" class="corner check icon"></i>
                   </i>

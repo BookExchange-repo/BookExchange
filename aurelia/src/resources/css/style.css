@@ -27,7 +27,6 @@ a:hover {
 @media only screen and (min-width: 1650px) {
   .ui.fluid.container.custom-width {
     margin-top: 4.5em;
-    margin-bottom: 6.5em;
     width: 70%;
     min-height: calc(100vh - 12em);
   }
@@ -79,7 +78,6 @@ a:hover {
 @media only screen and (min-width: 1460px) and (max-width: 1649px) {
   .ui.fluid.container.custom-width {
     margin-top: 4.5em;
-    margin-bottom: 6.5em;
     width: 80%;
     min-height: calc(100vh - 12em);
   }
@@ -130,7 +128,6 @@ a:hover {
 @media only screen and (min-width: 1300px) and (max-width: 1459px) {
   .ui.fluid.container.custom-width {
     margin-top: 4.5em;
-    margin-bottom: 6.5em;
     width: 90%;
     min-height: calc(100vh - 12em);
   }
@@ -180,7 +177,6 @@ a:hover {
 
 @media only screen and (min-width: 984px) and (max-width: 1299px) {
   .ui.fluid.container.custom-width {
-    margin-bottom: 3em;
     margin-top: 4.5em;
     width: 100%;
     padding-left: 1em;
@@ -230,7 +226,6 @@ a:hover {
 
 @media only screen and (max-width: 983px) {
   .ui.fluid.container.custom-width {
-    margin-bottom: 3em;
     margin-top: 4.5em;
     width: 100%;
     padding-left: 1em;
@@ -319,6 +314,7 @@ a:hover {
 
 .ui.grid+.grid.add-book{
   margin-top: -1rem;
+  margin-bottom: 3rem;
 }
 
 .sixteen.wide.column.all-books.filters {
@@ -832,6 +828,10 @@ form.ui.large.form .field {
   margin-bottom: 3em;
 } */
 
+.ui.grid.sell-book {
+  margin-bottom: 3rem;
+}
+
 .six.wide.field.sell-book.isbn {
   background: url(../images/barcode.png);
   height: 5.5em;
@@ -952,6 +952,7 @@ img.ui.fluid.image.sell-book.upload-image {
 
 .ui.segment.dashboard {
   margin-top: 0;
+  margin-bottom: 4em;
 }
 
 .ui.header.dashboard {
@@ -1084,5 +1085,5 @@ h1.edit-mode-disabled-title:last-child {
 /* Only Book Page CSS */
 
 .ui.grid.book-page {
-  margin-bottom: 0;
+  margin-bottom: 3em;
 }

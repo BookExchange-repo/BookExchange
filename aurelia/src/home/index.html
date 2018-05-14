@@ -28,37 +28,7 @@
 
   <div class="ui vertical segment homepage-content recent-books">
     <div class="ui four column homepage-content grid">
-      <h2>Recent books</h2>
-
-      <div class="row">
-        <div class="swiper-container" style="width: 100%; height: 500px;">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="column" repeat.for="book of books">
-                    <div class="ui zoom fluid card homepage-card">
-                      <div class="image">
-                        <a href="#" click.delegate="navigateToBookById(book.id)">
-                          <img src="${book.imagepath}">
-                        </a>
-                      </div>
-                      <div class="content">
-                        <a class="header" href="#" click.delegate="navigateToBookById(book.id)">${book.title}</a>
-                        <div class="meta">
-                          ${book.price}
-                          <span>€</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-            </div>
-
-            <div class="swiper-slide">Slide 2</div>
-          </div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
-      </div>
+      <h2>Viimati lisatud</h2>
 
       <div class="row">
         <div class="column" repeat.for="book of books">
@@ -96,7 +66,7 @@
           <div class="value">
             ${stat.totalBooks}
           </div>
-          <div class="label">
+          <div style="font-size: 1.22em" class="label">
             raamatut
           </div>
         </div>
@@ -106,7 +76,7 @@
             ${stat.averageBookPrice}
             <span>€</span>
           </div>
-          <div class="label">
+          <div style="font-size: 1.22em" class="label">
             keskmine hind
           </div>
         </div>
@@ -115,7 +85,7 @@
           <div class="value">
             ${stat.mostPopularGenre.string}
           </div>
-          <div class="label">
+          <div style="font-size: 1.22em" class="label">
             kõige populaarsem žanr
           </div>
         </div>
@@ -124,7 +94,7 @@
           <div class="value">
             ${stat.mostPopularCity.string}
           </div>
-          <div class="label">
+          <div style="font-size: 1.22em" class="label">
             kõige populaarsem linn
           </div>
         </div>

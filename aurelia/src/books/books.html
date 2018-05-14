@@ -11,7 +11,7 @@
           <div class="active section">
             <span>${bookTypes} raamatud</span>
             <span if.bind="fetchingBooksFromApi" class="ui active small inline loader all-books"></span>
-            <span if.bind="!fetchingBooksFromApi">(${numberOfBooks})</span>
+            <span if.bind="!fetchingBooksFromApi">(${shownBooksAmount}/${numberOfBooks})</span>
           </div>
         </div>
       </div>
@@ -190,7 +190,7 @@
             </div>
           </div>
 
-          <button click.delegate="loadMore()">Rohkem tulemusi</button>
+          <button show.bind="doesExistNextPage" click.delegate="loadMore()">Rohkem tulemusi ${allBooksAmount} ${shownBooksAmount} ${doesExistNextPage}</button>
 
         </div>
       </div>

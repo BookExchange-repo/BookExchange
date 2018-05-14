@@ -45,7 +45,11 @@ export class Books {
     this.booksForWatchList = [];
     this.addedToWatchlist = []; 
     this.offsetParam = 0;
+    this.defaultPageSize = 15;
     this.pageSize = 15;
+
+    this.shownBooksAmount = 0;
+    this.doesExistNextPage = false;
   }
 
   listChanged(splices) {
@@ -83,8 +87,13 @@ export class Books {
   }
 
   searchQueryChanged(newvalue, oldvalue) {
-    this.sortOrFilterParamsChanged();
+    if(!((newvalue === null || newvalue=== "") && (oldvalue === null || oldvalue === ""))) {
+      this.sortOrFilterParamsChanged();
+    }
+    //  
+    
   }
+
   
   setFirstTimeParamForTagBarAnimation() {
     if (this.noFiltersAreSelected()) {
@@ -122,6 +131,16 @@ export class Books {
     this.getConditionParamsFromUrl();
     this.getLanguageParamsFromUrl();
     this.getFilterParamsFromUrl();
+    this.getPageSizeParamsFromUrl();
+  }
+
+  getPageSizeParamsFromUrl() {
+    let pageSizeParamFromURL = this.router.currentInstruction.queryParams.pagesize;
+    if (pageSizeParamFromURL !== null && !isNaN(pageSizeParamFromURL)) {
+      this.pageSize = parseInt(pageSizeParamFromURL);
+    } else {
+      this.pageSize = 15;
+    }
   }
 
   getSortParamsFromUrl() {
@@ -199,11 +218,6 @@ export class Books {
     return date.toLocaleTimeString('et-EE', options);
   }
 
-  loadMore() {
-    this.pageSize += 15;
-    this.refreshOutput();
-  }
-
   refreshOutput() {
     let apiURL = environment.apiURL + 'api/books/getall?';
     apiURL += "offset=";
@@ -261,6 +275,7 @@ export class Books {
   }
 
   correctURLaccordingToFilters() {
+    console.log("ee");
     this.router.navigateToRoute(
       this.router.currentInstruction.config.name,
       {
@@ -269,13 +284,21 @@ export class Books {
         genre: this.convertArrayToDottedView(this.selectedGenreIDs),
         condition: this.convertArrayToDottedView(this.selectedConditionIDs),
         language: this.selectedLanguageID,
-        filter: this.searchQuery
+        filter: this.searchQuery,
+        pagesize: this.pageSize
       },
       { trigger: false, replace: true }
     );
   }
 
+  loadMore() {
+    this.pageSize += 15;
+    this.refreshOutput();
+    this.correctURLaccordingToFilters();
+  }
+
   sortOrFilterParamsChanged() {
+    this.pageSize = parseInt(JSON.stringify(this.defaultPageSize));
     this.correctURLaccordingToFilters();
     this.refreshOutput();
     this.filteredOrAllBooks();
@@ -288,9 +311,13 @@ export class Books {
       .then(data => {
         this.books = data;
         this.fetchingBooksFromApi = false;
-        this.numberOfBooks = Object.keys(this.books.books).length;
-        if (this.numberOfBooks === 0) {
+        // this.numberOfBooks = Object.keys(this.books.books).length;
+        this.numberOfBooks = this.books.allBooksAmount;
+        this.shownBooksAmount = this.books.shownBooksAmount;
+        this.doesExistNextPage = this.books.doesExistNextPage;
+        if (this.shownBooksAmount === 0) {
           this.noBooks = true;
+          this.doesExistNextPage = false;
         } else {
           this.noBooks = false;
         }
@@ -310,7 +337,7 @@ export class Books {
   }
 
   fetchBooksForWatchList() {
-    if (this.authorization.checkIfSessionExists()) {
+     if (this.authorization.checkIfSessionExists()) {
       httpClient.fetch(environment.apiURL + 'api/users/getwatchlist?session=' + this.authorization.getSessionID())
         .then(response => response.json())
         .then(data => {
@@ -322,7 +349,7 @@ export class Books {
           this.refreshOutput();
           //console.log(this.addedToWatchlist);
         });
-    }
+     }
 
   }
 

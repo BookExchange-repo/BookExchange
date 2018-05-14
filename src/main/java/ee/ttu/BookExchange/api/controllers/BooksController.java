@@ -99,7 +99,6 @@ public class BooksController {
         allBooks = allBooks.stream()
                 .filter(e -> e.getStatus().getId() == 1)
                 .collect(Collectors.toList());
-        int initialListSize = allBooks.size();
         for (Map.Entry<String, String> entry : requestParams.entrySet()) {
             if (entry.getValue().isEmpty())
                 continue;
@@ -232,6 +231,7 @@ public class BooksController {
                 book.getUserid().setPhone("");
             book.setAmountOfAdds(watchlistService.findAmountByBookId(book.getId()));
         }
+        int initialListSize = allBooks.size();
         if (offset.isPresent() && offset.get() > 0)
             allBooks = allBooks.stream().skip(offset.get()).collect(Collectors.toList());
         if (size.isPresent() && size.get() >= 0)

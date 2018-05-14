@@ -190,7 +190,9 @@
             </div>
           </div>
 
-          <button show.bind="doesExistNextPage" click.delegate="loadMore()">Rohkem tulemusi ${allBooksAmount} ${shownBooksAmount} ${doesExistNextPage}</button>
+          <button  show.bind="doesExistNextPage" click.delegate="loadMore()" class="ui grey basic button all-books">
+            Rohkem tulemusi ${allBooksAmount}: ${shownBooksAmount}
+          </button>
 
         </div>
       </div>

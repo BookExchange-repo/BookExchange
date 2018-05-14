@@ -276,6 +276,20 @@ a:hover {
 
 /* Only All Books CSS */
 
+.ui.basic.grey.button.all-books {
+  padding-left: 22.5em;
+  padding-right: 22.5em;
+  padding-top: 1.15em;
+  padding-bottom: 1.15em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.15em;
+  border-radius: 5em;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
 .center.aligned.ui.grid.all-books.no-books {
   margin-top: 8%;
   margin-bottom: 0;

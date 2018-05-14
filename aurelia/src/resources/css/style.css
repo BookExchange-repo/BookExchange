@@ -1037,29 +1037,35 @@ img.ui.fluid.image.sell-book.upload-image {
   margin-bottom: 1.25em;
 }
 
-.edit-mode-field {
-  margin-bottom: 1em;
+.ui.form.edit-mode .inline.fields .field {
+  margin-bottom: 0.5em;
 }
 
-.edit-mode-field i {
-  font-size: 1.25em;
+.ui.form.edit-mode .inline.fields .field>.selection.dropdown {
+  width: 100%;
+}
+
+.ui.toggle.edit-mode.checkbox {
+  float: right;
+}
+
+.ui.teal.button.edit-mode {
+  margin-top: 2em;
+}
+
+.ui.form.edit-mode .fourteen.wide.field {
+  padding-left: 0;
+}
+
+h1.edit-mode-disabled-title:last-child {
+  margin-bottom: 0.25em;
+  font-size: 2.5em;
+  font-weight: unset;
+}
+
+/* .myaccount .information i {
   margin-right: 0.5em;
-}
-
-.edit-mode-field-email {
-  margin-bottom: 1em;
-  font-size: 1.25em;
-}
-
-.edit-mode-field-email i {
-  margin-bottom: 1em;
-  font-size: 1.25em;
-  margin-right: 0.5em;
-}
-
-.myaccount .information i {
-  margin-right: 0.5em;
-}
+} */
 
 .myaccount .middle.aligned.fourteen.wide.column {
   padding-top: 0;

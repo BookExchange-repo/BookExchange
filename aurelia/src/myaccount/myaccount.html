@@ -21,28 +21,97 @@
     </div>
 
     <div class="ui segment myaccount">
-      <div class="ui grid">
-        <div class="center aligned two wide column">
-          <img src="src/resources/images/user_icon.png" class="avatar">
-        </div>
-
-        <form class="ui large form" method="post" submit.delegate="saveButtonPressed()">
-
-          <div class="middle aligned ten wide column fullname" show.bind="!editMode">
-            <h1>${myAccount.full_name}</h1>
+      <form class="ui big form edit-mode" method="post" submit.delegate="saveButtonPressed()">
+        <div class="fields">
+          <div class="two wide field">
+            <img src="src/resources/images/user_icon.png" class="avatar">
           </div>
 
-          <div class="middle aligned ten wide column fullname" show.bind="editMode">
-            <div class="ui input required field">
-              <input type="text" style="font-size: 1.35em;" name="firstname" placeholder="Eesnimi" value.bind="firstName">
+          <div class="ten wide field">
+            <div class="fields" show.bind="!editMode">
+              <div class="field">
+                <h1 class="edit-mode-disabled-title">${myAccount.full_name}</h1>
+              </div>
             </div>
-            <div class="ui input required field">
-              <input type="text" style="font-size: 1.35em;" name="lastname" placeholder="Perenimi" value.bind="lastName">
+
+            <div class="inline fields" show.bind="editMode">
+              <div class="required seven wide field">
+                <input type="text" name="firstname" placeholder="Eesnimi" value.bind="firstName">
+              </div>
+
+              <div class="required seven wide field">
+                <input type="text" name="lastname" placeholder="Perenimi" value.bind="lastName">
+              </div>
+            </div>
+
+            <div class="inline fields" show.bind="!editMode">
+              <div class="field">
+                <label><i class="large map marker alternate icon"></i></label>
+                <span>${myAccount.city.string}</span>
+              </div>
+            </div>
+
+            <div class="inline fields" show.bind="!editMode">
+              <div class="field">
+                <label><i class="large phone icon"></i></label>
+                <span>${myAccount.phone}</span>
+              </div>
+            </div>
+
+            <div class="inline fields" show.bind="!editMode">
+              <div class="field">
+                <label><i class="large at icon"></i></label>
+                <span>${myAccount.email}</span>
+              </div>
+            </div>
+
+            <div show.bind="editMode">
+
+              <div class="inline fields">
+                <div class="nine wide field">
+                  <label><i class="large map marker alternate icon"></i></label>
+                  <select class="ui search dropdown" id="citySelector" name="city" value.bind="city">
+                    <option model.bind="null" value="">Vali linna</option>
+                    <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="inline fields">
+                <div class="nine wide field">
+                  <label><i class="large phone icon"></i></label>
+                  <div class="ui labeled input">
+                    <label for="phone_edit_mode" class="ui label">+372</label>
+                    <input type="text" name="phone" id="phone_edit_mode" value.bind="phone">
+                  </div>
+                </div>
+              </div>
+
+              <div class="inline fields">
+                <div class="field">
+                  <label><i class="large at icon"></i></label>
+                  <span>
+                      ${myAccount.email}
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="fourteen wide field">
+                  <div class="ui error message"></div>
+                </div>
+              </div>
+    
+              <button type="submit" class="ui teal button edit-mode">
+                <i class="icon edit"></i>
+                Salvesta
+              </button>
+    
             </div>
           </div>
 
-          <div class="right aligned four wide column">
-            <div class="ui toggle big checkbox">
+          <div class="four wide field">
+            <div class="ui toggle edit-mode big checkbox">
               <input type="checkbox" name="public" change.delegate="editModeStatusChange()" checked.bind="editMode">
               <label>
                 <a style="cursor: pointer;" click.delegate="changeEditMode()">Muuta informatsioon</a>
@@ -50,44 +119,9 @@
             </div>
           </div>
 
-          <div class="sixteen wide column information" show.bind="!editMode">
-            <div class="information-field">
-              <i class="ui map marker alternate icon"></i>${myAccount.city.string}</div>
-            <div class="information-field">
-              <i class="ui phone icon"></i>${myAccount.phone}</div>
-            <div class="information-field">
-              <i class="ui at icon"></i>${myAccount.email}</div>
-          </div>
+        </div>
 
-          <div class="sixteen wide column edit-mode" show.bind="editMode">
-            <div class="required field edit-mode-field">
-              <i class="ui map marker alternate icon"></i>
-              <select class="ui search dropdown" id="citySelector" name="city" value.bind="city">
-                <option model.bind="null" value="">Vali linna</option>
-                <option repeat.for="city of cities" model.bind="city.id">${city.string}</option>
-              </select>
-            </div>
-            <div class="required field edit-mode-field">
-              <i class="ui phone icon"></i>
-              <div class="ui labeled input">
-                <label for="phone_edit_mode" class="ui label">+372</label>
-                <input type="text" name="phone" id="phone_edit_mode" value.bind="phone">
-              </div>
-            </div>
-            <div class="edit-mode-field-email">
-              <i class="ui at icon"></i>${myAccount.email}
-            </div>
-
-            <div class="ui error message"></div>
-
-            <button type="submit" class="ui teal button">
-              <i class="icon edit"></i>
-              Salvesta
-            </button>
-
-          </div>
-        </form>
-      </div>
+      </form>
     </div>
   </div>
 

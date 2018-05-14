@@ -529,7 +529,21 @@ form.ui.large.form .field {
 
 #map {
   width: 100%;
-  height: 80vh;
+  height: 85vh;
+}
+
+@media only screen and (min-width: 1883px) {
+  .ui.statistics.homepage-stat>.statistic {
+    margin-left: 3.25em;
+    margin-right: 3.25em;
+  }
+}
+
+@media only screen and (min-width: 1152px) and (max-width: 1882px) {
+  .ui.statistics.homepage-stat>.statistic {
+    margin-left: 1.9em;
+    margin-right: 1.9em;
+  }
 }
 
 .ui.vertical.segment.homepage-content.homepage-stat {
@@ -537,18 +551,14 @@ form.ui.large.form .field {
   margin-bottom: 2em
 }
 
-.ui.statistics.homepage-stat>.statistic {
-  margin-left: 3.5em;
-  margin-right: 3.5em;
-}
-
 .ui.statistic>.value~.label, .ui.statistics.homepage-stat .statistic>.value~.label {
   margin-top: 1.5em;
+  font-size: 1.25em;
 }
 
 .ui.statistics.homepage-stat {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em; 
+  margin-top: 3.5em;
+  margin-bottom: 3.5em; 
 }
 
 /* .ui.vertical.segment.homepage {

@@ -1,6 +1,7 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { customAttribute, bindable, inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
+import environment from '../environment';
 
 let httpClient = new HttpClient();
 
@@ -20,7 +21,7 @@ export class Home {
   }
 
   fetchMapElements() {
-    httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
+    httpClient.fetch(environment.apiURL + 'api/cities/getall')
       .then(response => response.json())
       .then(data => {
         this.initMap(data);
@@ -28,7 +29,7 @@ export class Home {
   }
 
   fetchBooksFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/stats/recent?amount=4')
+    httpClient.fetch(environment.apiURL + 'api/stats/recent?amount=4')
       .then(response => response.json())
       .then(data => {
         this.books = data;     
@@ -36,7 +37,7 @@ export class Home {
   }
 
   fetchStatFromAPI() {
-    httpClient.fetch('https://bookmarket.online:18081/api/stats/main')
+    httpClient.fetch(environment.apiURL + 'api/stats/main')
       .then(response => response.json())
       .then(data => {
         this.stat = data;    

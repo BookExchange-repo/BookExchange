@@ -14,19 +14,6 @@
       <div class="eleven wide column">
         <div class="ui segment sell-book">
 
-          <!-- <div if.bind="statusMessagesVisible">
-            <div class="ui error message sell-book">
-              <div class="header">
-                There were some errors with your submission
-              </div>
-              <ul class="list">
-                <li repeat.for="statusMessages of statusMessages">${statusMessages}</li>
-              </ul>
-            </div>
-          </div> -->
-
-
-
           <form class="ui large form" id="isbnform" method="post" submit.delegate="magicFill(bookData.isbn)">
 
             <div class="sixteen wide field">
@@ -156,14 +143,6 @@
             <div class="ui error message"></div>
 
           </form>
-
-          <!-- <form class="ui large form" id="bookaddform" method="post" submit.delegate="addBook()">
-            <label for="image" class="ui big teal icon  button upload-image">
-              <i class="upload icon"></i>
-              <span>add image</span>
-            </label>
-            <input type="file" id="image" style="display:none" name="imagepath" accept=".png,.jpg">
-          </form> -->
 
         </div>
       </div>

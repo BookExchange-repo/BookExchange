@@ -178,9 +178,6 @@ export class AddBooks {
           }
         }
       });
-
-
-
   }
 
   submit(images) {
@@ -215,14 +212,11 @@ export class AddBooks {
       $('#bookaddform').form('add errors', { apiError: 'Palun sisestage Teie kirjeldus' });
     } else {
       this.bookData.description = this.richTextEditor.getData();
-      // this.bookData.imagepath = "https://bookmarket.online:18000/images/no-image.svg";
       this.bookData.conditiondesc = this.bookDataCondition;
       this.bookData.language = this.bookDataLanguage;
       this.bookData.genreid = this.bookDataGenre;
       this.bookData.city = this.bookDataCity;
-
       this.bookDataUserID.id = this.connector.userID;
-      // this.bookData.userid = this.bookDataUserID;
 
       httpClient.fetch(environment.apiURL + 'api/books/add?session=' + this.authorization.getSessionID(), {
         'method': "POST",
@@ -274,11 +268,6 @@ export class AddBooks {
           $('#isbnform').form('add errors', { apiError: 'Meie ei suutnud leida ühtki informatsiooni selle ISBN koodi järgi' });
         }
         this.magicFillBusy = false;
-
-        // let cloned = $("#imageuploadformselectedfile").clone(true);
-        // cloned.val("");
-        // $("#imageuploadformselectedfile").replaceWith(cloned);
-        // this.images = "";
       });
   }
 

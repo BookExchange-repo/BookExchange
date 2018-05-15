@@ -18,23 +18,6 @@ export class Home {
     this.fetchBooksFromAPI();
     this.fetchStatFromAPI();
     this.fetchMapElements();
-    this.initMap();
-
-    $(document).ready(function () { 
-        //initialize swiper when document ready 
-        var mySwiper = new Swiper('.swiper-container', { 
-          // Optional parameters 
-          direction: 'horizontal', 
-          loop: false, 
-   
-          // Navigation arrows 
-          navigation: { 
-            nextEl: '.swiper-button-next', 
-            prevEl: '.swiper-button-prev', 
-          }, 
-   
-        }) 
-      }); 
   }
 
   fetchMapElements() {
@@ -42,6 +25,7 @@ export class Home {
       .then(response => response.json())
       .then(data => {
         this.mapElements = data;
+        this.initMap();
       });
   }
 

@@ -74,6 +74,7 @@ public class StatsController {
         List<Books> lastBooksDesc = booksService.getAllBooks();
         Collections.reverse(lastBooksDesc);
         lastBooksDesc = lastBooksDesc.stream()
+                .filter(e -> e.getStatus().getId() == 1)
                 .filter(e -> !e.getImagepath().equals("https://bookmarket.online:18000/images/no-image.svg"))
                 .limit(recentAmount.get())
                 .collect(Collectors.toList());

@@ -22,5 +22,9 @@ public class City {
     float lat;
     float lon;
 
+    @Column(columnDefinition = "varchar(16) default 'none'")
+    @Size(max = 16)
+    String markerSize = "none";
+
     int counter;
 }

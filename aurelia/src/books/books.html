@@ -191,7 +191,7 @@
           </div>
 
           <button  show.bind="doesExistNextPage" click.delegate="loadMore()" class="ui grey basic button all-books">
-            Rohkem tulemusi ${allBooksAmount}: ${shownBooksAmount}
+            Rohkem tulemusi - veel ${numberOfBooks-shownBooksAmount} ${(numberOfBooks-shownBooksAmount)===1 ? "raamat" : "raamatut"}
           </button>
 
         </div>

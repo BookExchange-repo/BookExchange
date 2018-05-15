@@ -43,10 +43,11 @@ export class Books {
     this.conditionsLoaded = false;
     this.languagesLoaded = false;
     this.booksForWatchList = [];
-    this.addedToWatchlist = []; 
+    this.addedToWatchlist = [];
     this.offsetParam = 0;
     this.defaultPageSize = 15;
     this.pageSize = 15;
+    this.firstVisit = true;
 
     this.shownBooksAmount = 0;
     this.doesExistNextPage = false;
@@ -57,12 +58,26 @@ export class Books {
   }
 
   attached() {
-    this.sortIDs = [
-      { id: 0, string: 'Sorteeri lisamise aega järgi (kõige vanemad)' },
-      { id: 1, string: 'Sorteeri lisamise aega järgi (kõige uuemad)' },
-      { id: 2, string: 'Sorteeri hinna järgi (kasvavas suunas)' },
-      { id: 3, string: 'Sorteeri hinna järgi (kahanevas suunas)' },
-      { id: 4, string: 'Sorteeri populaarsuse järgi' },
+    this.sortIDs = [{
+        id: 0,
+        string: 'Sorteeri lisamise aega järgi (kõige vanemad)'
+      },
+      {
+        id: 1,
+        string: 'Sorteeri lisamise aega järgi (kõige uuemad)'
+      },
+      {
+        id: 2,
+        string: 'Sorteeri hinna järgi (kasvavas suunas)'
+      },
+      {
+        id: 3,
+        string: 'Sorteeri hinna järgi (kahanevas suunas)'
+      },
+      {
+        id: 4,
+        string: 'Sorteeri populaarsuse järgi'
+      },
     ];
 
     this.fetchCitiesFromAPI();
@@ -75,7 +90,7 @@ export class Books {
     this.setFirstTimeParamForTagBarAnimation();
 
     this.filteredOrAllBooks();
-    this.refreshOutput();
+    //   this.refreshOutput();
 
     this.fetchBooksForWatchList();
 
@@ -87,14 +102,12 @@ export class Books {
   }
 
   searchQueryChanged(newvalue, oldvalue) {
-    if(!((newvalue === null || newvalue=== "") && (oldvalue === null || oldvalue === ""))) {
+    if (!this.firstVisit) {
       this.sortOrFilterParamsChanged();
     }
-    //  
-    
   }
 
-  
+
   setFirstTimeParamForTagBarAnimation() {
     if (this.noFiltersAreSelected()) {
       this.noFiltersAreSelectedFirstTime = true;
@@ -145,7 +158,7 @@ export class Books {
 
   getSortParamsFromUrl() {
     let sortParamFromURL = this.router.currentInstruction.queryParams.sort;
-    (sortParamFromURL !== null && !isNaN(sortParamFromURL)) ? this.selectedSortID = parseInt(sortParamFromURL) : this.selectedSortID = 0;
+    (sortParamFromURL !== null && !isNaN(sortParamFromURL)) ? this.selectedSortID = parseInt(sortParamFromURL): this.selectedSortID = 0;
   }
 
   getCityParamsFromUrl() {
@@ -214,7 +227,11 @@ export class Books {
 
   convertUnixTimeStamp(unixTimeStamp) {
     let date = new Date(unixTimeStamp);
-    let options = { day: 'numeric', month: 'long', year: 'numeric' };
+    let options = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    };
     return date.toLocaleTimeString('et-EE', options);
   }
 
@@ -237,9 +254,9 @@ export class Books {
     apiURL += "&";
     apiURL += "language=";
     if (this.selectedLanguageID !== 0) apiURL += this.selectedLanguageID;
-    apiURL += "&"; 
-    apiURL += "search="; 
-    if (this.searchQuery !== null && this.searchQuery !== undefined) apiURL += encodeURIComponent(this.searchQuery); 
+    apiURL += "&";
+    apiURL += "search=";
+    if (this.searchQuery !== null && this.searchQuery !== undefined) apiURL += encodeURIComponent(this.searchQuery);
 
     switch (this.selectedSortID) {
       case 0:
@@ -275,10 +292,8 @@ export class Books {
   }
 
   correctURLaccordingToFilters() {
-    console.log("ee");
     this.router.navigateToRoute(
-      this.router.currentInstruction.config.name,
-      {
+      this.router.currentInstruction.config.name, {
         sort: this.selectedSortID,
         city: this.selectedCityID,
         genre: this.convertArrayToDottedView(this.selectedGenreIDs),
@@ -286,8 +301,10 @@ export class Books {
         language: this.selectedLanguageID,
         filter: this.searchQuery,
         pagesize: this.pageSize
-      },
-      { trigger: false, replace: true }
+      }, {
+        trigger: false,
+        replace: true
+      }
     );
   }
 
@@ -315,6 +332,7 @@ export class Books {
         this.numberOfBooks = this.books.allBooksAmount;
         this.shownBooksAmount = this.books.shownBooksAmount;
         this.doesExistNextPage = this.books.doesExistNextPage;
+
         if (this.shownBooksAmount === 0) {
           this.noBooks = true;
           this.doesExistNextPage = false;
@@ -326,7 +344,7 @@ export class Books {
 
   sortByKey(objectToSort, key) {
     return objectToSort.sort(function (first, second) {
-      let firstElement = first[key]; 
+      let firstElement = first[key];
       let secondElement = second[key];
       return ((firstElement < secondElement) ? -1 : ((firstElement > secondElement) ? 1 : 0));
     });
@@ -337,7 +355,7 @@ export class Books {
   }
 
   fetchBooksForWatchList() {
-     if (this.authorization.checkIfSessionExists()) {
+    if (this.authorization.checkIfSessionExists()) {
       httpClient.fetch(environment.apiURL + 'api/users/getwatchlist?session=' + this.authorization.getSessionID())
         .then(response => response.json())
         .then(data => {
@@ -347,23 +365,24 @@ export class Books {
             }
           );
           this.refreshOutput();
-          //console.log(this.addedToWatchlist);
         });
-     }
-
+    } else {
+      this.refreshOutput();
+    }
+    this.firstVisit = false;
   }
 
   addToWatchList(bookID) {
     if (this.connector.loggedIn) {
       let userSession = this.authorization.getSessionID();
       httpClient.fetch(environment.apiURL + 'api/users/addtowatchlist?session=' + userSession + '&bookid=' + bookID)
-      .then(response => response.json())
+        .then(response => response.json())
         .then(data => {
           if (data.errors.length === 0) {
             this.fetchBooksForWatchList();
             $.uiAlert({
               textHead: 'Õnnestus!',
-              text: 'Raamat oli lisatud Teie Jälgimisnimekirja!',
+              text: 'Raamat oli lisatud jälgimisnimekirja!',
               bgcolor: '#19c3aa',
               textcolor: '#fff',
               position: 'bottom-left',
@@ -373,7 +392,7 @@ export class Books {
           } else if (data.errors.includes("FAIL_EXISTS_BOOKID")) {
             $.uiAlert({
               textHead: 'Lisamise viga',
-              text: 'See raamat on juba olemas Teie Jälgimisnimekirjas',
+              text: 'See raamat on juba olemas jälgimisnimekirjas',
               bgcolor: '#55a9ee',
               textcolor: '#fff',
               position: 'bottom-left',
@@ -383,7 +402,7 @@ export class Books {
           } else {
             $.uiAlert({
               textHead: 'API viga',
-              text: 'Ei saanud lisada raamatut Teie Jälgimisnimekirja',
+              text: 'Ei saanud lisada raamatut jälgimisnimekirja',
               bgcolor: '#F2711C',
               textcolor: '#fff',
               position: 'bottom-left',
@@ -442,3 +461,4 @@ export class Books {
   }
 
 }
+

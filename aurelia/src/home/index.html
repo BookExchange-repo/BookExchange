@@ -1,7 +1,9 @@
 <template>
 
   <div class="ui inverted vertical segment homepage">
-    <video src.bind="'src/resources/videos/background_video.mp4'" ref="player" loop muted autoplay>
+    <video ref="player" loop muted autoplay>
+      <source src.bind="'src/resources/videos/background_video.mp4'" type="video/mp4">
+      <source src.bind="'src/resources/videos/background_video.webm'" type="video/webm">
     </video>
     <div class="black-box"></div>
 

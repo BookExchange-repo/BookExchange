@@ -58,6 +58,20 @@ export class Secondbar {
     //     //return false;
     // }
       });
+
+      $(".mobile-menu-item").parent().css("display", "none");
+      let mobileMenuButtonHasOpened = false;
+
+      $("#mobile_menu_button").click(function() {
+        if (!mobileMenuButtonHasOpened) {
+          $(".mobile-menu-item").parent().css("display", "grid");
+          mobileMenuButtonHasOpened = true;
+        } else {
+          $(".mobile-menu-item").parent().css("display", "none");
+          mobileMenuButtonHasOpened = false;
+        }
+      });
+
   }
 
 }

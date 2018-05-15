@@ -1,6 +1,6 @@
 <template>
 
-  <div class="ui inverted borderless top fixed menu">
+  <div class="ui inverted borderless top fixed menu desktop">
     <div class="ui fluid container navbar">
       <div class="item navbar" click.delegate="router.navigateToRoute('home')" style="cursor: pointer;">
         <img src="src/resources/images/logo_mono.svg">
@@ -50,6 +50,27 @@
 
       </div>
     </div>
+  </div>
+
+  <div class="ui inverted borderless top fixed menu mobile">
+    <div class="item" click.delegate="router.navigateToRoute('home')" style="cursor: pointer;">
+      <img src="src/resources/images/logo_mono.svg">
+      <i class="large bars icon" id="mobile_menu_button"></i>
+    </div>
+
+    <a class="item ${router.navigation[1].isActive ? 'active' : ''}" click.delegate="router.navigateToRoute('books')">
+      <span class="mobile-menu-item">Kõik raamatud</span>
+    </a>
+
+    <a class="item ${router.navigation[2].isActive ? 'active' : ''}" click.delegate="router.navigateToRoute('addbook')">
+      <span class="mobile-menu-item">Müü raamat</span>
+    </a>
+
+    <a class="item ${router.navigation[3].isActive ? 'active' : ''}" if.bind="!connector.loggedIn" click.delegate="router.navigateToRoute('login')">
+      <span class="mobile-menu-item">
+        Logi sisse
+      </span>
+    </a>
   </div>
   
   </template>

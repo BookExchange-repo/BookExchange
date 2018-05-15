@@ -589,13 +589,50 @@ form.ui.large.form .field {
   background-color: #118092;
 }
 
-.ui.menu .item>img:not(.ui) {
+.ui.menu.desktop .item>img:not(.ui) {
   width: 12em;
   margin-right: 2em;
 }
 
 .ui.menu.fixed {
   background: #118092;
+}
+
+@media only screen and (min-width: 1201px) {
+  .ui.menu.fixed.desktop {
+    display: initial;
+  }
+
+  .ui.menu.fixed.mobile {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .ui.menu.fixed.mobile {
+    display: initial;
+  }
+
+  .ui.menu.fixed.desktop {
+    display: none;
+  }
+}
+
+.ui.menu.mobile .item>img:not(.ui) {
+  height: 2em;
+  width: 100%;
+  margin-top: 0.05em;
+  margin-bottom: 0.05em;
+}
+
+.mobile-menu-item {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ui.menu.mobile .item>i.icon {
+  position: absolute;
 }
 
 /* Only Mini-Search CSS */
@@ -620,7 +657,7 @@ form.ui.large.form .field {
   padding-left: 0;
 }
 
-.ui.menu .item.avatar>img:not(.ui) {
+.ui.menu.desktop .item.avatar>img:not(.ui) {
   width: auto;
 }
 
@@ -635,12 +672,12 @@ form.ui.large.form .field {
   width: 20em;
 }
 
-.ui.menu .item.navbar {
+.ui.menu.desktop .item.navbar {
   padding-top: 0.85em;
   padding-bottom: 0.85em; 
 }
 
-.ui.menu .item.navbar.text {
+.ui.menu.desktop .item.navbar.text {
   font-size: 1.4em;
   text-transform: uppercase;
 }
@@ -649,15 +686,15 @@ form.ui.large.form .field {
   font-weight: normal!important;
 }
 
-.ui.menu .ui.dropdown .menu>.active.item {
+.ui.menu.desktop .ui.dropdown .menu.desktop>.active.item {
   background: rgba(0, 0, 0, 0)!important;
 }
 
-.ui.menu .ui.dropdown .menu>.item:hover {
+.ui.menu.desktop .ui.dropdown .menu.desktop>.item:hover {
   background: rgba(0, 0, 0, 0.05) !important;
 }
 
-.ui.secondary.menu {
+.ui.secondary.menu.desktop {
   margin-bottom: 1.2em;
   padding: 2em;
 }

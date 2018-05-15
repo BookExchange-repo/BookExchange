@@ -728,7 +728,16 @@ form.ui.large.form .field {
   background-color:#FCFE9A;
   border-radius: 5px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  animation-duration: 0.3s; 
+  animation-name: grow; 
 }
+
+@keyframes grow { 
+  0%   {font-size: 100%;} 
+  5%   {font-size: 117%;} 
+  35%  {font-size: 117%;} 
+  100% {font-size: 100%;} 
+} 
 
 .ui.toggle.checkbox input:checked + label:before {
   background-color: #3A92A1 !important;

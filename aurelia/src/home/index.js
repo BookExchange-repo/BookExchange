@@ -6,7 +6,9 @@ let httpClient = new HttpClient();
 
 @inject(Router)
 export class Home {
+
   constructor(router) {
+    this.mapElements = null;
     this.books = null;
     this.stat = null;
     this.router = router;
@@ -15,6 +17,7 @@ export class Home {
   attached() {
     this.fetchBooksFromAPI();
     this.fetchStatFromAPI();
+    this.fetchMapElements();
     this.initMap();
 
     $(document).ready(function () { 
@@ -32,6 +35,14 @@ export class Home {
    
         }) 
       }); 
+  }
+
+  fetchMapElements() {
+    httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
+      .then(response => response.json())
+      .then(data => {
+        this.mapElements = data;
+      });
   }
 
   fetchBooksFromAPI() {
@@ -60,9 +71,28 @@ export class Home {
   initMap() {
     var centerOfEstonia = {lat: 58.6734464, lng: 25.3135814};
 
+    console.log(this.mapElements);
+
+    // this.mapElements.forEach(function(item, i) {
+    //     console.log(i + " " + item);
+    // });
+
+    var mIcon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillOpacity: 1,
+        fillColor: '#fff',
+        strokeOpacity: 1,
+        strokeWeight: 1,
+        strokeColor: '#333',
+        scale: 12
+    };
+
     var marker = new google.maps.Marker({
       position: centerOfEstonia,
-      map: this.renderMap()
+      map: this.renderMap(),
+      title: 'Number 123',
+      icon: mIcon,
+      label: {color: '#000', fontSize: '12px', fontWeight: '600', text: '123'}
     });
   }
 

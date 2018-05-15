@@ -6,6 +6,7 @@ import ee.ttu.BookExchange.api.services.StatusService;
 import ee.ttu.BookExchange.api.services.UsersService;
 import ee.ttu.BookExchange.api.services.WatchlistService;
 import ee.ttu.BookExchange.exceptions.APIException;
+import ee.ttu.BookExchange.utilities.SizeHelper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -147,6 +148,9 @@ public class BooksController {
                                     return Integer.toString(e.getCity().getId()).equals(value);
                                 case "search":
                                 {
+                                    if (SizeHelper.isISBNString(value))
+                                        return e.getIsbn() != null && e.getIsbn().equals(value);
+
                                     boolean doesContain = e.getTitle().toLowerCase().contains(value.toLowerCase());
                                     if (doesContain) {
                                         int startingIndex = 0;

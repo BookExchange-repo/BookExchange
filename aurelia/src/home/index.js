@@ -8,7 +8,6 @@ let httpClient = new HttpClient();
 export class Home {
 
   constructor(router) {
-    this.mapElements = null;
     this.books = null;
     this.stat = null;
     this.router = router;
@@ -24,8 +23,7 @@ export class Home {
     httpClient.fetch('https://bookmarket.online:18081/api/cities/getall')
       .then(response => response.json())
       .then(data => {
-        this.mapElements = data;
-        this.initMap();
+        this.initMap(data);
       });
   }
 
@@ -46,38 +44,78 @@ export class Home {
   }
 
   navigateToBookById(bookid) {
-    console.log(bookid);
     this.router.navigateToRoute('bookbyid', {
       id: bookid
     });
   }
 
-  initMap() {
-    var centerOfEstonia = {lat: 58.6734464, lng: 25.3135814};
+  initMap(mapElements) {
+    var booksMap = this.renderMap();
+    var markers = [];
 
-    console.log(this.mapElements);
+    mapElements.forEach(function(item, i) {
+        var city = {lat: item.lat, lng: item.lon};
+        var markerIcon;
 
-    // this.mapElements.forEach(function(item, i) {
-    //     console.log(i + " " + item);
-    // });
+        switch (item.markerSize) {
+            case "big":
+                markerIcon = {
+                    url: 'src/resources/images/markers/marker_big.svg',
+                    scaledSize: new google.maps.Size(75, 75),
+                    origin: new google.maps.Point(0, 0),
+                    labelOrigin: new google.maps.Point(37,29)
+                };
+                break;
 
-    var mIcon = {
-        path: google.maps.SymbolPath.CIRCLE,
-        fillOpacity: 1,
-        fillColor: '#fff',
-        strokeOpacity: 1,
-        strokeWeight: 1,
-        strokeColor: '#333',
-        scale: 12
-    };
+            case "medium":
+                markerIcon = {
+                    url: 'src/resources/images/markers/marker_medium.svg',
+                    scaledSize: new google.maps.Size(65, 65),
+                    origin: new google.maps.Point(0, 0),
+                    labelOrigin: new google.maps.Point(32.5,25)
+                };
+                break;
 
-    var marker = new google.maps.Marker({
-      position: centerOfEstonia,
-      map: this.renderMap(),
-      title: 'Number 123',
-      icon: mIcon,
-      label: {color: '#000', fontSize: '12px', fontWeight: '600', text: '123'}
+            case "small":
+                markerIcon = {
+                    url: 'src/resources/images/markers/marker_small.svg',
+                    scaledSize: new google.maps.Size(55, 55),
+                    origin: new google.maps.Point(0, 0),
+                    labelOrigin: new google.maps.Point(28,22)
+                };
+                break;
+
+            case "none":
+                markerIcon = {
+                    url: 'src/resources/images/markers/marker_none.svg',
+                    scaledSize: new google.maps.Size(40, 40)
+                };
+                break;
+        }
+
+        if (item.markerSize !== "none") {
+            markers[i] = new google.maps.Marker({
+                position: city,
+                map: booksMap,
+                icon: markerIcon,
+                url: "/#/books?city=" + item.id + "&condition=&genre=&language=0&pagesize=15&sort=0",
+                label: {color: '#000', fontSize: '22px', text: item.counter.toString()},
+            });
+        } else {
+            markers[i] = new google.maps.Marker({
+                position: city,
+                map: booksMap,
+                url: "/#/books?city=" + item.id + "&condition=&genre=&language=0&pagesize=15&sort=0",
+                icon: markerIcon
+            });
+        }
+
+        google.maps.event.addListener(markers[i], 'click', function() {
+            window.location.href = markers[i].url;
+        });
+
     });
+
   }
 
   renderMap() {
@@ -86,6 +124,9 @@ export class Home {
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 8,
       center: centerOfEstonia,
+      streetViewControl: false,
+      mapTypeControl: false,
+      fullscreenControl: false,
       styles: [
         {
             "featureType": "landscape.natural",

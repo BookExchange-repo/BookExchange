@@ -2,6 +2,7 @@ package ee.ttu.BookExchange.api.controllers;
 
 import ee.ttu.BookExchange.api.models.*;
 import ee.ttu.BookExchange.api.services.*;
+import ee.ttu.BookExchange.utilities.SizeHelper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -87,6 +88,7 @@ public class ClassifierController {
         for (City city : allCities) {
             city.setCounter(getClassifierCount("city",
                     Integer.toString(city.getId())));
+            city.setMarkerSize(SizeHelper.mapMarkerSizeToString(city.getCounter()));
         }
         allCities = allCities.stream()
                 .sorted((e1, e2) -> Integer.compare(e2.getCounter(), e1.getCounter()))

@@ -4,8 +4,8 @@ import { Router } from 'aurelia-router';
 import { Connector } from 'auth/connector';
 import { Authorization } from 'auth/authorization';
 import { observable } from 'aurelia-framework';
+import { activationStrategy } from "aurelia-router";
 import environment from '../environment';
-import {activationStrategy} from "aurelia-router";
 
 let httpClient = new HttpClient();
 
@@ -33,7 +33,7 @@ export class Books {
     this.languagesSortedById = null;
     this.books = null;
     this.numberOfBooks;
-    this.fetchingBooksFromApi = false;
+    this.fetchingBooksFromApi = true;
     this.bookTypes = "";
     this.noBooks = false;
     this.filteredOrAllBooksFirstCall = true;
@@ -53,9 +53,9 @@ export class Books {
     this.doesExistNextPage = false;
   }
 
-  listChanged(splices) {
+/*   listChanged(splices) {
     console.log(splices);
-  }
+  } */
 
   attached() {
     this.sortIDs = [{

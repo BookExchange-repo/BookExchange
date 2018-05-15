@@ -11,7 +11,7 @@
           <div class="active section">
             <span>${bookTypes} raamatud</span>
             <span if.bind="fetchingBooksFromApi" class="ui active small inline loader all-books"></span>
-            <span if.bind="!fetchingBooksFromApi">(${shownBooksAmount}/${numberOfBooks})</span>
+            <span if.bind="!fetchingBooksFromApi">(${numberOfBooks})</span>
           </div>
         </div>
       </div>

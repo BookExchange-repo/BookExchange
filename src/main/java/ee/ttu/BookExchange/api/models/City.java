@@ -19,5 +19,8 @@ public class City {
     @Size(max = 128)
     String string;
 
+    float lat;
+    float lon;
+
     int counter;
 }

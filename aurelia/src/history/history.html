@@ -112,7 +112,7 @@
                   <div class="ui ${bookForSalesActivity.status.id === 1 ? 'green' : ''} ${bookForSalesActivity.status.id === 2 ? 'red' : ''} tag label">${bookForSalesActivity.status.string}</div>
                   <a class="ui label" if.bind="bookForSalesActivity.status.id === 1" click.delegate="changeBookStatus(bookForSalesActivity.id, 2)">
                     <i class="ui gem outline icon"></i>
-                    Markeeri müüdetuks
+                    Raamat on müüdud
                   </a>
                   <!-- <a class="ui label" if.bind="bookForSalesActivity.status.id === 2" click.delegate="changeBookStatus(bookForSalesActivity.id, 1)">
                     Aktiveeri

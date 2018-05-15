@@ -60,23 +60,23 @@ export class Books {
   attached() {
     this.sortIDs = [{
         id: 0,
-        string: 'Sorteeri lisamise aega järgi (kõige vanemad)'
+        string: 'Vanemad eespool'
       },
       {
         id: 1,
-        string: 'Sorteeri lisamise aega järgi (kõige uuemad)'
+        string: 'Uuemad eespool'
       },
       {
         id: 2,
-        string: 'Sorteeri hinna järgi (kasvavas suunas)'
+        string: 'Odavamad eespool'
       },
       {
         id: 3,
-        string: 'Sorteeri hinna järgi (kahanevas suunas)'
+        string: 'Kallimad eespool'
       },
       {
         id: 4,
-        string: 'Sorteeri populaarsuse järgi'
+        string: 'Populaarsemad eespool'
       },
     ];
 

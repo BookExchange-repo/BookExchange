@@ -276,6 +276,15 @@ a:hover {
 
 /* Only All Books CSS */
 
+i.big.icons.all-books {
+  font-size: 3em;
+  margin-bottom: 0.25em;
+}
+
+i.teal.icon.all-books {
+  color: #3493a2!important;
+}
+
 .ui.basic.grey.button.all-books {
   padding-left: 22.5em;
   padding-right: 22.5em;

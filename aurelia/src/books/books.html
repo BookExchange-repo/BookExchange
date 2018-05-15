@@ -2,7 +2,7 @@
   <div class="ui fluid container custom-width">
 
     <div class="ui grid add-book-breadcrumb">
-      <div class="twelve wide column">
+      <div class="thirteen wide column">
         <div class="ui massive breadcrumb">
           <a href="#" class="section">
             <i class="home icon"></i>
@@ -16,7 +16,7 @@
         </div>
       </div>
 
-      <div class="middle aligned right aligned four wide column">
+      <div class="middle aligned right aligned three wide column">
         <select class="ui fluid dropdown all-books" value.bind="selectedSortID" change.delegate="sortOrFilterParamsChanged()">
           <option repeat.for="sortID of sortIDs" model.bind="sortID.id">${sortID.string}</option>
         </select>
@@ -167,9 +167,9 @@
 
                 <div class="right aligned four wide column">
 
-                  <i class="huge icons">
-                    <i if.bind="connector.loggedIn && addedToWatchlist.includes(books.id)" class="teal bookmark outline icon"></i>
-                    <i if.bind="connector.loggedIn && !addedToWatchlist.includes(books.id)" click.delegate="clickAddToWatchlistButton(books.id)" style="cursor: pointer;" class="teal bookmark outline icon"></i>
+                  <i class="big icons all-books">
+                    <i if.bind="connector.loggedIn && addedToWatchlist.includes(books.id)" class="teal all-books bookmark icon"></i>
+                    <i if.bind="connector.loggedIn && !addedToWatchlist.includes(books.id)" click.delegate="clickAddToWatchlistButton(books.id)" style="cursor: pointer;" class="teal all-books bookmark icon"></i>
 
                     <i show.bind="addedToWatchlist.includes(books.id)" class="corner check icon"></i>
                   </i>
